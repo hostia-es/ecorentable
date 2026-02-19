@@ -1,0 +1,152 @@
+import { Link } from "react-router-dom";
+import { Leaf, Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+
+const footerLinks = {
+  servicios: [
+    { label: "Descarbonización", href: "/servicios/descarbonizacion" },
+    { label: "Para particulares", href: "/servicios/particulares" },
+    { label: "Para talleres", href: "/servicios/talleres" },
+    { label: "Para flotas", href: "/servicios/flotas" },
+    { label: "Limpieza de filtros", href: "/servicios/limpieza-filtros" },
+  ],
+  soluciones: [
+    { label: "Descarbonización diésel", href: "/soluciones/descarbonizacion-motor-diesel" },
+    { label: "Limpieza DPF/FAP", href: "/soluciones/limpieza-filtro-particulas" },
+    { label: "Limpieza EGR", href: "/soluciones/limpieza-egr-catalizador" },
+    { label: "ITV gases", href: "/soluciones/itv-gases" },
+    { label: "Aditivos motor", href: "/soluciones/aditivos-motor" },
+  ],
+  empresa: [
+    { label: "Nosotros", href: "/nosotros" },
+    { label: "Blog", href: "/blog" },
+    { label: "Socios", href: "/socios" },
+    { label: "Tienda", href: "/tienda" },
+    { label: "Contacto", href: "/contacto" },
+    { label: "Accesibilidad", href: "/accesibilidad" },
+  ],
+  centros: [
+    { label: "Madrid", href: "/encuentre-centro/madrid" },
+    { label: "Barcelona", href: "/encuentre-centro/barcelona" },
+    { label: "Valencia", href: "/encuentre-centro/valencia" },
+    { label: "Sevilla", href: "/encuentre-centro/sevilla" },
+    { label: "Málaga", href: "/encuentre-centro/malaga" },
+    { label: "Ver todos", href: "/encuentre-centro" },
+  ],
+};
+
+export default function Footer() {
+  return (
+    <footer style={{ background: "var(--gradient-dark)", color: "hsl(0 0% 90%)" }}>
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {/* Brand */}
+          <div className="lg:col-span-1">
+            <Link to="/" className="flex items-center gap-2 font-bold text-lg mb-4" style={{ color: "hsl(148 72% 55%)" }}>
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg" style={{ background: "var(--gradient-primary)" }}>
+                <Leaf size={18} color="white" />
+              </div>
+              <span>Ecología Rentable</span>
+            </Link>
+            <p className="text-sm mb-4" style={{ color: "hsl(0 0% 65%)" }}>
+              Especialistas en descarbonización de motores, limpieza DPF/FAP y EGR en toda España.
+            </p>
+            <div className="space-y-2 text-sm" style={{ color: "hsl(0 0% 65%)" }}>
+              <div className="flex items-center gap-2">
+                <Phone size={14} style={{ color: "hsl(148 72% 55%)" }} />
+                <span>+34 900 123 456</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail size={14} style={{ color: "hsl(148 72% 55%)" }} />
+                <span>info@ecologiarentable.es</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin size={14} style={{ color: "hsl(148 72% 55%)" }} />
+                <span>Madrid, España</span>
+              </div>
+            </div>
+            <div className="flex gap-3 mt-4">
+              {[Facebook, Instagram, Linkedin, Youtube].map((Icon, i) => (
+                <a key={i} href="#" className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{ background: "hsl(0 0% 100% / 0.1)", color: "hsl(0 0% 70%)" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "hsl(148 65% 22%)"; (e.currentTarget as HTMLElement).style.color = "white"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "hsl(0 0% 100% / 0.1)"; (e.currentTarget as HTMLElement).style.color = "hsl(0 0% 70%)"; }}
+                >
+                  <Icon size={14} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Servicios */}
+          <div>
+            <h4 className="font-semibold mb-3" style={{ color: "hsl(148 72% 55%)" }}>Servicios</h4>
+            <ul className="space-y-2">
+              {footerLinks.servicios.map((l) => (
+                <li key={l.href}>
+                  <Link to={l.href} className="text-sm transition-colors" style={{ color: "hsl(0 0% 65%)" }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "hsl(148 72% 55%)")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "hsl(0 0% 65%)")}
+                  >{l.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Soluciones */}
+          <div>
+            <h4 className="font-semibold mb-3" style={{ color: "hsl(148 72% 55%)" }}>Soluciones</h4>
+            <ul className="space-y-2">
+              {footerLinks.soluciones.map((l) => (
+                <li key={l.href}>
+                  <Link to={l.href} className="text-sm transition-colors" style={{ color: "hsl(0 0% 65%)" }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "hsl(148 72% 55%)")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "hsl(0 0% 65%)")}
+                  >{l.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Empresa */}
+          <div>
+            <h4 className="font-semibold mb-3" style={{ color: "hsl(148 72% 55%)" }}>Empresa</h4>
+            <ul className="space-y-2">
+              {footerLinks.empresa.map((l) => (
+                <li key={l.href}>
+                  <Link to={l.href} className="text-sm transition-colors" style={{ color: "hsl(0 0% 65%)" }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "hsl(148 72% 55%)")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "hsl(0 0% 65%)")}
+                  >{l.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Centros */}
+          <div>
+            <h4 className="font-semibold mb-3" style={{ color: "hsl(148 72% 55%)" }}>Centros</h4>
+            <ul className="space-y-2">
+              {footerLinks.centros.map((l) => (
+                <li key={l.href}>
+                  <Link to={l.href} className="text-sm transition-colors" style={{ color: "hsl(0 0% 65%)" }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "hsl(148 72% 55%)")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "hsl(0 0% 65%)")}
+                  >{l.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-6 border-t flex flex-col md:flex-row items-center justify-between gap-4 text-xs" style={{ borderColor: "hsl(0 0% 100% / 0.1)", color: "hsl(0 0% 50%)" }}>
+          <p>© {new Date().getFullYear()} Ecología Rentable. Todos los derechos reservados.</p>
+          <div className="flex gap-4">
+            <Link to="/accesibilidad" className="hover:underline">Accesibilidad</Link>
+            <a href="#" className="hover:underline">Política de privacidad</a>
+            <a href="#" className="hover:underline">Aviso legal</a>
+            <a href="#" className="hover:underline">Cookies</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
