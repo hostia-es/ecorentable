@@ -112,7 +112,7 @@ export default function Socios() {
               { name: "Socio Profesional", machine: "Hy-Calamine 2000S", ideal: "Talleres medianos", features: ["Todo lo del plan Inicio", "Leads geolocalizados prioritarios", "Soporte telefónico", "Material de marketing incluido", "Acceso al portal de gestión"], highlight: true },
               { name: "Socio Premium", machine: "Hy-Calamine 3000S", ideal: "Talleres grandes / flotas", features: ["Todo lo del plan Profesional", "Gestor de cuenta dedicado", "Visitas técnicas periódicas", "Software de gestión de flotas", "Condiciones de reventa de consumibles"] },
             ].map((plan) => (
-              <div key={plan.name} className={`card-eco p-6 flex flex-col ${plan.highlight ? "ring-2" : ""}`} style={plan.highlight ? { ringColor: "hsl(var(--primary))", border: "2px solid hsl(var(--primary))" } : {}}>
+              <div key={plan.name} className={`card-eco p-6 flex flex-col ${plan.highlight ? "ring-2 ring-primary" : ""}`} style={plan.highlight ? { border: "2px solid hsl(var(--primary))" } : {}}>
                 {plan.highlight && <span className="badge-green self-start mb-3">Más elegido</span>}
                 <h3 className="font-bold text-lg mb-1" style={{ color: "hsl(var(--foreground))" }}>{plan.name}</h3>
                 <p className="text-xs mb-1" style={{ color: "hsl(var(--primary))" }}>Con {plan.machine}</p>
