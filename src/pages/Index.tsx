@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, ChevronDown, Leaf, Zap, Shield, Wrench, TrendingUp, Truck, Star, CheckCircle } from "lucide-react";
+import { ArrowRight, MapPin, ChevronDown, ChevronRight, Leaf, Zap, Shield, Wrench, TrendingUp, Truck, Star, CheckCircle, Search } from "lucide-react";
 import { useState } from "react";
 
 import hyCaronAngle from "@/assets/hy-carbon-connect-angle.png";
@@ -7,437 +7,488 @@ import hyCaronFront from "@/assets/hy-carbon-connect-front.png";
 import diagnosticoMotor from "@/assets/diagnostico-motor.jpg";
 import tecnicoHyCarbon from "@/assets/tecnico-hy-carbon.jpg";
 import heroMachineDark from "@/assets/hero-machine-dark.jpg";
-import machineWorkshop from "@/assets/machine-workshop.jpg";
+import serviceWide from "@/assets/service-wide.jpg";
+import engineDetail from "@/assets/engine-detail.jpg";
 import engineBeforeAfter from "@/assets/engine-before-after.jpg";
 
-const features = [
-  { icon: <Zap size={18} />, label: "Hidrógeno puro", desc: "Sin desmontaje de piezas" },
-  { icon: <Shield size={18} />, label: "DPF / FAP", desc: "Regeneración profesional" },
-  { icon: <Wrench size={18} />, label: "EGR limpia", desc: "Válvula y catalizador" },
-  { icon: <TrendingUp size={18} />, label: "ITV garantizada", desc: "Reducción de emisiones" },
-];
+/* ═══════════ WORLD MAP SVG COMPONENT ═══════════ */
+function WorldMap() {
+  const cities = [
+    { name: "Madrid", x: "42.5%", y: "43%", main: true },
+    { name: "Barcelona", x: "47.5%", y: "40%" },
+    { name: "Valencia", x: "45.5%", y: "44.5%" },
+    { name: "Sevilla", x: "41%", y: "47%" },
+    { name: "Bilbao", x: "43.5%", y: "38.5%" },
+    { name: "Zaragoza", x: "45%", y: "41%" },
+    { name: "Lisboa", x: "39.5%", y: "44%", partner: true },
+    { name: "Paris", x: "45%", y: "36%", partner: true },
+  ];
 
-const stats = [
-  { value: "+300", label: "Centros certificados", sub: "en toda España" },
-  { value: "+50K", label: "Motores tratados", sub: "desde 2015" },
-  { value: "98%", label: "Clientes satisfechos", sub: "según encuestas" },
-  { value: "45min", label: "Tiempo medio", sub: "sin desmontaje" },
-];
-
-const services = [
-  { icon: <Zap size={20} />, title: "Descarbonización de motor", desc: "Eliminación de depósitos de carbono en pistones, válvulas, cámara de combustión y escape. Tecnología de hidrógeno puro.", href: "/servicios/descarbonizacion" },
-  { icon: <Shield size={20} />, title: "Limpieza DPF / FAP", desc: "Regeneración y limpieza profesional del filtro de partículas. Recupera la presión de escape y alarga la vida útil.", href: "/servicios/limpieza-filtros" },
-  { icon: <Wrench size={20} />, title: "EGR y catalizador", desc: "Tratamiento específico para restablecer el caudal de gases y la eficiencia del sistema de escape completo.", href: "/soluciones/limpieza-egr-catalizador" },
-  { icon: <TrendingUp size={20} />, title: "Gases ITV", desc: "Descarbonización antes de la inspección para reducir CO, HC y NOx por debajo de los límites exigidos.", href: "/soluciones/itv-gases" },
-  { icon: <Truck size={20} />, title: "Flotas diésel", desc: "Contratos de mantenimiento preventivo para flotas. Visitas a instalaciones e informes por vehículo.", href: "/servicios/flotas" },
-  { icon: <Star size={20} />, title: "Taller socio", desc: "Únete a la red de centros certificados. Recibe clientes, formación técnica y soporte comercial continuo.", href: "/socios/hazte-socio" },
-];
-
-const results = [
-  { value: "Hasta 15%", label: "Reducción de consumo" },
-  { value: "Hasta 70%", label: "Reducción de humos" },
-  { value: "+20%", label: "Recuperación de potencia" },
-  { value: "2–4×", label: "Vida útil del DPF" },
-];
-
-const testimonials = [
-  { name: "Andrés M.", role: "Conductor particular · Madrid", text: "Llevé el coche con la luz del DPF encendida. Salí del taller sin la luz y el coche empuja como nuevo. No me lo creía.", stars: 5 },
-  { name: "Patricia V.", role: "Jefa de flota · Valencia", text: "Hemos reducido los incidentes con el filtro de partículas en un 60% desde que contratamos el mantenimiento preventivo.", stars: 5 },
-  { name: "Roberto S.", role: "Taller socio · Sevilla", text: "Recuperé la inversión en cuatro meses. Los clientes vienen específicamente a por la descarbonización. Es un diferencial real.", stars: 5 },
-];
-
-const faqs = [
-  { q: "¿Cada cuántos kilómetros se recomienda descarbonizar?", a: "En motores diésel, cada 30.000–50.000 km. En gasolina, cada 50.000–80.000 km. Con uso urbano predominante la periodicidad puede ser menor." },
-  { q: "¿Es compatible con todos los motores?", a: "Sí, con motores diésel y gasolina de todas las marcas y modelos. La técnica por hidrógeno es especialmente efectiva en motores con DPF/FAP y válvula EGR." },
-  { q: "¿Cuánto tarda el servicio?", a: "Entre 45 y 90 minutos según el tipo de motor y el grado de carbonización. No requiere desmontaje de piezas y el vehículo puede circular inmediatamente." },
-  { q: "¿Qué diferencia a Ecología Rentable de otros servicios?", a: "Tecnología de hidrógeno certificada, red de más de 300 centros en España, formación técnica continua y garantía de resultado. No es un aditivo: es un proceso profesional." },
-];
-
-function FaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean; onToggle: () => void }) {
   return (
-    <div className="border-b" style={{ borderColor: "hsl(var(--border))" }}>
-      <button onClick={onToggle} className="w-full flex items-center justify-between py-4 text-left text-sm font-semibold gap-4" style={{ color: "hsl(var(--foreground))" }}>
-        <span>{q}</span>
-        <ChevronDown size={16} className="shrink-0 transition-transform duration-200" style={{ color: "hsl(var(--accent-green))", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
-      </button>
-      {open && <p className="pb-4 text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{a}</p>}
+    <div className="world-map-wrapper">
+      <svg
+        viewBox="0 0 1000 500"
+        className="world-map-svg"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* World landmasses — simplified paths */}
+        <g className="landmass">
+          {/* North America */}
+          <path d="M 60 80 Q 80 60 120 65 Q 160 50 190 70 Q 220 90 230 120 Q 250 150 240 180 Q 230 210 200 230 Q 170 250 150 240 Q 120 250 100 230 Q 70 200 60 170 Q 40 130 60 80 Z" />
+          <path d="M 130 220 Q 160 230 180 260 Q 190 290 170 310 Q 150 325 130 315 Q 110 300 115 275 Q 118 250 130 220 Z" />
+          {/* South America */}
+          <path d="M 170 320 Q 200 310 220 330 Q 250 360 255 400 Q 260 440 240 460 Q 215 475 195 465 Q 170 450 160 420 Q 148 385 155 355 Q 160 335 170 320 Z" />
+          {/* Europe */}
+          <path d="M 420 60 Q 450 50 480 65 Q 510 80 520 110 Q 530 140 515 165 Q 495 185 470 185 Q 445 180 430 165 Q 410 145 415 120 Q 418 90 420 60 Z" />
+          {/* Iberian Peninsula highlight */}
+          <path d="M 410 140 Q 430 130 455 135 Q 475 145 480 165 Q 485 185 470 200 Q 452 215 430 210 Q 408 200 405 180 Q 402 158 410 140 Z" className="iberia" />
+          {/* Africa */}
+          <path d="M 430 220 Q 465 210 500 225 Q 535 245 545 285 Q 555 330 545 370 Q 530 410 505 430 Q 478 445 450 440 Q 420 432 405 405 Q 388 370 390 330 Q 392 290 405 255 Q 415 232 430 220 Z" />
+          {/* Asia */}
+          <path d="M 540 60 Q 600 40 680 55 Q 750 70 800 100 Q 850 130 870 170 Q 885 210 870 245 Q 850 275 810 285 Q 770 295 730 280 Q 690 265 660 240 Q 620 210 590 180 Q 555 148 542 115 Q 530 85 540 60 Z" />
+          {/* Australia */}
+          <path d="M 760 320 Q 800 305 840 320 Q 875 338 885 375 Q 890 410 870 435 Q 845 455 810 450 Q 775 445 755 420 Q 735 390 740 355 Q 745 330 760 320 Z" />
+        </g>
+
+        {/* Connection lines from Madrid */}
+        <g className="connection-lines">
+          <line x1="425" y1="215" x2="395" y2="220" className="conn-line" strokeDasharray="4 4" />
+          <line x1="425" y1="215" x2="450" y2="200" className="conn-line" strokeDasharray="4 4" />
+          <line x1="425" y1="215" x2="475" y2="205" className="conn-line" strokeDasharray="4 4" />
+          <line x1="425" y1="215" x2="430" y2="193" className="conn-line" strokeDasharray="4 4" />
+          <line x1="425" y1="215" x2="450" y2="180" className="conn-line" />
+        </g>
+
+        {/* City pins */}
+        {cities.map((city) => (
+          <g key={city.name} className={`city-pin ${city.main ? "main-pin" : ""} ${city.partner ? "partner-pin" : ""}`}>
+            <circle
+              cx={city.x.replace("%", "") + "%"}
+              cy={city.y.replace("%", "") + "%"}
+              r={city.main ? "8" : "5"}
+              className="pin-dot"
+            />
+            <circle
+              cx={city.x.replace("%", "") + "%"}
+              cy={city.y.replace("%", "") + "%"}
+              r={city.main ? "16" : "10"}
+              className="pin-ring"
+            />
+            {city.main && (
+              <circle
+                cx={city.x.replace("%", "") + "%"}
+                cy={city.y.replace("%", "") + "%"}
+                r="24"
+                className="pin-ring-outer"
+              />
+            )}
+          </g>
+        ))}
+      </svg>
+
+      {/* Floating city labels */}
+      <div className="map-pins-overlay">
+        {cities.map((city) => (
+          <div
+            key={city.name + "-label"}
+            className={`map-label ${city.main ? "map-label-main" : ""}`}
+            style={{ left: city.x, top: city.y }}
+          >
+            <div className="map-label-dot" />
+            <span>{city.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
+/* ═══════════ FAQ ITEM ═══════════ */
+function FaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean; onToggle: () => void }) {
+  return (
+    <div className="border-b py-1" style={{ borderColor: "hsl(var(--border))" }}>
+      <button
+        onClick={onToggle}
+        className="w-full flex items-center justify-between py-4 text-left gap-6"
+        style={{ color: "hsl(var(--foreground))" }}
+      >
+        <span className="text-sm font-medium">{q}</span>
+        <ChevronDown
+          size={16}
+          className="shrink-0 transition-transform duration-300"
+          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)", color: "hsl(var(--muted-foreground))" }}
+        />
+      </button>
+      {open && (
+        <p className="pb-4 text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>
+          {a}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* ═══════════ DATA ═══════════ */
+const techTabs = [
+  { icon: <Zap size={16} />, label: "Hidrógeno puro", sub: "Sin desmontaje de piezas" },
+  { icon: <Shield size={16} />, label: "Limpieza DPF", sub: "Regeneración certificada" },
+  { icon: <Wrench size={16} />, label: "EGR Control", sub: "Válvula y catalizador" },
+  { icon: <TrendingUp size={16} />, label: "Energy Saving", sub: "Hasta 15% menos consumo" },
+];
+
+const serviceList = [
+  { name: "Descarbonización diésel", sub: "Motores hasta 3.0L · desde 90 min", href: "/servicios/descarbonizacion" },
+  { name: "Descarbonización gasolina", sub: "Motores 1.0–2.5L · desde 60 min", href: "/servicios/descarbonizacion" },
+  { name: "Limpieza DPF / FAP", sub: "Regeneración sin desmontaje", href: "/servicios/limpieza-filtros" },
+  { name: "Limpieza EGR + Catalizador", sub: "Diagnóstico + tratamiento completo", href: "/soluciones/limpieza-egr-catalizador" },
+  { name: "Reducción gases ITV", sub: "CO, HC y NOx por debajo del límite", href: "/soluciones/itv-gases" },
+];
+
+const bigStats = [
+  { value: "+300", label: "Centros activos" },
+  { value: "+50K", label: "Motores tratados" },
+  { value: "98%", label: "Clientes satisfechos" },
+  { value: "45min", label: "Duración media" },
+];
+
+const faqs = [
+  { q: "¿Cada cuántos kilómetros se recomienda descarbonizar?", a: "En motores diésel, cada 30.000–50.000 km. En gasolina, cada 50.000–80.000 km. Con uso urbano predominante la periodicidad puede ser menor." },
+  { q: "¿La descarbonización es compatible con todos los motores?", a: "Sí, es compatible con motores diésel y gasolina de todas las marcas y modelos. La técnica por hidrógeno es especialmente efectiva en motores con DPF/FAP y válvula EGR." },
+  { q: "¿Es seguro para el motor? ¿Hay riesgos?", a: "El proceso es completamente seguro. El hidrógeno y el oxígeno generados se introducen en proporciones controladas. No hay riesgo de sobrepresión ni daño a juntas o sellos." },
+  { q: "¿Puedo conducir el coche inmediatamente después?", a: "Sí. El vehículo está listo para circular nada más terminar el proceso, que no requiere ningún período de espera ni enfriamiento." },
+];
+
+const testimonials = [
+  { name: "Andrés Martín", role: "Conductor particular", text: "Llevé el coche con la luz del DPF encendida. Salí del taller sin la avería y el coche empuja como nuevo. Increíble." },
+  { name: "Patricia Vidal", role: "Responsable de flota", text: "Hemos reducido los incidentes con el filtro de partículas en un 60% desde que contratamos el mantenimiento preventivo. El servicio es serio y profesional." },
+  { name: "Roberto Sanz", role: "Propietario de taller socio", text: "Recuperé la inversión en cuatro meses. Los clientes vienen específicamente a por la descarbonización. Es un diferencial real." },
+];
+
+/* ═══════════ PAGE ═══════════ */
 export default function Index() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
     <main className="overflow-x-hidden">
 
-      {/* ══ HERO ══ */}
-      <section className="min-h-screen grid lg:grid-cols-2">
-        {/* Left image */}
-        <div className="relative min-h-[55vw] lg:min-h-screen overflow-hidden">
-          <img src={heroMachineDark} alt="Máquina descarbonizadora profesional Hy-Carbon" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(210 25% 8% / 0.5) 0%, transparent 60%)" }} />
-          <div className="absolute bottom-8 left-8">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-sm" style={{ background: "hsl(148 72% 35% / 0.85)", color: "hsl(0 0% 100%)" }}>
-              <Leaf size={12} /> Tecnología de hidrógeno certificada · España
-            </span>
-          </div>
-        </div>
-
-        {/* Right text */}
-        <div className="flex flex-col justify-center px-8 md:px-14 lg:px-16 py-20" style={{ background: "hsl(var(--background))" }}>
-          <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: "hsl(var(--accent-green))" }}>
-            Ecología Rentable
-          </p>
-          <h1 className="text-4xl md:text-5xl xl:text-[3.5rem] font-bold leading-[1.1] mb-6" style={{ color: "hsl(var(--foreground))" }}>
-            Motor más limpio,{" "}
-            <span style={{ color: "hsl(var(--primary))" }}>consumo más bajo.</span>
-          </h1>
-          <p className="text-lg mb-8 leading-relaxed max-w-md" style={{ color: "hsl(var(--muted-foreground))" }}>
-            Descarbonización profesional de motores diésel y gasolina. Limpieza DPF/FAP, EGR y catalizador. Red de más de 300 centros certificados en toda España.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 mb-12">
-            <Link to="/encuentre-centro" className="btn-cta">
-              <MapPin size={16} /> Encontrar un centro
-            </Link>
-            <Link to="/socios/hazte-socio" className="btn-outline">
-              Soy taller / Quiero ser socio
-            </Link>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {features.map((f) => (
-              <div key={f.label} className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium" style={{ background: "hsl(var(--muted))", color: "hsl(var(--foreground))" }}>
-                <span style={{ color: "hsl(var(--primary))" }}>{f.icon}</span>
-                {f.label}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══ CONTEXT STRIP ══ */}
-      <div style={{ background: "hsl(var(--foreground))" }} className="py-5 px-6">
-        <div className="container mx-auto flex items-center gap-4 overflow-x-auto">
-          {[
-            { src: tecnicoHyCarbon, alt: "Técnico realizando descarbonización" },
-            { src: diagnosticoMotor, alt: "Diagnóstico electrónico de motor" },
-            { src: hyCaronAngle, alt: "Máquina Hy-Carbon Connect" },
-            { src: hyCaronFront, alt: "Hy-Carbon Connect frontal" },
-          ].map((img) => (
-            <div key={img.alt} className="shrink-0 w-28 h-20 rounded-lg overflow-hidden opacity-60 hover:opacity-100 transition-opacity duration-300">
-              <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+      {/* ══════════════════════════════════
+          §1 HERO — split: image left / text right
+      ══════════════════════════════════ */}
+      <section style={{ background: "hsl(var(--background))" }}>
+        <div className="grid lg:grid-cols-2 min-h-[92vh]">
+          {/* LEFT: hero image */}
+          <div className="relative overflow-hidden order-2 lg:order-1 min-h-[50vw] lg:min-h-0">
+            <img
+              src={heroMachineDark}
+              alt="Máquina descarbonizadora profesional"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(210 25% 5% / 0.6) 0%, transparent 55%)" }} />
+            <div className="absolute bottom-6 left-6 right-6">
+              <p className="text-white text-sm font-semibold opacity-90">Redefiniendo el mantenimiento del motor</p>
+              <p className="text-xs mt-1" style={{ color: "hsl(0 0% 70%)" }}>con tecnología de hidrógeno certificada</p>
             </div>
-          ))}
-          <div className="ml-auto shrink-0 hidden md:block text-right pl-4">
-            <p className="text-xs font-semibold" style={{ color: "hsl(0 0% 65%)" }}>Redefiniendo el mantenimiento del motor</p>
-            <p className="text-xs" style={{ color: "hsl(0 0% 40%)" }}>tecnología profesional certificada</p>
           </div>
-        </div>
-      </div>
 
-      {/* ══ TECNOLOGÍA ══ */}
-      <section className="py-20 section-light">
-        <div className="container mx-auto px-4">
-          <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(var(--accent-green))" }}>Nuestra tecnología</p>
-          <div className="grid lg:grid-cols-2 gap-14 items-center mb-16">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: "hsl(var(--foreground))" }}>
-                Descarbonización inteligente,{" "}
-                <span style={{ color: "hsl(var(--primary))" }}>impulsada por hidrógeno</span>
-              </h2>
-              <p className="text-base leading-relaxed mb-8" style={{ color: "hsl(var(--muted-foreground))" }}>
-                La tecnología Hy-Carbon genera hidrógeno y oxígeno a partir del agua mediante electrólisis. Al introducir estos gases en el motor en funcionamiento, los depósitos de carbono se oxidan y eliminan de forma natural, sin desmontaje, sin productos químicos agresivos.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                {features.map((f) => (
-                  <div key={f.label} className="flex items-start gap-3 p-4 rounded-xl" style={{ background: "hsl(var(--muted))" }}>
-                    <div className="icon-circle w-9 h-9 shrink-0">{f.icon}</div>
-                    <div>
-                      <p className="font-semibold text-sm" style={{ color: "hsl(var(--foreground))" }}>{f.label}</p>
-                      <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>{f.desc}</p>
-                    </div>
+          {/* RIGHT: text content */}
+          <div className="order-1 lg:order-2 flex flex-col justify-center px-8 md:px-12 lg:px-16 py-16">
+            <h1 className="text-4xl md:text-5xl xl:text-[3.25rem] font-bold leading-[1.1] mb-6" style={{ color: "hsl(var(--foreground))" }}>
+              Motor más limpio con rendimiento que marca la diferencia.
+            </h1>
+
+            {/* 3 small thumbnails row */}
+            <div className="grid grid-cols-3 gap-3 mb-8">
+              {[
+                { src: tecnicoHyCarbon, label: "Técnico certificado" },
+                { src: hyCaronAngle, label: "Equipo Hy-Carbon" },
+                { src: diagnosticoMotor, label: "Diagnóstico digital" },
+              ].map((img) => (
+                <div key={img.label} className="relative overflow-hidden rounded-lg aspect-video">
+                  <img src={img.src} alt={img.label} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 flex items-end p-2" style={{ background: "linear-gradient(to top, hsl(210 25% 8% / 0.7) 0%, transparent 60%)" }}>
+                    <span className="text-white text-[10px] font-medium leading-tight">{img.label}</span>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Machine showcase */}
-            <div className="relative">
-              <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(var(--muted))" }}>
-                <img src={hyCaronAngle} alt="Máquina Hy-Carbon Connect profesional" className="w-full h-80 object-contain py-6" />
-              </div>
-              {/* Floating stat card */}
-              <div
-                className="absolute -bottom-6 -left-6 px-6 py-4 rounded-xl shadow-lg"
-                style={{ background: "hsl(var(--primary))", color: "hsl(0 0% 100%)" }}
-              >
-                <div className="text-3xl font-bold">98%</div>
-                <div className="text-xs opacity-80">Satisfacción del cliente</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 4 Stats row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t" style={{ borderColor: "hsl(var(--border))" }}>
-            {stats.map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold mb-1" style={{ color: "hsl(var(--primary))" }}>{s.value}</div>
-                <div className="text-sm font-semibold mb-0.5" style={{ color: "hsl(var(--foreground))" }}>{s.label}</div>
-                <div className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>{s.sub}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══ SERVICIOS LINEUP ══ */}
-      <section className="py-20 section-dark">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-5 gap-10 items-start">
-            {/* Left — headline */}
-            <div className="lg:col-span-2">
-              <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(148 72% 50%)" }}>Nuestros servicios</p>
-              <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: "hsl(0 0% 100%)" }}>
-                Explora todos los servicios
-              </h2>
-              <p className="text-sm leading-relaxed mb-8" style={{ color: "hsl(0 0% 60%)" }}>
-                Sin desmontaje, sin químicos agresivos, sin parar la actividad. Resultados medibles desde la primera sesión.
-              </p>
-              <Link to="/servicios" className="btn-cta inline-flex">
-                Ver todos <ArrowRight size={14} />
-              </Link>
-            </div>
-
-            {/* Right — list */}
-            <div className="lg:col-span-3 space-y-3">
-              {services.map((s, i) => (
-                <Link
-                  key={s.href}
-                  to={s.href}
-                  className="flex items-center gap-4 p-5 rounded-xl group transition-all duration-200"
-                  style={{ background: "hsl(0 0% 100% / 0.05)", border: "1px solid hsl(0 0% 100% / 0.08)" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "hsl(148 65% 22% / 0.25)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "hsl(0 0% 100% / 0.05)"; }}
-                >
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: "hsl(148 65% 22%)", color: "hsl(148 72% 60%)" }}>
-                    {s.icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm mb-0.5" style={{ color: "hsl(0 0% 95%)" }}>{s.title}</p>
-                    <p className="text-xs line-clamp-1" style={{ color: "hsl(0 0% 55%)" }}>{s.desc}</p>
-                  </div>
-                  <ArrowRight size={14} className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "hsl(148 72% 55%)" }} />
-                </Link>
+                </div>
               ))}
             </div>
+
+            <p className="text-base mb-8 leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>
+              Ecología Rentable especializada exclusivamente en descarbonización profesional de motores diésel y gasolina. Limpieza DPF/FAP, EGR y catalizador. Red de más de 300 centros certificados en toda España.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link to="/encuentre-centro" className="btn-cta">
+                Encontrar un centro <ArrowRight size={15} />
+              </Link>
+              <Link to="/socios/hazte-socio" className="btn-outline">
+                Soy taller / Quiero ser socio
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ══ IMPACTO REAL ══ */}
-      <section className="py-20 section-light">
-        <div className="container mx-auto px-4">
-          <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(var(--accent-green))" }}>El impacto real</p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-14 max-w-xl leading-tight" style={{ color: "hsl(var(--foreground))" }}>
-            Resultados reales, demostrados
-          </h2>
-
-          {/* Large before/after image */}
-          <div className="relative rounded-2xl overflow-hidden mb-8">
-            <img src={engineBeforeAfter} alt="Motor antes y después de descarbonización" className="w-full h-64 md:h-96 object-cover" />
-            <div className="absolute inset-0 flex items-end" style={{ background: "linear-gradient(to top, hsl(210 25% 8% / 0.8) 0%, transparent 60%)" }}>
-              <div className="p-8">
-                <p className="text-white text-lg font-semibold mb-1">Antes / Después</p>
-                <p className="text-sm" style={{ color: "hsl(0 0% 70%)" }}>Motor diésel 120.000 km · sin mantenimiento previo de carbono</p>
-              </div>
+      {/* ══════════════════════════════════
+          §2 TECH — tag + headline + 4 tabs + big image + 4 stats
+      ══════════════════════════════════ */}
+      <section className="py-20" style={{ background: "hsl(var(--background))" }}>
+        <div className="container mx-auto px-6">
+          {/* top label + 2-col intro */}
+          <div className="flex flex-col md:flex-row md:items-end gap-6 mb-12">
+            <div className="flex-1">
+              <p className="text-[11px] font-bold tracking-[0.15em] uppercase mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>
+                · Nuestra tecnología
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "hsl(var(--foreground))" }}>
+                Descarbonización inteligente,<br />impulsada por hidrógeno
+              </h2>
             </div>
+            <p className="flex-1 text-sm leading-relaxed md:max-w-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
+              La tecnología Hy-Carbon genera hidrógeno a partir del agua. Al introducir estos gases en el motor en funcionamiento, los depósitos de carbono se eliminan de forma natural, sin desmontaje ni productos químicos agresivos.
+            </p>
           </div>
 
-          {/* Two-column image section */}
-          <div className="grid md:grid-cols-2 gap-5 mb-14">
-            <div className="relative rounded-2xl overflow-hidden h-56">
-              <img src={machineWorkshop} alt="Máquina descarbonizadora en taller" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 flex items-end p-6" style={{ background: "linear-gradient(to top, hsl(148 65% 12% / 0.85) 0%, transparent 60%)" }}>
-                <div>
-                  <p className="text-white font-bold text-lg">-40%</p>
-                  <p className="text-xs" style={{ color: "hsl(148 60% 70%)" }}>reducción media en emisiones de partículas</p>
-                </div>
-              </div>
-            </div>
-            <div className="relative rounded-2xl overflow-hidden h-56">
-              <img src={hyCaronFront} alt="Hy-Carbon Connect equipo" className="w-full h-full object-contain" style={{ background: "hsl(var(--muted))" }} />
-              <div className="absolute inset-0 flex items-end p-6" style={{ background: "linear-gradient(to top, hsl(210 25% 8% / 0.7) 0%, transparent 60%)" }}>
-                <div>
-                  <p className="text-white font-bold text-lg">Hy-Carbon Connect</p>
-                  <p className="text-xs" style={{ color: "hsl(0 0% 70%)" }}>La máquina más avanzada de la red</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Stats row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {results.map((r) => (
-              <div key={r.label} className="p-6 rounded-2xl text-center" style={{ background: "hsl(var(--muted))" }}>
-                <div className="text-2xl md:text-3xl font-bold mb-1" style={{ color: "hsl(var(--primary))" }}>{r.value}</div>
-                <div className="text-sm font-medium" style={{ color: "hsl(var(--foreground))" }}>{r.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══ PARA QUIÉN ══ */}
-      <section className="py-20 section-alt">
-        <div className="container mx-auto px-4">
-          <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(var(--accent-green))" }}>Para quién es</p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 leading-tight" style={{ color: "hsl(var(--foreground))" }}>
-            Un solo servicio, tres perfiles
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                emoji: "🚗",
-                title: "Conductor particular",
-                points: ["Notas pérdida de potencia", "La luz del motor o DPF está encendida", "Quieres pasar la ITV sin problemas", "Buscas reducir el consumo"],
-                cta: "Encontrar un centro",
-                href: "/encuentre-centro",
-              },
-              {
-                emoji: "🔧",
-                title: "Taller / Mecánico",
-                points: ["Quieres ofrecer un servicio diferenciador", "Buscas un nuevo flujo de ingresos", "Recibirás clientes certificados de tu zona", "Formación técnica incluida"],
-                cta: "Hazte socio",
-                href: "/socios/hazte-socio",
-                highlight: true,
-              },
-              {
-                emoji: "🚛",
-                title: "Gestor de flota",
-                points: ["Flota diésel con mantenimiento intensivo", "Altos costes en filtros de partículas", "Necesitas informes por vehículo", "Buscas mantenimiento en tus instalaciones"],
-                cta: "Solicitar presupuesto",
-                href: "/servicios/flotas",
-              },
-            ].map((p) => (
-              <div
-                key={p.title}
-                className="p-7 rounded-2xl flex flex-col"
+          {/* 4 tab-feature pills */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
+            {techTabs.map((tab, i) => (
+              <button
+                key={tab.label}
+                onClick={() => setActiveTab(i)}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 border"
                 style={{
-                  background: p.highlight ? "hsl(var(--primary))" : "hsl(var(--card))",
-                  border: p.highlight ? "none" : "1px solid hsl(var(--border))",
+                  background: activeTab === i ? "hsl(var(--primary))" : "hsl(var(--muted))",
+                  borderColor: activeTab === i ? "hsl(var(--primary))" : "transparent",
+                  color: activeTab === i ? "hsl(0 0% 100%)" : "hsl(var(--foreground))",
                 }}
               >
-                <div className="text-3xl mb-4">{p.emoji}</div>
-                <h3 className="font-bold text-lg mb-5" style={{ color: p.highlight ? "hsl(0 0% 100%)" : "hsl(var(--foreground))" }}>
-                  {p.title}
-                </h3>
-                <ul className="space-y-2 mb-7 flex-1">
-                  {p.points.map((pt) => (
-                    <li key={pt} className="flex items-start gap-2 text-sm">
-                      <CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: p.highlight ? "hsl(148 72% 75%)" : "hsl(var(--primary))" }} />
-                      <span style={{ color: p.highlight ? "hsl(0 0% 90%)" : "hsl(var(--muted-foreground))" }}>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to={p.href}
-                  className={`w-full text-center py-3 px-5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all`}
-                  style={
-                    p.highlight
-                      ? { background: "hsl(0 0% 100%)", color: "hsl(var(--primary))" }
-                      : { background: "hsl(var(--primary))", color: "hsl(0 0% 100%)" }
-                  }
-                >
-                  {p.cta} <ArrowRight size={14} />
-                </Link>
+                <span style={{ opacity: activeTab === i ? 1 : 0.6 }}>{tab.icon}</span>
+                <div>
+                  <p className="text-xs font-bold">{tab.label}</p>
+                  <p className="text-[11px] opacity-70">{tab.sub}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Big image card with overlay stat */}
+          <div className="relative rounded-2xl overflow-hidden mb-12" style={{ background: "hsl(var(--muted))" }}>
+            <img
+              src={serviceWide}
+              alt="Servicio de descarbonización profesional"
+              className="w-full h-72 md:h-[420px] object-cover"
+            />
+            {/* Floating UI card — like the 80% card in reference */}
+            <div
+              className="absolute top-6 right-6 md:top-8 md:right-8 p-5 rounded-2xl w-44 shadow-2xl"
+              style={{ background: "hsl(0 0% 100% / 0.95)", backdropFilter: "blur(12px)" }}
+            >
+              <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: "hsl(var(--muted-foreground))" }}>Rendimiento</p>
+              <div className="text-4xl font-bold mb-2" style={{ color: "hsl(var(--primary))" }}>+20%</div>
+              <div className="w-full rounded-full h-2 mb-3" style={{ background: "hsl(var(--muted))" }}>
+                <div className="h-2 rounded-full" style={{ width: "72%", background: "hsl(var(--primary))" }} />
+              </div>
+              <p className="text-[10px]" style={{ color: "hsl(var(--muted-foreground))" }}>Recuperación de potencia media</p>
+            </div>
+          </div>
+
+          {/* 4 Big stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t" style={{ borderColor: "hsl(var(--border))" }}>
+            {bigStats.map((s) => (
+              <div key={s.label}>
+                <div className="text-3xl md:text-4xl font-bold mb-1" style={{ color: "hsl(var(--foreground))" }}>{s.value}</div>
+                <div className="text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ══ ENCUENTRE CENTRO ══ */}
-      <section className="py-20 section-dark">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(148 72% 50%)" }}>Red nacional</p>
-              <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: "hsl(0 0% 100%)" }}>
-                Únete al movimiento hacia un motor más limpio
-              </h2>
-              <p className="text-base leading-relaxed mb-8" style={{ color: "hsl(0 0% 60%)" }}>
-                Más de 300 talleres certificados en toda España. Cada centro cumple los estándares técnicos de Ecología Rentable y cuenta con equipamiento profesional y técnicos formados.
-              </p>
-              <Link to="/encuentre-centro" className="btn-cta inline-flex">
-                <MapPin size={16} /> Ver centros por provincia
+      {/* ══════════════════════════════════
+          §3 LINEUP — dark bg, full-width image, service list
+      ══════════════════════════════════ */}
+      <section className="relative overflow-hidden" style={{ background: "hsl(210 25% 6%)" }}>
+        {/* Background image */}
+        <div className="relative h-64 md:h-80 overflow-hidden">
+          <img src={tecnicoHyCarbon} alt="Técnico Ecología Rentable" className="w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, hsl(210 25% 6% / 0.3) 0%, hsl(210 25% 6%) 95%)" }} />
+          <div className="absolute bottom-8 left-0 right-0 px-6">
+            <div className="container mx-auto">
+              <p className="text-[11px] font-bold tracking-[0.15em] uppercase mb-2" style={{ color: "hsl(148 60% 55%)" }}>· Nuestros servicios</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">Encuentra el servicio<br />perfecto para tu motor</h2>
+            </div>
+          </div>
+        </div>
+
+        {/* Search + list card */}
+        <div className="container mx-auto px-6 pb-16">
+          <div className="max-w-2xl">
+            {/* search bar */}
+            <div className="flex items-center gap-3 px-4 py-3 rounded-xl mb-2" style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.12)" }}>
+              <Search size={16} style={{ color: "hsl(0 0% 50%)" }} />
+              <span className="text-sm" style={{ color: "hsl(0 0% 50%)" }}>Buscar por servicio o tipo de motor…</span>
+              <Link to="/servicios" className="ml-auto text-xs font-semibold px-4 py-2 rounded-lg" style={{ background: "hsl(var(--cta))", color: "hsl(var(--cta-foreground))" }}>
+                Buscar
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              {["Madrid", "Barcelona", "Valencia", "Sevilla", "Málaga", "Bilbao", "Zaragoza", "Alicante"].map((city) => (
+
+            {/* Popular label */}
+            <p className="text-[10px] font-bold tracking-wider uppercase mb-3 mt-5" style={{ color: "hsl(0 0% 40%)" }}>Servicios principales</p>
+
+            {/* Service list rows */}
+            <div className="space-y-1">
+              {serviceList.map((s, i) => (
                 <Link
-                  key={city}
-                  to={`/encuentre-centro/${city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`}
-                  className="flex items-center gap-3 p-4 rounded-xl transition-all duration-200"
-                  style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "hsl(148 65% 22% / 0.3)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "hsl(0 0% 100% / 0.06)"; }}
+                  key={s.name}
+                  to={s.href}
+                  className="flex items-center gap-4 px-4 py-4 rounded-xl group transition-all duration-200"
+                  style={{ background: "hsl(0 0% 100% / 0.04)" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "hsl(148 65% 22% / 0.2)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "hsl(0 0% 100% / 0.04)"; }}
                 >
-                  <MapPin size={14} style={{ color: "hsl(148 72% 55%)" }} />
-                  <span className="text-sm font-medium" style={{ color: "hsl(0 0% 90%)" }}>{city}</span>
-                  <ArrowRight size={12} className="ml-auto" style={{ color: "hsl(0 0% 40%)" }} />
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-xs font-bold" style={{ background: "hsl(0 0% 100% / 0.08)", color: "hsl(148 60% 55%)" }}>
+                    0{i + 1}
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-white">{s.name}</p>
+                    <p className="text-xs" style={{ color: "hsl(0 0% 50%)" }}>{s.sub}</p>
+                  </div>
+                  <ChevronRight size={16} className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "hsl(148 60% 55%)" }} />
                 </Link>
               ))}
+            </div>
+
+            <div className="mt-6">
+              <Link to="/encuentre-centro" className="text-sm font-semibold flex items-center gap-2" style={{ color: "hsl(148 60% 55%)" }}>
+                Ver todos los centros por provincia <ArrowRight size={14} />
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ══ FAQ ══ */}
-      <section className="py-20 section-light">
-        <div className="container mx-auto px-4">
+      {/* ══════════════════════════════════
+          §4 IMPACTO REAL — editorial layout
+      ══════════════════════════════════ */}
+      <section className="py-20" style={{ background: "hsl(var(--background))" }}>
+        <div className="container mx-auto px-6">
+          {/* top row */}
+          <div className="flex flex-col md:flex-row md:items-end gap-6 mb-12">
+            <div className="flex-1">
+              <p className="text-[11px] font-bold tracking-[0.15em] uppercase mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>
+                · El impacto real
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "hsl(var(--foreground))" }}>
+                Resultados reales,<br />demostrados
+              </h2>
+            </div>
+            <p className="flex-1 text-sm leading-relaxed md:max-w-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
+              Hemos comprobado con nuestros propios ojos cómo la descarbonización transforma la respuesta del motor, reduce las emisiones y alarga la vida de componentes clave como el DPF.
+            </p>
+          </div>
+
+          {/* Large editorial image */}
+          <div className="relative rounded-2xl overflow-hidden mb-5">
+            <img src={engineDetail} alt="Detalle de motor descarbonizado" className="w-full h-64 md:h-96 object-cover" />
+            <div className="absolute inset-0 flex flex-col justify-end p-8" style={{ background: "linear-gradient(to top, hsl(210 25% 6% / 0.9) 0%, transparent 55%)" }}>
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="text-white font-bold text-lg mb-1">Tecnología Hy-Carbon Connect</p>
+                  <p className="text-sm" style={{ color: "hsl(0 0% 65%)" }}>Motor limpio sin desmontaje · resultados en 45–90 min</p>
+                </div>
+                <Link to="/servicios/descarbonizacion" className="hidden md:flex items-center gap-2 text-sm font-semibold" style={{ color: "hsl(148 65% 55%)" }}>
+                  Saber más <ArrowRight size={14} />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* 2 col images */}
+          <div className="grid md:grid-cols-2 gap-5">
+            <div className="relative rounded-2xl overflow-hidden h-56">
+              <img src={engineBeforeAfter} alt="Motor antes y después" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 flex flex-col justify-end p-6" style={{ background: "linear-gradient(to top, hsl(210 25% 6% / 0.9) 0%, transparent 55%)" }}>
+                <span className="text-white text-3xl font-bold">-70%</span>
+                <p className="text-xs mt-1" style={{ color: "hsl(0 0% 65%)" }}>reducción máxima en emisiones de humos negros</p>
+              </div>
+            </div>
+            <div className="relative rounded-2xl overflow-hidden h-56" style={{ background: "hsl(var(--muted))" }}>
+              <img src={hyCaronFront} alt="Hy-Carbon Connect equipo frontal" className="w-full h-full object-contain p-6" />
+              <div className="absolute inset-0 flex flex-col justify-end p-6" style={{ background: "linear-gradient(to top, hsl(148 65% 10% / 0.85) 0%, transparent 55%)" }}>
+                <span className="text-white text-lg font-bold">Hy-Carbon Connect</span>
+                <p className="text-xs mt-1" style={{ color: "hsl(148 60% 70%)" }}>La máquina más avanzada de la red</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════
+          §5 FAQ — left headline + right accordion
+      ══════════════════════════════════ */}
+      <section className="py-20" style={{ background: "hsl(var(--secondary))" }}>
+        <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-5 gap-14">
             {/* Left */}
             <div className="lg:col-span-2">
-              <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(var(--accent-green))" }}>FAQ</p>
-              <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: "hsl(var(--foreground))" }}>
-                Preguntas frecuentes
-              </h2>
-              <p className="text-sm leading-relaxed mb-6" style={{ color: "hsl(var(--muted-foreground))" }}>
-                Todo lo que necesitas saber antes de tu primera descarbonización.
+              <p className="text-[11px] font-bold tracking-[0.15em] uppercase mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>
+                · FAQ
               </p>
-              <Link to="/contacto" className="btn-outline inline-flex text-sm">
-                Hablar con un experto <ArrowRight size={14} />
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6" style={{ color: "hsl(var(--foreground))" }}>
+                Preguntas<br />frecuentes
+              </h2>
+              <Link
+                to="/contacto"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold"
+                style={{ background: "hsl(var(--foreground))", color: "hsl(var(--background))" }}
+              >
+                Pregúntanos
               </Link>
             </div>
             {/* Right */}
             <div className="lg:col-span-3">
               {faqs.map((f, i) => (
-                <FaqItem key={i} q={f.q} a={f.a} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />
+                <FaqItem
+                  key={i}
+                  q={f.q}
+                  a={f.a}
+                  open={openFaq === i}
+                  onToggle={() => setOpenFaq(openFaq === i ? null : i)}
+                />
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ══ TESTIMONIOS ══ */}
-      <section className="py-20 section-alt">
-        <div className="container mx-auto px-4">
-          <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(var(--accent-green))" }}>Testimonios</p>
+      {/* ══════════════════════════════════
+          §6 TESTIMONIOS — 3 col star cards
+      ══════════════════════════════════ */}
+      <section className="py-20" style={{ background: "hsl(var(--background))" }}>
+        <div className="container mx-auto px-6">
+          <p className="text-[11px] font-bold tracking-[0.15em] uppercase mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>
+            · Testimonios de clientes
+          </p>
           <h2 className="text-3xl md:text-4xl font-bold mb-12 leading-tight" style={{ color: "hsl(var(--foreground))" }}>
-            Lo que dicen nuestros clientes
+            Lo que dicen nuestros clientes<br />y socios
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((t) => (
-              <div key={t.name} className="p-7 rounded-2xl" style={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))" }}>
+              <div key={t.name} className="p-7 rounded-2xl border" style={{ background: "hsl(var(--card))", borderColor: "hsl(var(--border))" }}>
                 <div className="flex gap-1 mb-5">
-                  {Array.from({ length: t.stars }).map((_, i) => (
-                    <Star key={i} size={14} fill="currentColor" style={{ color: "hsl(48 96% 53%)" }} />
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={13} fill="hsl(48 96% 53%)" style={{ color: "hsl(48 96% 53%)" }} />
                   ))}
                 </div>
-                <p className="text-sm leading-relaxed mb-6" style={{ color: "hsl(var(--foreground))" }}>"{t.text}"</p>
-                <div>
-                  <p className="font-semibold text-sm" style={{ color: "hsl(var(--foreground))" }}>{t.name}</p>
-                  <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>{t.role}</p>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "hsl(var(--foreground))" }}>"{t.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ background: "hsl(var(--primary))" }}>
+                    {t.name[0]}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold" style={{ color: "hsl(var(--foreground))" }}>{t.name}</p>
+                    <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>{t.role}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -445,41 +496,70 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ══ CTA FINAL ══ */}
-      <section className="py-20 section-dark">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-xs font-bold tracking-widest uppercase mb-4" style={{ color: "hsl(148 72% 50%)" }}>Empieza hoy</p>
-          <h2 className="text-3xl md:text-5xl font-bold mb-5 max-w-2xl mx-auto leading-tight" style={{ color: "hsl(0 0% 100%)" }}>
+      {/* ══════════════════════════════════
+          §7 JOIN CTA + WORLD MAP
+      ══════════════════════════════════ */}
+      <section className="py-20 pb-0" style={{ background: "hsl(var(--background))" }}>
+        <div className="container mx-auto px-6 text-center mb-6">
+          <p className="text-[11px] font-bold tracking-[0.15em] uppercase mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>
+            · Únete al movimiento
+          </p>
+          <h2 className="text-3xl md:text-5xl font-bold mb-5 max-w-2xl mx-auto leading-tight" style={{ color: "hsl(var(--foreground))" }}>
             Únete al movimiento global hacia un motor más limpio
           </h2>
-          <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: "hsl(0 0% 60%)" }}>
-            Encuentra el centro más cercano o contáctanos para resolver tus dudas. Sin compromiso.
+          <p className="text-base mb-8 max-w-lg mx-auto" style={{ color: "hsl(var(--muted-foreground))" }}>
+            Encuentra el centro más cercano o conviértete en socio y ofrece el servicio en tu taller.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-12">
             <Link to="/encuentre-centro" className="btn-cta">
               <MapPin size={16} /> Encontrar un centro
             </Link>
-            <Link to="/contacto" className="btn-outline-white">
-              Hablar con un experto
-            </Link>
           </div>
+        </div>
 
-          {/* Footer brand row */}
-          <div className="border-t pt-10 flex flex-col md:flex-row items-center justify-between gap-6" style={{ borderColor: "hsl(0 0% 100% / 0.12)" }}>
-            <div className="flex items-center gap-2">
-              <Leaf size={18} style={{ color: "hsl(148 72% 50%)" }} />
-              <span className="font-bold text-lg" style={{ color: "hsl(0 0% 100%)" }}>Ecología Rentable</span>
+        {/* WORLD MAP */}
+        <WorldMap />
+      </section>
+
+      {/* ══════════════════════════════════
+          §8 FOOTER — brand + links
+      ══════════════════════════════════ */}
+      <section style={{ background: "hsl(var(--background))" }} className="pb-12 pt-6">
+        <div className="container mx-auto px-6">
+          <div className="border-t pt-10 grid md:grid-cols-5 gap-8" style={{ borderColor: "hsl(var(--border))" }}>
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-2 mb-3">
+                <Leaf size={18} style={{ color: "hsl(var(--primary))" }} />
+                <span className="font-bold text-lg" style={{ color: "hsl(var(--foreground))" }}>Ecología Rentable</span>
+              </div>
+              <p className="text-xs leading-relaxed max-w-xs" style={{ color: "hsl(var(--muted-foreground))" }}>
+                Especialistas en descarbonización profesional de motores. Red de más de 300 centros certificados en España.
+              </p>
             </div>
-            <div className="flex flex-wrap justify-center gap-6 text-xs" style={{ color: "hsl(0 0% 45%)" }}>
-              {[
-                ["Servicios", "/servicios"],
-                ["Soluciones", "/soluciones"],
-                ["Blog", "/blog"],
-                ["Centros", "/encuentre-centro"],
-                ["Socios", "/socios"],
-                ["Contacto", "/contacto"],
-              ].map(([label, href]) => (
-                <Link key={href} to={href} className="hover:text-white transition-colors">{label}</Link>
+            {[
+              { title: "Servicios", links: [["Descarbonización", "/servicios/descarbonizacion"], ["Limpieza DPF", "/servicios/limpieza-filtros"], ["Flotas", "/servicios/flotas"], ["Particulares", "/servicios/particulares"]] },
+              { title: "Soluciones", links: [["Motor diésel", "/soluciones/descarbonizacion-motor-diesel"], ["Hidrógeno", "/soluciones/descarbonizacion-hidrogeno"], ["EGR", "/soluciones/limpieza-egr-catalizador"], ["ITV Gases", "/soluciones/itv-gases"]] },
+              { title: "Empresa", links: [["Nosotros", "/nosotros"], ["Socios", "/socios"], ["Blog", "/blog"], ["Contacto", "/contacto"]] },
+            ].map((col) => (
+              <div key={col.title}>
+                <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: "hsl(var(--foreground))" }}>{col.title}</p>
+                <ul className="space-y-2">
+                  {col.links.map(([label, href]) => (
+                    <li key={href}>
+                      <Link to={href} className="text-xs transition-colors hover:text-current" style={{ color: "hsl(var(--muted-foreground))" }}>
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 border-t" style={{ borderColor: "hsl(var(--border))" }}>
+            <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>© 2025 Ecología Rentable. Todos los derechos reservados.</p>
+            <div className="flex gap-5">
+              {[["Accesibilidad", "/accesibilidad"], ["Contacto", "/contacto"]].map(([l, h]) => (
+                <Link key={h} to={h} className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>{l}</Link>
               ))}
             </div>
           </div>
