@@ -149,6 +149,29 @@
     background: hsl(var(--primary) / 0.08);
   }
 
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border px-6 py-3 text-sm font-semibold transition-all duration-200;
+    border-color: hsl(var(--border));
+    color: hsl(var(--foreground));
+    background: transparent;
+  }
+  .btn-outline:hover {
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.05);
+  }
+
+  .btn-outline-white {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border px-6 py-3 text-sm font-semibold transition-all duration-200;
+    border-color: hsl(0 0% 100% / 0.3);
+    color: hsl(0 0% 100%);
+    background: transparent;
+  }
+  .btn-outline-white:hover {
+    border-color: hsl(0 0% 100% / 0.7);
+    background: hsl(0 0% 100% / 0.08);
+  }
+
   .section-hero {
     background: var(--gradient-hero);
     color: hsl(0 0% 100%);
