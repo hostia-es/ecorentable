@@ -239,7 +239,7 @@ export default function Index() {
                 transition={{ duration: 0.9, delay: 0.8 }}
                 className="absolute top-44 -left-8 w-56"
               >
-                <div className="rounded-2xl p-4 backdrop-blur-xl border border-white/10" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+                <div className="rounded-2xl p-4 backdrop-blur-2xl border border-white/15 shadow-xl shadow-black/20" style={{ background: "hsl(220 20% 12% / 0.75)" }}>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[hsl(148_60%_40%/0.2)]">
                       <Shield size={14} className="text-[hsl(148_60%_55%)]" />
