@@ -1,3 +1,16 @@
+import blogDescarbonizacionMotor from "@/assets/blog/blog-descarbonizacion-motor.jpg";
+import blogCuandoDescarbonizar from "@/assets/blog/blog-cuando-descarbonizar.jpg";
+import blogFiltroParticulas from "@/assets/blog/blog-filtro-particulas.jpg";
+import blogHidrogenoHho from "@/assets/blog/blog-hidrogeno-hho.jpg";
+import blogItvDescarbonizacion from "@/assets/blog/blog-itv-descarbonizacion.jpg";
+import blogCarbonFap from "@/assets/blog/blog-carbon-fap.jpg";
+import blogFlotasDiesel from "@/assets/blog/blog-flotas-diesel.jpg";
+import blogValvulaEgr from "@/assets/blog/blog-valvula-egr.jpg";
+import blogNormativaItv from "@/assets/blog/blog-normativa-itv.jpg";
+import blogHyCalamineComparativa from "@/assets/blog/blog-hy-calamine-comparativa.jpg";
+import blogRentabilidadTaller from "@/assets/blog/blog-rentabilidad-taller.jpg";
+import blogEuro6dMotor from "@/assets/blog/blog-euro6d-motor.jpg";
+
 export interface BlogPost {
   id: string;
   slug: string;
@@ -9,6 +22,7 @@ export interface BlogPost {
   date: string;
   content?: string;
   tags: string[];
+  image: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -22,6 +36,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min",
     date: "2024-01-15",
     tags: ["descarbonización", "motor diésel", "hidrógeno", "mantenimiento"],
+    image: blogDescarbonizacionMotor,
   },
   {
     id: "bp2",
@@ -33,6 +48,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min",
     date: "2024-01-22",
     tags: ["mantenimiento", "periodicidad", "km descarbonización"],
+    image: blogCuandoDescarbonizar,
   },
   {
     id: "bp3",
@@ -44,6 +60,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     date: "2024-02-05",
     tags: ["DPF", "FAP", "filtro partículas", "síntomas"],
+    image: blogFiltroParticulas,
   },
   {
     id: "bp4",
@@ -55,6 +72,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min",
     date: "2024-02-18",
     tags: ["hidrógeno", "HHO", "descarbonización", "electrólisis"],
+    image: blogHidrogenoHho,
   },
   {
     id: "bp5",
@@ -66,6 +84,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     date: "2024-03-01",
     tags: ["ITV", "emisiones", "CO", "NOx", "inspección técnica"],
+    image: blogItvDescarbonizacion,
   },
   {
     id: "bp6",
@@ -77,6 +96,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min",
     date: "2024-03-10",
     tags: ["Carbon FAP", "aditivo", "DPF", "cerio", "regeneración"],
+    image: blogCarbonFap,
   },
   {
     id: "bp7",
@@ -88,6 +108,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "9 min",
     date: "2024-03-20",
     tags: ["flotas", "mantenimiento preventivo", "diésel", "gestión flotas"],
+    image: blogFlotasDiesel,
   },
   {
     id: "bp8",
@@ -99,6 +120,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min",
     date: "2024-04-01",
     tags: ["EGR", "válvula EGR", "limpieza", "gases recirculación"],
+    image: blogValvulaEgr,
   },
   {
     id: "bp9",
@@ -110,6 +132,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min",
     date: "2024-04-15",
     tags: ["ITV", "normativa", "emisiones", "España", "2024"],
+    image: blogNormativaItv,
   },
   {
     id: "bp10",
@@ -121,6 +144,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     date: "2024-05-01",
     tags: ["Hy-Calamine", "comparativa", "máquina descarbonizadora", "taller"],
+    image: blogHyCalamineComparativa,
   },
   {
     id: "bp11",
@@ -132,6 +156,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min",
     date: "2024-05-15",
     tags: ["rentabilidad", "taller", "ROI", "inversión", "descarbonización"],
+    image: blogRentabilidadTaller,
   },
   {
     id: "bp12",
@@ -143,6 +168,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     date: "2024-06-01",
     tags: ["Euro 6d", "descarbonización", "motor moderno", "WLTP"],
+    image: blogEuro6dMotor,
   },
 ];
 

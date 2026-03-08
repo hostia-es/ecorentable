@@ -34,8 +34,9 @@ export default function BlogCategory() {
           ) : (
             <div className="space-y-5">
               {posts.map((post) => (
-                <Link key={post.id} to={`/blog/${post.slug}`} className="card-eco p-6 flex flex-col sm:flex-row sm:items-center gap-4 group hover:shadow-md transition-shadow">
-                  <div className="flex-1">
+                <Link key={post.id} to={`/blog/${post.slug}`} className="card-eco p-0 overflow-hidden flex flex-col sm:flex-row sm:items-center gap-0 group hover:shadow-md transition-shadow">
+                  <img src={post.image} alt={post.title} className="w-full sm:w-44 h-32 sm:h-full object-cover shrink-0" loading="lazy" />
+                  <div className="p-6 flex-1">
                     <h2 className="font-bold text-base group-hover:text-primary transition-colors mb-2" style={{ color: "hsl(var(--foreground))" }}>{post.title}</h2>
                     <p className="text-sm leading-relaxed mb-2" style={{ color: "hsl(var(--muted-foreground))" }}>{post.excerpt}</p>
                     <div className="flex items-center gap-3 text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>
@@ -43,7 +44,7 @@ export default function BlogCategory() {
                       <span>{post.date}</span>
                     </div>
                   </div>
-                  <ArrowRight size={18} className="shrink-0 group-hover:translate-x-1 transition-transform" style={{ color: "hsl(var(--primary))" }} />
+                  <ArrowRight size={18} className="shrink-0 group-hover:translate-x-1 transition-transform mr-5" style={{ color: "hsl(var(--primary))" }} />
                 </Link>
               ))}
             </div>

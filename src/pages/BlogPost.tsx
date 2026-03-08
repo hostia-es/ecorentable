@@ -98,6 +98,11 @@ export default function BlogPost() {
             <Link to="/blog" className="flex items-center gap-1 hover:text-primary transition-colors"><ArrowLeft size={13} />Volver al blog</Link>
           </div>
 
+          {/* Hero image */}
+          <div className="rounded-xl overflow-hidden mb-8">
+            <img src={post.image} alt={post.title} className="w-full h-64 md:h-80 object-cover" />
+          </div>
+
           <div className="card-eco p-8">
             {fullContent[post.slug] ?? (
               <div>
@@ -144,10 +149,13 @@ export default function BlogPost() {
             <h2 className="text-xl font-bold mb-6" style={{ color: "hsl(var(--foreground))" }}>Artículos relacionados</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {related.map((r) => (
-                <Link key={r.id} to={`/blog/${r.slug}`} className="card-eco p-4 group hover:shadow-md transition-shadow">
-                  <span className="badge-green text-xs mb-2 inline-block">{r.category}</span>
-                  <h3 className="text-sm font-bold group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>{r.title}</h3>
-                  <p className="text-xs mt-1" style={{ color: "hsl(var(--muted-foreground))" }}>{r.readTime}</p>
+                <Link key={r.id} to={`/blog/${r.slug}`} className="card-eco overflow-hidden group hover:shadow-md transition-shadow">
+                  <img src={r.image} alt={r.title} className="w-full h-32 object-cover" loading="lazy" />
+                  <div className="p-4">
+                    <span className="badge-green text-xs mb-2 inline-block">{r.category}</span>
+                    <h3 className="text-sm font-bold group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>{r.title}</h3>
+                    <p className="text-xs mt-1" style={{ color: "hsl(var(--muted-foreground))" }}>{r.readTime}</p>
+                  </div>
                 </Link>
               ))}
             </div>
