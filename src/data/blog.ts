@@ -156,6 +156,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min",
     date: "2024-05-15",
     tags: ["rentabilidad", "taller", "ROI", "inversión", "descarbonización"],
+    image: blogRentabilidadTaller,
   },
   {
     id: "bp12",
