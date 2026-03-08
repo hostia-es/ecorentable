@@ -36,6 +36,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min",
     date: "2024-01-15",
     tags: ["descarbonización", "motor diésel", "hidrógeno", "mantenimiento"],
+    image: blogDescarbonizacionMotor,
   },
   {
     id: "bp2",
