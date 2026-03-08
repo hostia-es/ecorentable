@@ -29,8 +29,8 @@ export default function PageHero({
 
   if (dark) {
     return (
-      <section className={`section-hero ${padding}`}>
-        <div className="container mx-auto px-4">
+      <section className={`section-hero ${padding} relative`}>
+        <div className="container mx-auto px-4 relative z-10">
           {breadcrumbs && (
             <div className="mb-4 opacity-70">
               <Breadcrumbs items={breadcrumbs} />
@@ -53,6 +53,8 @@ export default function PageHero({
           )}
           {children && <div className="mt-6">{children}</div>}
         </div>
+        {/* Smooth fade into next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to bottom, transparent, hsl(210 20% 98%))" }} />
       </section>
     );
   }

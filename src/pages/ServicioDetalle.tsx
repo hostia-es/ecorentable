@@ -214,7 +214,7 @@ export default function ServicioDetalle() {
               <h2 className="font-bold mb-3 flex items-center gap-2" style={{ color: "hsl(var(--foreground))" }}><Euro size={16} style={{ color: "hsl(var(--primary))" }} />Precio orientativo</h2>
               <div className="text-2xl font-bold mb-2" style={{ color: "hsl(var(--primary))" }}>{s.priceRange}</div>
               <p className="text-xs mb-4" style={{ color: "hsl(var(--muted-foreground))" }}>{s.priceNote}</p>
-              <Link to="/contacto" className="btn-primary text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
+              <Link to="/contacto" className="btn-cta text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
             </div>
             <div className="card-eco p-6">
               <h2 className="font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>¿Para quién es?</h2>
