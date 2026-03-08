@@ -163,9 +163,10 @@ export default function LimpiezaFiltros() {
             <StaggerChildren>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 {adaptadorFeatures.map((f) => (
-                  <Card key={f.title} className="hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6 text-center">
-                      <h4 className="font-bold mb-2 text-foreground">{f.title}</h4>
+                  <Card key={f.title} className="hover:shadow-lg transition-all hover:-translate-y-1">
+                    <CardContent className="p-6 text-center flex flex-col items-center gap-3">
+                      <div className="icon-circle w-12 h-12">{f.icon}</div>
+                      <h4 className="font-bold text-foreground">{f.title}</h4>
                       <p className="text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
                     </CardContent>
                   </Card>
