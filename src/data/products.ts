@@ -26,7 +26,7 @@ export const products: Product[] = [
     shortName: "Hy-Calamine 1000S",
     category: "Máquinas Descarbonizadoras",
     categorySlug: "maquinas-descarbonizadoras",
-    price: "Desde 2.800 €",
+    price: "Consultar precio",
     description: "Máquina profesional de descarbonización por hidrógeno de gama entrada, ideal para talleres que inician su actividad en descarbonización.",
     technicalDescription: "La Hy-Calamine 1000S EGR PILOT es una máquina de descarbonización por hidrógeno (HHO) diseñada para talleres de tamaño mediano. Produce hidrógeno y oxígeno mediante electrólisis del agua y los introduce en el motor a través de la toma de aire, eliminando los depósitos de carbono de pistones, válvulas, cámara de combustión y escape. Incluye modo EGR PILOT para tratamiento específico de válvulas EGR.",
     specifications: [
