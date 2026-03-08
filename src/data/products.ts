@@ -53,7 +53,7 @@ export const products: Product[] = [
     shortName: "Hy-Calamine 2000S",
     category: "Máquinas Descarbonizadoras",
     categorySlug: "maquinas-descarbonizadoras",
-    price: "Desde 4.200 €",
+    price: "Consultar precio",
     description: "Máquina de descarbonización por hidrógeno de gama media, con mayor producción HHO y ciclos más cortos. Ideal para talleres de volumen medio.",
     technicalDescription: "La Hy-Calamine 2000S EGR PILOT ofrece una capacidad de producción de HHO de 1.500 ml/min, reduciendo los tiempos de ciclo y aumentando la capacidad diaria de intervenciones. Incorpora el modo EGR PILOT mejorado con inyección directa en el cuerpo EGR, panel táctil con presets por tipo de motor y sistema de seguridad automático ante sobrepresión.",
     specifications: [
