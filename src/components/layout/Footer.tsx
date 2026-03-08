@@ -56,8 +56,16 @@ export default function Footer() {
               </div>
             </div>
             <div className="flex gap-3 mt-4">
-              {[Facebook, Instagram, Linkedin, Youtube].map((Icon, i) => (
-                <a key={i} href="#" className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{ background: "hsl(0 0% 100% / 0.1)", color: "hsl(0 0% 70%)" }}
+              {[
+                { Icon: Facebook, href: "https://www.facebook.com/ecologiarentable", label: "Facebook" },
+                { Icon: Instagram, href: "https://www.instagram.com/ecologiarentable/", label: "Instagram" },
+                { Icon: Linkedin, href: "https://www.linkedin.com/company/ecologiarentable/", label: "LinkedIn" },
+                { Icon: Youtube, href: "https://www.youtube.com/@ecologiarentable", label: "YouTube" },
+                { Icon: MessageCircle, href: "https://wa.me/34605928626", label: "WhatsApp" },
+              ].map(({ Icon, href, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors"
+                  style={{ background: "hsl(0 0% 100% / 0.1)", color: "hsl(0 0% 70%)" }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "hsl(148 65% 22%)"; (e.currentTarget as HTMLElement).style.color = "white"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "hsl(0 0% 100% / 0.1)"; (e.currentTarget as HTMLElement).style.color = "hsl(0 0% 70%)"; }}
                 >

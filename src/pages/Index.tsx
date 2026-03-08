@@ -578,7 +578,7 @@ export default function Index() {
               <Button asChild className="gap-2">
                 <Link to="/servicios">Ver servicios <ArrowRight size={15} /></Link>
               </Button>
-              <Button asChild variant="outline" className="gap-2 border-white/30 text-white hover:bg-white/10 hover:text-white">
+              <Button asChild variant="outline" className="gap-2 border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white">
                 <Link to="/contacto">Solicitar diagnóstico</Link>
               </Button>
             </div>
