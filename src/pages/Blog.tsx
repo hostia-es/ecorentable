@@ -94,7 +94,7 @@ export default function Blog() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
               { title: "Ver servicios", desc: "Descarbonización, DPF, EGR y más servicios para tu vehículo.", href: "/servicios", cta: "Ver servicios" },
-              { title: "Encontrar un centro", desc: "Localiza un taller certificado cerca de tu ubicación.", href: "/encuentre-centro", cta: "Buscar centro" },
+              { title: "Hazte socio", desc: "Únete a nuestra red de talleres certificados en toda España.", href: "/socios", cta: "Más información" },
               { title: "Soluciones técnicas", desc: "Profundiza en cada solución: causas, síntomas y proceso.", href: "/soluciones", cta: "Ver soluciones" },
             ].map((item) => (
               <div key={item.title} className="card-eco p-5 flex flex-col gap-3">
