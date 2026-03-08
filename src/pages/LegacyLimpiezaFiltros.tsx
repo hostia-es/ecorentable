@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, Shield, Zap, Settings } from "lucide-react";
 import { AnimatedSection, StaggerChildren } from "@/components/common/Animations";
-import PageHero from "@/components/common/PageHero";
 import FAQSection from "@/components/common/FAQSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,9 +13,9 @@ import { Button } from "@/components/ui/button";
 const WP = "https://ecologiarentable.es/wp-content/uploads";
 
 const badges = [
-  { icon: <Zap size={18} />, title: "Eficaz", desc: "Ciclos predefinidos y control del nivel de agente de limpieza garantizan una limpieza efectiva." },
-  { icon: <Shield size={18} />, title: "Segura", desc: "Fabricación industrial y funda protectora garantizan un proceso seguro y de calidad." },
-  { icon: <Settings size={18} />, title: "Práctica", desc: "Tratamiento autónomo y fiable, sistema de secado y facilidad de uso para una experiencia cómoda." },
+  { icon: <Zap size={20} />, title: "Eficaz", desc: "Ciclos predefinidos y control del nivel de agente de limpieza garantizan una limpieza efectiva." },
+  { icon: <Shield size={20} />, title: "Segura", desc: "Fabricación industrial y funda protectora garantizan un proceso seguro y de calidad." },
+  { icon: <Settings size={20} />, title: "Practica", desc: "Tratamiento autónomo y fiable, sistema de secado y facilidad de uso para una experiencia cómoda." },
 ];
 
 const adaptadorFeatures = [
@@ -40,107 +40,129 @@ const faqItems = [
 ];
 
 export default function LimpiezaFiltros() {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   return (
     <main>
-      <PageHero
-        title="Limpieza Profesional de Filtros de Partículas"
-        subtitle="Descubre nuestros servicios de descarbonización y limpieza de filtros de partículas. ¡Mejora el rendimiento de tu coche y ahorra dinero mientras cuidas el medio ambiente!"
-        breadcrumbs={[{ label: "Limpieza de Filtros de Partículas" }]}
-        badge="Restaura la Eficiencia de tu Motor"
-      />
+      {/* HERO — centered, dark green bg, matching original */}
+      <section
+        className="relative py-28 md:py-36 text-center overflow-hidden"
+        style={{ background: "var(--gradient-hero)" }}
+      >
+        <div className="container mx-auto px-4 relative z-10">
+          <p className="text-sm uppercase tracking-widest mb-4 font-semibold" style={{ color: "hsl(148 72% 55%)" }}>
+            Restaura la Eficiencia de tu Motor
+          </p>
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Limpieza Profesional de{" "}
+            <br className="hidden md:block" />
+            Filtros de Partículas
+          </h1>
+          <p className="text-base md:text-lg max-w-2xl mx-auto mb-8" style={{ color: "hsl(0 0% 85%)" }}>
+            Descubre nuestros servicios de descarbonización y limpieza de filtros de partículas. ¡Mejora el rendimiento de tu coche y ahorra dinero mientras cuidas el medio ambiente!
+          </p>
+          <Link
+            to="/contacto"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-sm transition-all"
+            style={{ background: "hsl(148 72% 55%)", color: "hsl(210 25% 8%)" }}
+          >
+            CONTACTO
+          </Link>
+        </div>
+      </section>
 
-      {/* 3 FEATURE BADGES + CARBON FAP IMAGE */}
+      {/* 3 FEATURE CARDS — white card overlapping hero bottom, 3 columns */}
+      <section className="relative -mt-14 z-10 pb-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+              {badges.map((b) => (
+                <div key={b.title} className="flex flex-col items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: "hsl(var(--accent-green) / 0.12)", color: "hsl(var(--accent-green))" }}>
+                    {b.icon}
+                  </div>
+                  <h3 className="font-bold text-lg" style={{ color: "hsl(var(--foreground))" }}>{b.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{b.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CARBON FAP — image LEFT, text RIGHT (matching original layout) */}
       <AnimatedSection>
         <section className="py-16 section-light">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <StaggerChildren>
-                <div className="space-y-6">
-                  {badges.map((b) => (
-                    <Card key={b.title}>
-                      <CardContent className="p-5 flex items-start gap-4">
-                        <div className="icon-circle w-10 h-10 shrink-0">{b.icon}</div>
-                        <div>
-                          <h3 className="font-bold mb-1 text-foreground">{b.title}</h3>
-                          <p className="text-sm leading-relaxed text-muted-foreground">{b.desc}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </StaggerChildren>
               <div className="flex justify-center">
                 <img
                   src={`${WP}/2024/11/carbon-fap-ecologia-rentable.png`}
                   alt="Carbon FAP máquina limpiadora de filtros de partículas"
-                  className="max-w-full h-auto max-h-[450px] object-contain"
+                  className="max-w-full h-auto max-h-[500px] object-contain"
                   loading="lazy"
                 />
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-widest font-semibold mb-2" style={{ color: "hsl(var(--accent-green))" }}>
+                  Estación de limpieza de filtros de partículas
+                </p>
+                <h2 className="text-2xl md:text-3xl font-bold mb-5 text-foreground">
+                  Carbon FAP Limpieza de filtros de partículas
+                </h2>
+                <p className="text-base leading-relaxed text-muted-foreground mb-4">
+                  Descubre la eficaz máquina limpiadora Carbon FAP, tu mejor aliada para mantener en óptimas condiciones los filtros de partículas, ya sean de gasolina o diésel.
+                </p>
+                <p className="text-base leading-relaxed text-muted-foreground mb-4">
+                  Con un ciclo automatizado, esta innovadora tecnología elimina de manera efectiva residuos, partículas no quemadas y obstrucciones en el FAP.
+                </p>
+                <p className="text-base leading-relaxed text-muted-foreground mb-6">
+                  Desarrollada por Ecología Rentable, la máquina Carbon FAP ofrece el equilibrio perfecto entre aditivos individuales y dispositivos costosos, brindando una solución accesible y eficiente para talleres de uso general.
+                </p>
+                <ul className="space-y-3">
+                  {[
+                    { label: "Cubierta Protectora", desc: "Aisla, fija y protege contra derrames." },
+                    { label: "Procesamiento Automático", desc: "Ciclos preestablecidos adaptados a los niveles de obstrucción del FAP." },
+                    { label: "Resultado Asegurado", desc: "Un producto seguro para el FAP, libre de disolventes y de alta eficacia." },
+                  ].map((item) => (
+                    <li key={item.label} className="flex items-start gap-2">
+                      <CheckCircle size={16} className="text-primary shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground"><strong>{item.label}:</strong> <span className="text-muted-foreground">{item.desc}</span></span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
         </section>
       </AnimatedSection>
 
-      {/* CARBON FAP SECTION */}
-      <AnimatedSection>
-        <section className="py-16 section-alt">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <Badge variant="secondary" className="mb-3">Estación de limpieza de filtros de partículas</Badge>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-                Carbon FAP Limpieza de filtros de partículas
-              </h2>
-              <p className="text-base leading-relaxed text-muted-foreground mb-4">
-                Descubre la eficaz máquina limpiadora Carbon FAP, tu mejor aliada para mantener en óptimas condiciones los filtros de partículas, ya sean de gasolina o diésel.
-              </p>
-              <p className="text-base leading-relaxed text-muted-foreground mb-4">
-                Con un ciclo automatizado, esta innovadora tecnología elimina de manera efectiva residuos, partículas no quemadas y obstrucciones en el FAP.
-              </p>
-              <p className="text-base leading-relaxed text-muted-foreground mb-6">
-                Desarrollada por Ecología Rentable, la máquina Carbon FAP ofrece el equilibrio perfecto entre aditivos individuales y dispositivos costosos, brindando una solución accesible y eficiente para talleres de uso general.
-              </p>
-              <ul className="space-y-3">
-                {[
-                  { label: "Cubierta Protectora", desc: "Aisla, fija y protege contra derrames." },
-                  { label: "Procesamiento Automático", desc: "Ciclos preestablecidos adaptados a los niveles de obstrucción del FAP." },
-                  { label: "Resultado Asegurado", desc: "Un producto seguro para el FAP, libre de disolventes y de alta eficacia." },
-                ].map((item) => (
-                  <li key={item.label} className="flex items-start gap-2">
-                    <CheckCircle size={16} className="text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground"><strong>{item.label}:</strong> {item.desc}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-      </AnimatedSection>
-
       {/* PARTNER LOGOS */}
-      <section className="py-10 section-light">
+      <section className="py-10 section-alt">
         <div className="container mx-auto px-4">
-          <h3 className="text-center text-sm font-semibold text-muted-foreground mb-6">Socios</h3>
-          <div className="flex flex-wrap justify-center items-center gap-8">
+          <h3 className="text-center text-xs uppercase tracking-widest font-semibold mb-6" style={{ color: "hsl(var(--muted-foreground))" }}>Socios</h3>
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
             {partnerLogos.map((logo, i) => (
-              <img key={i} src={logo} alt="Socio" className="h-12 object-contain opacity-70 hover:opacity-100 transition-opacity" loading="lazy" />
+              <img key={i} src={logo} alt={`Socio ${i + 1}`} className="h-12 md:h-14 object-contain opacity-70 hover:opacity-100 transition-opacity" loading="lazy" />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ADAPTADOR FEATURES */}
+      {/* ADAPTADOR FEATURES — 3 columns */}
       <AnimatedSection>
-        <section className="py-16 section-alt">
+        <section className="py-16 section-light">
           <div className="container mx-auto px-4">
             <div className="text-center mb-10">
-              <Badge variant="secondary" className="mb-3">limpieza de filtros de partículas</Badge>
+              <p className="text-xs uppercase tracking-widest font-semibold mb-2" style={{ color: "hsl(var(--accent-green))" }}>
+                limpieza de filtros de partículas
+              </p>
               <h3 className="text-xl md:text-2xl font-bold text-foreground">Adaptador exclusivo para todos los tipos de FAP</h3>
             </div>
             <StaggerChildren>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 {adaptadorFeatures.map((f) => (
-                  <Card key={f.title}>
+                  <Card key={f.title} className="hover:shadow-lg transition-shadow">
                     <CardContent className="p-6 text-center">
                       <h4 className="font-bold mb-2 text-foreground">{f.title}</h4>
                       <p className="text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
@@ -153,25 +175,31 @@ export default function LimpiezaFiltros() {
         </section>
       </AnimatedSection>
 
-      {/* CTA BANNER */}
-      <section className="relative py-20 overflow-hidden">
+      {/* CTA BANNER — full-width image bg */}
+      <section className="relative py-24 overflow-hidden">
         <img
           src={`${WP}/2024/11/unete-a-ecologia-rentable-hoy.png`}
-          alt=""
+          alt="Únete a Ecología Rentable"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/60" />
-        <div className="relative container mx-auto px-4 text-center">
-          <Badge variant="secondary" className="mb-3">Transforma tu Vehículo y Tu Negocio Hoy Mismo</Badge>
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+        <div className="relative container mx-auto px-4 text-center z-10">
+          <p className="text-xs uppercase tracking-widest font-semibold mb-3" style={{ color: "hsl(var(--accent-green))" }}>
+            Transforma tu Vehículo y Tu Negocio Hoy Mismo
+          </p>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-5">
             ¡Únete a la Revolución Ecológica con Ecología Rentable!
           </h2>
-          <p className="text-base text-white/80 max-w-2xl mx-auto mb-6">
-            Descubre cómo Ecología Rentable puede potenciar tu negocio automotriz y mejorar el rendimiento de tu vehículo con servicios de descarbonización y limpieza de filtros de partículas.
+          <p className="text-base text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed">
+            Descubre cómo Ecología Rentable puede potenciar tu negocio automotriz y mejorar el rendimiento de tu vehículo con servicios de descarbonización y limpieza de filtros de partículas. ¡Sé parte de la solución para un futuro más limpio y sostenible! Contáctanos ahora para comenzar tu transformación hacia la excelencia ecológica y rentable. ¡Haz clic para iniciar tu viaje hacia un mundo automotriz más limpio y eficiente!
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/descarbonizacion" className="btn-primary text-sm">Descarbonización <ArrowRight size={14} /></Link>
-            <Link to="/contacto" className="btn-outline text-sm border-white text-white hover:bg-white/10">Contacto <ArrowRight size={14} /></Link>
+            <Link to="/descarbonizacion" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all" style={{ background: "hsl(var(--accent-green))", color: "hsl(210 25% 8%)" }}>
+              Descarbonización <ArrowRight size={14} />
+            </Link>
+            <Link to="/contacto" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm border-2 border-white text-white hover:bg-white/10 transition-all">
+              Contacto <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>
@@ -186,23 +214,37 @@ export default function LimpiezaFiltros() {
             <p className="text-center text-muted-foreground mb-8">
               Ponte en contacto con nosotros para más información sobre nuestros servicios de descarbonización de coches y limpieza de filtro de partículas.
             </p>
-            <form className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div><Label htmlFor="nombre">Nombre</Label><Input id="nombre" placeholder="Tu nombre" /></div>
-                <div><Label htmlFor="apellidos">Apellidos</Label><Input id="apellidos" placeholder="Tus apellidos" /></div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div><Label htmlFor="email">Email</Label><Input id="email" type="email" placeholder="tu@email.com" /></div>
-                <div><Label htmlFor="telefono">Teléfono</Label><Input id="telefono" type="tel" placeholder="+34 600 000 000" /></div>
-              </div>
-              <div><Label htmlFor="mensaje">Mensaje</Label><Textarea id="mensaje" placeholder="¿En qué podemos ayudarte?" rows={4} /></div>
-              <Button type="submit" className="w-full">ENVIAR</Button>
-            </form>
+            {formSubmitted ? (
+              <Card className="text-center">
+                <CardContent className="p-10">
+                  <div className="icon-circle w-16 h-16 mx-auto mb-4"><CheckCircle size={28} /></div>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">¡Mensaje enviado!</h3>
+                  <p className="text-sm text-muted-foreground mb-5">Te responderemos en menos de 24 horas.</p>
+                  <Button asChild><Link to="/">Volver al inicio</Link></Button>
+                </CardContent>
+              </Card>
+            ) : (
+              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); setFormSubmitted(true); }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5"><Label htmlFor="nombre">Nombre</Label><Input id="nombre" placeholder="Tu nombre" required /></div>
+                  <div className="space-y-1.5"><Label htmlFor="apellidos">Apellidos</Label><Input id="apellidos" placeholder="Tus apellidos" required /></div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5"><Label htmlFor="email">Email</Label><Input id="email" type="email" placeholder="tu@email.com" required /></div>
+                  <div className="space-y-1.5"><Label htmlFor="telefono">Teléfono</Label><Input id="telefono" type="tel" placeholder="+34 600 000 000" /></div>
+                </div>
+                <div className="space-y-1.5"><Label htmlFor="mensaje">Mensaje</Label><Textarea id="mensaje" placeholder="¿En qué podemos ayudarte?" rows={4} /></div>
+                <Button type="submit" className="w-full">ENVIAR</Button>
+              </form>
+            )}
           </div>
         </section>
       </AnimatedSection>
 
-      <FAQSection items={faqItems} title="Preguntas Frecuentes" />
+      <FAQSection
+        items={faqItems}
+        title="Preguntas Frecuentes"
+      />
     </main>
   );
 }
