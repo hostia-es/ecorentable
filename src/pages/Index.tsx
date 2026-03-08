@@ -569,8 +569,7 @@ export default function Index() {
           <div className="border-t pt-10 grid md:grid-cols-4 gap-8" style={{ borderColor: "hsl(var(--border))" }}>
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <Leaf size={18} style={{ color: "hsl(var(--primary))" }} />
-                <span className="font-bold text-lg" style={{ color: "hsl(var(--foreground))" }}>Ecología Rentable</span>
+                <img src={logoER} alt="Ecología Rentable" className="h-7 w-auto" />
               </div>
               <p className="text-xs leading-relaxed max-w-xs" style={{ color: "hsl(var(--muted-foreground))" }}>
                 Somos expertos en descarbonización y limpieza de filtros de partículas. Resultados medibles, sin sorpresas.
