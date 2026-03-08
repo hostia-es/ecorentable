@@ -131,7 +131,7 @@ export const products: Product[] = [
     shortName: "Carbon FAP",
     category: "Aditivos",
     categorySlug: "aditivos",
-    price: "Desde 28 €",
+    price: "Consultar precio",
     description: "Aditivo profesional para la regeneración y limpieza del filtro de partículas FAP/DPF. Fórmula de alta concentración para uso taller y particular.",
     technicalDescription: "Carbon FAP es un aditivo basado en óxidos de cerio y compuestos orgánicos que actúan como catalizador durante la regeneración del filtro de partículas. Reduce la temperatura de inflamación de las partículas de hollín (de ~550°C a ~400°C), facilitando la regeneración pasiva y activa del DPF/FAP en condiciones de conducción normales. Fórmula sin cloruros ni compuestos corrosivos.",
     specifications: [
