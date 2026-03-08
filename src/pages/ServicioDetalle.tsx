@@ -50,8 +50,8 @@ const servicios: Record<string, ServicioData> = {
     definition: "El servicio para particulares de Ecología Rentable incluye la descarbonización completa del motor, la limpieza del filtro de partículas y el tratamiento de la válvula EGR adaptado al vehículo de uso personal. Ideal antes de la ITV, tras síntomas de pérdida de potencia o como mantenimiento preventivo.",
     symptoms: ["Testigo de motor o DPF en el cuadro", "Tu vehículo ha suspendido la ITV por emisiones", "Notas pérdida de potencia o mayor consumo", "Llevas más de 40.000 km sin mantenimiento del motor"],
     benefits: ["Vehículo más eficiente y limpio", "Superar la ITV con margen", "Evitar averías costosas (sustitución DPF: 400–1.500 €)", "Conducción más suave y placentera"],
-    priceRange: "Desde 80 € hasta 250 €",
-    priceNote: "Precio según vehículo y servicios incluidos. Solicita presupuesto gratuito en cualquier centro certificado.",
+    priceRange: "Consultar precio",
+    priceNote: "Precio según vehículo y servicios incluidos. Solicita presupuesto gratuito sin compromiso.",
     process: [
       { step: 1, title: "Pide cita", desc: "Localiza el centro más cercano en nuestro directorio y solicita cita online o por teléfono." },
       { step: 2, title: "Diagnóstico gratuito", desc: "El taller realiza una lectura OBD2 gratuita para identificar exactamente lo que necesita tu vehículo." },
