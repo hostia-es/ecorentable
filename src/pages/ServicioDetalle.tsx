@@ -116,8 +116,8 @@ const servicios: Record<string, ServicioData> = {
     definition: "El servicio de limpieza de filtros de partículas (DPF/FAP) de Ecología Rentable utiliza diferentes métodos según el grado de obstrucción: tratamiento por admisión, aditivos de regeneración o limpieza por ultrasonidos con desmontaje. El objetivo es recuperar el filtro evitando su costosa sustitución.",
     symptoms: ["Testigo DPF/FAP encendido", "Vehículo en modo de emergencia (limp mode)", "Regeneraciones muy frecuentes o que no finalizan", "Pérdida severa de potencia", "Consumo de aceite mayor de lo habitual"],
     benefits: ["Recuperación del filtro sin sustitución", "Ahorro de 400–1.500 € vs. DPF nuevo", "Eliminación del testigo y del limp mode", "Reducción de opacidad medible en ITV", "Extensión de vida del filtro 50.000+ km adicionales"],
-    priceRange: "Desde 120 € hasta 400 €",
-    priceNote: "El precio varía según el grado de obstrucción, el método necesario (sin/con desmontaje) y el tipo de vehículo.",
+    priceRange: "Consultar precio",
+    priceNote: "El precio varía según el grado de obstrucción, el método necesario y el tipo de vehículo. Solicita presupuesto.",
     process: [
       { step: 1, title: "Medición de contrapresión", desc: "Diagnóstico del nivel de obstrucción del filtro con equipo de presión diferencial." },
       { step: 2, title: "Selección del método", desc: "Tratamiento por admisión (sin desmontaje) o limpieza por ultrasonidos (con desmontaje) según el estado." },
