@@ -84,6 +84,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     date: "2024-03-01",
     tags: ["ITV", "emisiones", "CO", "NOx", "inspección técnica"],
+    image: blogItvDescarbonizacion,
   },
   {
     id: "bp6",
