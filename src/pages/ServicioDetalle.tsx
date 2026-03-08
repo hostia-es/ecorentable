@@ -63,7 +63,7 @@ const servicios: Record<string, ServicioData> = {
       { question: "¿Necesito llevar el vehículo al taller?", answer: "Sí, el servicio se realiza siempre en un taller certificado Ecología Rentable. Localiza el más cercano en nuestro directorio." },
       { question: "¿Qué vehículos admite el servicio?", answer: "Turismos y furgonetas ligeras, diésel y gasolina, Euro 3 a Euro 6d. Para vehículos industriales, consulta el servicio de flotas." },
     ],
-    relatedLinks: [{ label: "Encontrar centro", href: "/encuentre-centro" }, { label: "Solución ITV", href: "/soluciones/itv-gases" }, { label: "Preguntas frecuentes", href: "/contacto" }],
+    relatedLinks: [{ label: "Contactar", href: "/contacto" }, { label: "Solución ITV", href: "/soluciones/itv-gases" }, { label: "Preguntas frecuentes", href: "/contacto" }],
   },
   talleres: {
     title: "Servicios para Talleres",
