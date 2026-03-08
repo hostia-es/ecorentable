@@ -218,7 +218,7 @@ export const products: Product[] = [
     shortName: "DPF Ultrasonidos Pro",
     category: "Máquinas Descarbonizadoras",
     categorySlug: "maquinas-descarbonizadoras",
-    price: "Desde 3.500 €",
+    price: "Consultar precio",
     description: "Máquina de limpieza de filtros de partículas (DPF/FAP) por ultrasonidos y lavado a presión, para talleres especializados en regeneración de filtros.",
     technicalDescription: "Sistema profesional de limpieza de DPF/FAP que combina baño de ultrasonidos a 40 kHz, lavado a presión (hasta 8 bar) y secado por insuflación de aire caliente. Capaz de limpiar filtros con obstrucción de hasta 90%, con ciclos de 60–90 minutos por unidad.",
     specifications: [
