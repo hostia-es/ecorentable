@@ -260,7 +260,7 @@ export default function Index() {
               >
                 <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                   <img src={hyCaronAngle} alt="Equipo Hy-Carbon" className="w-full h-32 object-cover" />
-                  <div className="p-3" style={{ background: "hsl(0 0% 100% / 0.06)", backdropFilter: "blur(20px)" }}>
+                  <div className="p-3" style={{ background: "hsl(220 20% 12% / 0.75)", backdropFilter: "blur(30px)" }}>
                     <p className="text-[10px] font-semibold text-white uppercase tracking-wider">Hy-Carbon Connect</p>
                     <p className="text-[10px] text-white/50">Tecnología de hidrógeno</p>
                   </div>
