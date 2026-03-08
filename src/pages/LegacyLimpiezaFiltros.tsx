@@ -63,12 +63,13 @@ export default function LimpiezaFiltros() {
           </p>
           <Link
             to="/contacto"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-sm transition-all"
-            style={{ background: "hsl(148 72% 55%)", color: "hsl(210 25% 8%)" }}
+            className="btn-cta text-sm"
           >
             CONTACTO
           </Link>
         </div>
+        {/* Smooth fade into next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to bottom, transparent, hsl(210 20% 98%))" }} />
       </section>
 
       {/* 3 FEATURE CARDS — white card overlapping hero bottom, 3 columns */}
