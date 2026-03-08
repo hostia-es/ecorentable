@@ -71,8 +71,9 @@ export default function Blog() {
           <h2 className="text-2xl font-bold mb-8" style={{ color: "hsl(var(--foreground))" }}>Todos los artículos</h2>
           <div className="space-y-4">
             {recent.map((post) => (
-              <Link key={post.id} to={`/blog/${post.slug}`} className="card-eco p-5 flex flex-col sm:flex-row sm:items-center gap-4 group hover:shadow-md transition-shadow">
-                <div className="flex-1">
+              <Link key={post.id} to={`/blog/${post.slug}`} className="card-eco p-0 overflow-hidden flex flex-col sm:flex-row sm:items-center gap-0 group hover:shadow-md transition-shadow">
+                <img src={post.image} alt={post.title} className="w-full sm:w-40 h-28 sm:h-full object-cover shrink-0" loading="lazy" />
+                <div className="p-5 flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="badge-steel text-xs">{post.category}</span>
                     <span className="text-xs flex items-center gap-1" style={{ color: "hsl(var(--muted-foreground))" }}><Clock size={10} />{post.readTime}</span>
