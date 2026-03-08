@@ -244,7 +244,6 @@ export default function LimpiezaFiltros() {
       <FAQSection
         items={faqItems}
         title="Preguntas Frecuentes"
-        subtitle="En esta sección, encontrarás respuestas a las preguntas más comunes sobre la descarbonización de coches y la limpieza de filtro de partículas que ofrecemos en Ecología Rentable. Si aún tienes alguna pregunta adicional, no dudes en ponerte en contacto con nosotros."
       />
     </main>
   );
