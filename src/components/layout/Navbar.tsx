@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, ChevronDown, Leaf } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import logoER from "@/assets/logo-ecologia-rentable.png";
 
 const navItems = [
   {
@@ -47,11 +48,8 @@ export default function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 font-bold text-lg" style={{ color: "hsl(var(--primary))" }}>
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg" style={{ background: "var(--gradient-primary)" }}>
-              <Leaf size={18} color="white" />
-            </div>
-            <span className="hidden sm:block">Ecología Rentable</span>
+          <Link to="/" className="flex items-center">
+            <img src={logoER} alt="Ecología Rentable" className="h-8 w-auto" />
           </Link>
 
           {/* Desktop Nav */}

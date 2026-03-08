@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, ChevronDown, ChevronRight, Leaf, Zap, Shield, Wrench, TrendingUp, Star, CheckCircle, Search, Clock, Fuel, Gauge, Users, Award, Phone, Mail } from "lucide-react";
+import { ArrowRight, MapPin, ChevronDown, ChevronRight, Zap, Shield, Wrench, TrendingUp, Star, CheckCircle, Search, Clock, Fuel, Gauge, Users, Award, Phone, Mail } from "lucide-react";
+import logoER from "@/assets/logo-ecologia-rentable.png";
 import { useState } from "react";
 
 import hyCaronAngle from "@/assets/hy-carbon-connect-angle.png";
@@ -84,7 +85,7 @@ function FaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean
 const heroMicrocopy = [
   { icon: <Zap size={16} />, text: "Hasta un 15% menos de consumo de combustible tras el tratamiento" },
   { icon: <Wrench size={16} />, text: "Sin desmontar el motor — proceso completo en menos de 60 minutos" },
-  { icon: <Leaf size={16} />, text: "Reducción de emisiones contaminantes de hasta un 20%" },
+  { icon: <Shield size={16} />, text: "Reducción de emisiones contaminantes de hasta un 20%" },
 ];
 
 const heroStats = [
@@ -569,8 +570,7 @@ export default function Index() {
           <div className="border-t pt-10 grid md:grid-cols-4 gap-8" style={{ borderColor: "hsl(var(--border))" }}>
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <Leaf size={18} style={{ color: "hsl(var(--primary))" }} />
-                <span className="font-bold text-lg" style={{ color: "hsl(var(--foreground))" }}>Ecología Rentable</span>
+                <img src={logoER} alt="Ecología Rentable" className="h-7 w-auto" />
               </div>
               <p className="text-xs leading-relaxed max-w-xs" style={{ color: "hsl(var(--muted-foreground))" }}>
                 Somos expertos en descarbonización y limpieza de filtros de partículas. Resultados medibles, sin sorpresas.
