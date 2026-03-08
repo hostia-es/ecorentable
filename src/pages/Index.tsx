@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, Zap, Shield, Wrench, Star, CheckCircle, Clock, Mail } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, MapPin, Zap, Shield, Wrench, Star, CheckCircle, Clock, Mail, Leaf, Gauge, Play } from "lucide-react";
+import { motion, useTransform } from "framer-motion";
 import logoER from "@/assets/logo-ecologia-rentable.png";
 
 import hyCaronFront from "@/assets/hy-carbon-connect-front.png";
 import diagnosticoMotor from "@/assets/diagnostico-motor.jpg";
 import tecnicoHyCarbon from "@/assets/tecnico-hy-carbon.jpg";
 import heroMachineDark from "@/assets/hero-machine-dark.jpg";
+import heroCinematic from "@/assets/hero-cinematic.jpg";
 import serviceWide from "@/assets/service-wide.jpg";
 import hyCaronAngle from "@/assets/hy-carbon-connect-angle.png";
 import kitDigitalBanner from "@/assets/kit-digital-banner.png";
@@ -17,19 +18,14 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AnimatedSection, AnimatedCounter, StaggerChildren, staggerItem } from "@/components/common/Animations";
+import { useParallaxScroll, useParallax, useMouseParallax } from "@/hooks/use-parallax";
 
 /* ═══════════ DATA ═══════════ */
-const heroMicrocopy = [
-  { icon: <Zap size={16} />, text: "Hasta un 15% menos de consumo de combustible tras el tratamiento" },
-  { icon: <Wrench size={16} />, text: "Sin desmontar el motor — proceso completo en menos de 60 minutos" },
-  { icon: <Shield size={16} />, text: "Reducción de emisiones contaminantes de hasta un 20%" },
-];
-
 const heroStats = [
-  { value: "10+", label: "Años de experiencia" },
-  { value: "500+", label: "Máquinas en servicio" },
-  { value: "50K+", label: "Vehículos tratados" },
-  { value: "45K+", label: "Clientes satisfechos" },
+  { value: "10+", label: "Años de experiencia", icon: <Clock size={18} /> },
+  { value: "500+", label: "Máquinas en servicio", icon: <Wrench size={18} /> },
+  { value: "50K+", label: "Vehículos tratados", icon: <Gauge size={18} /> },
+  { value: "45K+", label: "Clientes satisfechos", icon: <Star size={18} /> },
 ];
 
 const aboutBullets = [
@@ -77,6 +73,17 @@ const testimonials = [
 
 /* ═══════════ PAGE ═══════════ */
 export default function Index() {
+  const scrollY = useParallaxScroll();
+  const mouse = useMouseParallax(0.015);
+
+  // Parallax transforms for hero
+  const heroImageY = useTransform(scrollY, [0, 800], [0, 200]);
+  const heroTextY = useTransform(scrollY, [0, 600], [0, -80]);
+  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const heroScale = useTransform(scrollY, [0, 600], [1, 1.1]);
+  const floatingCard1Y = useTransform(scrollY, [0, 600], [0, -60]);
+  const floatingCard2Y = useTransform(scrollY, [0, 600], [0, -90]);
+
   return (
     <main className="overflow-x-hidden">
 
@@ -92,113 +99,179 @@ export default function Index() {
       </div>
 
       {/* ══════════════════════════════════
-          §1 HERO — split: image left / text right
+          §1 HERO — Cinematic fullscreen parallax
       ══════════════════════════════════ */}
-      <section className="bg-background">
-        <div className="grid lg:grid-cols-2 min-h-[92vh]">
-          {/* LEFT: hero image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="relative overflow-hidden order-2 lg:order-1 min-h-[50vw] lg:min-h-0"
-          >
-            <img src={heroMachineDark} alt="Máquina descarbonizadora profesional Hy-Carbon Connect" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <p className="text-white text-sm font-semibold opacity-90">Ecología Rentable</p>
-              <p className="text-xs mt-1 text-white/70">Especialistas en descarbonización de motores</p>
+      <section className="relative min-h-screen overflow-hidden flex items-center" style={{ background: "hsl(210 25% 4%)" }}>
+        {/* Background image with parallax */}
+        <motion.div
+          className="absolute inset-0 w-full h-[120%] -top-[10%]"
+          style={{ y: heroImageY, scale: heroScale }}
+        >
+          <img
+            src={heroCinematic}
+            alt="Motor siendo tratado con tecnología de hidrógeno"
+            className="w-full h-full object-cover"
+          />
+          {/* Dark overlays for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[hsl(210_25%_4%/0.88)] via-[hsl(210_25%_4%/0.6)] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(210_25%_4%/0.7)] via-transparent to-[hsl(210_25%_4%/0.3)]" />
+        </motion.div>
+
+        {/* Subtle dot grid texture */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, hsl(148 60% 50%) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+
+        {/* Main content with parallax */}
+        <motion.div
+          className="relative z-10 container mx-auto px-6 lg:px-12 py-32"
+          style={{ y: heroTextY, opacity: heroOpacity }}
+        >
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
+            {/* Left text column */}
+            <div className="lg:col-span-7">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+              >
+                <Badge className="mb-6 bg-[hsl(148_60%_40%/0.15)] text-[hsl(148_60%_65%)] border-[hsl(148_60%_40%/0.3)] text-xs tracking-[0.2em] uppercase font-medium hover:bg-[hsl(148_60%_40%/0.15)] backdrop-blur-sm">
+                  <Leaf size={12} className="mr-1.5" /> Descarbonización por hidrógeno
+                </Badge>
+              </motion.div>
+
+              {/* Giant typography */}
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.35 }}
+                className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight mb-6"
+                style={{ color: "hsl(0 0% 100%)" }}
+              >
+                <span className="block">MOTOR</span>
+                <span className="block text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, hsl(148 60% 55%), hsl(148 72% 70%))" }}>
+                  LIMPIO
+                </span>
+                <span className="block text-[0.45em] font-medium tracking-normal mt-2" style={{ color: "hsl(0 0% 100% / 0.6)" }}>
+                  rendimiento que se mide, no que se imagina
+                </span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.55 }}
+                className="text-base md:text-lg leading-relaxed max-w-xl mb-8"
+                style={{ color: "hsl(0 0% 100% / 0.6)" }}
+              >
+                Descarbonización por inyección de hidrógeno y limpieza profesional de filtros de partículas. Sin desmontaje. Resultados medibles antes y después.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.7 }}
+                className="flex flex-col sm:flex-row gap-3 mb-12"
+              >
+                <Button asChild size="lg" className="gap-2 text-sm h-12 px-8 rounded-full shadow-[0_0_30px_hsl(148_60%_40%/0.3)]">
+                  <Link to="/servicios">Ver servicios <ArrowRight size={16} /></Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="gap-2 text-sm h-12 px-8 rounded-full border-white/20 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
+                  <Link to="/contacto"><Play size={14} /> Solicitar diagnóstico</Link>
+                </Button>
+              </motion.div>
+
+              {/* Stats row */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.85 }}
+                className="grid grid-cols-2 sm:grid-cols-4 gap-6"
+              >
+                {heroStats.map((s) => (
+                  <div key={s.label} className="group">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[hsl(148_60%_55%)]">{s.icon}</span>
+                      <AnimatedCounter value={s.value} className="text-2xl md:text-3xl font-bold text-white" />
+                    </div>
+                    <div className="text-[11px] uppercase tracking-wider text-white/40">{s.label}</div>
+                  </div>
+                ))}
+              </motion.div>
             </div>
-          </motion.div>
 
-          {/* RIGHT: text content */}
-          <div className="order-1 lg:order-2 flex flex-col justify-center px-8 md:px-12 lg:px-16 py-16">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
-              <Badge variant="secondary" className="w-fit mb-4 text-xs font-semibold tracking-wide uppercase">
-                Tu motor acumula carbonilla desde los primeros 15.000 km
-              </Badge>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="text-3xl md:text-4xl xl:text-[2.75rem] font-bold leading-[1.15] mb-6 text-foreground"
-            >
-              Dale a tu motor lo que necesita: una limpieza que se nota desde el primer kilómetro
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-base mb-6 leading-relaxed text-muted-foreground"
-            >
-              Descarbonización por inyección de hidrógeno y limpieza profesional de filtros de partículas. Sin desmontaje, sin química agresiva, con resultados medibles antes y después del tratamiento.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.65 }}
-              className="flex flex-col sm:flex-row gap-3 mb-8"
-            >
-              <Button asChild className="gap-2">
-                <Link to="/servicios">Ver servicios <ArrowRight size={15} /></Link>
-              </Button>
-              <Button asChild variant="outline" className="gap-2">
-                <Link to="/contacto">Solicitar diagnóstico gratuito</Link>
-              </Button>
-            </motion.div>
-
-            {/* 3 microcopy */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="space-y-3 mb-10"
-            >
-              {heroMicrocopy.map((item, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <span className="mt-0.5 shrink-0 text-primary">{item.icon}</span>
-                  <p className="text-sm text-muted-foreground">{item.text}</p>
-                </div>
-              ))}
-            </motion.div>
-
-            {/* 3 small thumbnails row */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-              className="grid grid-cols-3 gap-3 mb-8"
-            >
-              {[
-                { src: tecnicoHyCarbon, label: "Técnico certificado" },
-                { src: hyCaronAngle, label: "Equipo Hy-Carbon" },
-                { src: diagnosticoMotor, label: "Diagnóstico digital" },
-              ].map((img) => (
-                <div key={img.label} className="relative overflow-hidden rounded-lg aspect-video">
-                  <img src={img.src} alt={img.label} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 flex items-end p-2 bg-gradient-to-t from-black/70 to-transparent">
-                    <span className="text-white text-[10px] font-medium leading-tight">{img.label}</span>
+            {/* Right floating elements */}
+            <div className="hidden lg:block lg:col-span-5 relative">
+              {/* Floating glassmorphism card 1 */}
+              <motion.div
+                style={{ y: floatingCard1Y, x: mouse.x, }}
+                initial={{ opacity: 0, x: 60 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.9, delay: 0.6 }}
+                className="absolute top-4 right-0 w-64"
+              >
+                <div className="rounded-2xl p-5 backdrop-blur-xl border border-white/10" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[hsl(148_60%_40%/0.2)]">
+                      <Zap size={18} className="text-[hsl(148_60%_55%)]" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-white">Ahorro de combustible</p>
+                      <p className="text-[10px] text-white/50">Tras tratamiento</p>
+                    </div>
+                  </div>
+                  <p className="text-3xl font-bold text-[hsl(148_60%_55%)]">-15%</p>
+                  <div className="mt-2 h-1.5 rounded-full bg-white/10 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: "85%" }}
+                      transition={{ duration: 1.5, delay: 1.2, ease: "easeOut" }}
+                      className="h-full rounded-full"
+                      style={{ background: "linear-gradient(90deg, hsl(148 60% 40%), hsl(148 72% 55%))" }}
+                    />
                   </div>
                 </div>
-              ))}
-            </motion.div>
+              </motion.div>
 
-            {/* Stats row with animated counters */}
-            <Separator className="mb-6" />
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {heroStats.map((s) => (
-                <div key={s.label}>
-                  <AnimatedCounter value={s.value} className="text-2xl font-bold text-foreground" />
-                  <div className="text-xs text-muted-foreground">{s.label}</div>
+              {/* Floating glassmorphism card 2 */}
+              <motion.div
+                style={{ y: floatingCard2Y, x: mouse.x }}
+                initial={{ opacity: 0, x: 40, y: 40 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.9, delay: 0.8 }}
+                className="absolute top-44 -left-8 w-56"
+              >
+                <div className="rounded-2xl p-4 backdrop-blur-xl border border-white/10" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[hsl(148_60%_40%/0.2)]">
+                      <Shield size={14} className="text-[hsl(148_60%_55%)]" />
+                    </div>
+                    <p className="text-xs font-semibold text-white">Emisiones reducidas</p>
+                  </div>
+                  <p className="text-2xl font-bold text-white">-20% <span className="text-xs font-normal text-white/40">NOx/CO₂</span></p>
                 </div>
-              ))}
+              </motion.div>
+
+              {/* Floating image card */}
+              <motion.div
+                style={{ y: floatingCard1Y }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.9, delay: 1 }}
+                className="absolute bottom-0 right-8 w-48"
+              >
+                <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                  <img src={hyCaronAngle} alt="Equipo Hy-Carbon" className="w-full h-32 object-cover" />
+                  <div className="p-3" style={{ background: "hsl(0 0% 100% / 0.06)", backdropFilter: "blur(20px)" }}>
+                    <p className="text-[10px] font-semibold text-white uppercase tracking-wider">Hy-Carbon Connect</p>
+                    <p className="text-[10px] text-white/50">Tecnología de hidrógeno</p>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Bottom gradient fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-20" />
       </section>
 
       {/* ══════════════════════════════════
