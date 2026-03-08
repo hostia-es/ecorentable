@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Youtube, MessageCircle } from "lucide-react";
 import logoER from "@/assets/logo-ecologia-rentable.png";
 import kitDigitalBanner from "@/assets/kit-digital-banner.png";
 
