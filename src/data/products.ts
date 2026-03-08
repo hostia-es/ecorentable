@@ -107,7 +107,7 @@ export const products: Product[] = [
     shortName: "Hy-Carbon Connect",
     category: "Accesorios y Consumibles",
     categorySlug: "accesorios-consumibles",
-    price: "Desde 890 €",
+    price: "Consultar precio",
     description: "Kit de conectividad y diagnóstico para integrar cualquier máquina descarbonizadora con sistemas OBD2 y gestión de flotas.",
     technicalDescription: "El Hy-Carbon Connect es un módulo de diagnóstico y conectividad que se instala en cualquier máquina descarbonizadora compatible. Lee los parámetros del vehículo antes, durante y después del ciclo de descarbonización, generando informes comparativos automáticos. Compatible con OBD2 universal y múltiples protocolos CAN-Bus. Permite la gestión remota de sesiones de descarbonización y el seguimiento de flotas.",
     specifications: [
