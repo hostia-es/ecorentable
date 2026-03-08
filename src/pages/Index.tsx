@@ -85,7 +85,7 @@ function FaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean
 const heroMicrocopy = [
   { icon: <Zap size={16} />, text: "Hasta un 15% menos de consumo de combustible tras el tratamiento" },
   { icon: <Wrench size={16} />, text: "Sin desmontar el motor — proceso completo en menos de 60 minutos" },
-  { icon: <Leaf size={16} />, text: "Reducción de emisiones contaminantes de hasta un 20%" },
+  { icon: <Shield size={16} />, text: "Reducción de emisiones contaminantes de hasta un 20%" },
 ];
 
 const heroStats = [
