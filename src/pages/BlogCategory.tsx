@@ -44,7 +44,7 @@ export default function BlogCategory() {
                       <span>{post.date}</span>
                     </div>
                   </div>
-                  <ArrowRight size={18} className="shrink-0 group-hover:translate-x-1 transition-transform" style={{ color: "hsl(var(--primary))" }} />
+                  <ArrowRight size={18} className="shrink-0 group-hover:translate-x-1 transition-transform mr-5" style={{ color: "hsl(var(--primary))" }} />
                 </Link>
               ))}
             </div>
