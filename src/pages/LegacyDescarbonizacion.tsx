@@ -168,14 +168,14 @@ export default function Descarbonizacion() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {[
-                { value: 10, suffix: "+", label: "Años De Experiencia" },
-                { value: 300, suffix: "+", label: "Máquinas" },
-                { value: 50, suffix: "K+", label: "Vehículos" },
-                { value: 40, suffix: "K+", label: "Clientes" },
+                { value: "10+", label: "Años De Experiencia" },
+                { value: "300+", label: "Máquinas" },
+                { value: "50K+", label: "Vehículos" },
+                { value: "40K+", label: "Clientes" },
               ].map((s) => (
                 <div key={s.label}>
                   <div className="text-3xl md:text-4xl font-bold text-white mb-1">
-                    <AnimatedCounter target={s.value} suffix={s.suffix} />
+                    <AnimatedCounter value={s.value} />
                   </div>
                   <div className="text-sm text-white/70">{s.label}</div>
                 </div>
