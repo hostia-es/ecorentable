@@ -58,6 +58,7 @@ export default function Blog() {
                   <span>{post.date}</span>
                 </div>
                 <span className="text-xs font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: "hsl(var(--primary))" }}>Leer artículo <ArrowRight size={11} /></span>
+                </div>
               </Link>
             ))}
           </div>
