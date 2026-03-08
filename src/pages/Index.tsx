@@ -10,12 +10,10 @@ import heroMachineDark from "@/assets/hero-machine-dark.jpg";
 import heroCinematic from "@/assets/hero-cinematic.jpg";
 import serviceWide from "@/assets/service-wide.jpg";
 import hyCaronAngle from "@/assets/hy-carbon-connect-angle.png";
-import kitDigitalBanner from "@/assets/kit-digital-banner.png";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AnimatedSection, AnimatedCounter, StaggerChildren, staggerItem } from "@/components/common/Animations";
 import { useParallaxScroll, useParallax, useMouseParallax } from "@/hooks/use-parallax";
