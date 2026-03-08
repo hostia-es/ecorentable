@@ -188,7 +188,7 @@ const data: Record<string, SolucionData> = {
     ],
     relatedServices: [
       { title: "Servicio para particulares", href: "/servicios/particulares" },
-      { title: "Encontrar centro ITV-friendly", href: "/encuentre-centro" },
+      { title: "Contactar para presupuesto ITV", href: "/contacto" },
     ],
   },
   "aditivos-motor": {
