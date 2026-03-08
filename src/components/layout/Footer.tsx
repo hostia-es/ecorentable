@@ -26,14 +26,6 @@ const footerLinks = {
     { label: "Contacto", href: "/contacto" },
     { label: "Accesibilidad", href: "/accesibilidad" },
   ],
-  centros: [
-    { label: "Madrid", href: "/encuentre-centro/madrid" },
-    { label: "Barcelona", href: "/encuentre-centro/barcelona" },
-    { label: "Valencia", href: "/encuentre-centro/valencia" },
-    { label: "Sevilla", href: "/encuentre-centro/sevilla" },
-    { label: "Málaga", href: "/encuentre-centro/malaga" },
-    { label: "Ver todos", href: "/encuentre-centro" },
-  ],
 };
 
 export default function Footer() {
@@ -52,7 +44,7 @@ export default function Footer() {
             <div className="space-y-2 text-sm" style={{ color: "hsl(0 0% 65%)" }}>
               <div className="flex items-center gap-2">
                 <Phone size={14} style={{ color: "hsl(148 72% 55%)" }} />
-                <span>+34 900 123 456</span>
+                <span>+34 605 928 626</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={14} style={{ color: "hsl(148 72% 55%)" }} />
@@ -120,20 +112,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Centros */}
-          <div>
-            <h4 className="font-semibold mb-3" style={{ color: "hsl(148 72% 55%)" }}>Centros</h4>
-            <ul className="space-y-2">
-              {footerLinks.centros.map((l) => (
-                <li key={l.href}>
-                  <Link to={l.href} className="text-sm transition-colors" style={{ color: "hsl(0 0% 65%)" }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "hsl(148 72% 55%)")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "hsl(0 0% 65%)")}
-                  >{l.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
         <div className="mt-12 pt-6 border-t flex flex-col md:flex-row items-center justify-between gap-4 text-xs" style={{ borderColor: "hsl(0 0% 100% / 0.1)", color: "hsl(0 0% 50%)" }}>

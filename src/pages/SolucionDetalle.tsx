@@ -188,7 +188,7 @@ const data: Record<string, SolucionData> = {
     ],
     relatedServices: [
       { title: "Servicio para particulares", href: "/servicios/particulares" },
-      { title: "Encontrar centro ITV-friendly", href: "/encuentre-centro" },
+      { title: "Contactar para presupuesto ITV", href: "/contacto" },
     ],
   },
   "aditivos-motor": {
@@ -312,7 +312,7 @@ export default function SolucionDetalle() {
                   </li>
                 ))}
               </ul>
-              <Link to="/encuentre-centro" className="btn-primary text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
+              <Link to="/contacto" className="btn-primary text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
             </div>
           </div>
         </div>
@@ -364,7 +364,7 @@ export default function SolucionDetalle() {
       </section>
 
       <FAQSection items={sol.faq} />
-      <CTABox title="¿Listo para resolver el problema?" description="Localiza un centro certificado cerca de ti y solicita cita para tu vehículo." primaryLabel="Encontrar centro" primaryHref="/encuentre-centro" secondaryLabel="Hablar con experto" secondaryHref="/contacto" />
+      <CTABox title="¿Listo para resolver el problema?" description="Contacta con nuestro equipo y solicita presupuesto para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
 }

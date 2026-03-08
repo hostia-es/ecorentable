@@ -635,7 +635,7 @@ export default function Index() {
               Encuentra el centro más cercano o conviértete en socio y ofrece el servicio en tu taller.
             </p>
             <Button asChild className="gap-2">
-              <Link to="/encuentre-centro"><MapPin size={16} /> Encontrar un centro</Link>
+              <Link to="/contacto"><MapPin size={16} /> Contactar con nosotros</Link>
             </Button>
           </AnimatedSection>
         </div>

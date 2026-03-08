@@ -48,7 +48,7 @@ const fullContent: Record<string, React.ReactNode> = {
       <p>La recomendación general para uso mixto (ciudad + carretera) es cada 30.000–50.000 km o cada 2–3 años. Para vehículos con uso predominantemente urbano, se recomienda cada 20.000–30.000 km. Para flotas de transporte, cada 25.000–40.000 km según el tipo de motor.</p>
 
       <h2>¿Cómo encontrar un centro de descarbonización?</h2>
-      <p>Ecología Rentable dispone de una red de talleres certificados en toda España. Puedes localizar el más cercano a tu domicilio en nuestro <Link to="/encuentre-centro" className="text-primary underline">directorio de centros por provincia</Link>.</p>
+      <p>Ecología Rentable dispone de una red de talleres certificados en toda España. <Link to="/contacto" className="text-primary underline">Contacta con nosotros</Link> para conocer el centro más cercano a tu domicilio.</p>
 
       <div className="bg-primary/10 border border-primary/20 rounded-xl p-5 my-6">
         <h3 className="font-bold mb-2">Checklist antes de descarbonizar</h3>
@@ -155,7 +155,7 @@ export default function BlogPost() {
         </section>
       )}
 
-      <CTABox title="¿Listo para actuar?" description="Encuentra un centro de descarbonización certificado cerca de ti o consulta con un experto." primaryLabel="Encontrar centro" primaryHref="/encuentre-centro" secondaryLabel="Hablar con experto" secondaryHref="/contacto" />
+      <CTABox title="¿Listo para actuar?" description="Consulta con un experto sobre descarbonización para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
 }

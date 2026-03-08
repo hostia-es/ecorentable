@@ -63,7 +63,7 @@ const servicios: Record<string, ServicioData> = {
       { question: "¿Necesito llevar el vehículo al taller?", answer: "Sí, el servicio se realiza siempre en un taller certificado Ecología Rentable. Localiza el más cercano en nuestro directorio." },
       { question: "¿Qué vehículos admite el servicio?", answer: "Turismos y furgonetas ligeras, diésel y gasolina, Euro 3 a Euro 6d. Para vehículos industriales, consulta el servicio de flotas." },
     ],
-    relatedLinks: [{ label: "Encontrar centro", href: "/encuentre-centro" }, { label: "Solución ITV", href: "/soluciones/itv-gases" }, { label: "Preguntas frecuentes", href: "/contacto" }],
+    relatedLinks: [{ label: "Contactar", href: "/contacto" }, { label: "Solución ITV", href: "/soluciones/itv-gases" }, { label: "Preguntas frecuentes", href: "/contacto" }],
   },
   talleres: {
     title: "Servicios para Talleres",
@@ -214,7 +214,7 @@ export default function ServicioDetalle() {
               <h2 className="font-bold mb-3 flex items-center gap-2" style={{ color: "hsl(var(--foreground))" }}><Euro size={16} style={{ color: "hsl(var(--primary))" }} />Precio orientativo</h2>
               <div className="text-2xl font-bold mb-2" style={{ color: "hsl(var(--primary))" }}>{s.priceRange}</div>
               <p className="text-xs mb-4" style={{ color: "hsl(var(--muted-foreground))" }}>{s.priceNote}</p>
-              <Link to="/encuentre-centro" className="btn-primary text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
+              <Link to="/contacto" className="btn-primary text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
             </div>
             <div className="card-eco p-6">
               <h2 className="font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>¿Para quién es?</h2>
@@ -245,7 +245,7 @@ export default function ServicioDetalle() {
       </section>
 
       <FAQSection items={s.faq} />
-      <CTABox title="¿Listo para el servicio?" description="Localiza el centro certificado más cercano y solicita cita para tu vehículo." primaryLabel="Encontrar centro" primaryHref="/encuentre-centro" secondaryLabel="Hablar con experto" secondaryHref="/contacto" />
+      <CTABox title="¿Listo para el servicio?" description="Contacta con nuestro equipo y solicita presupuesto para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
 }
