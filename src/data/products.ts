@@ -264,7 +264,7 @@ export const products: Product[] = [
     shortName: "Limpiador Catalizador",
     category: "Accesorios y Consumibles",
     categorySlug: "accesorios-consumibles",
-    price: "Desde 35 €",
+    price: "Consultar precio",
     description: "Limpiador de catalizadores de tres vías y oxidación para vehículos gasolina y diésel, con acción rápida y compatible con sonda lambda.",
     technicalDescription: "Formulado con detergentes específicos y activadores de superficie que eliminan los depósitos de sulfuros, hollín y residuos de aceite que deterioran la eficiencia del catalizador. Aplicación por admisión de aire con motor en marcha, sin desmontaje.",
     specifications: [
