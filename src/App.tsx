@@ -16,8 +16,6 @@ import SolucionDetalle from "./pages/SolucionDetalle";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import BlogCategory from "./pages/BlogCategory";
-import EncuentreCentro from "./pages/EncuentreCentro";
-import EncuentreCentroProvincia from "./pages/EncuentreCentroProvincia";
 import Socios from "./pages/Socios";
 import HazteSocio from "./pages/HazteSocio";
 import SociosPortal from "./pages/SociosPortal";
