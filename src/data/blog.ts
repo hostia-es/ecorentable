@@ -108,6 +108,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "9 min",
     date: "2024-03-20",
     tags: ["flotas", "mantenimiento preventivo", "diésel", "gestión flotas"],
+    image: blogFlotasDiesel,
   },
   {
     id: "bp8",
