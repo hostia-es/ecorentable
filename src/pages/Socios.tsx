@@ -1,142 +1,306 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Star, Users, TrendingUp, Package, BarChart } from "lucide-react";
+import { ArrowRight, CheckCircle, TrendingUp, GraduationCap, BarChart, Package, Users, Heart, Quote } from "lucide-react";
+import { AnimatedSection, StaggerChildren, AnimatedCounter } from "@/components/common/Animations";
 import PageHero from "@/components/common/PageHero";
-import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
-const faqSocios = [
-  { question: "¿Qué tipo de taller puede hacerse socio?", answer: "Cualquier taller mecánico con un mínimo de espacio disponible para instalar la máquina descarbonizadora y disposición de atender a clientes de descarbonización. No se requiere especialización previa." },
-  { question: "¿La máquina se compra o se alquila?", answer: "Ofrecemos ambas modalidades. La compra directa ofrece mayor margen desde el primer día. El alquiler reduce la inversión inicial y es una buena opción para talleres que quieren probar el servicio." },
-  { question: "¿Cuánto tiempo tarda el ROI?", answer: "Con una media de 2–3 servicios de descarbonización al día, el retorno de la inversión en la máquina Hy-Calamine 1000S se consigue en 3–6 meses. Para los modelos superiores, el mayor rendimiento compensará la inversión en plazos similares." },
-  { question: "¿Recibo clientes de Ecología Rentable?", answer: "Sí. Los socios certificados aparecen en el directorio de centros de nuestra web y reciben leads de clientes de su zona geográfica a través de nuestra plataforma." },
+const WP = "https://ecologiarentable.es/wp-content/uploads";
+
+const benefits = [
+  { icon: <TrendingUp size={20} />, title: "Aumente su Facturación", desc: "Un mercado en constante crecimiento. Nuestros socios generan más de 2.500€ en facturación." },
+  { icon: <GraduationCap size={20} />, title: "Formación Certificada", desc: "Obtenga una autorización de diploma para convertirse en un jugador clave en la instalación de productos." },
+  { icon: <BarChart size={20} />, title: "Margen Beneficioso", desc: "Alta rentabilidad con márgenes generados en relación con la mano de obra requerida." },
+  { icon: <Package size={20} />, title: "Productos Innovadores", desc: "Actividad complementaria rentable impulsada por el ahorro real y la demanda del mercado." },
+  { icon: <Users size={20} />, title: "Red de Profesionales", desc: "Únase a una red de profesionales con comunicación compartida y soporte técnico especializado." },
+  { icon: <Heart size={20} />, title: "Fidelización del Cliente", desc: "Trabaje en los motores como un profesional certificado y mantenga a sus clientes fieles a su taller." },
+];
+
+const products = [
+  { name: "Hy-Calamine 1000S® EGR PILOT", desc: "Es una tecnología patentada única que controla el dispositivo EGR para mejorar la eficiencia de la limpieza. Un verdadero probador de EGR, la máquina también permite optimizar la búsqueda de fallos en las válvulas EGR al forzarlas a abrirse o cerrarse.", img: `${WP}/2024/12/Hy-Calamine-1000S-EGR-PILOT.png`, link: "/tienda/maquinas-descarbonizadoras/hy-calamine-1000s-egr-pilot" },
+  { name: "Hy-Carbon Connect descarbonización", desc: "Es una tecnología respetuosa con el medio ambiente porque no contiene productos químicos: inyectamos hidrógeno directamente en el motor para limpiarlo a fondo.", img: `${WP}/2024/12/Hy-Carbon-Connect-ecologia-rentable.png`, link: "/tienda/accesorios-consumibles/hy-carbon-connect" },
+  { name: "Hy-Calamine 2000S® EGR PILOT", desc: "Se utiliza para la descalcificación del motor de hidrógeno para limpiarlo y mejorar su rendimiento, al tiempo que se reduce su consumo. Elimina todos los residuos de carbono contenidos en el motor en solo 60 minutos.", img: `${WP}/2024/12/freepik_br_359974fb-1e58-44f8-a2b2-f02aec440ccd.png`, link: "/tienda/maquinas-descarbonizadoras/hy-calamine-2000s-egr-pilot" },
+  { name: "Carbon FAP Limpieza de filtros de partículas", desc: "Descubre la eficaz máquina limpiadora Carbon FAP, tu mejor aliada para mantener en óptimas condiciones los filtros de partículas, ya sean de gasolina o diésel.", img: `${WP}/2024/11/carbon-fap-ecologia-rentable.png`, link: "/tienda/aditivos/carbon-fap" },
+  { name: "Hy-Calamine 3000S® EGR PILOT", desc: "Descarbonización de motores de hidrógeno se presenta como la mejor solución para la limpieza del motor de vehículos ligeros, vehículos comerciales ligeros, vehículos pesados de mercancías y autobuses, todo en una sola maquina.", img: `${WP}/2024/12/Hy-Calamine-3000S-EGR-PILOT.png`, link: "/tienda/maquinas-descarbonizadoras/hy-calamine-3000s-egr-pilot" },
+];
+
+const testimonials = [
+  { name: "Nelson Valverde", role: "Socio", text: "Como profesional del sector automotriz, la asociación con Ecología Rentable ha sido clave para ofrecer servicios de calidad y diferenciarnos en el mercado.", img: `${WP}/2024/11/man-with-plastic-cup-near-office-building-2021-09-24-02-55-21-utc.jpg` },
+  { name: "Maria Jiménez", role: "Cliente", text: "La limpieza de filtro de partículas con la máquina Carbon FAP de Ecología Rentable es eficaz y sencilla, ¡una solución imprescindible para mantener mi vehículo!", img: `${WP}/2024/11/businesswoman-typing-message-by-phone-on-the-city-2022-01-12-05-09-31-utc.jpg` },
+  { name: "Laura Herrera", role: "Cliente", text: "La descarbonización de mi vehículo con Ecología Rentable fue una inversión que valió la pena. Noté una mejora inmediata en el rendimiento y el ahorro de combustible.", img: `${WP}/2024/11/young-businesswoman-working-in-office-2022-03-24-21-14-10-utc.jpg` },
+];
+
+const faqItems = [
+  { question: "¿Qué beneficios obtengo al convertirme en socio de Ecología Rentable?", answer: "Al convertirte en socio, disfrutarás de un margen de beneficio alto, formación certificada, acceso a tecnología de última generación y la oportunidad de ofrecer servicios innovadores que atraerán a nuevos clientes." },
+  { question: "¿Cuál es el proceso para convertirme en socio?", answer: "El proceso es sencillo. Primero, completa el formulario de contacto en nuestra sección de «Contáctanos». Luego, uno de nuestros especialistas te guía a través de los pasos necesarios para convertirte en socio, incluyendo la formación y el soporte técnico." },
+  { question: "¿Qué tipo de soporte técnico y formación ofrece Ecología Rentable a sus socios?", answer: "Ofrecemos soporte técnico especializado y formación personalizada para asegurarnos de que estás bien preparado para utilizar nuestras tecnologías. También proporcionamos materiales promocionales para ayudarte a maximizar tu rentabilidad." },
+  { question: "¿Puedo alquilar el equipo en lugar de comprarlo?", answer: "Sí, ofrecemos opciones de alquiler flexible para nuestros equipos. Esto te permite acceder a la mejor tecnología sin comprometer tu flujo de caja y escalar tus capacidades según tus necesidades." },
 ];
 
 export default function Socios() {
   return (
     <main>
       <PageHero
-        title="Únete a la red de socios Ecología Rentable"
-        subtitle="Ofrece descarbonización profesional en tu taller. Equipo, formación, leads y soporte incluidos."
-        breadcrumbs={[{ label: "Socios" }]}
-        badge="Programa de socios"
+        title="Únete a Nuestra Red de Socios"
+        breadcrumbs={[{ label: "¿Quiéres Ser Socio?" }]}
       />
 
-      {/* BENEFICIOS */}
-      <section className="py-16 section-light">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>¿Qué incluye ser socio?</h2>
-            <p className="text-base max-w-xl mx-auto" style={{ color: "hsl(var(--muted-foreground))" }}>Un programa completo para que tu taller ofrezca descarbonización de forma rentable desde el primer mes.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: <Package size={20} />, title: "Máquina descarbonizadora", desc: "Acceso a la gama Hy-Calamine con condiciones preferentes. Compra o alquiler según tu situación." },
-              { icon: <Users size={20} />, title: "Formación técnica", desc: "Formación inicial presencial y online. Material técnico actualizado y acceso a soporte experto." },
-              { icon: <Star size={20} />, title: "Leads de clientes", desc: "Apareces en el directorio de centros certificados y recibes solicitudes de clientes de tu zona." },
-              { icon: <TrendingUp size={20} />, title: "Soporte comercial", desc: "Material de marketing, plantillas de presupuesto y asesoramiento para la fijación de precios." },
-              { icon: <BarChart size={20} />, title: "Portal de gestión", desc: "Acceso al portal de socios: gestión de citas, historial de servicios, pedidos de consumibles." },
-              { icon: <CheckCircle size={20} />, title: "Certificación visible", desc: "Logo de centro certificado Ecología Rentable para tu web, escaparate y redes sociales." },
-            ].map((b) => (
-              <div key={b.title} className="card-eco p-6 flex flex-col gap-3">
-                <div className="icon-circle w-11 h-11">{b.icon}</div>
-                <h3 className="font-bold" style={{ color: "hsl(var(--foreground))" }}>{b.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{b.desc}</p>
+      {/* MODELO DE NEGOCIO */}
+      <AnimatedSection>
+        <section className="py-16 section-light">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <Badge variant="secondary" className="mb-3">Modelo de Negocio</Badge>
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
+                  Venta y Alquiler de Soluciones Innovadoras para Talleres Mecánicos
+                </h2>
+                <p className="text-base leading-relaxed text-muted-foreground mb-6">
+                  En Ecología Rentable, hemos diseñado un modelo de negocio flexible y accesible, pensado para maximizar la productividad de los talleres mecánicos mientras contribuyen al cuidado del medio ambiente. Ofrecemos soluciones tecnológicas de última generación, especializadas en la limpieza y descarbonización de motores de combustión, con dos modalidades que se adaptan a tus necesidades:
+                </p>
+                <Accordion type="single" collapsible className="space-y-2">
+                  <AccordionItem value="servicios" className="border rounded-lg px-1 bg-card">
+                    <AccordionTrigger className="px-4 py-3 text-sm font-semibold hover:no-underline text-foreground">
+                      Servicios únicos en el mercado Automotriz
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4 text-sm leading-relaxed text-muted-foreground">
+                      Basada en la innovación de generadores de hidrógeno diseñados para motores industriales, las estaciones de descarbonización de Ecología Rentable integran una combinación de tecnología avanzada y conocimientos especializados.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="clientes" className="border rounded-lg px-1 bg-card">
+                    <AccordionTrigger className="px-4 py-3 text-sm font-semibold hover:no-underline text-foreground">
+                      Lo mejor para tus clientes
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4 text-sm leading-relaxed text-muted-foreground">
+                      Servicios preventivos para vehículos de ocasión, prevención de problemas relacionados con la carbonilla en vehículos aún bajo garantía del fabricante, y tratamientos correctivos respaldados por garantía para evitar costosas sustituciones de piezas.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CÓMO FUNCIONA */}
-      <section className="py-14 section-alt">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold" style={{ color: "hsl(var(--foreground))" }}>¿Cómo funciona el programa?</h2>
-          </div>
-          <div className="space-y-6">
-            {[
-              { step: 1, title: "Solicitas información", desc: "Rellenas el formulario de socio con los datos de tu taller. En 24–48 horas nos ponemos en contacto contigo." },
-              { step: 2, title: "Visita técnica + propuesta", desc: "Un técnico de zona visita el taller, evalúa el espacio y te propone la máquina más adecuada y las condiciones del acuerdo." },
-              { step: 3, title: "Firma del acuerdo de socio", desc: "Firmamos el acuerdo de colaboración que incluye los términos de uso, formación y soporte." },
-              { step: 4, title: "Instalación y formación", desc: "Instalamos la máquina en tu taller y realizamos la formación técnica (1 día presencial + recursos online)." },
-              { step: 5, title: "Empiezas a facturar", desc: "Tu taller aparece en el directorio. Recibes tus primeros leads y empiezas a ofrecer el servicio a tus clientes." },
-            ].map((s) => (
-              <div key={s.step} className="flex gap-5">
-                <div className="step-number shrink-0">{s.step}</div>
-                <div>
-                  <h3 className="font-bold mb-1" style={{ color: "hsl(var(--foreground))" }}>{s.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{s.desc}</p>
-                </div>
+              <div>
+                <img
+                  src={`${WP}/2024/12/Venta-y-Alquiler-de-Soluciones-Innovadoras-para-taller-mecanico.jpg`}
+                  alt="Taller mecánico socio de Ecología Rentable"
+                  className="rounded-xl w-full shadow-lg"
+                  loading="lazy"
+                />
               </div>
-            ))}
+            </div>
           </div>
+        </section>
+      </AnimatedSection>
+
+      {/* CALLOUT */}
+      <section className="py-4 section-light">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-base font-medium text-primary">
+            Únete a Ecología Rentable y convierte tu negocio en un motor de cambio sostenible.
+          </p>
         </div>
       </section>
 
-      {/* REQUISITOS */}
-      <section className="py-14 section-light">
-        <div className="container mx-auto px-4 max-w-2xl">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold" style={{ color: "hsl(var(--foreground))" }}>Requisitos mínimos</h2>
+      {/* 6 BENEFIT CARDS */}
+      <AnimatedSection>
+        <section className="py-16 section-alt">
+          <div className="container mx-auto px-4">
+            <StaggerChildren>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {benefits.map((b) => (
+                  <Card key={b.title}>
+                    <CardContent className="p-6">
+                      <div className="icon-circle w-11 h-11 mb-3">{b.icon}</div>
+                      <h3 className="font-bold mb-2 text-foreground">{b.title}</h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground">{b.desc}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </StaggerChildren>
           </div>
-          <div className="card-eco p-8">
-            <ul className="space-y-3">
-              {[
-                "Taller mecánico activo con CIF/NIF español",
-                "Espacio mínimo de 4 m² para la máquina descarbonizadora",
-                "Toma de corriente 220V accesible en zona de trabajo",
-                "Al menos 1 mecánico con formación básica en mecánica de motor",
-                "Compromiso de ofrecer el servicio a clientes de la zona",
-                "Acceso a internet para el portal de socios",
-              ].map((r) => (
-                <li key={r} className="flex items-start gap-2">
-                  <CheckCircle size={15} className="shrink-0 mt-0.5" style={{ color: "hsl(var(--primary))" }} />
-                  <span className="text-sm" style={{ color: "hsl(var(--foreground))" }}>{r}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
+        </section>
+      </AnimatedSection>
 
-      {/* PLANES */}
-      <section className="py-14 section-alt">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>Formatos de colaboración</h2>
-            <p className="text-base max-w-xl mx-auto" style={{ color: "hsl(var(--muted-foreground))" }}>Adaptamos el acuerdo al tamaño y necesidades de tu taller.</p>
+      {/* VENTA DE EQUIPOS */}
+      <AnimatedSection>
+        <section className="py-16 section-light">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-10">
+              <Badge variant="secondary" className="mb-3">Ecología Rentable</Badge>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Venta de Equipos</h2>
+              <p className="text-base text-muted-foreground mt-3 max-w-2xl mx-auto">
+                Adquiere nuestras máquinas y convierte a tu taller en un referente de innovación y sostenibilidad.
+              </p>
+            </div>
+            <StaggerChildren>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {products.map((p) => (
+                  <Card key={p.name} className="overflow-hidden">
+                    <div className="bg-muted/30 p-6 flex items-center justify-center h-56">
+                      <img src={p.img} alt={p.name} className="max-h-full object-contain" loading="lazy" />
+                    </div>
+                    <CardContent className="p-5">
+                      <h3 className="font-bold mb-2 text-foreground text-sm">{p.name}</h3>
+                      <p className="text-xs leading-relaxed text-muted-foreground mb-4 line-clamp-3">{p.desc}</p>
+                      <Link to={p.link} className="text-primary text-xs font-semibold flex items-center gap-1 hover:underline">
+                        Ver <ArrowRight size={12} />
+                      </Link>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </StaggerChildren>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {[
-              { name: "Socio Inicio", machine: "Hy-Calamine 1000S", ideal: "Talleres pequeños / inicio", features: ["Máquina incluida (compra o alquiler)", "Formación inicial", "Listing en directorio", "Soporte técnico por email"] },
-              { name: "Socio Profesional", machine: "Hy-Calamine 2000S", ideal: "Talleres medianos", features: ["Todo lo del plan Inicio", "Leads geolocalizados prioritarios", "Soporte telefónico", "Material de marketing incluido", "Acceso al portal de gestión"], highlight: true },
-              { name: "Socio Premium", machine: "Hy-Calamine 3000S", ideal: "Talleres grandes / flotas", features: ["Todo lo del plan Profesional", "Gestor de cuenta dedicado", "Visitas técnicas periódicas", "Software de gestión de flotas", "Condiciones de reventa de consumibles"] },
-            ].map((plan) => (
-              <div key={plan.name} className={`card-eco p-6 flex flex-col ${plan.highlight ? "ring-2 ring-primary" : ""}`} style={plan.highlight ? { border: "2px solid hsl(var(--primary))" } : {}}>
-                {plan.highlight && <span className="badge-green self-start mb-3">Más elegido</span>}
-                <h3 className="font-bold text-lg mb-1" style={{ color: "hsl(var(--foreground))" }}>{plan.name}</h3>
-                <p className="text-xs mb-1" style={{ color: "hsl(var(--primary))" }}>Con {plan.machine}</p>
-                <p className="text-xs mb-4" style={{ color: "hsl(var(--muted-foreground))" }}>Ideal para: {plan.ideal}</p>
-                <ul className="space-y-2 flex-1 mb-5">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm" style={{ color: "hsl(var(--foreground))" }}>
-                      <CheckCircle size={13} className="shrink-0 mt-0.5" style={{ color: "hsl(var(--primary))" }} />
-                      {f}
-                    </li>
+        </section>
+      </AnimatedSection>
+
+      {/* ALQUILER DE EQUIPOS */}
+      <AnimatedSection>
+        <section className="py-16 section-alt">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <Badge variant="secondary" className="mb-3">Alquiler de Equipos</Badge>
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
+                  Convertirte en socio de Ecología Rentable
+                </h2>
+                <p className="text-base leading-relaxed text-muted-foreground mb-4">
+                  ¿Prefieres minimizar la inversión inicial? Nuestro servicio de alquiler te permite acceder a la mejor tecnología sin comprometer tu flujo de caja.
+                </p>
+                <p className="text-sm leading-relaxed text-muted-foreground mb-6">
+                  Ambas modalidades están respaldadas por nuestro soporte técnico especializado, formación personalizada y materiales promocionales para ayudarte a maximizar tu rentabilidad.
+                </p>
+                <div className="space-y-4 mb-6">
+                  {[
+                    { label: "Asesoría", value: 100 },
+                    { label: "Formación Especializada", value: 100 },
+                    { label: "Documentación", value: 100 },
+                  ].map((p) => (
+                    <div key={p.label}>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-foreground font-medium">{p.label}</span>
+                        <span className="text-primary font-bold">{p.value}%</span>
+                      </div>
+                      <Progress value={p.value} className="h-2" />
+                    </div>
                   ))}
-                </ul>
-                <Link to="/socios/hazte-socio" className="btn-primary text-sm justify-center">
-                  Solicitar información <ArrowRight size={13} />
+                </div>
+                <Link to="/contacto" className="btn-primary text-sm">
+                  Contacto <ArrowRight size={14} />
                 </Link>
               </div>
-            ))}
+              <div>
+                <img
+                  src={`${WP}/2024/11/programa-de-socios-de-ecologia-rentable.jpg`}
+                  alt="Programa de socios de Ecología Rentable"
+                  className="rounded-xl w-full shadow-lg"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
+        </section>
+      </AnimatedSection>
+
+      {/* QUOTE */}
+      <section className="py-12 section-light">
+        <div className="container mx-auto px-4 max-w-2xl text-center">
+          <Quote size={32} className="mx-auto text-primary mb-4" />
+          <blockquote className="text-lg font-medium italic text-foreground mb-3">
+            "¡Únete a nuestra red de socios y lleva tus servicios al siguiente nivel!"
+          </blockquote>
+          <p className="text-sm font-bold text-primary">Younes Smaini</p>
         </div>
       </section>
 
-      <FAQSection items={faqSocios} />
+      {/* TESTIMONIALS */}
+      <AnimatedSection>
+        <section className="py-16 section-alt">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-10">
+              <Badge variant="secondary" className="mb-3">Historias de éxito</Badge>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">¿Qué Dicen Nuestros Clientes?</h2>
+              <p className="text-base text-muted-foreground mt-3 max-w-2xl mx-auto">
+                Estamos orgullosos de haber ayudado a numerosos profesionales a mejorar sus vehículos y contribuir a un futuro más limpio y sostenible.
+              </p>
+            </div>
+            <StaggerChildren>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {testimonials.map((t) => (
+                  <Card key={t.name}>
+                    <CardContent className="p-6">
+                      <p className="text-sm leading-relaxed text-muted-foreground mb-4 italic">"{t.text}"</p>
+                      <div className="flex items-center gap-3">
+                        <img src={t.img} alt={t.name} className="w-12 h-12 rounded-full object-cover" loading="lazy" />
+                        <div>
+                          <div className="font-bold text-sm text-foreground">{t.name}</div>
+                          <div className="text-xs text-primary">{t.role}</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </StaggerChildren>
+          </div>
+        </section>
+      </AnimatedSection>
 
-      <CTABox title="¿Listo para unirte?" description="Rellena el formulario de socio y nos ponemos en contacto en menos de 24 horas." primaryLabel="Hazte socio ahora" primaryHref="/socios/hazte-socio" secondaryLabel="Contactar primero" secondaryHref="/contacto" />
+      {/* CTA BANNER */}
+      <section className="relative py-20 overflow-hidden">
+        <img
+          src={`${WP}/2024/11/unete-a-ecologia-rentable-hoy.png`}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative container mx-auto px-4 text-center">
+          <Badge variant="secondary" className="mb-3">Únete a Nuestra Red de Socios</Badge>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            Impulsa Tu Negocio con Ecología Rentable
+          </h2>
+          <p className="text-base text-white/80 max-w-2xl mx-auto mb-6">
+            Únete a nuestra red de socios y accede a un mercado en constante crecimiento. Ofrece servicios innovadores de descarbonización y limpieza de filtros de partículas, y benefíciate de márgenes altos y formación certificada.
+          </p>
+          <Link to="/contacto" className="btn-primary text-sm">
+            Contacto <ArrowRight size={14} />
+          </Link>
+        </div>
+      </section>
+
+      {/* CONTACT FORM */}
+      <AnimatedSection>
+        <section className="py-16 section-light">
+          <div className="container mx-auto px-4 max-w-2xl">
+            <h2 className="text-2xl font-bold text-center mb-3 text-foreground">
+              ¡Conviértete en un socio certificado de Ecología Rentable!
+            </h2>
+            <p className="text-center text-muted-foreground mb-8">
+              ¿Estás interesado en convertirte en socio de Ecología Rentable? Completa el formulario y uno de nuestros especialistas en socios se pondrá en contacto contigo.
+            </p>
+            <form className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div><Label htmlFor="nombre">Nombre</Label><Input id="nombre" placeholder="Tu nombre" /></div>
+                <div><Label htmlFor="apellidos">Apellidos</Label><Input id="apellidos" placeholder="Tus apellidos" /></div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div><Label htmlFor="email">Email</Label><Input id="email" type="email" placeholder="tu@email.com" /></div>
+                <div><Label htmlFor="telefono">Teléfono</Label><Input id="telefono" type="tel" placeholder="+34 600 000 000" /></div>
+              </div>
+              <div><Label htmlFor="mensaje">Mensaje</Label><Textarea id="mensaje" placeholder="¿En qué podemos ayudarte?" rows={4} /></div>
+              <Button type="submit" className="w-full">ENVIAR</Button>
+            </form>
+          </div>
+        </section>
+      </AnimatedSection>
+
+      <FAQSection items={faqItems} title="Preguntas Frecuentes" />
     </main>
   );
 }

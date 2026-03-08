@@ -1,176 +1,110 @@
 import { Link } from "react-router-dom";
-import { CheckCircle, Users, Target, Award, Leaf } from "lucide-react";
+import { AnimatedSection } from "@/components/common/Animations";
 import PageHero from "@/components/common/PageHero";
-import CTABox from "@/components/common/CTABox";
-import { Card, CardContent } from "@/components/ui/card";
+import FAQSection from "@/components/common/FAQSection";
 import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+
+const WP = "https://ecologiarentable.es/wp-content/uploads";
+
+const faqItems = [
+  { question: "¿En qué consiste la descarbonización de vehículos?", answer: "La descarbonización es un proceso que elimina la carbonilla o hollín acumulado en el motor, mejorando su rendimiento y evitando averías costosas." },
+  { question: "¿Cuál es la diferencia entre la limpieza de filtro de partículas y la descarbonización?", answer: "La limpieza de filtro de partículas se enfoca en eliminar los residuos acumulados en el filtro, mientras que la descarbonización aborda la eliminación de la carbonilla en el motor en general." },
+  { question: "¿Cuál es la ventaja de optar por la descarbonización con inyección de hidrógeno en Ecología Rentable?", answer: "La descarbonización con inyección de hidrógeno es una solución efectiva y respetuosa con el medio ambiente que ayuda a mejorar el rendimiento del motor, reducir emisiones nocivas y disminuir el consumo de combustible." },
+  { question: "¿Cuánto tiempo dura el proceso de descarbonización?", answer: "El tiempo necesario para la descarbonización puede variar dependiendo del estado del motor de tu vehículo. En general, el proceso puede tardar entre 1 y 3 horas. Te recomendamos contactar con nuestro equipo para una evaluación personalizada." },
+];
 
 export default function Nosotros() {
   return (
     <main>
       <PageHero
-        title="Especialistas en descarbonización de motores"
-        subtitle="Llevamos más de una década ayudando a conductores, talleres y flotas a mantener sus motores más limpios, eficientes y sostenibles."
-        breadcrumbs={[{ label: "Nosotros" }]}
-        badge="Quiénes somos"
+        title="Nosotros"
+        breadcrumbs={[{ label: "¿Quiénes somos?" }]}
       />
 
-      {/* MISIÓN */}
-      <section className="py-16 section-light">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <Badge variant="secondary" className="mb-3">Nuestra misión</Badge>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-                Hacer la descarbonización accesible en toda España
-              </h2>
-              <p className="text-base mb-4 leading-relaxed text-muted-foreground">
-                Ecología Rentable nació con el objetivo de democratizar el acceso a los servicios profesionales de descarbonización de motores en España. Creemos que cualquier conductor, independientemente de dónde viva, debe poder encontrar un taller certificado cerca de su domicilio.
-              </p>
-              <p className="text-base mb-4 leading-relaxed text-muted-foreground">
-                Nuestra plataforma conecta a conductores con talleres certificados, a talleres con la tecnología y formación necesarias, y a gestores de flotas con soluciones de mantenimiento preventivo eficientes.
-              </p>
-              <p className="text-base leading-relaxed text-muted-foreground">
-                No somos solo una empresa de servicios: somos una red que cree en que el mantenimiento correcto del motor contribuye a reducir las emisiones de CO₂ y partículas del parque automovilístico español.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { value: "+300", label: "Centros certificados", sub: "En toda España" },
-                { value: "+50.000", label: "Vehículos tratados", sub: "Desde nuestra fundación" },
-                { value: "5", label: "Provincias principales", sub: "Red en expansión" },
-                { value: "98%", label: "Satisfacción", sub: "Valoración media de clientes" },
-              ].map((s) => (
-                <Card key={s.label} className="text-center">
-                  <CardContent className="p-5">
-                    <div className="text-2xl font-bold mb-1 text-primary">{s.value}</div>
-                    <div className="text-sm font-semibold mb-0.5 text-foreground">{s.label}</div>
-                    <div className="text-xs text-muted-foreground">{s.sub}</div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* VALORES */}
-      <section className="py-14 section-alt">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground">Nuestros valores</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: <Leaf size={22} />, title: "Sostenibilidad", desc: "Reducir las emisiones del parque automovilístico español es el eje de todo lo que hacemos." },
-              { icon: <Target size={22} />, title: "Rigor técnico", desc: "Trabajamos con máquinas y productos que cumplen las normativas europeas más exigentes." },
-              { icon: <Users size={22} />, title: "Red colaborativa", desc: "Somos más fuertes juntos. Talleres, conductores y gestores de flotas forman nuestra comunidad." },
-              { icon: <Award size={22} />, title: "Resultado garantizado", desc: "Nuestros centros certificados garantizan la calidad del servicio y el resultado obtenido." },
-            ].map((v) => (
-              <Card key={v.title} className="text-center">
-                <CardContent className="p-6">
-                  <div className="icon-circle w-12 h-12 mx-auto mb-3">{v.icon}</div>
-                  <h3 className="font-bold mb-2 text-foreground">{v.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{v.desc}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* EQUIPO */}
-      <section className="py-16 section-light">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">Nuestro equipo</h2>
-            <p className="max-w-xl mx-auto text-base text-muted-foreground">
-              Técnicos especializados, ingenieros de motor y profesionales del sector de la automoción trabajan para ofrecerte el mejor servicio.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { name: "Área Técnica", desc: "Ingenieros especializados en combustión interna, mecánica de precisión y sistemas de postratamiento de gases.", members: 12 },
-              { name: "Red de Socios", desc: "Equipo de coordinación y soporte para los más de 300 talleres socios, con formación continua y apoyo técnico.", members: 8 },
-              { name: "Comercial y Flotas", desc: "Especialistas en gestión de flotas empresariales, con experiencia en transporte, logística y renting.", members: 6 },
-            ].map((dept) => (
-              <Card key={dept.name}>
-                <CardContent className="p-6">
-                  <div className="icon-circle w-11 h-11 mb-3"><Users size={18} /></div>
-                  <h3 className="font-bold mb-2 text-foreground">{dept.name}</h3>
-                  <p className="text-sm leading-relaxed mb-3 text-muted-foreground">{dept.desc}</p>
-                  <Badge variant="secondary">{dept.members} profesionales</Badge>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CERTIFICACIONES */}
-      <section className="py-14 section-alt">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold mb-3 text-foreground">Certificaciones y estándares</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {[
-              { cert: "ISO 9001", desc: "Gestión de la calidad en todos nuestros procesos operativos y de servicio." },
-              { cert: "CE (Directiva 2006/42/CE)", desc: "Todas nuestras máquinas descarbonizadoras cumplen la directiva de maquinaria europea." },
-              { cert: "AENOR", desc: "Certificación de calidad en la formación de talleres socios y en los productos comercializados." },
-              { cert: "Conformidad Euro 6d", desc: "Nuestros procedimientos son compatibles con vehículos Euro 3, 4, 5 y 6d-TEMP." },
-            ].map((c) => (
-              <Card key={c.cert}>
-                <CardContent className="p-5 flex items-start gap-3">
-                  <CheckCircle size={18} className="shrink-0 mt-0.5 text-primary" />
-                  <div>
-                    <div className="font-bold text-sm mb-0.5 text-foreground">{c.cert}</div>
-                    <div className="text-sm text-muted-foreground">{c.desc}</div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* HISTORIA */}
-      <section className="py-16 section-light">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground">Nuestra historia</h2>
-          </div>
-          <div className="space-y-6">
-            {[
-              { year: "2012", event: "Fundación de Ecología Rentable como empresa especializada en descarbonización profesional para talleres de la Comunidad de Madrid." },
-              { year: "2015", event: "Lanzamiento del programa de socios, con los primeros 30 talleres certificados en Madrid y Barcelona." },
-              { year: "2018", event: "Introducción de la gama Hy-Calamine de máquinas descarbonizadoras por hidrógeno, fabricadas bajo nuestras especificaciones técnicas." },
-              { year: "2021", event: "Superamos los 200 centros certificados en España. Lanzamiento del servicio especializado para flotas empresariales." },
-              { year: "2024", event: "Red de más de 300 centros en 40 provincias. Más de 50.000 vehículos tratados desde la fundación." },
-            ].map((h) => (
-              <div key={h.year} className="flex gap-5">
-                <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold shrink-0 bg-primary text-primary-foreground">{h.year.slice(2)}</div>
-                  <div className="w-0.5 flex-1 mt-2 bg-border" />
-                </div>
-                <div className="pb-6">
-                  <div className="font-bold text-sm mb-1 text-primary">{h.year}</div>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{h.event}</p>
-                </div>
+      {/* INTRO + YOUNES */}
+      <AnimatedSection>
+        <section className="py-16 section-light">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <Badge variant="secondary" className="mb-3">limpieza y cuidado de tu vehículo</Badge>
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">Ecología rentable</h2>
+                <p className="text-base leading-relaxed text-muted-foreground mb-6">
+                  Nos comprometemos a ofrecer soluciones innovadoras y sostenibles para la descarbonización de coches y la limpieza de filtro de partículas. Con más de una década de experiencia en el sector, nuestro equipo de expertos se esfuerza por brindar un servicio de alta calidad que garantice el rendimiento óptimo de tu vehículo, al tiempo que contribuimos a la preservación del medio ambiente. ¡Confía en nosotros para mantener tu motor limpio y eficiente!
+                </p>
+                <Accordion type="single" collapsible className="space-y-2">
+                  <AccordionItem value="mision" className="border rounded-lg px-1 bg-card">
+                    <AccordionTrigger className="px-4 py-3 text-sm font-semibold hover:no-underline text-foreground">
+                      Nuestra Misión
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4 text-sm leading-relaxed text-muted-foreground">
+                      Nos dedicamos a ofrecer soluciones innovadoras para la descarbonización de vehículos y la limpieza de filtros de partículas. Nuestro objetivo es ayudar a particulares y profesionales a mantener sus vehículos en excelente estado, reduciendo costos de mantenimiento y contribuyendo a un ambiente más limpio y sostenible.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="vision" className="border rounded-lg px-1 bg-card">
+                    <AccordionTrigger className="px-4 py-3 text-sm font-semibold hover:no-underline text-foreground">
+                      Nuestra Visión
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4 text-sm leading-relaxed text-muted-foreground">
+                      Somos líderes en la industria de la descarbonización y la limpieza de filtros de partículas, comprometidos con la excelencia y la innovación. Nos esforzamos por proporcionar servicios de alta calidad que no solo mejoren el rendimiento de los vehículos, sino que también promuevan la sostenibilidad y la economía verde.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
               </div>
-            ))}
+              <div>
+                <img
+                  src={`${WP}/2024/11/Ecologia-rentable-younes.jpg`}
+                  alt="Younes Smaini - Ecología Rentable"
+                  className="rounded-xl w-full shadow-lg"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
+        </section>
+      </AnimatedSection>
+
+      {/* QUOTE CALLOUT */}
+      <section className="py-8 section-alt">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-base font-medium text-primary italic">
+            Únete a Ecología Rentable y convierte tu negocio en un motor de cambio sostenible.
+          </p>
         </div>
       </section>
 
-      <CTABox
-        title="¿Quieres colaborar con nosotros?"
-        description="Tanto si eres un taller como si quieres contactar con el equipo, estamos aquí para ayudarte."
-        primaryLabel="Hazte socio"
-        primaryHref="/socios/hazte-socio"
-        secondaryLabel="Contactar"
-        secondaryHref="/contacto"
-      />
+      {/* CONTACT FORM */}
+      <AnimatedSection>
+        <section className="py-16 section-light">
+          <div className="container mx-auto px-4 max-w-2xl">
+            <h2 className="text-2xl font-bold text-center mb-3 text-foreground">
+              ¿Listo para darle a tu vehículo el cuidado que se merece?
+            </h2>
+            <p className="text-center text-muted-foreground mb-8">
+              Ponte en contacto con nosotros para más información sobre nuestros servicios de descarbonización de coches y limpieza de filtro de partículas.
+            </p>
+            <form className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div><Label htmlFor="nombre">Nombre</Label><Input id="nombre" placeholder="Tu nombre" /></div>
+                <div><Label htmlFor="apellidos">Apellidos</Label><Input id="apellidos" placeholder="Tus apellidos" /></div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div><Label htmlFor="email">Email</Label><Input id="email" type="email" placeholder="tu@email.com" /></div>
+                <div><Label htmlFor="telefono">Teléfono</Label><Input id="telefono" type="tel" placeholder="+34 600 000 000" /></div>
+              </div>
+              <div><Label htmlFor="mensaje">Mensaje</Label><Textarea id="mensaje" placeholder="¿En qué podemos ayudarte?" rows={4} /></div>
+              <Button type="submit" className="w-full">ENVIAR</Button>
+            </form>
+          </div>
+        </section>
+      </AnimatedSection>
+
+      <FAQSection items={faqItems} title="Preguntas Frecuentes" />
     </main>
   );
 }
