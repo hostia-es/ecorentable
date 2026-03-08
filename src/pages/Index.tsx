@@ -12,6 +12,7 @@ import serviceWide from "@/assets/service-wide.jpg";
 import engineDetail from "@/assets/engine-detail.jpg";
 import engineBeforeAfter from "@/assets/engine-before-after.jpg";
 import maquinaDescarbonizadora from "@/assets/maquina-descarbonizadora.jpg";
+import kitDigitalBanner from "@/assets/kit-digital-banner.png";
 
 /* ═══════════ WORLD MAP SVG COMPONENT ═══════════ */
 function WorldMap() {
@@ -603,6 +604,11 @@ export default function Index() {
           </div>
           <div className="mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 border-t" style={{ borderColor: "hsl(var(--border))" }}>
             <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>© 2025 Ecología Rentable. Todos los derechos reservados.</p>
+          </div>
+
+          {/* Kit Digital Banner */}
+          <div className="mt-8 pt-6 flex justify-center border-t" style={{ borderColor: "hsl(var(--border))" }}>
+            <img src={kitDigitalBanner} alt="Financiado por la Unión Europea con el programa Kit Digital por los fondos Next Generation (EU) del Mecanismo de Recuperación y Resiliencia" className="max-w-full h-auto" style={{ maxHeight: "60px" }} />
           </div>
         </div>
       </section>

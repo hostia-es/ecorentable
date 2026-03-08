@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import logoER from "@/assets/logo-ecologia-rentable.png";
+import kitDigitalBanner from "@/assets/kit-digital-banner.png";
 
 const footerLinks = {
   servicios: [
@@ -143,6 +144,11 @@ export default function Footer() {
             <a href="#" className="hover:underline">Aviso legal</a>
             <a href="#" className="hover:underline">Cookies</a>
           </div>
+        </div>
+
+        {/* Kit Digital Banner */}
+        <div className="mt-8 pt-6 border-t flex justify-center" style={{ borderColor: "hsl(0 0% 100% / 0.1)" }}>
+          <img src={kitDigitalBanner} alt="Financiado por la Unión Europea con el programa Kit Digital por los fondos Next Generation (EU) del Mecanismo de Recuperación y Resiliencia" className="max-w-full h-auto" style={{ maxHeight: "60px", filter: "brightness(0) invert(1)", opacity: 0.7 }} />
         </div>
       </div>
     </footer>
