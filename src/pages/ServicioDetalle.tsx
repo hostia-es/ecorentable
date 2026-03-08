@@ -190,12 +190,12 @@ export default function ServicioDetalle() {
 
       {/* PROCESO */}
       <section className="py-14 section-alt">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-2xl font-bold mb-8 text-center" style={{ color: "hsl(var(--foreground))" }}>Cómo funciona</h2>
-          <div className="space-y-5">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-2xl font-bold mb-10 text-center" style={{ color: "hsl(var(--foreground))" }}>Cómo funciona</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {s.process.map((p) => (
-              <div key={p.step} className="flex gap-5">
-                <div className="step-number shrink-0">{p.step}</div>
+              <div key={p.step} className="card-eco p-6 flex gap-4 items-start">
+                <div className="step-number shrink-0 w-11 h-11 text-base">{p.step}</div>
                 <div>
                   <h3 className="font-bold mb-1" style={{ color: "hsl(var(--foreground))" }}>{p.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{p.desc}</p>
