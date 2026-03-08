@@ -47,10 +47,10 @@ export default function LimpiezaFiltros() {
       {/* HERO — centered, dark green bg, matching original */}
       <section
         className="relative py-28 md:py-36 text-center overflow-hidden"
-        style={{ background: "linear-gradient(135deg, hsl(var(--dark-green)) 0%, hsl(var(--dark-green-deep)) 100%)" }}
+        style={{ background: "var(--gradient-hero)" }}
       >
         <div className="container mx-auto px-4 relative z-10">
-          <p className="text-sm uppercase tracking-widest mb-4 font-semibold" style={{ color: "hsl(var(--accent-green))" }}>
+          <p className="text-sm uppercase tracking-widest mb-4 font-semibold" style={{ color: "hsl(148 72% 55%)" }}>
             Restaura la Eficiencia de tu Motor
           </p>
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
@@ -64,7 +64,7 @@ export default function LimpiezaFiltros() {
           <Link
             to="/contacto"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-sm transition-all"
-            style={{ background: "hsl(var(--accent-green))", color: "hsl(var(--dark-green-deep))" }}
+            style={{ background: "hsl(148 72% 55%)", color: "hsl(210 25% 8%)" }}
           >
             CONTACTO
           </Link>
