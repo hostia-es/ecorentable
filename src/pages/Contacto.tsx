@@ -17,10 +17,10 @@ const faqContacto = [
 ];
 
 const channels = [
-  { icon: <Phone size={20} />, title: "Teléfono", val: "+34 900 123 456", sub: "Lun–Vie 8:00–18:00" },
+  { icon: <Phone size={20} />, title: "Teléfono", val: "+34 605 928 626", sub: "Lun–Vie 7:00–15:00" },
   { icon: <Mail size={20} />, title: "Email", val: "info@ecologiarentable.es", sub: "Respuesta en <24 h" },
-  { icon: <MapPin size={20} />, title: "Oficina", val: "Madrid, España", sub: "Con cita previa" },
-  { icon: <Clock size={20} />, title: "Horario", val: "Lun–Vie 8:00–18:00", sub: "Sáb 9:00–13:00" },
+  { icon: <MapPin size={20} />, title: "Oficina", val: "C. Isabel Colbrand, 6, 28050 Madrid", sub: "Con cita previa" },
+  { icon: <Clock size={20} />, title: "Horario", val: "Lun–Vie 7:00–15:00", sub: "" },
 ];
 
 export default function Contacto() {
