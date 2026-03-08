@@ -208,7 +208,7 @@ export default function Index() {
                 transition={{ duration: 0.9, delay: 0.6 }}
                 className="absolute top-4 right-0 w-64"
               >
-                <div className="rounded-2xl p-5 backdrop-blur-xl border border-white/10" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+                <div className="rounded-2xl p-5 backdrop-blur-2xl border border-white/15 shadow-xl shadow-black/20" style={{ background: "hsl(220 20% 12% / 0.75)" }}>
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[hsl(148_60%_40%/0.2)]">
                       <Zap size={18} className="text-[hsl(148_60%_55%)]" />
@@ -239,7 +239,7 @@ export default function Index() {
                 transition={{ duration: 0.9, delay: 0.8 }}
                 className="absolute top-44 -left-8 w-56"
               >
-                <div className="rounded-2xl p-4 backdrop-blur-xl border border-white/10" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+                <div className="rounded-2xl p-4 backdrop-blur-2xl border border-white/15 shadow-xl shadow-black/20" style={{ background: "hsl(220 20% 12% / 0.75)" }}>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[hsl(148_60%_40%/0.2)]">
                       <Shield size={14} className="text-[hsl(148_60%_55%)]" />
@@ -260,7 +260,7 @@ export default function Index() {
               >
                 <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                   <img src={hyCaronAngle} alt="Equipo Hy-Carbon" className="w-full h-32 object-cover" />
-                  <div className="p-3" style={{ background: "hsl(0 0% 100% / 0.06)", backdropFilter: "blur(20px)" }}>
+                  <div className="p-3" style={{ background: "hsl(220 20% 12% / 0.75)", backdropFilter: "blur(30px)" }}>
                     <p className="text-[10px] font-semibold text-white uppercase tracking-wider">Hy-Carbon Connect</p>
                     <p className="text-[10px] text-white/50">Tecnología de hidrógeno</p>
                   </div>
