@@ -170,10 +170,10 @@ export default function Contacto() {
             <div className="lg:col-span-2 space-y-5">
               <Card>
                 <CardContent className="p-6">
-                  <h3 className="font-bold mb-3 text-foreground">Áreas de servicio</h3>
-                  <p className="text-sm mb-3 text-muted-foreground">Tenemos centros certificados en toda la geografía española. Consulta el directorio por provincia.</p>
+                  <h3 className="font-bold mb-3 text-foreground">¿Eres taller?</h3>
+                  <p className="text-sm mb-3 text-muted-foreground">Únete a nuestra red de socios y ofrece servicios de descarbonización a tus clientes.</p>
                   <Button asChild variant="outline" size="sm">
-                    <Link to="/encuentre-centro">Ver directorio <ArrowRight size={13} className="ml-1" /></Link>
+                    <Link to="/socios">Hazte socio <ArrowRight size={13} className="ml-1" /></Link>
                   </Button>
                 </CardContent>
               </Card>

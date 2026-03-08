@@ -108,7 +108,7 @@ export default function Blog() {
       </section>
 
       <FAQSection items={faqBlog} />
-      <CTABox title="¿Tienes dudas técnicas?" description="Nuestro equipo técnico responde consultas sobre descarbonización, DPF, EGR e ITV." primaryLabel="Contactar experto" primaryHref="/contacto" secondaryLabel="Encontrar centro" secondaryHref="/encuentre-centro" />
+      <CTABox title="¿Tienes dudas técnicas?" description="Nuestro equipo técnico responde consultas sobre descarbonización, DPF, EGR e ITV." primaryLabel="Contactar experto" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
 }

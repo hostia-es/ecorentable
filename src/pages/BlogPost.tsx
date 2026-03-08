@@ -155,7 +155,7 @@ export default function BlogPost() {
         </section>
       )}
 
-      <CTABox title="¿Listo para actuar?" description="Encuentra un centro de descarbonización certificado cerca de ti o consulta con un experto." primaryLabel="Encontrar centro" primaryHref="/encuentre-centro" secondaryLabel="Hablar con experto" secondaryHref="/contacto" />
+      <CTABox title="¿Listo para actuar?" description="Consulta con un experto sobre descarbonización para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
 }

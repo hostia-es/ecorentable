@@ -364,7 +364,7 @@ export default function SolucionDetalle() {
       </section>
 
       <FAQSection items={sol.faq} />
-      <CTABox title="¿Listo para resolver el problema?" description="Localiza un centro certificado cerca de ti y solicita cita para tu vehículo." primaryLabel="Encontrar centro" primaryHref="/encuentre-centro" secondaryLabel="Hablar con experto" secondaryHref="/contacto" />
+      <CTABox title="¿Listo para resolver el problema?" description="Contacta con nuestro equipo y solicita presupuesto para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
 }
