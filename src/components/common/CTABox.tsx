@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 
 interface CTABoxProps {
   title: string;
@@ -27,23 +28,21 @@ export default function CTABox({
     return (
       <section className="section-dark py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: "hsl(0 0% 100%)" }}>
-            {title}
-          </h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 text-white">{title}</h2>
           {description && (
-            <p className="text-base mb-8 max-w-xl mx-auto" style={{ color: "hsl(0 0% 70%)" }}>
-              {description}
-            </p>
+            <p className="text-base mb-8 max-w-xl mx-auto text-white/70">{description}</p>
           )}
           {children}
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to={primaryHref} className="btn-cta">
-              {primaryLabel} <ArrowRight size={16} />
-            </Link>
-            {secondaryLabel && secondaryHref && (
-              <Link to={secondaryHref} className="btn-outline-white">
-                {secondaryLabel}
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+              <Link to={primaryHref}>
+                {primaryLabel} <ArrowRight size={16} className="ml-1" />
               </Link>
+            </Button>
+            {secondaryLabel && secondaryHref && (
+              <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
+                <Link to={secondaryHref}>{secondaryLabel}</Link>
+              </Button>
             )}
           </div>
         </div>
@@ -52,25 +51,23 @@ export default function CTABox({
   }
 
   return (
-    <section className="py-16" style={{ background: "hsl(var(--accent-green-light))" }}>
+    <section className="py-16 bg-accent">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: "hsl(var(--primary))" }}>
-          {title}
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-3 text-primary">{title}</h2>
         {description && (
-          <p className="text-base mb-8 max-w-xl mx-auto" style={{ color: "hsl(var(--foreground))" }}>
-            {description}
-          </p>
+          <p className="text-base mb-8 max-w-xl mx-auto text-foreground">{description}</p>
         )}
         {children}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link to={primaryHref} className="btn-primary">
-            {primaryLabel} <ArrowRight size={16} />
-          </Link>
-          {secondaryLabel && secondaryHref && (
-            <Link to={secondaryHref} className="btn-secondary">
-              {secondaryLabel}
+          <Button asChild size="lg">
+            <Link to={primaryHref}>
+              {primaryLabel} <ArrowRight size={16} className="ml-1" />
             </Link>
+          </Button>
+          {secondaryLabel && secondaryHref && (
+            <Button asChild variant="secondary" size="lg">
+              <Link to={secondaryHref}>{secondaryLabel}</Link>
+            </Button>
           )}
         </div>
       </div>
