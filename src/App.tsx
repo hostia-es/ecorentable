@@ -56,9 +56,6 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/blog/categoria/:category" element={<BlogCategory />} />
 
-          {/* ENCUENTRE CENTRO */}
-          <Route path="/encuentre-centro" element={<EncuentreCentro />} />
-          <Route path="/encuentre-centro/:provincia" element={<EncuentreCentroProvincia />} />
 
           {/* SOCIOS */}
           <Route path="/socios" element={<Socios />} />

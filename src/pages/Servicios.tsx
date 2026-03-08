@@ -173,12 +173,12 @@ export default function Servicios() {
       <FAQSection items={faqServicios} />
 
       <CTABox
-        title="¿Dónde puedo hacer el servicio?"
-        description="Encuentra el centro certificado más cercano a tu ubicación y solicita cita."
-        primaryLabel="Encontrar un centro"
-        primaryHref="/encuentre-centro"
-        secondaryLabel="Hablar con un experto"
-        secondaryHref="/contacto"
+        title="¿Necesitas más información?"
+        description="Contacta con nuestro equipo para resolver tus dudas o solicitar presupuesto."
+        primaryLabel="Contactar"
+        primaryHref="/contacto"
+        secondaryLabel="Hazte socio"
+        secondaryHref="/socios"
       />
     </main>
   );
