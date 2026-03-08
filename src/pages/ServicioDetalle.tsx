@@ -94,8 +94,8 @@ const servicios: Record<string, ServicioData> = {
     definition: "El servicio de descarbonización para flotas de Ecología Rentable está diseñado para empresas con más de 5 vehículos que buscan reducir los costes de mantenimiento, extender la vida útil de sus vehículos y cumplir con la normativa de emisiones.",
     symptoms: ["Costes de reparación DPF repetitivos en tu flota", "Vehículos que suspenden la ITV por emisiones", "Consumo de combustible elevado respecto al estándar de cada modelo", "Alta rotación de componentes (EGR, catalizador, DPF)"],
     benefits: ["Reducción de costes de mantenimiento hasta 35%", "Extensión de vida del DPF hasta 2–3 veces", "Reducción de consumo en toda la flota", "Cumplimiento normativa de emisiones", "Informes de mantenimiento por vehículo"],
-    priceRange: "Desde 65 € / vehículo",
-    priceNote: "Precio por servicio de descarbonización para flota (mín. 5 vehículos). Se aplican descuentos por volumen. Solicita presupuesto de flota.",
+    priceRange: "Consultar precio",
+    priceNote: "Precio por servicio según tamaño de flota. Se aplican descuentos por volumen. Solicita presupuesto personalizado.",
     process: [
       { step: 1, title: "Evaluación de la flota", desc: "Análisis del parque de vehículos: modelos, km, historial de mantenimiento y estado actual." },
       { step: 2, title: "Plan personalizado", desc: "Propuesta de plan de mantenimiento preventivo adaptado a la flota." },
