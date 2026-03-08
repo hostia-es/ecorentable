@@ -70,11 +70,13 @@ export default function Nosotros() {
       </AnimatedSection>
 
       {/* QUOTE CALLOUT */}
-      <section className="py-8 section-alt">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-base font-medium text-primary italic">
-            Únete a Ecología Rentable y convierte tu negocio en un motor de cambio sostenible.
-          </p>
+      <section className="py-10 section-alt">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <blockquote className="text-lg md:text-xl font-medium text-primary italic leading-relaxed">
+            "Únete a Ecología Rentable y convierte tu negocio en un motor de cambio sostenible."
+          </blockquote>
+          <p className="mt-3 text-sm font-semibold text-foreground">— Younes Smaini</p>
+          <p className="text-xs text-muted-foreground">Fundador de Ecología Rentable</p>
         </div>
       </section>
 
