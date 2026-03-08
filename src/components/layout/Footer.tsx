@@ -52,7 +52,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2">
                 <MapPin size={14} style={{ color: "hsl(148 72% 55%)" }} />
-                <span>Madrid, España</span>
+                <span>C. Isabel Colbrand, 6, 28050 Madrid</span>
               </div>
             </div>
             <div className="flex gap-3 mt-4">

@@ -26,7 +26,7 @@ export const products: Product[] = [
     shortName: "Hy-Calamine 1000S",
     category: "Máquinas Descarbonizadoras",
     categorySlug: "maquinas-descarbonizadoras",
-    price: "Desde 2.800 €",
+    price: "Consultar precio",
     description: "Máquina profesional de descarbonización por hidrógeno de gama entrada, ideal para talleres que inician su actividad en descarbonización.",
     technicalDescription: "La Hy-Calamine 1000S EGR PILOT es una máquina de descarbonización por hidrógeno (HHO) diseñada para talleres de tamaño mediano. Produce hidrógeno y oxígeno mediante electrólisis del agua y los introduce en el motor a través de la toma de aire, eliminando los depósitos de carbono de pistones, válvulas, cámara de combustión y escape. Incluye modo EGR PILOT para tratamiento específico de válvulas EGR.",
     specifications: [
@@ -53,7 +53,7 @@ export const products: Product[] = [
     shortName: "Hy-Calamine 2000S",
     category: "Máquinas Descarbonizadoras",
     categorySlug: "maquinas-descarbonizadoras",
-    price: "Desde 4.200 €",
+    price: "Consultar precio",
     description: "Máquina de descarbonización por hidrógeno de gama media, con mayor producción HHO y ciclos más cortos. Ideal para talleres de volumen medio.",
     technicalDescription: "La Hy-Calamine 2000S EGR PILOT ofrece una capacidad de producción de HHO de 1.500 ml/min, reduciendo los tiempos de ciclo y aumentando la capacidad diaria de intervenciones. Incorpora el modo EGR PILOT mejorado con inyección directa en el cuerpo EGR, panel táctil con presets por tipo de motor y sistema de seguridad automático ante sobrepresión.",
     specifications: [
@@ -80,7 +80,7 @@ export const products: Product[] = [
     shortName: "Hy-Calamine 3000S",
     category: "Máquinas Descarbonizadoras",
     categorySlug: "maquinas-descarbonizadoras",
-    price: "Desde 6.900 €",
+    price: "Consultar precio",
     description: "La máquina de descarbonización profesional de máxima gama para talleres de alto volumen, flotas y centros especializados.",
     technicalDescription: "La Hy-Calamine 3000S EGR PILOT es la solución de alto rendimiento para talleres y flotas con alta demanda de descarbonización. Con 2.800 ml/min de producción HHO, ciclos ultra-cortos y compatibilidad con vehículos industriales de hasta 3,5T, es la máquina más completa de la gama. Incluye conectividad WiFi para seguimiento de ciclos, software de gestión de clientes y módulo de diagnóstico OBD2 integrado.",
     specifications: [
@@ -107,7 +107,7 @@ export const products: Product[] = [
     shortName: "Hy-Carbon Connect",
     category: "Accesorios y Consumibles",
     categorySlug: "accesorios-consumibles",
-    price: "Desde 890 €",
+    price: "Consultar precio",
     description: "Kit de conectividad y diagnóstico para integrar cualquier máquina descarbonizadora con sistemas OBD2 y gestión de flotas.",
     technicalDescription: "El Hy-Carbon Connect es un módulo de diagnóstico y conectividad que se instala en cualquier máquina descarbonizadora compatible. Lee los parámetros del vehículo antes, durante y después del ciclo de descarbonización, generando informes comparativos automáticos. Compatible con OBD2 universal y múltiples protocolos CAN-Bus. Permite la gestión remota de sesiones de descarbonización y el seguimiento de flotas.",
     specifications: [
@@ -131,7 +131,7 @@ export const products: Product[] = [
     shortName: "Carbon FAP",
     category: "Aditivos",
     categorySlug: "aditivos",
-    price: "Desde 28 €",
+    price: "Consultar precio",
     description: "Aditivo profesional para la regeneración y limpieza del filtro de partículas FAP/DPF. Fórmula de alta concentración para uso taller y particular.",
     technicalDescription: "Carbon FAP es un aditivo basado en óxidos de cerio y compuestos orgánicos que actúan como catalizador durante la regeneración del filtro de partículas. Reduce la temperatura de inflamación de las partículas de hollín (de ~550°C a ~400°C), facilitando la regeneración pasiva y activa del DPF/FAP en condiciones de conducción normales. Fórmula sin cloruros ni compuestos corrosivos.",
     specifications: [
@@ -155,7 +155,7 @@ export const products: Product[] = [
     shortName: "Kit DPF Básico",
     category: "Kits de Limpieza",
     categorySlug: "kits-limpieza",
-    price: "Desde 89 €",
+    price: "Consultar precio",
     description: "Kit completo para limpieza manual del filtro de partículas, sin necesidad de máquina especializada. Ideal para talleres que inician en el servicio DPF.",
     technicalDescription: "El Kit Limpieza DPF Básico incluye todos los productos químicos y accesorios necesarios para realizar una limpieza manual del filtro de partículas por el método de remojo y lavado. Especialmente eficaz en filtros con grado de obstrucción leve-moderado (≤70%).",
     specifications: [
@@ -176,7 +176,7 @@ export const products: Product[] = [
     shortName: "Kit EGR Pro",
     category: "Kits de Limpieza",
     categorySlug: "kits-limpieza",
-    price: "Desde 65 €",
+    price: "Consultar precio",
     description: "Kit profesional para limpieza de la válvula EGR y conductos de gases de recirculación, sin necesidad de desmontaje en la mayoría de vehículos.",
     technicalDescription: "Incluye limpiador de introducción por admisión de aire y aditivo de mantenimiento EGR para uso con la máquina descarbonizadora o de forma independiente. Fórmula desarrollada específicamente para eliminar depósitos carbonosos en la válvula EGR, colector y conductos de recirculación.",
     specifications: [
@@ -197,7 +197,7 @@ export const products: Product[] = [
     shortName: "Aditivo Diésel PRO",
     category: "Aditivos",
     categorySlug: "aditivos",
-    price: "Desde 22 €",
+    price: "Consultar precio",
     description: "Aditivo multifunción para diésel que mejora la combustión, protege el sistema de inyección y reduce emisiones de NOx y partículas.",
     technicalDescription: "Fórmula multicomponente que actúa como mejorador de cetano (+3–5 puntos), detergente de inyectores, lubricante del sistema de combustible y reductor de hollín. Compatible con biodiésel hasta B30.",
     specifications: [
@@ -218,7 +218,7 @@ export const products: Product[] = [
     shortName: "DPF Ultrasonidos Pro",
     category: "Máquinas Descarbonizadoras",
     categorySlug: "maquinas-descarbonizadoras",
-    price: "Desde 3.500 €",
+    price: "Consultar precio",
     description: "Máquina de limpieza de filtros de partículas (DPF/FAP) por ultrasonidos y lavado a presión, para talleres especializados en regeneración de filtros.",
     technicalDescription: "Sistema profesional de limpieza de DPF/FAP que combina baño de ultrasonidos a 40 kHz, lavado a presión (hasta 8 bar) y secado por insuflación de aire caliente. Capaz de limpiar filtros con obstrucción de hasta 90%, con ciclos de 60–90 minutos por unidad.",
     specifications: [
@@ -243,7 +243,7 @@ export const products: Product[] = [
     shortName: "Kit Flotas",
     category: "Kits de Limpieza",
     categorySlug: "kits-limpieza",
-    price: "Desde 450 €",
+    price: "Consultar precio",
     description: "Pack completo de productos de descarbonización y mantenimiento diseñado para gestores de flotas con más de 10 vehículos.",
     technicalDescription: "Kit pensado para ser utilizado como mantenimiento preventivo trimestral o semestral en flotas de vehículos diésel. Incluye aditivos de combustible, tratamientos EGR y FAP, y kit de limpieza por admisión. Reduce la necesidad de intervenciones correctivas costosas.",
     specifications: [
@@ -264,7 +264,7 @@ export const products: Product[] = [
     shortName: "Limpiador Catalizador",
     category: "Accesorios y Consumibles",
     categorySlug: "accesorios-consumibles",
-    price: "Desde 35 €",
+    price: "Consultar precio",
     description: "Limpiador de catalizadores de tres vías y oxidación para vehículos gasolina y diésel, con acción rápida y compatible con sonda lambda.",
     technicalDescription: "Formulado con detergentes específicos y activadores de superficie que eliminan los depósitos de sulfuros, hollín y residuos de aceite que deterioran la eficiencia del catalizador. Aplicación por admisión de aire con motor en marcha, sin desmontaje.",
     specifications: [

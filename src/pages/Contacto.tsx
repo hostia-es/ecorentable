@@ -13,14 +13,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 const faqContacto = [
   { question: "¿Con qué rapidez responden?", answer: "Respondemos todos los mensajes en un máximo de 24 horas laborables. Para consultas urgentes, le recomendamos llamar directamente al teléfono de atención." },
   { question: "¿Puedo solicitar un presupuesto para mi flota?", answer: "Sí. Selecciona el tipo 'Flota' en el formulario e indica el número de vehículos. Te preparamos un presupuesto personalizado en 48 horas." },
-  { question: "¿Puedo contactar directamente con el centro de mi provincia?", answer: "Sí. En la sección 'Encuentra un centro' puedes ver el teléfono de cada centro certificado y contactar directamente para solicitar cita." },
+  { question: "¿Puedo contactar directamente con un taller socio?", answer: "Sí. Puedes llamarnos al +34 605 928 626 y te pondremos en contacto con el taller certificado más cercano a tu zona." },
 ];
 
 const channels = [
-  { icon: <Phone size={20} />, title: "Teléfono", val: "+34 900 123 456", sub: "Lun–Vie 8:00–18:00" },
+  { icon: <Phone size={20} />, title: "Teléfono", val: "+34 605 928 626", sub: "Lun–Vie 7:00–15:00" },
   { icon: <Mail size={20} />, title: "Email", val: "info@ecologiarentable.es", sub: "Respuesta en <24 h" },
-  { icon: <MapPin size={20} />, title: "Oficina", val: "Madrid, España", sub: "Con cita previa" },
-  { icon: <Clock size={20} />, title: "Horario", val: "Lun–Vie 8:00–18:00", sub: "Sáb 9:00–13:00" },
+  { icon: <MapPin size={20} />, title: "Oficina", val: "C. Isabel Colbrand, 6, 28050 Madrid", sub: "Con cita previa" },
+  { icon: <Clock size={20} />, title: "Horario", val: "Lun–Vie 7:00–15:00", sub: "" },
 ];
 
 export default function Contacto() {
