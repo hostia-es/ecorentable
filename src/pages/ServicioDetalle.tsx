@@ -245,7 +245,7 @@ export default function ServicioDetalle() {
       </section>
 
       <FAQSection items={s.faq} />
-      <CTABox title="¿Listo para el servicio?" description="Localiza el centro certificado más cercano y solicita cita para tu vehículo." primaryLabel="Encontrar centro" primaryHref="/encuentre-centro" secondaryLabel="Hablar con experto" secondaryHref="/contacto" />
+      <CTABox title="¿Listo para el servicio?" description="Contacta con nuestro equipo y solicita presupuesto para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
 }

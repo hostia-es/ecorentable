@@ -100,7 +100,7 @@ export default function Soluciones() {
       </section>
 
       <FAQSection items={faqSoluciones} />
-      <CTABox title="¿Ya sabes qué necesitas?" description="Localiza el taller certificado más próximo y solicita cita para tu vehículo." primaryLabel="Encontrar centro" primaryHref="/encuentre-centro" secondaryLabel="Contactar experto" secondaryHref="/contacto" />
+      <CTABox title="¿Ya sabes qué necesitas?" description="Contacta con nuestro equipo y solicita presupuesto para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
 }

@@ -60,7 +60,7 @@ export default function BlogCategory() {
         </div>
       </section>
 
-      <CTABox title="¿Quieres actuar?" description="Encuentra un centro certificado o consulta con nuestro equipo técnico." primaryLabel="Encontrar centro" primaryHref="/encuentre-centro" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
+      <CTABox title="¿Quieres actuar?" description="Contacta con nuestro equipo técnico para resolver tus dudas." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
 }
