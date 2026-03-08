@@ -19,9 +19,9 @@ const badges = [
 ];
 
 const adaptadorFeatures = [
-  { title: "Cubierta de Protección", desc: "Garantiza sellado y protección contra salpicaduras para mantener la integridad del sistema." },
-  { title: "Automatización", desc: "Ciclos predefinidos ajustados según el nivel de obstrucción del FAP para un tratamiento eficiente." },
-  { title: "Efectividad Asegurada", desc: "Utiliza Carbon FAP Liquid, un producto de alto rendimiento y seguro para limpiar los FAP." },
+  { icon: <ShieldCheck size={22} />, title: "Cubierta de Protección", desc: "Garantiza sellado y protección contra salpicaduras para mantener la integridad del sistema." },
+  { icon: <Cog size={22} />, title: "Automatización", desc: "Ciclos predefinidos ajustados según el nivel de obstrucción del FAP para un tratamiento eficiente." },
+  { icon: <BadgeCheck size={22} />, title: "Efectividad Asegurada", desc: "Utiliza Carbon FAP Liquid, un producto de alto rendimiento y seguro para limpiar los FAP." },
 ];
 
 const partnerLogos = [
