@@ -60,6 +60,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     date: "2024-02-05",
     tags: ["DPF", "FAP", "filtro partículas", "síntomas"],
+    image: blogFiltroParticulas,
   },
   {
     id: "bp4",
