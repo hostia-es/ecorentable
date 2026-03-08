@@ -72,8 +72,8 @@ const servicios: Record<string, ServicioData> = {
     definition: "El servicio para talleres de Ecología Rentable permite a cualquier mecánico ofrecer descarbonización profesional a sus clientes, ya sea mediante la adquisición o alquiler de una máquina Hy-Calamine, o como centro de derivación de nuestro directorio.",
     symptoms: ["Quieres diversificar los servicios de tu taller", "Tus clientes te preguntan por descarbonización y DPF", "Buscas un servicio de alto margen con baja inversión", "Quieres recibir leads cualificados de tu zona"],
     benefits: ["Margen por servicio entre 50 y 150 €", "ROI de la máquina en 3–6 meses", "Leads de clientes de tu zona geográfica", "Formación técnica incluida", "Soporte técnico y comercial continuo"],
-    priceRange: "Inversión desde 2.800 €",
-    priceNote: "Precio de la máquina Hy-Calamine 1000S. También disponible en alquiler desde consultar. Solicita propuesta personalizada.",
+    priceRange: "Consultar precio",
+    priceNote: "Disponible en compra o alquiler. Solicita propuesta personalizada para tu taller.",
     process: [
       { step: 1, title: "Solicita información", desc: "Rellena el formulario de socio con los datos de tu taller." },
       { step: 2, title: "Visita técnica", desc: "Un técnico evalúa el espacio y te propone la máquina más adecuada." },
