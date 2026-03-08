@@ -208,7 +208,7 @@ export default function Index() {
                 transition={{ duration: 0.9, delay: 0.6 }}
                 className="absolute top-4 right-0 w-64"
               >
-                <div className="rounded-2xl p-5 backdrop-blur-xl border border-white/10" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+                <div className="rounded-2xl p-5 backdrop-blur-2xl border border-white/15 shadow-xl shadow-black/20" style={{ background: "hsl(220 20% 12% / 0.75)" }}>
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[hsl(148_60%_40%/0.2)]">
                       <Zap size={18} className="text-[hsl(148_60%_55%)]" />
