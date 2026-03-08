@@ -155,7 +155,7 @@ export const products: Product[] = [
     shortName: "Kit DPF Básico",
     category: "Kits de Limpieza",
     categorySlug: "kits-limpieza",
-    price: "Desde 89 €",
+    price: "Consultar precio",
     description: "Kit completo para limpieza manual del filtro de partículas, sin necesidad de máquina especializada. Ideal para talleres que inician en el servicio DPF.",
     technicalDescription: "El Kit Limpieza DPF Básico incluye todos los productos químicos y accesorios necesarios para realizar una limpieza manual del filtro de partículas por el método de remojo y lavado. Especialmente eficaz en filtros con grado de obstrucción leve-moderado (≤70%).",
     specifications: [
