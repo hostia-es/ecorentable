@@ -194,7 +194,7 @@ export default function LimpiezaFiltros() {
             Descubre cómo Ecología Rentable puede potenciar tu negocio automotriz y mejorar el rendimiento de tu vehículo con servicios de descarbonización y limpieza de filtros de partículas. ¡Sé parte de la solución para un futuro más limpio y sostenible! Contáctanos ahora para comenzar tu transformación hacia la excelencia ecológica y rentable. ¡Haz clic para iniciar tu viaje hacia un mundo automotriz más limpio y eficiente!
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/descarbonizacion" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all" style={{ background: "hsl(var(--accent-green))", color: "hsl(var(--dark-green-deep))" }}>
+            <Link to="/descarbonizacion" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all" style={{ background: "hsl(var(--accent-green))", color: "hsl(210 25% 8%)" }}>
               Descarbonización <ArrowRight size={14} />
             </Link>
             <Link to="/contacto" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm border-2 border-white text-white hover:bg-white/10 transition-all">
