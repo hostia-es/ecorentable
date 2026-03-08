@@ -243,7 +243,7 @@ export const products: Product[] = [
     shortName: "Kit Flotas",
     category: "Kits de Limpieza",
     categorySlug: "kits-limpieza",
-    price: "Desde 450 €",
+    price: "Consultar precio",
     description: "Pack completo de productos de descarbonización y mantenimiento diseñado para gestores de flotas con más de 10 vehículos.",
     technicalDescription: "Kit pensado para ser utilizado como mantenimiento preventivo trimestral o semestral en flotas de vehículos diésel. Incluye aditivos de combustible, tratamientos EGR y FAP, y kit de limpieza por admisión. Reduce la necesidad de intervenciones correctivas costosas.",
     specifications: [
