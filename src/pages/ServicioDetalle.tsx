@@ -27,8 +27,8 @@ const servicios: Record<string, ServicioData> = {
     definition: "La descarbonización profesional es el proceso de eliminación de depósitos carbonosos acumulados en el interior del motor mediante la introducción de gas HHO (hidrógeno + oxígeno) a través de la admisión. El proceso se realiza con el motor en marcha y no requiere desmontar ninguna pieza.",
     symptoms: ["Consumo de combustible elevado o en aumento", "Pérdida de potencia o tirones al acelerar", "Humos negros o azulados por el escape", "Testigo de motor encendido", "Regeneraciones DPF frecuentes o fallidas", "Ruidos de traqueteo especialmente en frío"],
     benefits: ["Reducción de emisiones hasta 70%", "Mejora de rendimiento 8–18%", "Reducción del consumo 5–12%", "Motor más silencioso y suave", "Extensión de vida útil del DPF, EGR y catalizador"],
-    priceRange: "Desde 80 € hasta 200 €",
-    priceNote: "El precio final depende de la cilindrada del vehículo, el modelo de máquina y los servicios adicionales (EGR, DPF).",
+    priceRange: "Consultar precio",
+    priceNote: "El precio depende de la cilindrada del vehículo, el modelo de máquina y los servicios adicionales. Solicita presupuesto sin compromiso.",
     process: [
       { step: 1, title: "Diagnóstico OBD2", desc: "Lectura de parámetros y códigos de error del motor." },
       { step: 2, title: "Preparación", desc: "Calentamiento del motor a temperatura óptima y conexión del equipo." },
