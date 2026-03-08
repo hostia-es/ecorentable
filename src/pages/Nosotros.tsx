@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { CheckCircle, Users, Target, Award, Leaf, ArrowRight } from "lucide-react";
+import { CheckCircle, Users, Target, Award, Leaf } from "lucide-react";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
-import FAQSection from "@/components/common/FAQSection";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function Nosotros() {
   return (
@@ -19,17 +20,17 @@ export default function Nosotros() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <span className="badge-green mb-3">Nuestra misión</span>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "hsl(var(--foreground))" }}>
+              <Badge variant="secondary" className="mb-3">Nuestra misión</Badge>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
                 Hacer la descarbonización accesible en toda España
               </h2>
-              <p className="text-base mb-4 leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>
+              <p className="text-base mb-4 leading-relaxed text-muted-foreground">
                 Ecología Rentable nació con el objetivo de democratizar el acceso a los servicios profesionales de descarbonización de motores en España. Creemos que cualquier conductor, independientemente de dónde viva, debe poder encontrar un taller certificado cerca de su domicilio.
               </p>
-              <p className="text-base mb-4 leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>
+              <p className="text-base mb-4 leading-relaxed text-muted-foreground">
                 Nuestra plataforma conecta a conductores con talleres certificados, a talleres con la tecnología y formación necesarias, y a gestores de flotas con soluciones de mantenimiento preventivo eficientes.
               </p>
-              <p className="text-base leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>
+              <p className="text-base leading-relaxed text-muted-foreground">
                 No somos solo una empresa de servicios: somos una red que cree en que el mantenimiento correcto del motor contribuye a reducir las emisiones de CO₂ y partículas del parque automovilístico español.
               </p>
             </div>
@@ -40,11 +41,13 @@ export default function Nosotros() {
                 { value: "5", label: "Provincias principales", sub: "Red en expansión" },
                 { value: "98%", label: "Satisfacción", sub: "Valoración media de clientes" },
               ].map((s) => (
-                <div key={s.label} className="card-eco p-5 text-center">
-                  <div className="text-2xl font-bold mb-1" style={{ color: "hsl(var(--primary))" }}>{s.value}</div>
-                  <div className="text-sm font-semibold mb-0.5" style={{ color: "hsl(var(--foreground))" }}>{s.label}</div>
-                  <div className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>{s.sub}</div>
-                </div>
+                <Card key={s.label} className="text-center">
+                  <CardContent className="p-5">
+                    <div className="text-2xl font-bold mb-1 text-primary">{s.value}</div>
+                    <div className="text-sm font-semibold mb-0.5 text-foreground">{s.label}</div>
+                    <div className="text-xs text-muted-foreground">{s.sub}</div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -55,7 +58,7 @@ export default function Nosotros() {
       <section className="py-14 section-alt">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold" style={{ color: "hsl(var(--foreground))" }}>Nuestros valores</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">Nuestros valores</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
@@ -64,11 +67,13 @@ export default function Nosotros() {
               { icon: <Users size={22} />, title: "Red colaborativa", desc: "Somos más fuertes juntos. Talleres, conductores y gestores de flotas forman nuestra comunidad." },
               { icon: <Award size={22} />, title: "Resultado garantizado", desc: "Nuestros centros certificados garantizan la calidad del servicio y el resultado obtenido." },
             ].map((v) => (
-              <div key={v.title} className="card-eco p-6 text-center">
-                <div className="icon-circle w-12 h-12 mx-auto mb-3">{v.icon}</div>
-                <h3 className="font-bold mb-2" style={{ color: "hsl(var(--foreground))" }}>{v.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{v.desc}</p>
-              </div>
+              <Card key={v.title} className="text-center">
+                <CardContent className="p-6">
+                  <div className="icon-circle w-12 h-12 mx-auto mb-3">{v.icon}</div>
+                  <h3 className="font-bold mb-2 text-foreground">{v.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{v.desc}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -78,8 +83,8 @@ export default function Nosotros() {
       <section className="py-16 section-light">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>Nuestro equipo</h2>
-            <p className="max-w-xl mx-auto text-base" style={{ color: "hsl(var(--muted-foreground))" }}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">Nuestro equipo</h2>
+            <p className="max-w-xl mx-auto text-base text-muted-foreground">
               Técnicos especializados, ingenieros de motor y profesionales del sector de la automoción trabajan para ofrecerte el mejor servicio.
             </p>
           </div>
@@ -89,12 +94,14 @@ export default function Nosotros() {
               { name: "Red de Socios", desc: "Equipo de coordinación y soporte para los más de 300 talleres socios, con formación continua y apoyo técnico.", members: 8 },
               { name: "Comercial y Flotas", desc: "Especialistas en gestión de flotas empresariales, con experiencia en transporte, logística y renting.", members: 6 },
             ].map((dept) => (
-              <div key={dept.name} className="card-eco p-6">
-                <div className="icon-circle w-11 h-11 mb-3"><Users size={18} /></div>
-                <h3 className="font-bold mb-2" style={{ color: "hsl(var(--foreground))" }}>{dept.name}</h3>
-                <p className="text-sm leading-relaxed mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>{dept.desc}</p>
-                <span className="badge-green">{dept.members} profesionales</span>
-              </div>
+              <Card key={dept.name}>
+                <CardContent className="p-6">
+                  <div className="icon-circle w-11 h-11 mb-3"><Users size={18} /></div>
+                  <h3 className="font-bold mb-2 text-foreground">{dept.name}</h3>
+                  <p className="text-sm leading-relaxed mb-3 text-muted-foreground">{dept.desc}</p>
+                  <Badge variant="secondary">{dept.members} profesionales</Badge>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -104,7 +111,7 @@ export default function Nosotros() {
       <section className="py-14 section-alt">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>Certificaciones y estándares</h2>
+            <h2 className="text-2xl font-bold mb-3 text-foreground">Certificaciones y estándares</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {[
@@ -113,13 +120,15 @@ export default function Nosotros() {
               { cert: "AENOR", desc: "Certificación de calidad en la formación de talleres socios y en los productos comercializados." },
               { cert: "Conformidad Euro 6d", desc: "Nuestros procedimientos son compatibles con vehículos Euro 3, 4, 5 y 6d-TEMP." },
             ].map((c) => (
-              <div key={c.cert} className="flex items-start gap-3 card-eco p-5">
-                <CheckCircle size={18} className="shrink-0 mt-0.5" style={{ color: "hsl(var(--primary))" }} />
-                <div>
-                  <div className="font-bold text-sm mb-0.5" style={{ color: "hsl(var(--foreground))" }}>{c.cert}</div>
-                  <div className="text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>{c.desc}</div>
-                </div>
-              </div>
+              <Card key={c.cert}>
+                <CardContent className="p-5 flex items-start gap-3">
+                  <CheckCircle size={18} className="shrink-0 mt-0.5 text-primary" />
+                  <div>
+                    <div className="font-bold text-sm mb-0.5 text-foreground">{c.cert}</div>
+                    <div className="text-sm text-muted-foreground">{c.desc}</div>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -129,7 +138,7 @@ export default function Nosotros() {
       <section className="py-16 section-light">
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold" style={{ color: "hsl(var(--foreground))" }}>Nuestra historia</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">Nuestra historia</h2>
           </div>
           <div className="space-y-6">
             {[
@@ -141,12 +150,12 @@ export default function Nosotros() {
             ].map((h) => (
               <div key={h.year} className="flex gap-5">
                 <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold shrink-0" style={{ background: "var(--gradient-primary)", color: "white" }}>{h.year.slice(2)}</div>
-                  <div className="w-0.5 flex-1 mt-2" style={{ background: "hsl(var(--border))" }} />
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold shrink-0 bg-primary text-primary-foreground">{h.year.slice(2)}</div>
+                  <div className="w-0.5 flex-1 mt-2 bg-border" />
                 </div>
                 <div className="pb-6">
-                  <div className="font-bold text-sm mb-1" style={{ color: "hsl(var(--primary))" }}>{h.year}</div>
-                  <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{h.event}</p>
+                  <div className="font-bold text-sm mb-1 text-primary">{h.year}</div>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{h.event}</p>
                 </div>
               </div>
             ))}
