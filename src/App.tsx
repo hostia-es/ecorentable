@@ -2,10 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import Footer from "@/components/layout/Footer";
+import WhatsAppButton from "@/components/common/WhatsAppButton";
+import AdminLayout from "@/components/admin/AdminLayout";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -27,8 +29,74 @@ import Contacto from "./pages/Contacto";
 import Accesibilidad from "./pages/Accesibilidad";
 import LegacyDescarbonizacion from "./pages/LegacyDescarbonizacion";
 import LegacyLimpiezaFiltros from "./pages/LegacyLimpiezaFiltros";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminLeads from "./pages/admin/AdminLeads";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
+
+function AppShell() {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin");
+
+  return (
+    <>
+      <ScrollToTop />
+      {!isAdmin && <Navbar />}
+      <Routes>
+        {/* MAIN */}
+        <Route path="/" element={<Index />} />
+        <Route path="/nosotros" element={<Nosotros />} />
+        <Route path="/contacto" element={<Contacto />} />
+        <Route path="/accesibilidad" element={<Accesibilidad />} />
+
+        {/* SERVICIOS */}
+        <Route path="/servicios" element={<Servicios />} />
+        <Route path="/servicios/:servicio" element={<ServicioDetalle />} />
+
+        {/* SOLUCIONES */}
+        <Route path="/soluciones" element={<Soluciones />} />
+        <Route path="/soluciones/:slug" element={<SolucionDetalle />} />
+
+        {/* BLOG */}
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/blog/categoria/:category" element={<BlogCategory />} />
+
+        {/* SOCIOS */}
+        <Route path="/socios" element={<Socios />} />
+        <Route path="/socios/hazte-socio" element={<HazteSocio />} />
+        <Route path="/socios/portal" element={<SociosPortal />} />
+
+        {/* TIENDA */}
+        <Route path="/tienda" element={<Tienda />} />
+        <Route path="/tienda/:categoria" element={<TiendaCategoria />} />
+        <Route path="/tienda/:categoria/:slug" element={<ProductoDetalle />} />
+
+        {/* ADMIN — hidden panel */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="leads" element={<AdminLeads />} />
+          <Route path="settings" element={<AdminSettings />} />
+        </Route>
+
+        {/* LEGACY URLs → redirect */}
+        <Route path="/descarbonizacion" element={<LegacyDescarbonizacion />} />
+        <Route path="/limpieza-de-filtros-de-particulas" element={<LegacyLimpiezaFiltros />} />
+        <Route path="/socio" element={<Navigate to="/socios" replace />} />
+        <Route path="/carbon-fap" element={<Navigate to="/tienda/aditivos/carbon-fap" replace />} />
+        <Route path="/hy-calamine-1000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-1000s-egr-pilot" replace />} />
+        <Route path="/hy-calamine-2000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-2000s-egr-pilot" replace />} />
+        <Route path="/hy-calamine-3000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-3000s-egr-pilot" replace />} />
+        <Route path="/hy-carbon-connect" element={<Navigate to="/tienda/accesorios-consumibles/hy-carbon-connect" replace />} />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      {!isAdmin && <Footer />}
+      {!isAdmin && <WhatsAppButton />}
+    </>
+  );
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -36,52 +104,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <ScrollToTop />
-        <Navbar />
-        <Routes>
-          {/* MAIN */}
-          <Route path="/" element={<Index />} />
-          <Route path="/nosotros" element={<Nosotros />} />
-          <Route path="/contacto" element={<Contacto />} />
-          <Route path="/accesibilidad" element={<Accesibilidad />} />
-
-          {/* SERVICIOS */}
-          <Route path="/servicios" element={<Servicios />} />
-          <Route path="/servicios/:servicio" element={<ServicioDetalle />} />
-
-          {/* SOLUCIONES */}
-          <Route path="/soluciones" element={<Soluciones />} />
-          <Route path="/soluciones/:slug" element={<SolucionDetalle />} />
-
-          {/* BLOG */}
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/blog/categoria/:category" element={<BlogCategory />} />
-
-
-          {/* SOCIOS */}
-          <Route path="/socios" element={<Socios />} />
-          <Route path="/socios/hazte-socio" element={<HazteSocio />} />
-          <Route path="/socios/portal" element={<SociosPortal />} />
-
-          {/* TIENDA */}
-          <Route path="/tienda" element={<Tienda />} />
-          <Route path="/tienda/:categoria" element={<TiendaCategoria />} />
-          <Route path="/tienda/:categoria/:slug" element={<ProductoDetalle />} />
-
-          {/* LEGACY URLs → redirect */}
-          <Route path="/descarbonizacion" element={<LegacyDescarbonizacion />} />
-          <Route path="/limpieza-de-filtros-de-particulas" element={<LegacyLimpiezaFiltros />} />
-          <Route path="/socio" element={<Navigate to="/socios" replace />} />
-          <Route path="/carbon-fap" element={<Navigate to="/tienda/aditivos/carbon-fap" replace />} />
-          <Route path="/hy-calamine-1000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-1000s-egr-pilot" replace />} />
-          <Route path="/hy-calamine-2000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-2000s-egr-pilot" replace />} />
-          <Route path="/hy-calamine-3000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-3000s-egr-pilot" replace />} />
-          <Route path="/hy-carbon-connect" element={<Navigate to="/tienda/accesorios-consumibles/hy-carbon-connect" replace />} />
-
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
+        <AppShell />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
