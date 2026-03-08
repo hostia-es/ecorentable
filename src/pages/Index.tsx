@@ -10,12 +10,10 @@ import heroMachineDark from "@/assets/hero-machine-dark.jpg";
 import heroCinematic from "@/assets/hero-cinematic.jpg";
 import serviceWide from "@/assets/service-wide.jpg";
 import hyCaronAngle from "@/assets/hy-carbon-connect-angle.png";
-import kitDigitalBanner from "@/assets/kit-digital-banner.png";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AnimatedSection, AnimatedCounter, StaggerChildren, staggerItem } from "@/components/common/Animations";
 import { useParallaxScroll, useParallax, useMouseParallax } from "@/hooks/use-parallax";
@@ -641,56 +639,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          §11 FOOTER inline
-      ══════════════════════════════════ */}
-      <section className="bg-background pb-12 pt-6">
-        <div className="container mx-auto px-6">
-          <Separator className="mb-10" />
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <img src={logoER} alt="Ecología Rentable" className="h-7 w-auto" />
-              </div>
-              <p className="text-xs leading-relaxed max-w-xs text-muted-foreground">
-                Somos expertos en descarbonización y limpieza de filtros de partículas. Resultados medibles, sin sorpresas.
-              </p>
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider mb-4 text-foreground">Web</p>
-              <ul className="space-y-2">
-                {[["Inicio", "/"], ["Nosotros", "/nosotros"], ["Contacto", "/contacto"]].map(([label, href]) => (
-                  <li key={href}><Link to={href} className="text-xs text-muted-foreground transition-colors hover:text-foreground">{label}</Link></li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider mb-4 text-foreground">Servicios</p>
-              <ul className="space-y-2">
-                {[["Descarbonización", "/servicios/descarbonizacion"], ["Limpieza de filtros", "/servicios/limpieza-filtros"], ["Programa de socios", "/socios"]].map(([label, href]) => (
-                  <li key={href}><Link to={href} className="text-xs text-muted-foreground transition-colors hover:text-foreground">{label}</Link></li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider mb-4 text-foreground">Contacto</p>
-              <ul className="space-y-2 text-xs text-muted-foreground">
-                <li>C. Isabel Colbrand, 6, 28050 Madrid</li>
-                <li>+34 605 928 626</li>
-                <li>info@ecologiarentable.es</li>
-              </ul>
-            </div>
-          </div>
-          <Separator className="my-6" />
-          <p className="text-xs text-muted-foreground">© 2025 Ecología Rentable. Todos los derechos reservados.</p>
-
-          {/* Kit Digital Banner */}
-          <Separator className="my-6" />
-          <div className="flex justify-center">
-            <img src={kitDigitalBanner} alt="Financiado por la Unión Europea con el programa Kit Digital por los fondos Next Generation (EU) del Mecanismo de Recuperación y Resiliencia" className="max-w-full h-auto" style={{ maxHeight: "60px" }} />
-          </div>
-        </div>
-      </section>
 
     </main>
   );
