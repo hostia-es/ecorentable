@@ -174,7 +174,7 @@ export default function Index() {
                 <Button asChild size="lg" className="gap-2 text-sm h-12 px-8 rounded-full shadow-[0_0_30px_hsl(148_60%_40%/0.3)]">
                   <Link to="/servicios">Ver servicios <ArrowRight size={16} /></Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="gap-2 text-sm h-12 px-8 rounded-full border-white/20 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
+                <Button asChild variant="outline" size="lg" className="gap-2 text-sm h-12 px-8 rounded-full border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
                   <Link to="/contacto"><Play size={14} /> Solicitar diagnóstico</Link>
                 </Button>
               </motion.div>
