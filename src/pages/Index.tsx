@@ -12,6 +12,7 @@ import serviceWide from "@/assets/service-wide.jpg";
 import engineDetail from "@/assets/engine-detail.jpg";
 import engineBeforeAfter from "@/assets/engine-before-after.jpg";
 import maquinaDescarbonizadora from "@/assets/maquina-descarbonizadora.jpg";
+import kitDigitalBanner from "@/assets/kit-digital-banner.png";
 
 /* ═══════════ WORLD MAP SVG COMPONENT ═══════════ */
 function WorldMap() {
