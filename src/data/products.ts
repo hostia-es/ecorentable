@@ -176,7 +176,7 @@ export const products: Product[] = [
     shortName: "Kit EGR Pro",
     category: "Kits de Limpieza",
     categorySlug: "kits-limpieza",
-    price: "Desde 65 €",
+    price: "Consultar precio",
     description: "Kit profesional para limpieza de la válvula EGR y conductos de gases de recirculación, sin necesidad de desmontaje en la mayoría de vehículos.",
     technicalDescription: "Incluye limpiador de introducción por admisión de aire y aditivo de mantenimiento EGR para uso con la máquina descarbonizadora o de forma independiente. Fórmula desarrollada específicamente para eliminar depósitos carbonosos en la válvula EGR, colector y conductos de recirculación.",
     specifications: [
