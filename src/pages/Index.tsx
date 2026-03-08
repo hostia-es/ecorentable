@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, Zap, Shield, Wrench, Star, CheckCircle, Clock, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 import logoER from "@/assets/logo-ecologia-rentable.png";
 
 import hyCaronFront from "@/assets/hy-carbon-connect-front.png";
@@ -11,10 +12,11 @@ import hyCaronAngle from "@/assets/hy-carbon-connect-angle.png";
 import kitDigitalBanner from "@/assets/kit-digital-banner.png";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { AnimatedSection, AnimatedCounter, StaggerChildren, staggerItem } from "@/components/common/Animations";
 
 /* ═══════════ DATA ═══════════ */
 const heroMicrocopy = [
@@ -95,50 +97,82 @@ export default function Index() {
       <section className="bg-background">
         <div className="grid lg:grid-cols-2 min-h-[92vh]">
           {/* LEFT: hero image */}
-          <div className="relative overflow-hidden order-2 lg:order-1 min-h-[50vw] lg:min-h-0">
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative overflow-hidden order-2 lg:order-1 min-h-[50vw] lg:min-h-0"
+          >
             <img src={heroMachineDark} alt="Máquina descarbonizadora profesional Hy-Carbon Connect" className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
               <p className="text-white text-sm font-semibold opacity-90">Ecología Rentable</p>
               <p className="text-xs mt-1 text-white/70">Especialistas en descarbonización de motores</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* RIGHT: text content */}
           <div className="order-1 lg:order-2 flex flex-col justify-center px-8 md:px-12 lg:px-16 py-16">
-            <Badge variant="secondary" className="w-fit mb-4 text-xs font-semibold tracking-wide uppercase">
-              Tu motor acumula carbonilla desde los primeros 15.000 km
-            </Badge>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
+              <Badge variant="secondary" className="w-fit mb-4 text-xs font-semibold tracking-wide uppercase">
+                Tu motor acumula carbonilla desde los primeros 15.000 km
+              </Badge>
+            </motion.div>
 
-            <h1 className="text-3xl md:text-4xl xl:text-[2.75rem] font-bold leading-[1.15] mb-6 text-foreground">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="text-3xl md:text-4xl xl:text-[2.75rem] font-bold leading-[1.15] mb-6 text-foreground"
+            >
               Dale a tu motor lo que necesita: una limpieza que se nota desde el primer kilómetro
-            </h1>
+            </motion.h1>
 
-            <p className="text-base mb-6 leading-relaxed text-muted-foreground">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="text-base mb-6 leading-relaxed text-muted-foreground"
+            >
               Descarbonización por inyección de hidrógeno y limpieza profesional de filtros de partículas. Sin desmontaje, sin química agresiva, con resultados medibles antes y después del tratamiento.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
+              className="flex flex-col sm:flex-row gap-3 mb-8"
+            >
               <Button asChild className="gap-2">
                 <Link to="/servicios">Ver servicios <ArrowRight size={15} /></Link>
               </Button>
               <Button asChild variant="outline" className="gap-2">
                 <Link to="/contacto">Solicitar diagnóstico gratuito</Link>
               </Button>
-            </div>
+            </motion.div>
 
             {/* 3 microcopy */}
-            <div className="space-y-3 mb-10">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="space-y-3 mb-10"
+            >
               {heroMicrocopy.map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="mt-0.5 shrink-0 text-primary">{item.icon}</span>
                   <p className="text-sm text-muted-foreground">{item.text}</p>
                 </div>
               ))}
-            </div>
+            </motion.div>
 
             {/* 3 small thumbnails row */}
-            <div className="grid grid-cols-3 gap-3 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className="grid grid-cols-3 gap-3 mb-8"
+            >
               {[
                 { src: tecnicoHyCarbon, label: "Técnico certificado" },
                 { src: hyCaronAngle, label: "Equipo Hy-Carbon" },
@@ -151,14 +185,14 @@ export default function Index() {
                   </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
 
-            {/* Stats row */}
+            {/* Stats row with animated counters */}
             <Separator className="mb-6" />
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {heroStats.map((s) => (
                 <div key={s.label}>
-                  <div className="text-2xl font-bold text-foreground">{s.value}</div>
+                  <AnimatedCounter value={s.value} className="text-2xl font-bold text-foreground" />
                   <div className="text-xs text-muted-foreground">{s.label}</div>
                 </div>
               ))}
@@ -173,7 +207,7 @@ export default function Index() {
       <section className="py-20 bg-secondary">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-14 items-center">
-            <div>
+            <AnimatedSection>
               <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
                 No vendemos promesas. Entregamos diagnósticos con datos reales.
               </Badge>
@@ -197,10 +231,12 @@ export default function Index() {
               <Button asChild className="gap-2">
                 <Link to="/nosotros">Conócenos <ArrowRight size={15} /></Link>
               </Button>
-            </div>
-            <div className="relative rounded-2xl overflow-hidden">
-              <img src={tecnicoHyCarbon} alt="Técnico realizando descarbonización" className="w-full h-80 lg:h-[480px] object-cover rounded-2xl" />
-            </div>
+            </AnimatedSection>
+            <AnimatedSection delay={0.2}>
+              <div className="relative rounded-2xl overflow-hidden">
+                <img src={tecnicoHyCarbon} alt="Técnico realizando descarbonización" className="w-full h-80 lg:h-[480px] object-cover rounded-2xl" />
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -210,46 +246,54 @@ export default function Index() {
       ══════════════════════════════════ */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end gap-6 mb-12">
-            <div className="flex-1">
-              <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
-                Descarbonización por inyección de hidrógeno
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
-                Hy-Carbon Connect — el tratamiento que limpia donde ningún aditivo llega
-              </h2>
+          <AnimatedSection>
+            <div className="flex flex-col md:flex-row md:items-end gap-6 mb-12">
+              <div className="flex-1">
+                <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
+                  Descarbonización por inyección de hidrógeno
+                </Badge>
+                <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
+                  Hy-Carbon Connect — el tratamiento que limpia donde ningún aditivo llega
+                </h2>
+              </div>
             </div>
-          </div>
+          </AnimatedSection>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
-            <div>
+            <AnimatedSection>
               <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
                 El sistema Hy-Carbon Connect introduce gas HHO —una mezcla controlada de hidrógeno y oxígeno— directamente en el sistema de admisión del motor. Ese gas reacciona con los depósitos de carbono acumulados en las zonas críticas del motor y los convierte en CO₂ y vapor de agua, que se expulsan de forma natural por el escape.
               </p>
               <p className="text-sm leading-relaxed text-muted-foreground">
                 El resultado: cero residuos químicos, cero desmontaje, cero tiempo de espera. Solo un motor más limpio, más eficiente y con menos emisiones.
               </p>
-            </div>
-            <div className="relative rounded-2xl overflow-hidden bg-muted">
-              <img src={hyCaronFront} alt="Hy-Carbon Connect equipo frontal" className="w-full h-72 object-contain p-8" />
-            </div>
+            </AnimatedSection>
+            <AnimatedSection delay={0.15}>
+              <div className="relative rounded-2xl overflow-hidden bg-muted">
+                <img src={hyCaronFront} alt="Hy-Carbon Connect equipo frontal" className="w-full h-72 object-contain p-8" />
+              </div>
+            </AnimatedSection>
           </div>
 
           {/* 6 features grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+          <StaggerChildren className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {hyCarbonFeatures.map((f) => (
-              <Card key={f.title} className="rounded-2xl">
-                <CardContent className="p-6">
-                  <h3 className="text-sm font-bold mb-2 text-foreground">{f.title}</h3>
-                  <p className="text-xs leading-relaxed text-muted-foreground">{f.desc}</p>
-                </CardContent>
-              </Card>
+              <motion.div key={f.title} variants={staggerItem}>
+                <Card className="rounded-2xl h-full">
+                  <CardContent className="p-6">
+                    <h3 className="text-sm font-bold mb-2 text-foreground">{f.title}</h3>
+                    <p className="text-xs leading-relaxed text-muted-foreground">{f.desc}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
 
-          <Button asChild className="gap-2">
-            <Link to="/servicios/descarbonizacion">Ver descarbonización <ArrowRight size={15} /></Link>
-          </Button>
+          <AnimatedSection>
+            <Button asChild className="gap-2">
+              <Link to="/servicios/descarbonizacion">Ver descarbonización <ArrowRight size={15} /></Link>
+            </Button>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -258,26 +302,30 @@ export default function Index() {
       ══════════════════════════════════ */}
       <section className="relative overflow-hidden py-20" style={{ background: "hsl(210 25% 6%)" }}>
         <div className="container mx-auto px-6">
-          <Badge className="mb-3 bg-primary/20 text-[hsl(148_60%_55%)] border-primary/30 text-[11px] tracking-[0.15em] uppercase hover:bg-primary/20">
-            Cómo trabajamos en Ecología Rentable
-          </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-14">
-            Un proceso transparente,<br />de principio a fin
-          </h2>
+          <AnimatedSection>
+            <Badge className="mb-3 bg-primary/20 text-[hsl(148_60%_55%)] border-primary/30 text-[11px] tracking-[0.15em] uppercase hover:bg-primary/20">
+              Cómo trabajamos en Ecología Rentable
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-14">
+              Un proceso transparente,<br />de principio a fin
+            </h2>
+          </AnimatedSection>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <StaggerChildren className="grid md:grid-cols-2 gap-8" staggerDelay={0.15}>
             {processSteps.map((step) => (
-              <Card key={step.num} className="rounded-2xl bg-white/[0.04] border-white/[0.08] backdrop-blur-sm">
-                <CardContent className="p-6 flex gap-5">
-                  <div className="text-3xl font-bold shrink-0 text-[hsl(148_60%_55%)]">{step.num}</div>
-                  <div>
-                    <h3 className="text-base font-bold text-white mb-2">{step.title}</h3>
-                    <p className="text-sm leading-relaxed text-white/60">{step.desc}</p>
-                  </div>
-                </CardContent>
-              </Card>
+              <motion.div key={step.num} variants={staggerItem}>
+                <Card className="rounded-2xl bg-white/[0.04] border-white/[0.08] backdrop-blur-sm h-full">
+                  <CardContent className="p-6 flex gap-5">
+                    <div className="text-3xl font-bold shrink-0 text-[hsl(148_60%_55%)]">{step.num}</div>
+                    <div>
+                      <h3 className="text-base font-bold text-white mb-2">{step.title}</h3>
+                      <p className="text-sm leading-relaxed text-white/60">{step.desc}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
@@ -286,19 +334,21 @@ export default function Index() {
       ══════════════════════════════════ */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end gap-6 mb-12">
-            <div className="flex-1">
-              <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
-                Estación profesional de limpieza de filtros de partículas
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
-                Carbon FAP — porque sustituir un FAP puede costarte entre 500 € y 2.000 €
-              </h2>
+          <AnimatedSection>
+            <div className="flex flex-col md:flex-row md:items-end gap-6 mb-12">
+              <div className="flex-1">
+                <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
+                  Estación profesional de limpieza de filtros de partículas
+                </Badge>
+                <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
+                  Carbon FAP — porque sustituir un FAP puede costarte entre 500 € y 2.000 €
+                </h2>
+              </div>
             </div>
-          </div>
+          </AnimatedSection>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start mb-10">
-            <div>
+            <AnimatedSection>
               <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
                 El filtro de partículas (FAP/DPF) es una de las piezas más caras del vehículo cuando falla. Su sustitución oscila entre los 500 y los 2.000 euros según el modelo, sin contar mano de obra. Y la mayoría de las veces, la sustitución se puede evitar.
               </p>
@@ -322,10 +372,12 @@ export default function Index() {
               <Button asChild className="gap-2">
                 <Link to="/servicios/limpieza-filtros">Ver limpieza de filtros <ArrowRight size={15} /></Link>
               </Button>
-            </div>
-            <div className="relative rounded-2xl overflow-hidden">
-              <img src={serviceWide} alt="Estación Carbon FAP" className="w-full h-72 lg:h-96 object-cover rounded-2xl" />
-            </div>
+            </AnimatedSection>
+            <AnimatedSection delay={0.2}>
+              <div className="relative rounded-2xl overflow-hidden">
+                <img src={serviceWide} alt="Estación Carbon FAP" className="w-full h-72 lg:h-96 object-cover rounded-2xl" />
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -336,7 +388,7 @@ export default function Index() {
       <section className="py-20 bg-secondary">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-14 items-center">
-            <div>
+            <AnimatedSection>
               <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
                 Programa de socios certificados
               </Badge>
@@ -350,7 +402,7 @@ export default function Index() {
                 Como socio certificado de Ecología Rentable accedes a la tecnología, la formación técnica y el soporte comercial necesarios para ofrecer estos servicios desde el primer día.
               </p>
 
-              {/* 3 metrics */}
+              {/* 3 metrics with animated counters */}
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {[
                   { value: "60%", label: "de margen en cada servicio" },
@@ -359,7 +411,7 @@ export default function Index() {
                 ].map((m) => (
                   <Card key={m.value} className="text-center">
                     <CardContent className="p-4">
-                      <div className="text-2xl font-bold text-primary">{m.value}</div>
+                      <AnimatedCounter value={m.value} className="text-2xl font-bold text-primary" />
                       <div className="text-xs mt-1 text-muted-foreground">{m.label}</div>
                     </CardContent>
                   </Card>
@@ -377,10 +429,12 @@ export default function Index() {
               <Button asChild className="gap-2">
                 <Link to="/socios/hazte-socio">Quiero ser socio <ArrowRight size={15} /></Link>
               </Button>
-            </div>
-            <div className="relative rounded-2xl overflow-hidden">
-              <img src={diagnosticoMotor} alt="Socio certificado realizando diagnóstico" className="w-full h-80 lg:h-[480px] object-cover rounded-2xl" />
-            </div>
+            </AnimatedSection>
+            <AnimatedSection delay={0.2}>
+              <div className="relative rounded-2xl overflow-hidden">
+                <img src={diagnosticoMotor} alt="Socio certificado realizando diagnóstico" className="w-full h-80 lg:h-[480px] object-cover rounded-2xl" />
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -390,38 +444,42 @@ export default function Index() {
       ══════════════════════════════════ */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
-          <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
-            Lo que dicen los que ya lo han probado
-          </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight text-foreground">
-            Resultados que se miden, no que se imaginan
-          </h2>
-          <p className="text-sm mb-12 max-w-2xl text-muted-foreground">
-            Cada tratamiento genera un informe con datos reales. Estos son algunos de los profesionales y conductores que ya han visto los resultados.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6">
+          <AnimatedSection>
+            <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
+              Lo que dicen los que ya lo han probado
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight text-foreground">
+              Resultados que se miden, no que se imaginan
+            </h2>
+            <p className="text-sm mb-12 max-w-2xl text-muted-foreground">
+              Cada tratamiento genera un informe con datos reales. Estos son algunos de los profesionales y conductores que ya han visto los resultados.
+            </p>
+          </AnimatedSection>
+          <StaggerChildren className="grid md:grid-cols-3 gap-6" staggerDelay={0.15}>
             {testimonials.map((t) => (
-              <Card key={t.name} className="rounded-2xl">
-                <CardContent className="p-7">
-                  <div className="flex gap-1 mb-5">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={13} fill="hsl(48 96% 53%)" className="text-[hsl(48_96%_53%)]" />
-                    ))}
-                  </div>
-                  <p className="text-sm leading-relaxed mb-7 text-foreground">"{t.text}"</p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-primary-foreground bg-primary">
-                      {t.name[0]}
+              <motion.div key={t.name} variants={staggerItem}>
+                <Card className="rounded-2xl h-full">
+                  <CardContent className="p-7">
+                    <div className="flex gap-1 mb-5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={13} fill="hsl(48 96% 53%)" className="text-[hsl(48_96%_53%)]" />
+                      ))}
                     </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{t.name}</p>
-                      <p className="text-xs text-muted-foreground">{t.role}</p>
+                    <p className="text-sm leading-relaxed mb-7 text-foreground">"{t.text}"</p>
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-primary-foreground bg-primary">
+                        {t.name[0]}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">{t.name}</p>
+                        <p className="text-xs text-muted-foreground">{t.role}</p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
@@ -430,26 +488,28 @@ export default function Index() {
       ══════════════════════════════════ */}
       <section className="relative overflow-hidden py-20" style={{ background: "hsl(210 25% 6%)" }}>
         <div className="container mx-auto px-6 text-center">
-          <Badge className="mb-3 bg-primary/20 text-[hsl(148_60%_55%)] border-primary/30 text-[11px] tracking-[0.15em] uppercase hover:bg-primary/20">
-            El mantenimiento que siempre debiste hacer
-          </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 max-w-3xl mx-auto leading-tight">
-            Tu motor lleva kilómetros acumulando lo que nosotros eliminamos en una hora
-          </h2>
-          <p className="text-base mb-4 max-w-2xl mx-auto leading-relaxed text-white/65">
-            La carbonilla no se ve, pero se nota. En el consumo, en la respuesta del acelerador, en el humo del escape, en la ITV. Un tratamiento de descarbonización y limpieza de filtro de partículas puede devolverte el rendimiento original del vehículo y ahorrarte cientos de euros en reparaciones futuras.
-          </p>
-          <p className="text-sm mb-8 max-w-xl mx-auto text-white/50">
-            Sin química agresiva. Sin desmontaje. Con un informe que demuestra la diferencia.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild className="gap-2">
-              <Link to="/servicios">Ver servicios <ArrowRight size={15} /></Link>
-            </Button>
-            <Button asChild variant="outline" className="gap-2 border-white/30 text-white hover:bg-white/10 hover:text-white">
-              <Link to="/contacto">Solicitar diagnóstico</Link>
-            </Button>
-          </div>
+          <AnimatedSection>
+            <Badge className="mb-3 bg-primary/20 text-[hsl(148_60%_55%)] border-primary/30 text-[11px] tracking-[0.15em] uppercase hover:bg-primary/20">
+              El mantenimiento que siempre debiste hacer
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 max-w-3xl mx-auto leading-tight">
+              Tu motor lleva kilómetros acumulando lo que nosotros eliminamos en una hora
+            </h2>
+            <p className="text-base mb-4 max-w-2xl mx-auto leading-relaxed text-white/65">
+              La carbonilla no se ve, pero se nota. En el consumo, en la respuesta del acelerador, en el humo del escape, en la ITV. Un tratamiento de descarbonización y limpieza de filtro de partículas puede devolverte el rendimiento original del vehículo y ahorrarte cientos de euros en reparaciones futuras.
+            </p>
+            <p className="text-sm mb-8 max-w-xl mx-auto text-white/50">
+              Sin química agresiva. Sin desmontaje. Con un informe que demuestra la diferencia.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button asChild className="gap-2">
+                <Link to="/servicios">Ver servicios <ArrowRight size={15} /></Link>
+              </Button>
+              <Button asChild variant="outline" className="gap-2 border-white/30 text-white hover:bg-white/10 hover:text-white">
+                <Link to="/contacto">Solicitar diagnóstico</Link>
+              </Button>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -459,7 +519,7 @@ export default function Index() {
       <section className="py-20 bg-secondary">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-5 gap-14">
-            <div className="lg:col-span-2">
+            <AnimatedSection className="lg:col-span-2">
               <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
                 Lo que nos preguntan antes de venir
               </Badge>
@@ -469,8 +529,8 @@ export default function Index() {
               <Button asChild variant="secondary" className="gap-2 bg-foreground text-background hover:bg-foreground/90">
                 <Link to="/contacto">Pregúntanos</Link>
               </Button>
-            </div>
-            <div className="lg:col-span-3">
+            </AnimatedSection>
+            <AnimatedSection delay={0.15} className="lg:col-span-3">
               <Accordion type="single" collapsible className="w-full">
                 {faqs.map((f, i) => (
                   <AccordionItem key={i} value={`faq-${i}`}>
@@ -481,7 +541,7 @@ export default function Index() {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -491,18 +551,20 @@ export default function Index() {
       ══════════════════════════════════ */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6 text-center">
-          <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
-            Red nacional
-          </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold mb-5 max-w-2xl mx-auto leading-tight text-foreground">
-            Más de 300 centros certificados en toda España
-          </h2>
-          <p className="text-base mb-8 max-w-lg mx-auto text-muted-foreground">
-            Encuentra el centro más cercano o conviértete en socio y ofrece el servicio en tu taller.
-          </p>
-          <Button asChild className="gap-2">
-            <Link to="/encuentre-centro"><MapPin size={16} /> Encontrar un centro</Link>
-          </Button>
+          <AnimatedSection>
+            <Badge variant="outline" className="mb-3 text-[11px] tracking-[0.15em] uppercase">
+              Red nacional
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-5 max-w-2xl mx-auto leading-tight text-foreground">
+              Más de 300 centros certificados en toda España
+            </h2>
+            <p className="text-base mb-8 max-w-lg mx-auto text-muted-foreground">
+              Encuentra el centro más cercano o conviértete en socio y ofrece el servicio en tu taller.
+            </p>
+            <Button asChild className="gap-2">
+              <Link to="/encuentre-centro"><MapPin size={16} /> Encontrar un centro</Link>
+            </Button>
+          </AnimatedSection>
         </div>
       </section>
 
