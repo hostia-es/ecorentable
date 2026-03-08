@@ -1,3 +1,16 @@
+import blogDescarbonizacionMotor from "@/assets/blog/blog-descarbonizacion-motor.jpg";
+import blogCuandoDescarbonizar from "@/assets/blog/blog-cuando-descarbonizar.jpg";
+import blogFiltroParticulas from "@/assets/blog/blog-filtro-particulas.jpg";
+import blogHidrogenoHho from "@/assets/blog/blog-hidrogeno-hho.jpg";
+import blogItvDescarbonizacion from "@/assets/blog/blog-itv-descarbonizacion.jpg";
+import blogCarbonFap from "@/assets/blog/blog-carbon-fap.jpg";
+import blogFlotasDiesel from "@/assets/blog/blog-flotas-diesel.jpg";
+import blogValvulaEgr from "@/assets/blog/blog-valvula-egr.jpg";
+import blogNormativaItv from "@/assets/blog/blog-normativa-itv.jpg";
+import blogHyCalamineComparativa from "@/assets/blog/blog-hy-calamine-comparativa.jpg";
+import blogRentabilidadTaller from "@/assets/blog/blog-rentabilidad-taller.jpg";
+import blogEuro6dMotor from "@/assets/blog/blog-euro6d-motor.jpg";
+
 export interface BlogPost {
   id: string;
   slug: string;
@@ -9,6 +22,7 @@ export interface BlogPost {
   date: string;
   content?: string;
   tags: string[];
+  image: string;
 }
 
 export const blogPosts: BlogPost[] = [
