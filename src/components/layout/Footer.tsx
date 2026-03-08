@@ -44,7 +44,7 @@ export default function Footer() {
             <div className="space-y-2 text-sm" style={{ color: "hsl(0 0% 65%)" }}>
               <div className="flex items-center gap-2">
                 <Phone size={14} style={{ color: "hsl(148 72% 55%)" }} />
-                <span>+34 900 123 456</span>
+                <span>+34 605 928 626</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={14} style={{ color: "hsl(148 72% 55%)" }} />
