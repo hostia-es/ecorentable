@@ -120,6 +120,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min",
     date: "2024-04-01",
     tags: ["EGR", "válvula EGR", "limpieza", "gases recirculación"],
+    image: blogValvulaEgr,
   },
   {
     id: "bp9",
