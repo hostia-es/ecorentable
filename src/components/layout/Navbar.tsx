@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, ChevronDown, Leaf } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import logoER from "@/assets/logo-ecologia-rentable.png";
 
 const navItems = [
   {
