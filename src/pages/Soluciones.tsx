@@ -91,9 +91,9 @@ export default function Soluciones() {
               <Link to="/servicios" className="text-xs font-semibold flex items-center gap-1" style={{ color: "hsl(var(--primary))" }}>Ver servicios <ArrowRight size={11} /></Link>
             </div>
             <div className="card-eco p-5">
-              <h3 className="font-bold mb-2 text-sm" style={{ color: "hsl(var(--foreground))" }}>Encuentra un centro</h3>
-              <p className="text-xs mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>Localiza el taller certificado más cercano a tu domicilio.</p>
-              <Link to="/encuentre-centro" className="text-xs font-semibold flex items-center gap-1" style={{ color: "hsl(var(--primary))" }}>Buscar centro <ArrowRight size={11} /></Link>
+              <h3 className="font-bold mb-2 text-sm" style={{ color: "hsl(var(--foreground))" }}>Contacta con nosotros</h3>
+              <p className="text-xs mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>Resolvemos tus dudas y te asesoramos sobre el servicio más adecuado.</p>
+              <Link to="/contacto" className="text-xs font-semibold flex items-center gap-1" style={{ color: "hsl(var(--primary))" }}>Contactar <ArrowRight size={11} /></Link>
             </div>
           </div>
         </div>
