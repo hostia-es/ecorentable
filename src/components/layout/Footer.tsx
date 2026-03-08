@@ -26,14 +26,6 @@ const footerLinks = {
     { label: "Contacto", href: "/contacto" },
     { label: "Accesibilidad", href: "/accesibilidad" },
   ],
-  centros: [
-    { label: "Madrid", href: "/encuentre-centro/madrid" },
-    { label: "Barcelona", href: "/encuentre-centro/barcelona" },
-    { label: "Valencia", href: "/encuentre-centro/valencia" },
-    { label: "Sevilla", href: "/encuentre-centro/sevilla" },
-    { label: "Málaga", href: "/encuentre-centro/malaga" },
-    { label: "Ver todos", href: "/encuentre-centro" },
-  ],
 };
 
 export default function Footer() {
