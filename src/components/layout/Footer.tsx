@@ -42,11 +42,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-2 font-bold text-lg mb-4" style={{ color: "hsl(148 72% 55%)" }}>
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg" style={{ background: "var(--gradient-primary)" }}>
-                <Leaf size={18} color="white" />
-              </div>
-              <span>Ecología Rentable</span>
+            <Link to="/" className="flex items-center mb-4">
+              <img src={logoER} alt="Ecología Rentable" className="h-8 w-auto brightness-0 invert" style={{ filter: "brightness(0) invert(1)" }} />
             </Link>
             <p className="text-sm mb-4" style={{ color: "hsl(0 0% 65%)" }}>
               Especialistas en descarbonización de motores, limpieza DPF/FAP y EGR en toda España.

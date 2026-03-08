@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, ChevronDown, ChevronRight, Leaf, Zap, Shield, Wrench, TrendingUp, Star, CheckCircle, Search, Clock, Fuel, Gauge, Users, Award, Phone, Mail } from "lucide-react";
+import { ArrowRight, MapPin, ChevronDown, ChevronRight, Zap, Shield, Wrench, TrendingUp, Star, CheckCircle, Search, Clock, Fuel, Gauge, Users, Award, Phone, Mail } from "lucide-react";
+import logoER from "@/assets/logo-ecologia-rentable.png";
 import { useState } from "react";
 
 import hyCaronAngle from "@/assets/hy-carbon-connect-angle.png";
