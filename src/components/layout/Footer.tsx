@@ -42,14 +42,14 @@ export default function Footer() {
               Especialistas en descarbonización de motores, limpieza DPF/FAP y EGR en toda España.
             </p>
             <div className="space-y-2 text-sm" style={{ color: "hsl(0 0% 65%)" }}>
-              <div className="flex items-center gap-2">
+              <a href="https://wa.me/34605928626" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors">
                 <Phone size={14} style={{ color: "hsl(148 72% 55%)" }} />
                 <span>+34 605 928 626</span>
-              </div>
-              <div className="flex items-center gap-2">
+              </a>
+              <a href="mailto:info@ecologiarentable.es" className="flex items-center gap-2 hover:text-white transition-colors">
                 <Mail size={14} style={{ color: "hsl(148 72% 55%)" }} />
                 <span>info@ecologiarentable.es</span>
-              </div>
+              </a>
               <div className="flex items-center gap-2">
                 <MapPin size={14} style={{ color: "hsl(148 72% 55%)" }} />
                 <span>C. Isabel Colbrand, 6, 28050 Madrid</span>
