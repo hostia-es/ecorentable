@@ -197,7 +197,7 @@ export const products: Product[] = [
     shortName: "Aditivo Diésel PRO",
     category: "Aditivos",
     categorySlug: "aditivos",
-    price: "Desde 22 €",
+    price: "Consultar precio",
     description: "Aditivo multifunción para diésel que mejora la combustión, protege el sistema de inyección y reduce emisiones de NOx y partículas.",
     technicalDescription: "Fórmula multicomponente que actúa como mejorador de cetano (+3–5 puntos), detergente de inyectores, lubricante del sistema de combustible y reductor de hollín. Compatible con biodiésel hasta B30.",
     specifications: [
