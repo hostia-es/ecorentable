@@ -144,6 +144,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     date: "2024-05-01",
     tags: ["Hy-Calamine", "comparativa", "máquina descarbonizadora", "taller"],
+    image: blogHyCalamineComparativa,
   },
   {
     id: "bp11",
