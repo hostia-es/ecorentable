@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Shield, Zap, Settings } from "lucide-react";
+import { ArrowRight, CheckCircle, Shield, Zap, Settings, ShieldCheck, Cog, BadgeCheck } from "lucide-react";
 import { AnimatedSection, StaggerChildren } from "@/components/common/Animations";
 import FAQSection from "@/components/common/FAQSection";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,9 +19,9 @@ const badges = [
 ];
 
 const adaptadorFeatures = [
-  { title: "Cubierta de Protección", desc: "Garantiza sellado y protección contra salpicaduras para mantener la integridad del sistema." },
-  { title: "Automatización", desc: "Ciclos predefinidos ajustados según el nivel de obstrucción del FAP para un tratamiento eficiente." },
-  { title: "Efectividad Asegurada", desc: "Utiliza Carbon FAP Liquid, un producto de alto rendimiento y seguro para limpiar los FAP." },
+  { icon: <ShieldCheck size={22} />, title: "Cubierta de Protección", desc: "Garantiza sellado y protección contra salpicaduras para mantener la integridad del sistema." },
+  { icon: <Cog size={22} />, title: "Automatización", desc: "Ciclos predefinidos ajustados según el nivel de obstrucción del FAP para un tratamiento eficiente." },
+  { icon: <BadgeCheck size={22} />, title: "Efectividad Asegurada", desc: "Utiliza Carbon FAP Liquid, un producto de alto rendimiento y seguro para limpiar los FAP." },
 ];
 
 const partnerLogos = [
@@ -63,12 +63,13 @@ export default function LimpiezaFiltros() {
           </p>
           <Link
             to="/contacto"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-sm transition-all"
-            style={{ background: "hsl(148 72% 55%)", color: "hsl(210 25% 8%)" }}
+            className="btn-cta text-sm"
           >
             CONTACTO
           </Link>
         </div>
+        {/* Smooth fade into next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to bottom, transparent, hsl(210 20% 98%))" }} />
       </section>
 
       {/* 3 FEATURE CARDS — white card overlapping hero bottom, 3 columns */}
@@ -162,9 +163,10 @@ export default function LimpiezaFiltros() {
             <StaggerChildren>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 {adaptadorFeatures.map((f) => (
-                  <Card key={f.title} className="hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6 text-center">
-                      <h4 className="font-bold mb-2 text-foreground">{f.title}</h4>
+                  <Card key={f.title} className="hover:shadow-lg transition-all hover:-translate-y-1">
+                    <CardContent className="p-6 text-center flex flex-col items-center gap-3">
+                      <div className="icon-circle w-12 h-12">{f.icon}</div>
+                      <h4 className="font-bold text-foreground">{f.title}</h4>
                       <p className="text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
                     </CardContent>
                   </Card>
