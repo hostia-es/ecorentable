@@ -80,7 +80,7 @@ export const products: Product[] = [
     shortName: "Hy-Calamine 3000S",
     category: "Máquinas Descarbonizadoras",
     categorySlug: "maquinas-descarbonizadoras",
-    price: "Desde 6.900 €",
+    price: "Consultar precio",
     description: "La máquina de descarbonización profesional de máxima gama para talleres de alto volumen, flotas y centros especializados.",
     technicalDescription: "La Hy-Calamine 3000S EGR PILOT es la solución de alto rendimiento para talleres y flotas con alta demanda de descarbonización. Con 2.800 ml/min de producción HHO, ciclos ultra-cortos y compatibilidad con vehículos industriales de hasta 3,5T, es la máquina más completa de la gama. Incluye conectividad WiFi para seguimiento de ciclos, software de gestión de clientes y módulo de diagnóstico OBD2 integrado.",
     specifications: [
