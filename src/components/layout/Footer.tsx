@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Youtube, MessageCircle } from "lucide-react";
 import logoER from "@/assets/logo-ecologia-rentable.png";
 import kitDigitalBanner from "@/assets/kit-digital-banner.png";
 
@@ -42,22 +42,30 @@ export default function Footer() {
               Especialistas en descarbonización de motores, limpieza DPF/FAP y EGR en toda España.
             </p>
             <div className="space-y-2 text-sm" style={{ color: "hsl(0 0% 65%)" }}>
-              <div className="flex items-center gap-2">
+              <a href="https://wa.me/34605928626" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors">
                 <Phone size={14} style={{ color: "hsl(148 72% 55%)" }} />
                 <span>+34 605 928 626</span>
-              </div>
-              <div className="flex items-center gap-2">
+              </a>
+              <a href="mailto:info@ecologiarentable.es" className="flex items-center gap-2 hover:text-white transition-colors">
                 <Mail size={14} style={{ color: "hsl(148 72% 55%)" }} />
                 <span>info@ecologiarentable.es</span>
-              </div>
+              </a>
               <div className="flex items-center gap-2">
                 <MapPin size={14} style={{ color: "hsl(148 72% 55%)" }} />
                 <span>C. Isabel Colbrand, 6, 28050 Madrid</span>
               </div>
             </div>
             <div className="flex gap-3 mt-4">
-              {[Facebook, Instagram, Linkedin, Youtube].map((Icon, i) => (
-                <a key={i} href="#" className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{ background: "hsl(0 0% 100% / 0.1)", color: "hsl(0 0% 70%)" }}
+              {[
+                { Icon: Facebook, href: "https://www.facebook.com/ecologiarentable", label: "Facebook" },
+                { Icon: Instagram, href: "https://www.instagram.com/ecologiarentable/", label: "Instagram" },
+                { Icon: Linkedin, href: "https://www.linkedin.com/company/ecologiarentable/", label: "LinkedIn" },
+                { Icon: Youtube, href: "https://www.youtube.com/@ecologiarentable", label: "YouTube" },
+                { Icon: MessageCircle, href: "https://wa.me/34605928626", label: "WhatsApp" },
+              ].map(({ Icon, href, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors"
+                  style={{ background: "hsl(0 0% 100% / 0.1)", color: "hsl(0 0% 70%)" }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "hsl(148 65% 22%)"; (e.currentTarget as HTMLElement).style.color = "white"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "hsl(0 0% 100% / 0.1)"; (e.currentTarget as HTMLElement).style.color = "hsl(0 0% 70%)"; }}
                 >
