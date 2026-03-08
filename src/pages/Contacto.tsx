@@ -63,7 +63,7 @@ export default function Contacto() {
               {[
                 { label: "Nuestra sección de Soluciones", href: "/soluciones", hint: "Si tienes una pregunta técnica sobre DPF, EGR o descarbonización" },
                 { label: "El Blog", href: "/blog", hint: "Con guías y artículos técnicos detallados" },
-                { label: "Encuentre un centro", href: "/encuentre-centro", hint: "Para localizar el taller más cercano" },
+                { label: "Socios", href: "/socios", hint: "Si eres taller y quieres conocer nuestro modelo de negocio" },
                 { label: "Hazte socio", href: "/socios/hazte-socio", hint: "Si eres taller y quieres unirte a la red" },
               ].map((item) => (
                 <div key={item.href} className="flex items-start gap-2 mb-2">
