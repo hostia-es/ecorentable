@@ -132,6 +132,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min",
     date: "2024-04-15",
     tags: ["ITV", "normativa", "emisiones", "España", "2024"],
+    image: blogNormativaItv,
   },
   {
     id: "bp10",
