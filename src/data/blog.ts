@@ -168,6 +168,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     date: "2024-06-01",
     tags: ["Euro 6d", "descarbonización", "motor moderno", "WLTP"],
+    image: blogEuro6dMotor,
   },
 ];
 
