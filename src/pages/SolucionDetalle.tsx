@@ -312,7 +312,7 @@ export default function SolucionDetalle() {
                   </li>
                 ))}
               </ul>
-              <Link to="/encuentre-centro" className="btn-primary text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
+              <Link to="/contacto" className="btn-primary text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
             </div>
           </div>
         </div>
