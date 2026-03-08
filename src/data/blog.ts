@@ -48,6 +48,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min",
     date: "2024-01-22",
     tags: ["mantenimiento", "periodicidad", "km descarbonización"],
+    image: blogCuandoDescarbonizar,
   },
   {
     id: "bp3",
