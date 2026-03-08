@@ -96,6 +96,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min",
     date: "2024-03-10",
     tags: ["Carbon FAP", "aditivo", "DPF", "cerio", "regeneración"],
+    image: blogCarbonFap,
   },
   {
     id: "bp7",
