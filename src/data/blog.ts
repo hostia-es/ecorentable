@@ -72,6 +72,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min",
     date: "2024-02-18",
     tags: ["hidrógeno", "HHO", "descarbonización", "electrólisis"],
+    image: blogHidrogenoHho,
   },
   {
     id: "bp5",
