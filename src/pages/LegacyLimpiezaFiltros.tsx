@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Shield, Zap, Settings } from "lucide-react";
+import { ArrowRight, CheckCircle, Shield, Zap, Settings, ShieldCheck, Cog, BadgeCheck } from "lucide-react";
 import { AnimatedSection, StaggerChildren } from "@/components/common/Animations";
 import FAQSection from "@/components/common/FAQSection";
 import { Card, CardContent } from "@/components/ui/card";
