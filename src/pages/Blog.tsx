@@ -81,7 +81,7 @@ export default function Blog() {
                   <h3 className="font-bold text-sm group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>{post.title}</h3>
                   <p className="text-xs mt-1 leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{post.excerpt}</p>
                 </div>
-                <div className="flex items-center gap-1 text-xs font-semibold shrink-0" style={{ color: "hsl(var(--primary))" }}>Leer <ArrowRight size={11} /></div>
+                <div className="flex items-center gap-1 text-xs font-semibold shrink-0 pr-5" style={{ color: "hsl(var(--primary))" }}>Leer <ArrowRight size={11} /></div>
               </Link>
             ))}
           </div>
