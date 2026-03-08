@@ -98,6 +98,11 @@ export default function BlogPost() {
             <Link to="/blog" className="flex items-center gap-1 hover:text-primary transition-colors"><ArrowLeft size={13} />Volver al blog</Link>
           </div>
 
+          {/* Hero image */}
+          <div className="rounded-xl overflow-hidden mb-8">
+            <img src={post.image} alt={post.title} className="w-full h-64 md:h-80 object-cover" />
+          </div>
+
           <div className="card-eco p-8">
             {fullContent[post.slug] ?? (
               <div>
