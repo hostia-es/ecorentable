@@ -6,6 +6,7 @@ import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import { products } from "@/data/products";
 import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
+import tiendaShowroom from "@/assets/tienda-showroom.jpg";
 
 const categories = [
   { slug: "maquinas-descarbonizadoras", name: "Máquinas Descarbonizadoras", desc: "Gama Hy-Calamine 1000S, 2000S y 3000S EGR PILOT. La tecnología HHO más avanzada para talleres profesionales.", count: products.filter(p => p.categorySlug === "maquinas-descarbonizadoras").length },
