@@ -57,14 +57,25 @@ export default function Soluciones() {
         </div>
       </section>
 
-      {/* CÓMO AYUDA */}
+      {/* IMAGE + CÓMO AYUDA */}
       <section className="py-14 section-alt">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <AnimatedSection>
-            <div className="text-center mb-10">
-              <h2 className="text-2xl font-bold mb-3 text-foreground">¿Por qué elegir una solución profesional?</h2>
-            </div>
-          </AnimatedSection>
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+            <AnimatedSection>
+              <img
+                src={flexfuelEngine}
+                alt="Motor con sistema FlexFuel instalado"
+                className="rounded-2xl w-full shadow-xl"
+                loading="lazy"
+              />
+            </AnimatedSection>
+            <AnimatedSection delay={0.2}>
+              <div className="text-center lg:text-left">
+                <h2 className="text-2xl font-bold mb-3 text-foreground">¿Por qué elegir una solución profesional?</h2>
+                <p className="text-muted-foreground">Nuestras soluciones están respaldadas por tecnología de última generación y más de 10 años de experiencia en el sector.</p>
+              </div>
+            </AnimatedSection>
+          </div>
           <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {[
               { title: "Diagnóstico previo", desc: "Cada intervención comienza con una lectura OBD2 para identificar el problema con precisión." },
