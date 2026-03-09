@@ -449,6 +449,8 @@ export default function Index() {
         </div>
       </section>
 
+      {/* ══════════════════════════════════
+          §5 CARBON FAP — Light with machine image
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden bg-secondary/50">
         <div className="container mx-auto px-6 relative z-10">
