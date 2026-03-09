@@ -162,13 +162,13 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.3 }}
                 className="mb-4 md:mb-6"
               >
-                <h1 className="text-[1.65rem] sm:text-[2.3rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
+                <h1 className="text-[2rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
                   Tu Motor Acumula Suciedad.
                 </h1>
                 <div className="min-h-[2.4em] sm:min-h-[1.15em]">
                   <MorphingText
                     texts={["NOSOTROS LA ELIMINAMOS.", "EN MENOS DE 1 HORA.", "SIN ABRIR EL MOTOR.", "CON RESULTADOS MEDIBLES."]}
-                    className="text-[1.65rem] sm:text-[2.3rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
+                    className="text-[2rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
                   />
                 </div>
               </motion.div>
