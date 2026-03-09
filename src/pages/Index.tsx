@@ -304,11 +304,8 @@ export default function Index() {
               <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
                 Somos especialistas en la <span className="text-primary">salud mecánica</span> de tu vehículo
               </h2>
-              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
-                La carbonilla no avisa. Se acumula en silencio en válvulas, inyectores, turbo y filtro de partículas hasta que el motor empieza a tirar para atrás, gastar más y humar por el escape.
-              </p>
               <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
-                En Ecología Rentable llevamos años resolviendo exactamente ese problema, con tecnología probada, un proceso sin sorpresas y un informe detallado antes y después de cada intervención.
+                La carbonilla se acumula en válvulas, inyectores, turbo y FAP. Nosotros la eliminamos con tecnología probada y te entregamos un informe antes y después.
               </p>
               <ul className="space-y-4 mb-8">
                 {aboutBullets.map((b, i) => (
