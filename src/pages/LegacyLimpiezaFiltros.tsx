@@ -45,25 +45,22 @@ export default function LimpiezaFiltros() {
   return (
     <main>
       {/* HERO — centered, dark green bg, matching original */}
-      <section
-        className="relative py-28 md:py-36 text-center overflow-hidden"
-        style={{ background: "var(--gradient-hero)" }}
-      >
+      <section className="relative py-28 md:py-36 text-center overflow-hidden bg-secondary">
         <div className="container mx-auto px-4 relative z-10">
-          <p className="text-sm uppercase tracking-widest mb-4 font-semibold" style={{ color: "hsl(148 72% 55%)" }}>
+          <p className="text-sm uppercase tracking-widest mb-4 font-semibold text-primary">
             Restaura la Eficiencia de tu Motor
           </p>
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
             Limpieza Profesional de{" "}
             <br className="hidden md:block" />
             Filtros de Partículas
           </h1>
-          <p className="text-base md:text-lg max-w-2xl mx-auto mb-8" style={{ color: "hsl(0 0% 85%)" }}>
+          <p className="text-base md:text-lg max-w-2xl mx-auto mb-8 text-muted-foreground">
             Descubre nuestros servicios de descarbonización y limpieza de filtros de partículas. ¡Mejora el rendimiento de tu coche y ahorra dinero mientras cuidas el medio ambiente!
           </p>
           <Link
             to="/contacto"
-            className="btn-cta text-sm"
+            className="btn-primary text-sm"
           >
             CONTACTO
           </Link>

@@ -10,7 +10,6 @@ interface CTABoxProps {
   primaryHref: string;
   secondaryLabel?: string;
   secondaryHref?: string;
-  dark?: boolean;
   children?: ReactNode;
 }
 
@@ -21,41 +20,14 @@ export default function CTABox({
   primaryHref,
   secondaryLabel,
   secondaryHref,
-  dark = true,
   children,
 }: CTABoxProps) {
-  if (dark) {
-    return (
-      <section className="section-dark py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3 text-white">{title}</h2>
-          {description && (
-            <p className="text-base mb-8 max-w-xl mx-auto text-white/70">{description}</p>
-          )}
-          {children}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-              <Link to={primaryHref}>
-                {primaryLabel} <ArrowRight size={16} className="ml-1" />
-              </Link>
-            </Button>
-            {secondaryLabel && secondaryHref && (
-              <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-                <Link to={secondaryHref}>{secondaryLabel}</Link>
-              </Button>
-            )}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="py-16 bg-accent">
+    <section className="py-16 bg-primary/5 border-t border-primary/10">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3 text-primary">{title}</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">{title}</h2>
         {description && (
-          <p className="text-base mb-8 max-w-xl mx-auto text-foreground">{description}</p>
+          <p className="text-base mb-8 max-w-xl mx-auto text-muted-foreground">{description}</p>
         )}
         {children}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -65,7 +37,7 @@ export default function CTABox({
             </Link>
           </Button>
           {secondaryLabel && secondaryHref && (
-            <Button asChild variant="secondary" size="lg">
+            <Button asChild variant="outline" size="lg">
               <Link to={secondaryHref}>{secondaryLabel}</Link>
             </Button>
           )}
