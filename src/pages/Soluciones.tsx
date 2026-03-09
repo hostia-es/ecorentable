@@ -64,7 +64,7 @@ export default function Soluciones() {
             <AnimatedSection>
               <img
                 src={flexfuelEngine}
-                alt="Motor con sistema FlexFuel instalado"
+                alt="Motor profesional en proceso de limpieza interna"
                 className="rounded-2xl w-full shadow-xl"
                 loading="lazy"
               />
