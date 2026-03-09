@@ -178,6 +178,18 @@ export default function ServicioDetalle() {
         badge={s.badge}
       />
 
+      {/* HERO IMAGE */}
+      <section className="overflow-hidden">
+        <AnimatedSection>
+          <img
+            src={heroImages[servicio ?? ""] || serviceHero}
+            alt={`${s.title} - servicio profesional`}
+            className="w-full h-48 md:h-64 lg:h-72 object-cover"
+            loading="lazy"
+          />
+        </AnimatedSection>
+      </section>
+
       {/* DEFINICIÓN */}
       <section className="py-14 section-light">
         <div className="container mx-auto px-4 max-w-4xl">
