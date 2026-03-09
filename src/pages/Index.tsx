@@ -541,11 +541,8 @@ export default function Index() {
               <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
                 Incorpora descarbonización a tu taller y <span className="text-primary">empieza a rentabilizarla</span> desde la primera semana
               </h2>
-              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
-                La descarbonización y la limpieza de filtros de partículas son servicios con alta demanda, ticket medio elevado y margen real. Son tratamientos que el conductor no puede hacer por su cuenta, que no requieren recambios y que generan confianza inmediata porque los resultados se miden en el momento.
-              </p>
               <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
-                Como socio certificado de Ecología Rentable accedes a la tecnología, la formación técnica y el soporte comercial necesarios para ofrecer estos servicios desde el primer día.
+                Alta demanda, margen real y resultados medibles. Como socio accedes a tecnología, formación y soporte comercial desde el primer día.
               </p>
 
               <div className="grid grid-cols-3 gap-4 mb-8">
