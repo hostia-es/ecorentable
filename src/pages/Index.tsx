@@ -235,7 +235,7 @@ export default function Index() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.9, delay: 0.8 }}
-                className="absolute top-2 left-0 w-44 sm:w-52 lg:w-56"
+                className="absolute top-0 left-0 w-[11rem] sm:w-52 lg:w-56"
               >
                 <div className="rounded-2xl border backdrop-blur-xl p-3 sm:p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
                   <div className="flex items-center gap-2 sm:gap-3 mb-2">
