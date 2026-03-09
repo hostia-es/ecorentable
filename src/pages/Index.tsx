@@ -41,19 +41,19 @@ const heroStats = [
 ];
 
 const aboutBullets = [
-  "Recuperas la potencia original del motor",
-  "Reduces el consumo de combustible de forma medible",
-  "Evitas averías que pueden costarte entre 350 € y 2.000 €",
-  "Pasas la ITV sin sustos en la prueba de gases",
+  "Recuperas potencia",
+  "Reduces consumo de combustible",
+  "Evitas averías costosas",
+  "Pasas la ITV sin sustos",
 ];
 
 const hyCarbonFeatures = [
-  { title: "Diagnóstico personalizado", desc: "Medición del estado real del motor antes del tratamiento. Sabes exactamente qué hay dentro antes de empezar.", icon: Stethoscope, image: featureDiagnostico },
-  { title: "Limpieza profunda sin desmontaje", desc: "El gas HHO limpia válvulas EGR, colectores, inyectores, pistones, turbo y FAP. Sin abrir el motor.", icon: Cog, image: featureLimpieza },
-  { title: "Proceso en menos de 60 minutos", desc: "El motor funciona al ralentí durante todo el tratamiento. Entregas el coche y lo recoges en el mismo día.", icon: Timer, image: featureRapido },
-  { title: "Hasta un 15% de ahorro en combustible", desc: "Un motor limpio aprovecha mejor la mezcla aire-combustible. El ahorro empieza a notarse en los próximos depósitos.", icon: Fuel, image: featureAhorro },
-  { title: "Facilita el paso por la ITV", desc: "Reducción de NOx, CO₂ y partículas sólidas. Especialmente efectivo como preparación para la prueba de gases.", icon: FileCheck, image: featureItv },
-  { title: "Informe antes y después", desc: "Documentamos los valores de emisiones y estado del motor. La mejora queda registrada, no es una suposición.", icon: BarChart3, image: featureInforme },
+  { title: "Diagnóstico personalizado", desc: "Medición del estado real del motor antes del tratamiento.", icon: Stethoscope, image: featureDiagnostico },
+  { title: "Limpieza profunda sin desmontaje", desc: "El gas HHO limpia válvulas EGR, inyectores, pistones, turbo y FAP.", icon: Cog, image: featureLimpieza },
+  { title: "Proceso en menos de 60 minutos", desc: "Motor al ralentí. Entregas el coche y lo recoges el mismo día.", icon: Timer, image: featureRapido },
+  { title: "Hasta un 15% de ahorro en combustible", desc: "Un motor limpio aprovecha mejor la mezcla aire-combustible.", icon: Fuel, image: featureAhorro },
+  { title: "Facilita el paso por la ITV", desc: "Reducción de NOx, CO₂ y partículas sólidas.", icon: FileCheck, image: featureItv },
+  { title: "Informe antes y después", desc: "Valores de emisiones documentados. La mejora queda registrada.", icon: BarChart3, image: featureInforme },
 ];
 
 const hyCarbonTimelineEntries: FeatureTimelineEntry[] = hyCarbonFeatures.map((f) => ({
@@ -65,10 +65,10 @@ const hyCarbonTimelineEntries: FeatureTimelineEntry[] = hyCarbonFeatures.map((f)
 }));
 
 const processSteps = [
-  { num: "01", title: "Evaluación inicial", desc: "Conectamos el vehículo a diagnosis antes de tocar nada. Medimos emisiones, comprobamos el estado del motor y detectamos el nivel real de obstrucción." },
-  { num: "02", title: "Tratamiento Hy-Carbon Connect", desc: "Inyección controlada de gas HHO en el sistema de admisión. El hidrógeno reacciona con la carbonilla y la elimina sin productos químicos." },
-  { num: "03", title: "Limpieza profesional del FAP", desc: "Utilizamos la estación Carbon FAP para eliminar residuos, hollín y partículas acumuladas. Ciclo automatizado adaptado al nivel de obstrucción." },
-  { num: "04", title: "Informe y recomendaciones", desc: "Entregamos un informe con los datos antes y después del tratamiento. Más las recomendaciones para mantener el motor en ese estado." },
+  { num: "01", title: "Evaluación inicial", desc: "Diagnosis completa: emisiones, estado del motor y nivel de obstrucción." },
+  { num: "02", title: "Tratamiento Hy-Carbon Connect", desc: "Gas HHO en admisión. El hidrógeno elimina la carbonilla sin químicos." },
+  { num: "03", title: "Limpieza profesional del FAP", desc: "Ciclo automatizado con Carbon FAP adaptado al nivel de obstrucción." },
+  { num: "04", title: "Informe y recomendaciones", desc: "Datos antes y después del tratamiento, con recomendaciones de mantenimiento." },
 ];
 
 const carbonFapBullets = [
@@ -78,11 +78,11 @@ const carbonFapBullets = [
 ];
 
 const faqs = [
-  { q: "¿En qué consiste la descarbonización con hidrógeno?", a: "Es un proceso de limpieza interna del motor mediante la inyección de gas HHO —hidrógeno y oxígeno— en el sistema de admisión. El gas reacciona con los depósitos de carbono acumulados en válvulas, inyectores, pistones y turbo, convirtiéndolos en CO₂ y vapor de agua que se expulsan por el escape. Sin química, sin desmontaje." },
-  { q: "¿Cuánto tiempo dura el tratamiento?", a: "El proceso completo con Hy-Carbon Connect se realiza en menos de 60 minutos con el motor en marcha. Puedes dejar el coche y recogerlo el mismo día." },
-  { q: "¿Cada cuántos kilómetros se recomienda?", a: "En conducción urbana frecuente, cada 15.000–20.000 km. En conducción mixta o de carretera, cada 30.000–40.000 km. Es especialmente recomendable antes de la ITV o tras una revisión del turbo o la EGR." },
-  { q: "¿Qué diferencia hay entre la descarbonización y la limpieza del FAP?", a: "La descarbonización actúa sobre el interior del motor: válvulas, inyectores, pistones y turbo. La limpieza del FAP se enfoca en el filtro de partículas, una pieza diferente cuya sustitución puede costar entre 500 y 2.000 €. En muchos casos hacemos ambos tratamientos en la misma visita." },
-  { q: "¿Es compatible con coches de gasolina e híbridos?", a: "Sí. El sistema Hy-Carbon Connect es compatible con motores de gasolina, diésel e híbridos. El diagnóstico previo nos permite ajustar el tratamiento al tipo y estado real de tu motor." },
+  { q: "¿En qué consiste la descarbonización con hidrógeno?", a: "Inyectamos gas HHO en la admisión del motor. Reacciona con los depósitos de carbono y los convierte en CO₂ y vapor de agua. Sin química, sin desmontaje." },
+  { q: "¿Cuánto tiempo dura el tratamiento?", a: "Menos de 60 minutos con el motor en marcha. Dejas el coche y lo recoges el mismo día." },
+  { q: "¿Cada cuántos kilómetros se recomienda?", a: "Cada 15.000–20.000 km en ciudad, cada 30.000–40.000 km en carretera. Recomendable antes de la ITV." },
+  { q: "¿Qué diferencia hay entre la descarbonización y la limpieza del FAP?", a: "La descarbonización limpia el interior del motor. La limpieza del FAP actúa sobre el filtro de partículas, cuya sustitución puede costar entre 500 y 2.000 €." },
+  { q: "¿Es compatible con coches de gasolina e híbridos?", a: "Sí. Compatible con gasolina, diésel e híbridos. El diagnóstico previo ajusta el tratamiento a tu motor." },
 ];
 
 const testimonials = [
@@ -179,7 +179,7 @@ export default function Index() {
                 className="text-base md:text-lg leading-relaxed max-w-xl mb-8"
                 style={{ color: "hsl(0 0% 100% / 0.55)" }}
               >
-                Con el uso, tu motor acumula residuos de carbono que le hacen gastar más, perder potencia y contaminar. Nosotros los eliminamos con hidrógeno — sin desmontar nada, sin química agresiva y con un informe que demuestra la diferencia.
+                Eliminamos los residuos de carbono de tu motor con hidrógeno. Sin desmontar, sin química, con informe.
               </motion.p>
 
               <motion.div
@@ -299,16 +299,13 @@ export default function Index() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection>
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-                No vendemos promesas. Entregamos diagnósticos con datos reales.
+                Diagnósticos con datos reales
               </span>
               <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
                 Somos especialistas en la <span className="text-primary">salud mecánica</span> de tu vehículo
               </h2>
-              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
-                La carbonilla no avisa. Se acumula en silencio en válvulas, inyectores, turbo y filtro de partículas hasta que el motor empieza a tirar para atrás, gastar más y humar por el escape.
-              </p>
               <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
-                En Ecología Rentable llevamos años resolviendo exactamente ese problema, con tecnología probada, un proceso sin sorpresas y un informe detallado antes y después de cada intervención.
+                La carbonilla se acumula en válvulas, inyectores, turbo y FAP. Nosotros la eliminamos con tecnología probada y te entregamos un informe antes y después.
               </p>
               <ul className="space-y-4 mb-8">
                 {aboutBullets.map((b, i) => (
@@ -365,11 +362,8 @@ export default function Index() {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-14">
             <AnimatedSection>
-              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
-                El sistema Hy-Carbon Connect introduce gas HHO —una mezcla controlada de hidrógeno y oxígeno— directamente en el sistema de admisión del motor. Ese gas reacciona con los depósitos de carbono acumulados en las zonas críticas del motor y los convierte en CO₂ y vapor de agua, que se expulsan de forma natural por el escape.
-              </p>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                El resultado: cero residuos químicos, cero desmontaje, cero tiempo de espera. Solo un motor más limpio, más eficiente y con menos emisiones.
+                Gas HHO en la admisión del motor. Reacciona con el carbono acumulado y lo expulsa como CO₂ y vapor de agua. Cero químicos, cero desmontaje.
               </p>
             </AnimatedSection>
             <AnimatedSection delay={0.15}>
@@ -483,13 +477,10 @@ export default function Index() {
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <AnimatedSection>
               <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
-                El filtro de partículas (FAP/DPF) es una de las piezas más caras del vehículo cuando falla. Su sustitución oscila entre los 500 y los 2.000 euros según el modelo, sin contar mano de obra. Y la mayoría de las veces, la sustitución se puede evitar.
-              </p>
-              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
-                La estación Carbon FAP de Ecología Rentable limpia el filtro con un ciclo automatizado que elimina el hollín acumulado, las partículas no quemadas y las obstrucciones internas, sin cortes, sin soldaduras y sin manipular la cerámica interior del filtro.
+                Sustituir un FAP cuesta entre 500 y 2.000 €. En la mayoría de casos, se puede evitar con una limpieza profesional.
               </p>
               <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
-                Compatible con filtros de gasolina y diésel. Desarrollada específicamente para talleres que buscan resultados profesionales sin depender de aditivos individuales ni dispositivos de coste elevado.
+                La estación Carbon FAP limpia el filtro con un ciclo automatizado. Sin cortes, sin soldaduras. Compatible con gasolina y diésel.
               </p>
 
               <div className="space-y-4 mb-8">
@@ -550,11 +541,8 @@ export default function Index() {
               <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
                 Incorpora descarbonización a tu taller y <span className="text-primary">empieza a rentabilizarla</span> desde la primera semana
               </h2>
-              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
-                La descarbonización y la limpieza de filtros de partículas son servicios con alta demanda, ticket medio elevado y margen real. Son tratamientos que el conductor no puede hacer por su cuenta, que no requieren recambios y que generan confianza inmediata porque los resultados se miden en el momento.
-              </p>
               <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
-                Como socio certificado de Ecología Rentable accedes a la tecnología, la formación técnica y el soporte comercial necesarios para ofrecer estos servicios desde el primer día.
+                Alta demanda, margen real y resultados medibles. Como socio accedes a tecnología, formación y soporte comercial desde el primer día.
               </p>
 
               <div className="grid grid-cols-3 gap-4 mb-8">
@@ -659,11 +647,8 @@ export default function Index() {
             <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 max-w-3xl mx-auto leading-tight">
               Tu motor lleva kilómetros acumulando lo que nosotros <span className="text-primary">eliminamos en una hora</span>
             </h2>
-            <p className="text-base mb-4 max-w-2xl mx-auto leading-relaxed text-muted-foreground">
-              La carbonilla no se ve, pero se nota. En el consumo, en la respuesta del acelerador, en el humo del escape, en la ITV. Un tratamiento de descarbonización y limpieza de filtro de partículas puede devolverte el rendimiento original del vehículo y ahorrarte cientos de euros en reparaciones futuras.
-            </p>
-            <p className="text-sm mb-10 max-w-xl mx-auto text-muted-foreground/70">
-              Sin química agresiva. Sin desmontaje. Con un informe que demuestra la diferencia.
+            <p className="text-base mb-10 max-w-2xl mx-auto leading-relaxed text-muted-foreground">
+              Sin química. Sin desmontaje. Con informe. Recupera el rendimiento de tu motor en una sola visita.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/servicios" className="btn-primary cursor-pointer">
