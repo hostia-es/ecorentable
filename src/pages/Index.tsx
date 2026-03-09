@@ -179,7 +179,7 @@ export default function Index() {
                 className="text-base md:text-lg leading-relaxed max-w-xl mb-8"
                 style={{ color: "hsl(0 0% 100% / 0.55)" }}
               >
-                Con el uso, tu motor acumula residuos de carbono que le hacen gastar más, perder potencia y contaminar. Nosotros los eliminamos con hidrógeno — sin desmontar nada, sin química agresiva y con un informe que demuestra la diferencia.
+                Eliminamos los residuos de carbono de tu motor con hidrógeno. Sin desmontar, sin química, con informe.
               </motion.p>
 
               <motion.div
