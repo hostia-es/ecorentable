@@ -92,37 +92,27 @@ interface MorphingTextProps {
   texts: string[];
 }
 
-const Texts: React.FC<Pick<MorphingTextProps, "texts">> = ({ texts }) => {
+const Texts: React.FC<MorphingTextProps> = ({ texts, className }) => {
   const { text1Ref, text2Ref } = useMorphingText(texts);
+
   return (
     <>
-      <span className="absolute inset-0 flex items-center justify-start w-full" ref={text1Ref} />
-      <span className="absolute inset-0 flex items-center justify-start w-full" ref={text2Ref} />
+      <span
+        className={cn("absolute inset-0 flex items-center justify-start w-full whitespace-nowrap", className)}
+        ref={text1Ref}
+      />
+      <span
+        className={cn("absolute inset-0 flex items-center justify-start w-full whitespace-nowrap", className)}
+        ref={text2Ref}
+      />
     </>
   );
 };
 
-const SvgFilters: React.FC = () => (
-  <svg id="filters" className="fixed h-0 w-0" preserveAspectRatio="none">
-    <defs>
-      <filter id="threshold">
-        <feColorMatrix
-          in="SourceGraphic"
-          type="matrix"
-          values="1 0 0 0 0
-                  0 1 0 0 0
-                  0 0 1 0 0
-                  0 0 0 255 -140"
-        />
-      </filter>
-    </defs>
-  </svg>
-);
-
 const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => (
-  <div className={cn("relative w-full h-full", className)}>
+  <div className="relative w-full h-full overflow-visible">
     <div className="relative w-full h-full">
-      <Texts texts={texts} />
+      <Texts texts={texts} className={className} />
     </div>
   </div>
 );

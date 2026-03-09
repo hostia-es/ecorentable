@@ -151,7 +151,7 @@ export default function Index() {
                 <div className="h-[clamp(3rem,7vw,5.5rem)]">
                   <MorphingText
                     texts={["ECOLOGÍA RENTABLE!", "DESCARBONIZACIÓN!", "TECNOLOGÍA HHO!", "MENOS EMISIONES!"]}
-                    className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight gradient-text"
+                    className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight text-white"
                   />
                 </div>
               </motion.div>
