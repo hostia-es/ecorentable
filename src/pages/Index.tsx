@@ -128,7 +128,7 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
                 <span className="badge-glow mb-6 inline-flex items-center">
-                  <Leaf size={12} className="mr-1.5" /> Descarbonización por hidrógeno
+                  <Leaf size={12} className="mr-1.5" /> DESCARBONIZACIÓN DE COCHES Y LIMPIEZA DE FILTRO DE PARTÍCULAS
                 </span>
               </motion.div>
 
@@ -139,11 +139,8 @@ export default function Index() {
                 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight mb-6"
                 style={{ color: "hsl(0 0% 100%)" }}
               >
-                <span className="block">MOTOR</span>
-                <span className="block gradient-text">LIMPIO</span>
-                <span className="block text-[0.45em] font-medium tracking-normal mt-2" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
-                  rendimiento que se mide, no que se imagina
-                </span>
+                <span className="block">¡Revitaliza Tu Vehículo Con</span>
+                <span className="block gradient-text">ECOLOGÍA RENTABLE!</span>
               </motion.h1>
 
               <motion.p
@@ -153,7 +150,7 @@ export default function Index() {
                 className="text-base md:text-lg leading-relaxed max-w-xl mb-8"
                 style={{ color: "hsl(0 0% 100% / 0.55)" }}
               >
-                Descarbonización por inyección de hidrógeno y limpieza profesional de filtros de partículas. Sin desmontaje. Resultados medibles antes y después.
+                Descubre nuestros servicios de descarbonización y limpieza de filtros de partículas. ¡Mejora el rendimiento de tu coche y ahorra dinero mientras cuidas el medio ambiente!
               </motion.p>
 
               <motion.div
