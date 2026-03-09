@@ -13,6 +13,12 @@ import carbonFapMachine from "@/assets/carbon-fap-machine.png";
 import carWhite from "@/assets/car-white.png";
 import hyConnectMachine from "@/assets/hy-carbon-connect-machine.png";
 import worldMapPins from "@/assets/world-map-pins.png";
+import featureDiagnostico from "@/assets/feature-diagnostico.jpg";
+import featureLimpieza from "@/assets/feature-limpieza.jpg";
+import featureRapido from "@/assets/feature-rapido.jpg";
+import featureAhorro from "@/assets/feature-ahorro.jpg";
+import featureItv from "@/assets/feature-itv.jpg";
+import featureInforme from "@/assets/feature-informe.jpg";
 
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
