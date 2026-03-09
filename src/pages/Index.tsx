@@ -35,7 +35,7 @@ import type { FeatureTimelineEntry } from "@/components/ui/feature-timeline";
 /* ═══════════ DATA ═══════════ */
 const heroStats = [
   { value: "10+", label: "Años de experiencia", icon: <Clock size={18} /> },
-  { value: "500+", label: "Máquinas en servicio", icon: <Wrench size={18} /> },
+  { value: "300+", label: "Talleres en España", icon: <Wrench size={18} /> },
   { value: "50K+", label: "Vehículos tratados", icon: <Gauge size={18} /> },
   { value: "45K+", label: "Clientes satisfechos", icon: <Star size={18} /> },
 ];
