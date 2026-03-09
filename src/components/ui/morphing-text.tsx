@@ -96,8 +96,8 @@ const Texts: React.FC<Pick<MorphingTextProps, "texts">> = ({ texts }) => {
   const { text1Ref, text2Ref } = useMorphingText(texts);
   return (
     <>
-      <span className="absolute inset-0 flex items-center justify-center w-full" ref={text1Ref} />
-      <span className="absolute inset-0 flex items-center justify-center w-full" ref={text2Ref} />
+      <span className="absolute inset-0 flex items-center justify-start w-full" ref={text1Ref} />
+      <span className="absolute inset-0 flex items-center justify-start w-full" ref={text2Ref} />
     </>
   );
 };
@@ -120,9 +120,9 @@ const SvgFilters: React.FC = () => (
 );
 
 const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => (
-  <div className={cn("relative inline-block w-full", className)}>
+  <div className={cn("relative w-full h-full", className)}>
     <div
-      className="relative inline-flex w-full items-center justify-center"
+      className="relative w-full h-full"
       style={{ filter: "url(#threshold) blur(0.6px)" }}
     >
       <Texts texts={texts} />
