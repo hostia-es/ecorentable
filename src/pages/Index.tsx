@@ -299,7 +299,7 @@ export default function Index() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection>
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-                No vendemos promesas. Entregamos diagnósticos con datos reales.
+                Diagnósticos con datos reales
               </span>
               <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
                 Somos especialistas en la <span className="text-primary">salud mecánica</span> de tu vehículo
