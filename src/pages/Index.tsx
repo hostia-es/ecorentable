@@ -217,7 +217,7 @@ export default function Index() {
             </div>
 
             {/* Right — Floating machine + cards (all screens) */}
-            <div className="relative lg:col-span-5 min-h-[220px] sm:min-h-[280px] lg:min-h-[500px] mt-4 lg:mt-0">
+            <div className="relative lg:col-span-5 min-h-[260px] sm:min-h-[300px] lg:min-h-[500px] mt-4 lg:mt-0">
               {/* Machine image */}
               <motion.div
                 style={{ y: floatingCard1Y, x: mouse.x }}
