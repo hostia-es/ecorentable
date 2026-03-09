@@ -188,10 +188,10 @@ export default function Index() {
                 transition={{ duration: 0.6, delay: 0.55 }}
                 className="flex flex-col sm:flex-row gap-3 mb-10 md:mb-12"
               >
-                <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer text-sm">
+                <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer text-sm w-full sm:w-auto text-center">
                   VER CÓMO FUNCIONA <ArrowRight size={14} />
                 </Link>
-                <Link to="/contacto" className="btn-glass cursor-pointer text-sm">
+                <Link to="/contacto" className="btn-glass cursor-pointer text-sm w-full sm:w-auto text-center">
                   PEDIR CITA
                 </Link>
               </motion.div>
