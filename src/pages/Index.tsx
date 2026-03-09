@@ -429,7 +429,7 @@ export default function Index() {
           <AnimatedSection>
             <div className="text-center mb-8">
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-                Tecnología Flex Fuel en acción
+                Tecnología Ecología Rentable en acción
               </span>
               <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
                 Así limpia el <span className="text-primary">hidrógeno</span> tu motor por dentro
@@ -509,7 +509,7 @@ export default function Index() {
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 rounded-3xl blur-3xl" />
                 <motion.img
                   src={carbonFapMachine}
-                  alt="Estación Carbon FAP - FlexFuel"
+                  alt="Estación Carbon FAP - Ecología Rentable"
                   className="relative w-full max-w-md h-auto object-contain drop-shadow-2xl"
                   loading="lazy"
                   initial={{ opacity: 0, scale: 0.9 }}

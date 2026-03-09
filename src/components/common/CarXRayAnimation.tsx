@@ -29,7 +29,7 @@ export function CarXRayAnimation() {
         {/* Car image */}
         <img
           src={carXray}
-          alt="Visualización del proceso de descarbonización Flex Fuel"
+          alt="Visualización del proceso de descarbonización Ecología Rentable"
           className="w-full h-auto relative z-10"
         />
 
