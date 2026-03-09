@@ -114,7 +114,8 @@ export default function Index() {
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
           style={{ y: heroImageY, scale: heroScale }}
         >
-          <img src={heroCinematic} alt="Motor siendo tratado con tecnología de hidrógeno" className="w-full h-full object-cover object-center md:object-center object-[70%_center]" />
+          <img src={heroCinematic} alt="Motor siendo tratado con tecnología de hidrógeno" className="hidden md:block w-full h-full object-cover" />
+          <img src={heroCinematicMobile} alt="Motor siendo tratado con tecnología de hidrógeno" className="block md:hidden w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-[hsl(210_25%_4%/0.92)] via-[hsl(210_25%_4%/0.7)] to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-[hsl(210_25%_4%)] via-transparent to-[hsl(210_25%_4%/0.4)]" />
         </motion.div>
