@@ -397,7 +397,7 @@ export default function Index() {
                 <div className="absolute -inset-4 rounded-2xl bg-primary/5 blur-2xl" />
                 <div className="relative rounded-2xl overflow-hidden border-2 border-primary/20 shadow-xl">
                   <img src={tecnicoHyCarbon} alt="Técnico realizando descarbonización" className="w-full h-80 lg:h-[480px] object-cover" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
                 </div>
               </div>
             </AnimatedSection>
