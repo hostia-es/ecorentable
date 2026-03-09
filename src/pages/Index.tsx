@@ -176,7 +176,7 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.45 }}
-                className="text-[15px] md:text-base lg:text-lg leading-relaxed max-w-xl mb-7 md:mb-8"
+                className="text-base md:text-lg lg:text-xl leading-relaxed max-w-xl mb-7 md:mb-8"
                 style={{ color: "hsl(0 0% 100% / 0.65)" }}
               >
                 Eliminamos los residuos de carbono de tu motor con hidrógeno. Sin desmontar, sin química, con informe.
