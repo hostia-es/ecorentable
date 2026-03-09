@@ -424,18 +424,17 @@ export default function Index() {
       {/* ══════════════════════════════════
           §4.5 ANIMACIÓN 3D — Coche raio-X com Flex Fuel
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden section-dark-mesh">
-        <div className="absolute inset-0 grid-pattern opacity-20" />
+      <section className="py-24 relative overflow-hidden bg-white">
         <div className="container mx-auto px-6 relative z-10">
           <AnimatedSection>
             <div className="text-center mb-8">
-              <span className="badge-glow mb-4 inline-flex">
+              <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                 Tecnología Flex Fuel en acción
               </span>
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                Así limpia el <span className="gradient-text-static">hidrógeno</span> tu motor por dentro
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+                Así limpia el <span className="text-primary">hidrógeno</span> tu motor por dentro
               </h2>
-              <p className="text-base max-w-2xl mx-auto" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
+              <p className="text-base max-w-2xl mx-auto text-muted-foreground">
                 Visualización 3D del proceso de descarbonización. Las partículas verdes representan el gas HHO eliminando depósitos de carbonilla del motor, turbo y filtro de partículas.
               </p>
             </div>
