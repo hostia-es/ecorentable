@@ -467,8 +467,8 @@ export default function Index() {
                 <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                   Estación profesional de limpieza de filtros de partículas
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
-                  Carbon FAP — porque sustituir un FAP puede costarte <span className="text-primary">entre 500 € y 2.000 €</span>
+                <h2 className="text-2xl md:text-4xl font-bold leading-tight text-foreground">
+                  Carbon FAP — evita sustituir un FAP de <span className="text-primary">500 € a 2.000 €</span>
                 </h2>
               </div>
             </div>
