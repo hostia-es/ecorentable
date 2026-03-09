@@ -8,6 +8,10 @@ import tecnicoHyCarbon from "@/assets/tecnico-hy-carbon.jpg";
 import heroCinematic from "@/assets/hero-cinematic.jpg";
 import serviceWide from "@/assets/service-wide.jpg";
 import hyCaronAngle from "@/assets/hy-carbon-connect-angle.png";
+import carbonFapMachine from "@/assets/carbon-fap-machine.png";
+import carWhite from "@/assets/car-white.png";
+import hyConnectMachine from "@/assets/hy-carbon-connect-machine.png";
+import worldMapPins from "@/assets/world-map-pins.png";
 
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -70,7 +74,6 @@ export default function Index() {
   const scrollY = useParallaxScroll();
   const mouse = useMouseParallax(0.015);
 
-  // Parallax transforms for hero
   const heroImageY = useTransform(scrollY, [0, 800], [0, 200]);
   const heroTextY = useTransform(scrollY, [0, 600], [0, -80]);
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
@@ -82,15 +85,17 @@ export default function Index() {
     <main className="overflow-x-hidden bg-background">
 
       {/* ══════════════════════════════════
-          §0 TOP BAR — Light mode
+          §0 TOP BAR
       ══════════════════════════════════ */}
       <div className="w-full py-2 text-center text-xs bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 flex items-center justify-center gap-4 flex-wrap">
-          <span className="flex items-center gap-1.5"><Mail size={12} /> info@ecologiarentable.es</span>
-          <span className="hidden sm:inline">·</span>
+          <a href="mailto:info@ecologiarentable.es" className="flex items-center gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
+            <Mail size={12} /> info@ecologiarentable.es
+          </a>
+          <span className="hidden sm:inline opacity-50">·</span>
           <span className="flex items-center gap-1.5"><Clock size={12} /> Lun – Vie, 07:00 – 15:00</span>
-          <span className="hidden sm:inline">·</span>
-          <a href="tel:+34600000000" className="flex items-center gap-1.5 hover:underline">
+          <span className="hidden sm:inline opacity-50">·</span>
+          <a href="tel:+34600000000" className="flex items-center gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
             <Phone size={12} /> +34 600 000 000
           </a>
         </div>
@@ -100,31 +105,22 @@ export default function Index() {
           §1 HERO — Cinematic fullscreen parallax (dark for impact)
       ══════════════════════════════════ */}
       <section className="relative min-h-screen overflow-hidden flex items-center bg-dark-gradient">
-        {/* Background image with parallax */}
         <motion.div
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
           style={{ y: heroImageY, scale: heroScale }}
         >
-          <img
-            src={heroCinematic}
-            alt="Motor siendo tratado con tecnología de hidrógeno"
-            className="w-full h-full object-cover"
-          />
-          {/* Dark overlays for text readability */}
+          <img src={heroCinematic} alt="Motor siendo tratado con tecnología de hidrógeno" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-[hsl(210_25%_4%/0.92)] via-[hsl(210_25%_4%/0.7)] to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-[hsl(210_25%_4%)] via-transparent to-[hsl(210_25%_4%/0.4)]" />
         </motion.div>
 
-        {/* Animated grid pattern */}
         <div className="absolute inset-0 grid-pattern opacity-40" />
 
-        {/* Main content with parallax */}
         <motion.div
           className="relative z-10 container mx-auto px-6 lg:px-12 py-32"
           style={{ y: heroTextY, opacity: heroOpacity }}
         >
           <div className="grid lg:grid-cols-12 gap-8 items-center">
-            {/* Left text column */}
             <div className="lg:col-span-7">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -136,7 +132,6 @@ export default function Index() {
                 </span>
               </motion.div>
 
-              {/* Giant typography */}
               <motion.h1
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -167,15 +162,14 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.7 }}
                 className="flex flex-col sm:flex-row gap-3 mb-12"
               >
-                <Link to="/servicios" className="btn-cta">
+                <Link to="/servicios" className="btn-cta cursor-pointer">
                   Ver servicios <ArrowRight size={16} />
                 </Link>
-                <Link to="/contacto" className="btn-glass">
+                <Link to="/contacto" className="btn-glass cursor-pointer">
                   <Play size={14} /> Solicitar diagnóstico
                 </Link>
               </motion.div>
 
-              {/* Stats row */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -194,23 +188,34 @@ export default function Index() {
               </motion.div>
             </div>
 
-            {/* Right floating elements */}
-            <div className="hidden lg:block lg:col-span-5 relative">
+            {/* Right — Floating car + machine */}
+            <div className="hidden lg:block lg:col-span-5 relative min-h-[500px]">
+              {/* Car floating */}
+              <motion.div
+                style={{ y: floatingCard1Y, x: mouse.x }}
+                initial={{ opacity: 0, x: 80 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.5 }}
+                className="absolute top-8 -right-4 w-[340px]"
+              >
+                <img src={carWhite} alt="Vehículo compatible con descarbonización" className="w-full drop-shadow-2xl" />
+              </motion.div>
+
               {/* Floating glassmorphism card 1 */}
               <motion.div
-                style={{ y: floatingCard1Y, x: mouse.x, }}
-                initial={{ opacity: 0, x: 60 }}
+                style={{ y: floatingCard2Y, x: mouse.x }}
+                initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.9, delay: 0.6 }}
-                className="absolute top-4 right-0 w-64"
+                transition={{ duration: 0.9, delay: 0.8 }}
+                className="absolute top-4 left-0 w-56"
               >
-                <div className="glass-card p-5">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center icon-circle-glow">
-                      <Zap size={18} />
+                <div className="glass-card p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center icon-circle-glow">
+                      <Zap size={14} />
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-white">Ahorro de combustible</p>
+                      <p className="text-xs font-semibold text-white">Ahorro combustible</p>
                       <p className="text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Tras tratamiento</p>
                     </div>
                   </div>
@@ -227,13 +232,13 @@ export default function Index() {
                 </div>
               </motion.div>
 
-              {/* Floating glassmorphism card 2 */}
+              {/* Floating emissions card */}
               <motion.div
-                style={{ y: floatingCard2Y, x: mouse.x }}
-                initial={{ opacity: 0, x: 40, y: 40 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.8 }}
-                className="absolute top-44 -left-8 w-56"
+                style={{ y: floatingCard1Y }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, delay: 1 }}
+                className="absolute bottom-12 left-4 w-48"
               >
                 <div className="glass-card p-4">
                   <div className="flex items-center gap-3 mb-2">
@@ -245,33 +250,15 @@ export default function Index() {
                   <p className="text-2xl font-bold text-white">-20% <span className="text-xs font-normal" style={{ color: "hsl(0 0% 100% / 0.4)" }}>NOx/CO₂</span></p>
                 </div>
               </motion.div>
-
-              {/* Floating image card */}
-              <motion.div
-                style={{ y: floatingCard1Y }}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.9, delay: 1 }}
-                className="absolute bottom-0 right-8 w-48"
-              >
-                <div className="glass-card overflow-hidden glow-border">
-                  <img src={hyCaronAngle} alt="Equipo Hy-Carbon" className="w-full h-32 object-cover" />
-                  <div className="p-3">
-                    <p className="text-[10px] font-semibold text-white uppercase tracking-wider">Hy-Carbon Connect</p>
-                    <p className="text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Tecnología de hidrógeno</p>
-                  </div>
-                </div>
-              </motion.div>
             </div>
           </div>
         </motion.div>
 
-        {/* Bottom gradient fade to light */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-20" />
       </section>
 
       {/* ══════════════════════════════════
-          §2 QUIÉNES SOMOS — Light mode
+          §2 QUIÉNES SOMOS — Light
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden bg-background">
         <div className="container mx-auto px-6 relative z-10">
@@ -291,8 +278,8 @@ export default function Index() {
               </p>
               <ul className="space-y-4 mb-8">
                 {aboutBullets.map((b, i) => (
-                  <motion.li 
-                    key={b} 
+                  <motion.li
+                    key={b}
                     className="flex items-start gap-3"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -306,7 +293,7 @@ export default function Index() {
                   </motion.li>
                 ))}
               </ul>
-              <Link to="/nosotros" className="btn-secondary">
+              <Link to="/nosotros" className="btn-secondary cursor-pointer">
                 Conócenos <ArrowRight size={15} />
               </Link>
             </AnimatedSection>
@@ -314,7 +301,7 @@ export default function Index() {
               <div className="relative">
                 <div className="absolute -inset-4 rounded-2xl bg-primary/5 blur-2xl" />
                 <div className="relative rounded-2xl overflow-hidden border-2 border-primary/20 shadow-xl">
-                  <img src={tecnicoHyCarbon} alt="Técnico realizando descarbonización" className="w-full h-80 lg:h-[480px] object-cover" />
+                  <img src={tecnicoHyCarbon} alt="Técnico realizando descarbonización" className="w-full h-80 lg:h-[480px] object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 </div>
               </div>
@@ -324,7 +311,7 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §3 HY-CARBON CONNECT — Light mode cards
+          §3 HY-CARBON CONNECT — Light with machine image
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden bg-secondary/50">
         <div className="container mx-auto px-6 relative z-10">
@@ -341,7 +328,7 @@ export default function Index() {
             </div>
           </AnimatedSection>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-start mb-14">
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-14">
             <AnimatedSection>
               <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
                 El sistema Hy-Carbon Connect introduce gas HHO —una mezcla controlada de hidrógeno y oxígeno— directamente en el sistema de admisión del motor. Ese gas reacciona con los depósitos de carbono acumulados en las zonas críticas del motor y los convierte en CO₂ y vapor de agua, que se expulsan de forma natural por el escape.
@@ -351,8 +338,18 @@ export default function Index() {
               </p>
             </AnimatedSection>
             <AnimatedSection delay={0.15}>
-              <div className="relative rounded-2xl overflow-hidden bg-white border border-border shadow-lg p-8">
-                <img src={hyCaronFront} alt="Hy-Carbon Connect equipo frontal" className="w-full h-64 object-contain" />
+              <div className="relative flex justify-center">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 rounded-3xl blur-3xl" />
+                <motion.img
+                  src={hyConnectMachine}
+                  alt="Máquina Hy-Carbon Connect"
+                  className="relative w-full max-w-sm h-auto object-contain drop-shadow-2xl"
+                  loading="lazy"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                />
               </div>
             </AnimatedSection>
           </div>
@@ -363,8 +360,8 @@ export default function Index() {
               const Icon = f.icon;
               return (
                 <motion.div key={f.title} variants={staggerItem}>
-                  <div className="bg-white rounded-2xl border border-border shadow-md h-full p-6 group hover:shadow-xl hover:border-primary/30 transition-all duration-300 hover:-translate-y-1">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <div className="bg-white rounded-2xl border border-border shadow-md h-full p-6 group hover:shadow-xl hover:border-primary/30 transition-all duration-200 hover:-translate-y-1 cursor-default">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">
                       <Icon size={22} />
                     </div>
                     <h3 className="text-sm font-bold mb-2 text-foreground">{f.title}</h3>
@@ -376,7 +373,7 @@ export default function Index() {
           </StaggerChildren>
 
           <AnimatedSection>
-            <Link to="/servicios/descarbonizacion" className="btn-primary">
+            <Link to="/servicios/descarbonizacion" className="btn-primary cursor-pointer">
               Ver descarbonización <ArrowRight size={15} />
             </Link>
           </AnimatedSection>
@@ -397,20 +394,18 @@ export default function Index() {
             </h2>
           </AnimatedSection>
 
-          {/* Timeline layout */}
           <div className="relative">
-            {/* Vertical line - only on larger screens */}
             <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-primary/50 via-primary/30 to-transparent" />
-            
+
             <StaggerChildren className="space-y-8 lg:space-y-0" staggerDelay={0.15}>
               {processSteps.map((step, i) => (
-                <motion.div 
-                  key={step.num} 
+                <motion.div
+                  key={step.num}
                   variants={staggerItem}
                   className={`lg:grid lg:grid-cols-2 lg:gap-16 items-center ${i % 2 === 1 ? 'lg:direction-rtl' : ''}`}
                 >
                   <div className={`${i % 2 === 1 ? 'lg:order-2 lg:text-left' : 'lg:text-right'} mb-6 lg:mb-0`}>
-                    <div className={`bg-white rounded-2xl border border-border shadow-md p-6 inline-block w-full ${i % 2 === 1 ? '' : 'lg:ml-auto'} max-w-md hover:shadow-xl hover:border-primary/30 transition-all`}>
+                    <div className={`bg-white rounded-2xl border border-border shadow-md p-6 inline-block w-full ${i % 2 === 1 ? '' : 'lg:ml-auto'} max-w-md hover:shadow-xl hover:border-primary/30 transition-all duration-200`}>
                       <div className="flex items-start gap-5">
                         <div className="step-number text-lg">{step.num}</div>
                         <div className="text-left">
@@ -420,12 +415,11 @@ export default function Index() {
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Center dot - only on larger screens */}
+
                   <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center justify-center" style={{ top: `calc(${i * 25}% + 3rem)` }}>
                     <div className="w-4 h-4 rounded-full bg-primary shadow-[0_0_15px_hsl(var(--primary)/0.5)]" />
                   </div>
-                  
+
                   <div className={`${i % 2 === 1 ? 'lg:order-1' : ''} hidden lg:block`} />
                 </motion.div>
               ))}
@@ -435,7 +429,7 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §5 CARBON FAP — Light mode
+          §5 CARBON FAP — Light with machine image
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden bg-secondary/50">
         <div className="container mx-auto px-6 relative z-10">
@@ -463,11 +457,11 @@ export default function Index() {
               <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
                 Compatible con filtros de gasolina y diésel. Desarrollada específicamente para talleres que buscan resultados profesionales sin depender de aditivos individuales ni dispositivos de coste elevado.
               </p>
-              
+
               <div className="space-y-4 mb-8">
                 {carbonFapBullets.map((b, i) => (
-                  <motion.div 
-                    key={b.title} 
+                  <motion.div
+                    key={b.title}
                     className="flex items-start gap-3"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -484,19 +478,25 @@ export default function Index() {
                   </motion.div>
                 ))}
               </div>
-              
-              <Link to="/servicios/limpieza-filtros" className="btn-primary">
+
+              <Link to="/servicios/limpieza-filtros" className="btn-primary cursor-pointer">
                 Ver limpieza de filtros <ArrowRight size={15} />
               </Link>
             </AnimatedSection>
-            
+
             <AnimatedSection delay={0.2}>
-              <div className="relative">
-                <div className="absolute -inset-4 rounded-2xl bg-primary/5 blur-2xl" />
-                <div className="relative rounded-2xl overflow-hidden border-2 border-primary/20 shadow-xl">
-                  <img src={serviceWide} alt="Estación Carbon FAP" className="w-full h-72 lg:h-96 object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                </div>
+              <div className="relative flex justify-center">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 rounded-3xl blur-3xl" />
+                <motion.img
+                  src={carbonFapMachine}
+                  alt="Estación Carbon FAP - FlexFuel"
+                  className="relative w-full max-w-md h-auto object-contain drop-shadow-2xl"
+                  loading="lazy"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                />
               </div>
             </AnimatedSection>
           </div>
@@ -504,7 +504,7 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §6 SOCIOS — Light mode
+          §6 SOCIOS — Light
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden bg-background">
         <div className="container mx-auto px-6 relative z-10">
@@ -523,21 +523,19 @@ export default function Index() {
                 Como socio certificado de Ecología Rentable accedes a la tecnología, la formación técnica y el soporte comercial necesarios para ofrecer estos servicios desde el primer día.
               </p>
 
-              {/* 3 metrics */}
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {[
                   { value: "60%", label: "de margen en cada servicio" },
                   { value: "85%", label: "recuperan inversión en <3 meses" },
                   { value: "300+", label: "profesionales certificados" },
                 ].map((m) => (
-                  <div key={m.value} className="bg-white rounded-xl border border-border shadow-md text-center p-4 hover:shadow-lg hover:border-primary/30 transition-all">
+                  <div key={m.value} className="bg-white rounded-xl border border-border shadow-md text-center p-4 hover:shadow-lg hover:border-primary/30 transition-all duration-200">
                     <AnimatedCounter value={m.value} className="text-2xl font-bold text-primary" />
                     <div className="text-xs mt-1 text-muted-foreground">{m.label}</div>
                   </div>
                 ))}
               </div>
 
-              {/* Quote */}
               <div className="relative mb-8 p-5 rounded-xl bg-primary/5 border border-primary/20">
                 <Quote size={24} className="absolute top-4 left-4 opacity-20 text-primary" />
                 <p className="text-sm italic leading-relaxed mb-2 text-foreground pl-8">
@@ -546,16 +544,16 @@ export default function Index() {
                 <cite className="text-xs not-italic font-semibold pl-8 text-primary">— Younes Smaini, fundador</cite>
               </div>
 
-              <Link to="/socios/hazte-socio" className="btn-primary">
+              <Link to="/socios/hazte-socio" className="btn-primary cursor-pointer">
                 Quiero ser socio <ArrowRight size={15} />
               </Link>
             </AnimatedSection>
-            
+
             <AnimatedSection delay={0.2}>
               <div className="relative">
                 <div className="absolute -inset-4 rounded-2xl bg-primary/5 blur-2xl" />
                 <div className="relative rounded-2xl overflow-hidden border-2 border-primary/20 shadow-xl">
-                  <img src={diagnosticoMotor} alt="Socio certificado realizando diagnóstico" className="w-full h-80 lg:h-[480px] object-cover" />
+                  <img src={diagnosticoMotor} alt="Socio certificado realizando diagnóstico" className="w-full h-80 lg:h-[480px] object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 </div>
               </div>
@@ -580,11 +578,11 @@ export default function Index() {
               Cada tratamiento genera un informe con datos reales. Estos son algunos de los profesionales y conductores que ya han visto los resultados.
             </p>
           </AnimatedSection>
-          
+
           <StaggerChildren className="grid md:grid-cols-3 gap-6" staggerDelay={0.15}>
             {testimonials.map((t) => (
               <motion.div key={t.name} variants={staggerItem}>
-                <div className="bg-white rounded-2xl border border-border shadow-md h-full p-7 group hover:shadow-xl hover:border-primary/30 transition-all">
+                <div className="bg-white rounded-2xl border border-border shadow-md h-full p-7 group hover:shadow-xl hover:border-primary/30 transition-all duration-200">
                   <div className="flex gap-1 mb-5">
                     {[...Array(5)].map((_, i) => (
                       <motion.div
@@ -619,12 +617,10 @@ export default function Index() {
           §8 CTA FINAL — Dark for impact
       ══════════════════════════════════ */}
       <section className="py-28 relative overflow-hidden section-dark-mesh">
-        {/* Animated grid */}
         <div className="absolute inset-0 grid-pattern-animated opacity-30" />
-        
-        {/* Central glow */}
+
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full" style={{ background: "radial-gradient(circle, hsl(148 50% 25% / 0.2), transparent 70%)" }} />
-        
+
         <div className="container mx-auto px-6 text-center relative z-10">
           <AnimatedSection>
             <span className="badge-glow mb-4 inline-flex">
@@ -640,10 +636,10 @@ export default function Index() {
               Sin química agresiva. Sin desmontaje. Con un informe que demuestra la diferencia.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/servicios" className="btn-cta">
+              <Link to="/servicios" className="btn-cta cursor-pointer">
                 Ver servicios <ArrowRight size={15} />
               </Link>
-              <Link to="/contacto" className="btn-glass">
+              <Link to="/contacto" className="btn-glass cursor-pointer">
                 Solicitar diagnóstico
               </Link>
             </div>
@@ -652,7 +648,7 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §9 FAQ — Light mode
+          §9 FAQ — Light
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden bg-background">
         <div className="container mx-auto px-6 relative z-10">
@@ -664,20 +660,20 @@ export default function Index() {
               <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
                 Preguntas<br /><span className="text-primary">frecuentes</span>
               </h2>
-              <Link to="/contacto" className="btn-primary">
+              <Link to="/contacto" className="btn-primary cursor-pointer">
                 Pregúntanos
               </Link>
             </AnimatedSection>
-            
+
             <AnimatedSection delay={0.15} className="lg:col-span-3">
               <Accordion type="single" collapsible className="w-full space-y-3">
                 {faqs.map((f, i) => (
-                  <AccordionItem 
-                    key={i} 
-                    value={`faq-${i}`} 
-                    className="bg-white rounded-xl border border-border shadow-sm px-1 hover:border-primary/30 hover:shadow-md transition-all"
+                  <AccordionItem
+                    key={i}
+                    value={`faq-${i}`}
+                    className="bg-white rounded-xl border border-border shadow-sm px-1 hover:border-primary/30 hover:shadow-md transition-all duration-200"
                   >
-                    <AccordionTrigger className="text-sm text-left px-5 py-4 text-foreground hover:text-primary hover:no-underline">
+                    <AccordionTrigger className="text-sm text-left px-5 py-4 text-foreground hover:text-primary hover:no-underline cursor-pointer">
                       {f.q}
                     </AccordionTrigger>
                     <AccordionContent className="text-sm leading-relaxed px-5 pb-4 text-muted-foreground">
@@ -692,19 +688,15 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §10 RED NACIONAL — Dark for closing
+          §10 RED NACIONAL — World map with dark
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden section-dark-mesh">
-        {/* Grid pattern */}
         <div className="absolute inset-0 grid-pattern opacity-30" />
-        
-        {/* Radial glow from bottom */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[400px]" style={{ background: "radial-gradient(ellipse 80% 100% at 50% 100%, hsl(148 50% 20% / 0.2), transparent)" }} />
-        
+
         <div className="container mx-auto px-6 text-center relative z-10">
           <AnimatedSection>
             <span className="badge-glow mb-4 inline-flex">
-              Red nacional
+              Red nacional e internacional
             </span>
             <h2 className="text-3xl md:text-5xl font-bold mb-5 max-w-2xl mx-auto leading-tight text-white">
               Más de <span className="gradient-text-static">300 centros</span> certificados en toda España
@@ -712,10 +704,50 @@ export default function Index() {
             <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
               Encuentra el centro más cercano o conviértete en socio y ofrece el servicio en tu taller.
             </p>
-            <Link to="/contacto" className="btn-cta">
-              <MapPin size={16} /> Contactar con nosotros
-            </Link>
           </AnimatedSection>
+
+          {/* World map */}
+          <AnimatedSection delay={0.2}>
+            <div className="relative max-w-4xl mx-auto mb-12">
+              <img
+                src={worldMapPins}
+                alt="Mapa mundial de centros certificados Ecología Rentable"
+                className="w-full h-auto opacity-90 brightness-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[hsl(210_25%_5%/0.8)]" />
+            </div>
+          </AnimatedSection>
+
+          <Link to="/contacto" className="btn-cta cursor-pointer">
+            <MapPin size={16} /> Contactar con nosotros
+          </Link>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════
+          §11 CONTACTO RÁPIDO — Light CTA band
+      ══════════════════════════════════ */}
+      <section className="py-16 bg-primary/5 border-t border-primary/10">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                ¿Tienes dudas? Habla con nosotros
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                Estamos disponibles por teléfono, email y WhatsApp. Sin compromiso.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a href="tel:+34600000000" className="btn-primary cursor-pointer">
+                <Phone size={15} /> Llamar ahora
+              </a>
+              <Link to="/contacto" className="btn-secondary cursor-pointer">
+                <Mail size={15} /> Enviar mensaje
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
