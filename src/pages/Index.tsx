@@ -362,11 +362,8 @@ export default function Index() {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-14">
             <AnimatedSection>
-              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
-                El sistema Hy-Carbon Connect introduce gas HHO —una mezcla controlada de hidrógeno y oxígeno— directamente en el sistema de admisión del motor. Ese gas reacciona con los depósitos de carbono acumulados en las zonas críticas del motor y los convierte en CO₂ y vapor de agua, que se expulsan de forma natural por el escape.
-              </p>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                El resultado: cero residuos químicos, cero desmontaje, cero tiempo de espera. Solo un motor más limpio, más eficiente y con menos emisiones.
+                Gas HHO en la admisión del motor. Reacciona con el carbono acumulado y lo expulsa como CO₂ y vapor de agua. Cero químicos, cero desmontaje.
               </p>
             </AnimatedSection>
             <AnimatedSection delay={0.15}>
