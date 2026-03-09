@@ -444,12 +444,12 @@
 
   .center-card {
     @apply rounded-2xl border p-6 transition-all duration-300;
-    background: hsl(0 0% 100% / 0.03);
-    border-color: hsl(0 0% 100% / 0.08);
+    background: hsl(var(--card));
+    border-color: hsl(var(--border));
   }
   .center-card:hover {
-    border-color: hsl(148 60% 50% / 0.3);
-    background: hsl(0 0% 100% / 0.05);
+    border-color: hsl(var(--primary) / 0.3);
+    background: hsl(var(--card));
   }
 
   /* ═══════ MISC ═══════ */
