@@ -200,7 +200,7 @@ export default function Index() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.65 }}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5"
+                className="hidden sm:grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5"
               >
                 {heroStats.map((s) => (
                   <div key={s.label} className="group">
