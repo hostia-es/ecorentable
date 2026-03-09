@@ -128,7 +128,7 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
                 <span className="badge-glow mb-6 inline-flex items-center">
-                  <Leaf size={12} className="mr-1.5" /> Descarbonización por hidrógeno
+                  <Leaf size={12} className="mr-1.5" /> DESCARBONIZACIÓN DE COCHES Y LIMPIEZA DE FILTRO DE PARTÍCULAS
                 </span>
               </motion.div>
 
@@ -139,11 +139,8 @@ export default function Index() {
                 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight mb-6"
                 style={{ color: "hsl(0 0% 100%)" }}
               >
-                <span className="block">MOTOR</span>
-                <span className="block gradient-text">LIMPIO</span>
-                <span className="block text-[0.45em] font-medium tracking-normal mt-2" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
-                  rendimiento que se mide, no que se imagina
-                </span>
+                <span className="block">¡Revitaliza Tu Vehículo Con</span>
+                <span className="block gradient-text">ECOLOGÍA RENTABLE!</span>
               </motion.h1>
 
               <motion.p
@@ -153,7 +150,7 @@ export default function Index() {
                 className="text-base md:text-lg leading-relaxed max-w-xl mb-8"
                 style={{ color: "hsl(0 0% 100% / 0.55)" }}
               >
-                Descarbonización por inyección de hidrógeno y limpieza profesional de filtros de partículas. Sin desmontaje. Resultados medibles antes y después.
+                Descubre nuestros servicios de descarbonización y limpieza de filtros de partículas. ¡Mejora el rendimiento de tu coche y ahorra dinero mientras cuidas el medio ambiente!
               </motion.p>
 
               <motion.div
@@ -162,11 +159,11 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.7 }}
                 className="flex flex-col sm:flex-row gap-3 mb-12"
               >
-                <Link to="/servicios" className="btn-cta cursor-pointer">
-                  Ver servicios <ArrowRight size={16} />
+                <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer">
+                  DESCARBONIZACIÓN <ArrowRight size={16} />
                 </Link>
                 <Link to="/contacto" className="btn-glass cursor-pointer">
-                  <Play size={14} /> Solicitar diagnóstico
+                  CONTACTO
                 </Link>
               </motion.div>
 
@@ -193,12 +190,12 @@ export default function Index() {
               {/* Car floating */}
               <motion.div
                 style={{ y: floatingCard1Y, x: mouse.x }}
-                initial={{ opacity: 0, x: 80 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.5 }}
-                className="absolute top-8 -right-4 w-[340px]"
+                className="absolute top-0 right-0 w-[280px]"
               >
-                <img src={carWhite} alt="Vehículo compatible con descarbonización" className="w-full drop-shadow-2xl" />
+                <img src={hyConnectMachine} alt="Máquina Hy-Carbon Connect" className="w-full drop-shadow-2xl" />
               </motion.div>
 
               {/* Floating glassmorphism card 1 */}
