@@ -189,10 +189,10 @@ export default function Index() {
                 className="flex flex-col sm:flex-row gap-3 mb-12"
               >
                 <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer">
-                  DESCARBONIZACIÓN <ArrowRight size={16} />
+                  VER CÓMO FUNCIONA <ArrowRight size={16} />
                 </Link>
                 <Link to="/contacto" className="btn-glass cursor-pointer">
-                  CONTACTO
+                  PEDIR CITA
                 </Link>
               </motion.div>
 
