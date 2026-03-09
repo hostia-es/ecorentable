@@ -95,9 +95,11 @@ interface MorphingTextProps {
 const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => {
   const { text1Ref, text2Ref } = useMorphingText(texts);
 
+  // Find the longest text to reserve space
+  const longestText = texts.reduce((a, b) => (a.length > b.length ? a : b), "");
+
   return (
     <div className={cn("relative", className)}>
-      {/* SVG filter for liquid morph effect */}
       <svg className="fixed h-0 w-0 pointer-events-none" aria-hidden="true">
         <defs>
           <filter id="morphing-threshold">
@@ -113,18 +115,23 @@ const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => {
         </defs>
       </svg>
 
+      {/* Invisible spacer — reserves height/width of longest word */}
+      <span className="block invisible whitespace-nowrap" aria-hidden="true">
+        {longestText}
+      </span>
+
       <div
-        className="relative"
+        className="absolute inset-0"
         style={{ filter: "url(#morphing-threshold) blur(0.6px)" }}
       >
         <span
           ref={text1Ref}
-          className="absolute left-0 top-0 block w-full"
+          className="absolute left-0 top-0 block w-full whitespace-nowrap"
           style={{ color: "hsl(148 60% 55%)" }}
         />
         <span
           ref={text2Ref}
-          className="block w-full"
+          className="absolute left-0 top-0 block w-full whitespace-nowrap"
           style={{ color: "hsl(148 60% 55%)" }}
         />
       </div>
