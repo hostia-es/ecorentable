@@ -708,23 +708,21 @@ export default function Index() {
       {/* ══════════════════════════════════
           §10 RED NACIONAL — Globe
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden section-dark-mesh">
-        <div className="absolute inset-0 grid-pattern opacity-30" />
-
+      <section className="py-24 relative overflow-hidden bg-secondary">
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left — Copy */}
             <AnimatedSection>
-              <span className="badge-glow mb-4 inline-flex">
+              <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                 Red nacional e internacional
               </span>
-              <h2 className="text-3xl md:text-5xl font-bold mb-5 leading-tight text-white">
-                Más de <span className="gradient-text-static">300 centros</span> certificados en España y en el mundo
+              <h2 className="text-3xl md:text-5xl font-bold mb-5 leading-tight text-foreground">
+                Más de <span className="text-primary">300 centros</span> certificados en España y en el mundo
               </h2>
-              <p className="text-base mb-10 max-w-lg" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
+              <p className="text-base mb-10 max-w-lg text-muted-foreground">
                 Encuentra el centro más cercano o conviértete en socio y ofrece el servicio en tu taller.
               </p>
-              <Link to="/contacto" className="btn-cta cursor-pointer">
+              <Link to="/contacto" className="btn-primary cursor-pointer">
                 <MapPin size={16} /> Contactar con nosotros
               </Link>
             </AnimatedSection>
