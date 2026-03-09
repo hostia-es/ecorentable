@@ -266,7 +266,7 @@ export default function Index() {
                 transition={{ duration: 0.9, delay: 1 }}
                 className="absolute bottom-12 left-4 w-48"
               >
-                <div className="glass-card p-4">
+                <div className="rounded-2xl border backdrop-blur-xl p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-8 h-8 rounded-full flex items-center justify-center icon-circle-glow">
                       <Shield size={14} />
