@@ -65,10 +65,10 @@ const hyCarbonTimelineEntries: FeatureTimelineEntry[] = hyCarbonFeatures.map((f)
 }));
 
 const processSteps = [
-  { num: "01", title: "Evaluación inicial", desc: "Conectamos el vehículo a diagnosis antes de tocar nada. Medimos emisiones, comprobamos el estado del motor y detectamos el nivel real de obstrucción." },
-  { num: "02", title: "Tratamiento Hy-Carbon Connect", desc: "Inyección controlada de gas HHO en el sistema de admisión. El hidrógeno reacciona con la carbonilla y la elimina sin productos químicos." },
-  { num: "03", title: "Limpieza profesional del FAP", desc: "Utilizamos la estación Carbon FAP para eliminar residuos, hollín y partículas acumuladas. Ciclo automatizado adaptado al nivel de obstrucción." },
-  { num: "04", title: "Informe y recomendaciones", desc: "Entregamos un informe con los datos antes y después del tratamiento. Más las recomendaciones para mantener el motor en ese estado." },
+  { num: "01", title: "Evaluación inicial", desc: "Diagnosis completa: emisiones, estado del motor y nivel de obstrucción." },
+  { num: "02", title: "Tratamiento Hy-Carbon Connect", desc: "Gas HHO en admisión. El hidrógeno elimina la carbonilla sin químicos." },
+  { num: "03", title: "Limpieza profesional del FAP", desc: "Ciclo automatizado con Carbon FAP adaptado al nivel de obstrucción." },
+  { num: "04", title: "Informe y recomendaciones", desc: "Datos antes y después del tratamiento, con recomendaciones de mantenimiento." },
 ];
 
 const carbonFapBullets = [
