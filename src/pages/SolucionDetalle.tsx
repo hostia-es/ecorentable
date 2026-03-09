@@ -269,7 +269,18 @@ export default function SolucionDetalle() {
         badge={sol.badge}
       />
 
-      {/* CAUSAS + SÍNTOMAS */}
+      {/* HERO IMAGE */}
+      <section className="overflow-hidden">
+        <AnimatedSection>
+          <img
+            src={heroImages[slug ?? ""] || serviceHero}
+            alt={`${sol.title} - servicio profesional`}
+            className="w-full h-48 md:h-64 lg:h-72 object-cover"
+            loading="lazy"
+          />
+        </AnimatedSection>
+      </section>
+
       <section className="py-14 section-light">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
