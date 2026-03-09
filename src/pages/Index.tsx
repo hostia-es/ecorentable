@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, Zap, Shield, Wrench, Star, CheckCircle, Clock, Mail, Leaf, Gauge, Play, Stethoscope, Cog, Timer, Fuel, FileCheck, BarChart3, Quote } from "lucide-react";
+import { ArrowRight, MapPin, Zap, Shield, Wrench, Star, CheckCircle, Clock, Mail, Leaf, Gauge, Play, Stethoscope, Cog, Timer, Fuel, FileCheck, BarChart3, Quote, Phone } from "lucide-react";
 import { motion, useTransform } from "framer-motion";
 
 import hyCaronFront from "@/assets/hy-carbon-connect-front.png";
@@ -79,21 +79,25 @@ export default function Index() {
   const floatingCard2Y = useTransform(scrollY, [0, 600], [0, -90]);
 
   return (
-    <main className="overflow-x-hidden bg-[hsl(210_25%_4%)]">
+    <main className="overflow-x-hidden bg-background">
 
       {/* ══════════════════════════════════
-          §0 TOP BAR
+          §0 TOP BAR — Light mode
       ══════════════════════════════════ */}
-      <div className="w-full py-2 text-center text-xs" style={{ background: "hsl(210 25% 6%)", borderBottom: "1px solid hsl(0 0% 100% / 0.05)" }}>
-        <div className="container mx-auto px-4 flex items-center justify-center gap-4 flex-wrap" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
+      <div className="w-full py-2 text-center text-xs bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 flex items-center justify-center gap-4 flex-wrap">
           <span className="flex items-center gap-1.5"><Mail size={12} /> info@ecologiarentable.es</span>
           <span className="hidden sm:inline">·</span>
           <span className="flex items-center gap-1.5"><Clock size={12} /> Lun – Vie, 07:00 – 15:00</span>
+          <span className="hidden sm:inline">·</span>
+          <a href="tel:+34600000000" className="flex items-center gap-1.5 hover:underline">
+            <Phone size={12} /> +34 600 000 000
+          </a>
         </div>
       </div>
 
       {/* ══════════════════════════════════
-          §1 HERO — Cinematic fullscreen parallax
+          §1 HERO — Cinematic fullscreen parallax (dark for impact)
       ══════════════════════════════════ */}
       <section className="relative min-h-screen overflow-hidden flex items-center bg-dark-gradient">
         {/* Background image with parallax */}
@@ -262,30 +266,27 @@ export default function Index() {
           </div>
         </motion.div>
 
-        {/* Bottom gradient fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[hsl(210_25%_5%)] to-transparent z-20" />
+        {/* Bottom gradient fade to light */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-20" />
       </section>
 
       {/* ══════════════════════════════════
-          §2 QUIÉNES SOMOS — Dark with glow
+          §2 QUIÉNES SOMOS — Light mode
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden section-dark-mesh">
-        {/* Grid pattern */}
-        <div className="absolute inset-0 dot-pattern opacity-30" />
-        
+      <section className="py-24 relative overflow-hidden bg-background">
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection>
-              <span className="badge-glow mb-4 inline-flex">
+              <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                 No vendemos promesas. Entregamos diagnósticos con datos reales.
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-white">
-                Somos especialistas en la <span className="gradient-text-static">salud mecánica</span> de tu vehículo
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
+                Somos especialistas en la <span className="text-primary">salud mecánica</span> de tu vehículo
               </h2>
-              <p className="text-sm leading-relaxed mb-4" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
                 La carbonilla no avisa. Se acumula en silencio en válvulas, inyectores, turbo y filtro de partículas hasta que el motor empieza a tirar para atrás, gastar más y humar por el escape.
               </p>
-              <p className="text-sm leading-relaxed mb-8" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+              <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
                 En Ecología Rentable llevamos años resolviendo exactamente ese problema, con tecnología probada, un proceso sin sorpresas y un informe detallado antes y después de cada intervención.
               </p>
               <ul className="space-y-4 mb-8">
@@ -298,24 +299,23 @@ export default function Index() {
                     transition={{ delay: i * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 icon-circle-glow">
+                    <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 bg-primary/15 text-primary">
                       <CheckCircle size={14} />
                     </div>
-                    <span className="text-sm font-medium text-white">{b}</span>
+                    <span className="text-sm font-medium text-foreground">{b}</span>
                   </motion.li>
                 ))}
               </ul>
-              <Link to="/nosotros" className="btn-outline-glow">
+              <Link to="/nosotros" className="btn-secondary">
                 Conócenos <ArrowRight size={15} />
               </Link>
             </AnimatedSection>
             <AnimatedSection delay={0.2}>
               <div className="relative">
-                {/* Glow behind image */}
-                <div className="absolute inset-0 rounded-2xl neon-glow opacity-30 blur-2xl" />
-                <div className="relative rounded-2xl overflow-hidden glow-border">
+                <div className="absolute -inset-4 rounded-2xl bg-primary/5 blur-2xl" />
+                <div className="relative rounded-2xl overflow-hidden border-2 border-primary/20 shadow-xl">
                   <img src={tecnicoHyCarbon} alt="Técnico realizando descarbonización" className="w-full h-80 lg:h-[480px] object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(210_25%_4%/0.6)] to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 </div>
               </div>
             </AnimatedSection>
@@ -324,21 +324,18 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §3 HY-CARBON CONNECT — Glassmorphism cards
+          §3 HY-CARBON CONNECT — Light mode cards
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden bg-dark-gradient">
-        {/* Grid pattern */}
-        <div className="absolute inset-0 grid-pattern opacity-30" />
-        
+      <section className="py-24 relative overflow-hidden bg-secondary/50">
         <div className="container mx-auto px-6 relative z-10">
           <AnimatedSection>
             <div className="flex flex-col md:flex-row md:items-end gap-6 mb-14">
               <div className="flex-1">
-                <span className="badge-glow mb-4 inline-flex">
+                <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                   Descarbonización por inyección de hidrógeno
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight text-white">
-                  Hy-Carbon Connect — el tratamiento que <span className="gradient-text-static">limpia donde ningún aditivo llega</span>
+                <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
+                  Hy-Carbon Connect — el tratamiento que <span className="text-primary">limpia donde ningún aditivo llega</span>
                 </h2>
               </div>
             </div>
@@ -346,32 +343,32 @@ export default function Index() {
 
           <div className="grid lg:grid-cols-2 gap-12 items-start mb-14">
             <AnimatedSection>
-              <p className="text-sm leading-relaxed mb-4" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
                 El sistema Hy-Carbon Connect introduce gas HHO —una mezcla controlada de hidrógeno y oxígeno— directamente en el sistema de admisión del motor. Ese gas reacciona con los depósitos de carbono acumulados en las zonas críticas del motor y los convierte en CO₂ y vapor de agua, que se expulsan de forma natural por el escape.
               </p>
-              <p className="text-sm leading-relaxed" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 El resultado: cero residuos químicos, cero desmontaje, cero tiempo de espera. Solo un motor más limpio, más eficiente y con menos emisiones.
               </p>
             </AnimatedSection>
             <AnimatedSection delay={0.15}>
-              <div className="relative rounded-2xl overflow-hidden glass-card p-8">
+              <div className="relative rounded-2xl overflow-hidden bg-white border border-border shadow-lg p-8">
                 <img src={hyCaronFront} alt="Hy-Carbon Connect equipo frontal" className="w-full h-64 object-contain" />
               </div>
             </AnimatedSection>
           </div>
 
-          {/* 6 features grid with glassmorphism */}
+          {/* 6 features grid */}
           <StaggerChildren className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {hyCarbonFeatures.map((f) => {
               const Icon = f.icon;
               return (
                 <motion.div key={f.title} variants={staggerItem}>
-                  <div className="glass-card h-full p-6 group">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 icon-circle-glow transition-all duration-300 group-hover:neon-glow">
+                  <div className="bg-white rounded-2xl border border-border shadow-md h-full p-6 group hover:shadow-xl hover:border-primary/30 transition-all duration-300 hover:-translate-y-1">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                       <Icon size={22} />
                     </div>
-                    <h3 className="text-sm font-bold mb-2 text-white">{f.title}</h3>
-                    <p className="text-xs leading-relaxed" style={{ color: "hsl(0 0% 100% / 0.5)" }}>{f.desc}</p>
+                    <h3 className="text-sm font-bold mb-2 text-foreground">{f.title}</h3>
+                    <p className="text-xs leading-relaxed text-muted-foreground">{f.desc}</p>
                   </div>
                 </motion.div>
               );
@@ -387,26 +384,23 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §4 PROCESO — Futuristic timeline
+          §4 PROCESO — Light timeline
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden section-dark-mesh">
-        {/* Animated grid */}
-        <div className="absolute inset-0 grid-pattern-animated opacity-20" />
-        
+      <section className="py-24 relative overflow-hidden bg-background">
         <div className="container mx-auto px-6 relative z-10">
           <AnimatedSection>
-            <span className="badge-glow mb-4 inline-flex">
+            <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
               Cómo trabajamos en Ecología Rentable
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-16">
-              Un proceso <span className="gradient-text-static">transparente</span>,<br />de principio a fin
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-16">
+              Un proceso <span className="text-primary">transparente</span>,<br />de principio a fin
             </h2>
           </AnimatedSection>
 
           {/* Timeline layout */}
           <div className="relative">
-            {/* Vertical glowing line - only on larger screens */}
-            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2" style={{ background: "linear-gradient(180deg, hsl(148 60% 50% / 0.5) 0%, hsl(148 60% 30% / 0.1) 100%)" }} />
+            {/* Vertical line - only on larger screens */}
+            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-primary/50 via-primary/30 to-transparent" />
             
             <StaggerChildren className="space-y-8 lg:space-y-0" staggerDelay={0.15}>
               {processSteps.map((step, i) => (
@@ -416,12 +410,12 @@ export default function Index() {
                   className={`lg:grid lg:grid-cols-2 lg:gap-16 items-center ${i % 2 === 1 ? 'lg:direction-rtl' : ''}`}
                 >
                   <div className={`${i % 2 === 1 ? 'lg:order-2 lg:text-left' : 'lg:text-right'} mb-6 lg:mb-0`}>
-                    <div className={`glass-card p-6 inline-block w-full ${i % 2 === 1 ? '' : 'lg:ml-auto'} max-w-md`}>
+                    <div className={`bg-white rounded-2xl border border-border shadow-md p-6 inline-block w-full ${i % 2 === 1 ? '' : 'lg:ml-auto'} max-w-md hover:shadow-xl hover:border-primary/30 transition-all`}>
                       <div className="flex items-start gap-5">
-                        <div className="step-number-glow text-lg">{step.num}</div>
+                        <div className="step-number text-lg">{step.num}</div>
                         <div className="text-left">
-                          <h3 className="text-base font-bold text-white mb-2">{step.title}</h3>
-                          <p className="text-sm leading-relaxed" style={{ color: "hsl(0 0% 100% / 0.55)" }}>{step.desc}</p>
+                          <h3 className="text-base font-bold text-foreground mb-2">{step.title}</h3>
+                          <p className="text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
                         </div>
                       </div>
                     </div>
@@ -429,7 +423,7 @@ export default function Index() {
                   
                   {/* Center dot - only on larger screens */}
                   <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center justify-center" style={{ top: `calc(${i * 25}% + 3rem)` }}>
-                    <div className="w-4 h-4 rounded-full" style={{ background: "hsl(148 60% 50%)", boxShadow: "0 0 20px hsl(148 60% 50% / 0.6)" }} />
+                    <div className="w-4 h-4 rounded-full bg-primary shadow-[0_0_15px_hsl(var(--primary)/0.5)]" />
                   </div>
                   
                   <div className={`${i % 2 === 1 ? 'lg:order-1' : ''} hidden lg:block`} />
@@ -441,20 +435,18 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §5 CARBON FAP — Dark dramatic
+          §5 CARBON FAP — Light mode
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden bg-dark-gradient">
-        <div className="absolute inset-0 dot-pattern opacity-20" />
-        
+      <section className="py-24 relative overflow-hidden bg-secondary/50">
         <div className="container mx-auto px-6 relative z-10">
           <AnimatedSection>
             <div className="flex flex-col md:flex-row md:items-end gap-6 mb-14">
               <div className="flex-1">
-                <span className="badge-glow mb-4 inline-flex">
+                <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                   Estación profesional de limpieza de filtros de partículas
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight text-white">
-                  Carbon FAP — porque sustituir un FAP puede costarte <span className="gradient-text-static">entre 500 € y 2.000 €</span>
+                <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
+                  Carbon FAP — porque sustituir un FAP puede costarte <span className="text-primary">entre 500 € y 2.000 €</span>
                 </h2>
               </div>
             </div>
@@ -462,13 +454,13 @@ export default function Index() {
 
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <AnimatedSection>
-              <p className="text-sm leading-relaxed mb-4" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
                 El filtro de partículas (FAP/DPF) es una de las piezas más caras del vehículo cuando falla. Su sustitución oscila entre los 500 y los 2.000 euros según el modelo, sin contar mano de obra. Y la mayoría de las veces, la sustitución se puede evitar.
               </p>
-              <p className="text-sm leading-relaxed mb-4" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
                 La estación Carbon FAP de Ecología Rentable limpia el filtro con un ciclo automatizado que elimina el hollín acumulado, las partículas no quemadas y las obstrucciones internas, sin cortes, sin soldaduras y sin manipular la cerámica interior del filtro.
               </p>
-              <p className="text-sm leading-relaxed mb-8" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+              <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
                 Compatible con filtros de gasolina y diésel. Desarrollada específicamente para talleres que buscan resultados profesionales sin depender de aditivos individuales ni dispositivos de coste elevado.
               </p>
               
@@ -482,12 +474,12 @@ export default function Index() {
                     transition={{ delay: i * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 icon-circle-glow">
+                    <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 bg-primary/15 text-primary">
                       <CheckCircle size={14} />
                     </div>
                     <div>
-                      <span className="text-sm font-bold text-white">{b.title}: </span>
-                      <span className="text-sm" style={{ color: "hsl(0 0% 100% / 0.55)" }}>{b.desc}</span>
+                      <span className="text-sm font-bold text-foreground">{b.title}: </span>
+                      <span className="text-sm text-muted-foreground">{b.desc}</span>
                     </div>
                   </motion.div>
                 ))}
@@ -500,10 +492,10 @@ export default function Index() {
             
             <AnimatedSection delay={0.2}>
               <div className="relative">
-                <div className="absolute inset-0 rounded-2xl neon-glow opacity-20 blur-2xl" />
-                <div className="relative rounded-2xl overflow-hidden glow-border">
+                <div className="absolute -inset-4 rounded-2xl bg-primary/5 blur-2xl" />
+                <div className="relative rounded-2xl overflow-hidden border-2 border-primary/20 shadow-xl">
                   <img src={serviceWide} alt="Estación Carbon FAP" className="w-full h-72 lg:h-96 object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(210_25%_4%/0.6)] to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 </div>
               </div>
             </AnimatedSection>
@@ -512,61 +504,59 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §6 SOCIOS — Metrics with neon effect
+          §6 SOCIOS — Light mode
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden section-dark-mesh">
-        <div className="absolute inset-0 grid-pattern opacity-20" />
-        
+      <section className="py-24 relative overflow-hidden bg-background">
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection>
-              <span className="badge-glow mb-4 inline-flex">
+              <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                 Programa de socios certificados
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-white">
-                Incorpora descarbonización a tu taller y <span className="gradient-text-static">empieza a rentabilizarla</span> desde la primera semana
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
+                Incorpora descarbonización a tu taller y <span className="text-primary">empieza a rentabilizarla</span> desde la primera semana
               </h2>
-              <p className="text-sm leading-relaxed mb-4" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
                 La descarbonización y la limpieza de filtros de partículas son servicios con alta demanda, ticket medio elevado y margen real. Son tratamientos que el conductor no puede hacer por su cuenta, que no requieren recambios y que generan confianza inmediata porque los resultados se miden en el momento.
               </p>
-              <p className="text-sm leading-relaxed mb-8" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+              <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
                 Como socio certificado de Ecología Rentable accedes a la tecnología, la formación técnica y el soporte comercial necesarios para ofrecer estos servicios desde el primer día.
               </p>
 
-              {/* 3 metrics with glowing borders */}
+              {/* 3 metrics */}
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {[
                   { value: "60%", label: "de margen en cada servicio" },
                   { value: "85%", label: "recuperan inversión en <3 meses" },
                   { value: "300+", label: "profesionales certificados" },
                 ].map((m) => (
-                  <div key={m.value} className="glass-card text-center p-4">
-                    <AnimatedCounter value={m.value} className="text-2xl font-bold gradient-text-static glow-text" />
-                    <div className="text-xs mt-1" style={{ color: "hsl(0 0% 100% / 0.45)" }}>{m.label}</div>
+                  <div key={m.value} className="bg-white rounded-xl border border-border shadow-md text-center p-4 hover:shadow-lg hover:border-primary/30 transition-all">
+                    <AnimatedCounter value={m.value} className="text-2xl font-bold text-primary" />
+                    <div className="text-xs mt-1 text-muted-foreground">{m.label}</div>
                   </div>
                 ))}
               </div>
 
-              {/* Quote with gradient border */}
-              <div className="relative mb-8 p-5 rounded-xl" style={{ background: "hsl(148 60% 40% / 0.08)", border: "1px solid hsl(148 60% 50% / 0.2)" }}>
-                <Quote size={24} className="absolute top-4 left-4 opacity-20" style={{ color: "hsl(148 60% 55%)" }} />
-                <p className="text-sm italic leading-relaxed mb-2 text-white pl-8">
+              {/* Quote */}
+              <div className="relative mb-8 p-5 rounded-xl bg-primary/5 border border-primary/20">
+                <Quote size={24} className="absolute top-4 left-4 opacity-20 text-primary" />
+                <p className="text-sm italic leading-relaxed mb-2 text-foreground pl-8">
                   "Únete a Ecología Rentable y convierte tu taller en un referente del mantenimiento sostenible."
                 </p>
-                <cite className="text-xs not-italic font-semibold pl-8" style={{ color: "hsl(148 60% 60%)" }}>— Younes Smaini, fundador</cite>
+                <cite className="text-xs not-italic font-semibold pl-8 text-primary">— Younes Smaini, fundador</cite>
               </div>
 
-              <Link to="/socios/hazte-socio" className="btn-cta">
+              <Link to="/socios/hazte-socio" className="btn-primary">
                 Quiero ser socio <ArrowRight size={15} />
               </Link>
             </AnimatedSection>
             
             <AnimatedSection delay={0.2}>
               <div className="relative">
-                <div className="absolute inset-0 rounded-2xl neon-glow opacity-20 blur-2xl" />
-                <div className="relative rounded-2xl overflow-hidden glow-border">
+                <div className="absolute -inset-4 rounded-2xl bg-primary/5 blur-2xl" />
+                <div className="relative rounded-2xl overflow-hidden border-2 border-primary/20 shadow-xl">
                   <img src={diagnosticoMotor} alt="Socio certificado realizando diagnóstico" className="w-full h-80 lg:h-[480px] object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(210_25%_4%/0.6)] to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 </div>
               </div>
             </AnimatedSection>
@@ -575,23 +565,18 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §7 TESTIMONIOS — Premium glass cards
+          §7 TESTIMONIOS — Light cards
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden bg-dark-gradient">
-        <div className="absolute inset-0 dot-pattern opacity-20" />
-        
-        {/* Radial glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full" style={{ background: "radial-gradient(ellipse, hsl(148 50% 20% / 0.15), transparent 70%)" }} />
-        
+      <section className="py-24 relative overflow-hidden bg-secondary/50">
         <div className="container mx-auto px-6 relative z-10">
           <AnimatedSection>
-            <span className="badge-glow mb-4 inline-flex">
+            <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
               Lo que dicen los que ya lo han probado
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight text-white">
-              Resultados que se <span className="gradient-text-static">miden</span>, no que se imaginan
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight text-foreground">
+              Resultados que se <span className="text-primary">miden</span>, no que se imaginan
             </h2>
-            <p className="text-sm mb-14 max-w-2xl" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
+            <p className="text-sm mb-14 max-w-2xl text-muted-foreground">
               Cada tratamiento genera un informe con datos reales. Estos son algunos de los profesionales y conductores que ya han visto los resultados.
             </p>
           </AnimatedSection>
@@ -599,7 +584,7 @@ export default function Index() {
           <StaggerChildren className="grid md:grid-cols-3 gap-6" staggerDelay={0.15}>
             {testimonials.map((t) => (
               <motion.div key={t.name} variants={staggerItem}>
-                <div className="glass-card h-full p-7 group">
+                <div className="bg-white rounded-2xl border border-border shadow-md h-full p-7 group hover:shadow-xl hover:border-primary/30 transition-all">
                   <div className="flex gap-1 mb-5">
                     {[...Array(5)].map((_, i) => (
                       <motion.div
@@ -613,14 +598,14 @@ export default function Index() {
                       </motion.div>
                     ))}
                   </div>
-                  <p className="text-sm leading-relaxed mb-7 text-white">"{t.text}"</p>
+                  <p className="text-sm leading-relaxed mb-7 text-foreground">"{t.text}"</p>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold avatar-glow" style={{ background: "linear-gradient(135deg, hsl(148 60% 35%), hsl(148 72% 45%))", color: "white" }}>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold bg-primary text-primary-foreground">
                       {t.name[0]}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-white">{t.name}</p>
-                      <p className="text-xs" style={{ color: "hsl(148 60% 60%)" }}>{t.role}</p>
+                      <p className="text-sm font-semibold text-foreground">{t.name}</p>
+                      <p className="text-xs text-primary">{t.role}</p>
                     </div>
                   </div>
                 </div>
@@ -631,7 +616,7 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §8 CTA FINAL — Maximum impact
+          §8 CTA FINAL — Dark for impact
       ══════════════════════════════════ */}
       <section className="py-28 relative overflow-hidden section-dark-mesh">
         {/* Animated grid */}
@@ -667,19 +652,17 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §9 FAQ — Dark clean style
+          §9 FAQ — Light mode
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden bg-dark-gradient">
-        <div className="absolute inset-0 dot-pattern opacity-15" />
-        
+      <section className="py-24 relative overflow-hidden bg-background">
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-5 gap-14">
             <AnimatedSection className="lg:col-span-2">
-              <span className="badge-glow mb-4 inline-flex">
+              <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                 Lo que nos preguntan antes de venir
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-white">
-                Preguntas<br /><span className="gradient-text-static">frecuentes</span>
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
+                Preguntas<br /><span className="text-primary">frecuentes</span>
               </h2>
               <Link to="/contacto" className="btn-primary">
                 Pregúntanos
@@ -692,12 +675,12 @@ export default function Index() {
                   <AccordionItem 
                     key={i} 
                     value={`faq-${i}`} 
-                    className="faq-item px-1"
+                    className="bg-white rounded-xl border border-border shadow-sm px-1 hover:border-primary/30 hover:shadow-md transition-all"
                   >
-                    <AccordionTrigger className="text-sm text-left px-5 py-4 text-white hover:text-[hsl(148_60%_60%)] hover:no-underline">
+                    <AccordionTrigger className="text-sm text-left px-5 py-4 text-foreground hover:text-primary hover:no-underline">
                       {f.q}
                     </AccordionTrigger>
-                    <AccordionContent className="text-sm leading-relaxed px-5 pb-4" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+                    <AccordionContent className="text-sm leading-relaxed px-5 pb-4 text-muted-foreground">
                       {f.a}
                     </AccordionContent>
                   </AccordionItem>
@@ -709,7 +692,7 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §10 RED NACIONAL — Strong closing
+          §10 RED NACIONAL — Dark for closing
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden section-dark-mesh">
         {/* Grid pattern */}
