@@ -150,7 +150,7 @@ export default function Index() {
                 </h1>
                 <div className="min-h-[1.2em]">
                   <MorphingText
-                    texts={["ECOLOGÍA RENTABLE!", "DESCARBONIZACIÓN!", "TECNOLOGÍA HHO!", "MENOS EMISIONES!"]}
+                    texts={["ECO RENTABLE!", "HIDRÓGENO HHO!", "MOTOR LIMPIO!", "MENOS CO₂!"]}
                     className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.15] tracking-tight"
                   />
                 </div>
