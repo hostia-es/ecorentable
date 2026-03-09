@@ -92,29 +92,44 @@ interface MorphingTextProps {
   texts: string[];
 }
 
-const Texts: React.FC<MorphingTextProps> = ({ texts, className }) => {
+const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => {
   const { text1Ref, text2Ref } = useMorphingText(texts);
 
   return (
-    <>
-      <span
-        className={cn("absolute inset-0 flex items-center justify-start w-full whitespace-nowrap", className)}
-        ref={text1Ref}
-      />
-      <span
-        className={cn("absolute inset-0 flex items-center justify-start w-full whitespace-nowrap", className)}
-        ref={text2Ref}
-      />
-    </>
+    <div className={cn("relative", className)}>
+      {/* SVG filter for liquid morph effect */}
+      <svg className="fixed h-0 w-0 pointer-events-none" aria-hidden="true">
+        <defs>
+          <filter id="morphing-threshold">
+            <feColorMatrix
+              in="SourceGraphic"
+              type="matrix"
+              values="1 0 0 0 0
+                      0 1 0 0 0
+                      0 0 1 0 0
+                      0 0 0 255 -140"
+            />
+          </filter>
+        </defs>
+      </svg>
+
+      <div
+        className="relative"
+        style={{ filter: "url(#morphing-threshold) blur(0.6px)" }}
+      >
+        <span
+          ref={text1Ref}
+          className="absolute left-0 top-0 block w-full"
+          style={{ color: "hsl(148 60% 55%)" }}
+        />
+        <span
+          ref={text2Ref}
+          className="block w-full"
+          style={{ color: "hsl(148 60% 55%)" }}
+        />
+      </div>
+    </div>
   );
 };
-
-const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => (
-  <div className="relative w-full h-full overflow-visible">
-    <div className="relative w-full h-full">
-      <Texts texts={texts} className={className} />
-    </div>
-  </div>
-);
 
 export { MorphingText };

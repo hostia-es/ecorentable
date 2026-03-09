@@ -148,10 +148,10 @@ export default function Index() {
                 <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
                   <span className="block">¡Revitaliza Tu Vehículo Con</span>
                 </h1>
-                <div className="h-[clamp(3rem,7vw,5.5rem)]">
+                <div className="min-h-[1.2em]">
                   <MorphingText
                     texts={["ECOLOGÍA RENTABLE!", "DESCARBONIZACIÓN!", "TECNOLOGÍA HHO!", "MENOS EMISIONES!"]}
-                    className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight text-white"
+                    className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.15] tracking-tight"
                   />
                 </div>
               </motion.div>
