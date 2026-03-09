@@ -443,13 +443,13 @@ export default function Index() {
           <AnimatedSection>
             <div className="text-center mb-8">
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-                Tecnología Ecología Rentable en acción
+                Mira lo que pasa dentro de tu motor
               </span>
               <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-                Así limpia el <span className="text-primary">hidrógeno</span> tu motor por dentro
+                El hidrógeno entra, la <span className="text-primary">carbonilla sale</span>
               </h2>
               <p className="text-base max-w-2xl mx-auto text-muted-foreground">
-                Visualización 3D del proceso de descarbonización. Las partículas verdes representan el gas HHO eliminando depósitos de carbonilla del motor, turbo y filtro de partículas.
+                Esta simulación muestra cómo el gas HHO recorre el interior de tu motor eliminando los depósitos de carbono acumulados en válvulas, turbo y filtro de partículas.
               </p>
             </div>
           </AnimatedSection>
