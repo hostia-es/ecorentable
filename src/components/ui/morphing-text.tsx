@@ -96,8 +96,8 @@ const Texts: React.FC<Pick<MorphingTextProps, "texts">> = ({ texts }) => {
   const { text1Ref, text2Ref } = useMorphingText(texts);
   return (
     <>
-      <span className="absolute inset-0 flex items-center justify-center w-full" ref={text1Ref} />
-      <span className="absolute inset-0 flex items-center justify-center w-full" ref={text2Ref} />
+      <span className="absolute inset-0 flex items-center justify-start w-full" ref={text1Ref} />
+      <span className="absolute inset-0 flex items-center justify-start w-full" ref={text2Ref} />
     </>
   );
 };
