@@ -48,12 +48,12 @@ const aboutBullets = [
 ];
 
 const hyCarbonFeatures = [
-  { title: "Diagnóstico personalizado", desc: "Medición del estado real del motor antes del tratamiento. Sabes exactamente qué hay dentro antes de empezar.", icon: Stethoscope, image: featureDiagnostico },
-  { title: "Limpieza profunda sin desmontaje", desc: "El gas HHO limpia válvulas EGR, colectores, inyectores, pistones, turbo y FAP. Sin abrir el motor.", icon: Cog, image: featureLimpieza },
-  { title: "Proceso en menos de 60 minutos", desc: "El motor funciona al ralentí durante todo el tratamiento. Entregas el coche y lo recoges en el mismo día.", icon: Timer, image: featureRapido },
-  { title: "Hasta un 15% de ahorro en combustible", desc: "Un motor limpio aprovecha mejor la mezcla aire-combustible. El ahorro empieza a notarse en los próximos depósitos.", icon: Fuel, image: featureAhorro },
-  { title: "Facilita el paso por la ITV", desc: "Reducción de NOx, CO₂ y partículas sólidas. Especialmente efectivo como preparación para la prueba de gases.", icon: FileCheck, image: featureItv },
-  { title: "Informe antes y después", desc: "Documentamos los valores de emisiones y estado del motor. La mejora queda registrada, no es una suposición.", icon: BarChart3, image: featureInforme },
+  { title: "Diagnóstico personalizado", desc: "Medición del estado real del motor antes del tratamiento.", icon: Stethoscope, image: featureDiagnostico },
+  { title: "Limpieza profunda sin desmontaje", desc: "El gas HHO limpia válvulas EGR, inyectores, pistones, turbo y FAP.", icon: Cog, image: featureLimpieza },
+  { title: "Proceso en menos de 60 minutos", desc: "Motor al ralentí. Entregas el coche y lo recoges el mismo día.", icon: Timer, image: featureRapido },
+  { title: "Hasta un 15% de ahorro en combustible", desc: "Un motor limpio aprovecha mejor la mezcla aire-combustible.", icon: Fuel, image: featureAhorro },
+  { title: "Facilita el paso por la ITV", desc: "Reducción de NOx, CO₂ y partículas sólidas.", icon: FileCheck, image: featureItv },
+  { title: "Informe antes y después", desc: "Valores de emisiones documentados. La mejora queda registrada.", icon: BarChart3, image: featureInforme },
 ];
 
 const hyCarbonTimelineEntries: FeatureTimelineEntry[] = hyCarbonFeatures.map((f) => ({
