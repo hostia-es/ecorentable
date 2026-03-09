@@ -126,7 +126,7 @@ export default function Index() {
       {/* ══════════════════════════════════
           §1 HERO — Mobile-first fullscreen
       ══════════════════════════════════ */}
-      <section className="relative min-h-[100svh] md:min-h-screen overflow-hidden flex items-center bg-dark-gradient">
+      <section className="relative min-h-screen overflow-hidden bg-dark-gradient">
         <motion.div
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
           style={{ y: heroImageY, scale: heroScale }}
@@ -140,18 +140,19 @@ export default function Index() {
         <div className="absolute inset-0 grid-pattern opacity-40" />
 
         <motion.div
-          className="relative z-10 container mx-auto px-5 sm:px-6 lg:px-12 pt-20 pb-10 md:py-32 flex items-end sm:items-center min-h-[calc(100svh-64px)] md:min-h-0"
+          className="relative z-10 container mx-auto px-5 sm:px-6 lg:px-12 pt-24 pb-12 md:py-32"
           style={{ y: heroTextY, opacity: heroOpacity }}
         >
-          <div className="grid lg:grid-cols-12 gap-8 items-center">
+          <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+            {/* Left — Text content */}
             <div className="lg:col-span-7">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <span className="badge-glow mb-5 md:mb-6 inline-flex items-center text-[11px] md:text-xs leading-tight">
-                  <Leaf size={14} className="mr-1.5 shrink-0" /> LIMPIEZA DE MOTORES · SIN DESMONTAR · 1 HORA
+                <span className="badge-glow mb-4 md:mb-6 inline-flex items-center text-[10px] sm:text-[11px] md:text-xs leading-tight">
+                  <Leaf size={13} className="mr-1.5 shrink-0" /> LIMPIEZA DE MOTORES · SIN DESMONTAR · 1 HORA
                 </span>
               </motion.div>
 
@@ -159,15 +160,15 @@ export default function Index() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.3 }}
-                className="mb-5 md:mb-6"
+                className="mb-4 md:mb-6"
               >
-                <h1 className="text-[1.75rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
+                <h1 className="text-[1.65rem] sm:text-[2.3rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
                   Tu Motor Acumula Suciedad.
                 </h1>
                 <div className="min-h-[2.4em] sm:min-h-[1.15em]">
                   <MorphingText
                     texts={["NOSOTROS LA ELIMINAMOS.", "EN MENOS DE 1 HORA.", "SIN ABRIR EL MOTOR.", "CON RESULTADOS MEDIBLES."]}
-                    className="text-[1.75rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
+                    className="text-[1.65rem] sm:text-[2.3rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
                   />
                 </div>
               </motion.div>
@@ -176,7 +177,7 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.45 }}
-                className="text-base md:text-lg lg:text-xl leading-relaxed max-w-xl mb-7 md:mb-8"
+                className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-xl mb-5 md:mb-8"
                 style={{ color: "hsl(0 0% 100% / 0.65)" }}
               >
                 Eliminamos los residuos de carbono de tu motor con hidrógeno. Sin desmontar, sin química, con informe.
@@ -186,7 +187,7 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.55 }}
-                className="flex flex-col sm:flex-row gap-3 mb-10 md:mb-12"
+                className="flex flex-col sm:flex-row gap-3 mb-6 md:mb-12"
               >
                 <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer text-sm w-full sm:w-auto text-center">
                   VER CÓMO FUNCIONA <ArrowRight size={14} />
@@ -196,56 +197,57 @@ export default function Index() {
                 </Link>
               </motion.div>
 
+              {/* Stats — visible on all screens */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.65 }}
-                className="hidden sm:grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5"
+                className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5"
               >
                 {heroStats.map((s) => (
                   <div key={s.label} className="group">
                     <div className="flex items-center gap-1.5 mb-0.5">
                       <span className="text-[hsl(148_60%_55%)] glow-icon">{s.icon}</span>
-                      <AnimatedCounter value={s.value} className="text-2xl sm:text-2xl md:text-3xl font-bold text-white glow-text" />
+                      <AnimatedCounter value={s.value} className="text-xl sm:text-2xl md:text-3xl font-bold text-white glow-text" />
                     </div>
-                    <div className="text-[10px] sm:text-[10px] md:text-[11px] uppercase tracking-wider" style={{ color: "hsl(0 0% 100% / 0.4)" }}>{s.label}</div>
+                    <div className="text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-wider" style={{ color: "hsl(0 0% 100% / 0.4)" }}>{s.label}</div>
                   </div>
                 ))}
               </motion.div>
             </div>
 
-            {/* Right — Floating car + machine */}
-            <div className="hidden lg:block lg:col-span-5 relative min-h-[500px]">
-              {/* Car floating */}
+            {/* Right — Floating machine + cards (all screens) */}
+            <div className="relative lg:col-span-5 min-h-[220px] sm:min-h-[280px] lg:min-h-[500px] mt-4 lg:mt-0">
+              {/* Machine image */}
               <motion.div
                 style={{ y: floatingCard1Y, x: mouse.x }}
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.5 }}
-                className="absolute top-0 right-0 w-[280px]"
+                className="absolute top-0 right-0 w-[160px] sm:w-[200px] lg:w-[280px]"
               >
                 <img src={hyConnectMachine} alt="Máquina Hy-Carbon Connect" className="w-full drop-shadow-2xl" />
               </motion.div>
 
-              {/* Floating glassmorphism card 1 */}
+              {/* Floating glassmorphism card — Consumo */}
               <motion.div
                 style={{ y: floatingCard2Y, x: mouse.x }}
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.9, delay: 0.8 }}
-                className="absolute top-4 left-0 w-56"
+                className="absolute top-2 left-0 w-44 sm:w-52 lg:w-56"
               >
-                <div className="rounded-2xl border backdrop-blur-xl p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center icon-circle-glow">
-                      <Zap size={14} />
+                <div className="rounded-2xl border backdrop-blur-xl p-3 sm:p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center icon-circle-glow">
+                      <Zap size={13} />
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-white">Consumo de combustible</p>
-                      <p className="text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Con descarbonización</p>
+                      <p className="text-[11px] sm:text-xs font-semibold text-white">Consumo de combustible</p>
+                      <p className="text-[9px] sm:text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Con descarbonización</p>
                     </div>
                   </div>
-                  <p className="text-3xl font-bold gradient-text-static">-15%</p>
+                  <p className="text-2xl sm:text-3xl font-bold gradient-text-static">-15%</p>
                   <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.1)" }}>
                     <motion.div
                       initial={{ width: 0 }}
@@ -264,19 +266,19 @@ export default function Index() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 1 }}
-                className="absolute bottom-12 left-4 w-48"
+                className="absolute bottom-0 sm:bottom-4 lg:bottom-12 left-2 sm:left-4 w-40 sm:w-44 lg:w-48"
               >
-                <div className="rounded-2xl border backdrop-blur-xl p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center icon-circle-glow">
-                      <Shield size={14} />
+                <div className="rounded-2xl border backdrop-blur-xl p-3 sm:p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center icon-circle-glow">
+                      <Shield size={13} />
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-white">Emisiones contaminantes</p>
-                      <p className="text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Resultado medio tras servicio</p>
+                      <p className="text-[11px] sm:text-xs font-semibold text-white">Emisiones contaminantes</p>
+                      <p className="text-[9px] sm:text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Resultado medio tras servicio</p>
                     </div>
                   </div>
-                  <p className="text-2xl font-bold text-white">-20% <span className="text-xs font-normal" style={{ color: "hsl(0 0% 100% / 0.4)" }}>NOx/CO₂</span></p>
+                  <p className="text-xl sm:text-2xl font-bold text-white">-20% <span className="text-[10px] sm:text-xs font-normal" style={{ color: "hsl(0 0% 100% / 0.4)" }}>NOx/CO₂</span></p>
                 </div>
               </motion.div>
             </div>
@@ -284,25 +286,6 @@ export default function Index() {
         </motion.div>
 
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-20" />
-      </section>
-
-      {/* ══════════════════════════════════
-          §1b HERO STATS — Mobile strip
-      ══════════════════════════════════ */}
-      <section className="sm:hidden py-6 bg-secondary">
-        <div className="container mx-auto px-5">
-          <div className="grid grid-cols-2 gap-4">
-            {heroStats.map((s) => (
-              <div key={s.label} className="flex items-center gap-2">
-                <span className="text-primary">{s.icon}</span>
-                <div>
-                  <AnimatedCounter value={s.value} className="text-xl font-bold text-foreground" />
-                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{s.label}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ══════════════════════════════════
