@@ -439,11 +439,11 @@ export default function Index() {
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                 Mira lo que pasa dentro de tu motor
               </span>
-              <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl md:text-5xl font-bold text-foreground mb-4">
                 El hidrógeno entra, la <span className="text-primary">carbonilla sale</span>
               </h2>
-              <p className="text-base max-w-2xl mx-auto text-muted-foreground">
-                Esta simulación muestra cómo el gas HHO recorre el interior de tu motor eliminando los depósitos de carbono acumulados en válvulas, turbo y filtro de partículas.
+              <p className="text-sm md:text-base max-w-2xl mx-auto text-muted-foreground">
+                Simulación del gas HHO eliminando carbono en válvulas, turbo y filtro de partículas.
               </p>
             </div>
           </AnimatedSection>
