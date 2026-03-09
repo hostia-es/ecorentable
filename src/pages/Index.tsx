@@ -294,7 +294,7 @@ export default function Index() {
       {/* ══════════════════════════════════
           §2 QUIÉNES SOMOS — Light
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden bg-background">
+      <section className="py-14 md:py-24 relative overflow-hidden bg-background">
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection>
