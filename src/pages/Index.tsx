@@ -509,7 +509,7 @@ export default function Index() {
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 rounded-3xl blur-3xl" />
                 <motion.img
                   src={carbonFapMachine}
-                  alt="Estación Carbon FAP - FlexFuel"
+                  alt="Estación Carbon FAP - Ecología Rentable"
                   className="relative w-full max-w-md h-auto object-contain drop-shadow-2xl"
                   loading="lazy"
                   initial={{ opacity: 0, scale: 0.9 }}

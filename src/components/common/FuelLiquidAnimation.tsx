@@ -105,7 +105,7 @@ export const FuelLiquidAnimation = () => {
       >
         <div className="flex flex-col items-center gap-2">
           <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: "hsl(82 70% 40%)" }}>
-            Flex Fuel
+            Ecología Rentable
           </span>
           <span className="text-[10px] tracking-wider uppercase text-muted-foreground">
             Tecnología limpia
