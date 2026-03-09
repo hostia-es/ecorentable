@@ -140,7 +140,7 @@ export default function Index() {
         <div className="absolute inset-0 grid-pattern opacity-40" />
 
         <motion.div
-          className="relative z-10 container mx-auto px-5 sm:px-6 lg:px-12 pt-24 pb-12 md:py-32"
+          className="relative z-10 container mx-auto px-5 sm:px-6 lg:px-12 pt-20 pb-10 md:py-32 flex items-end sm:items-center min-h-[calc(100svh-64px)] md:min-h-0"
           style={{ y: heroTextY, opacity: heroOpacity }}
         >
           <div className="grid lg:grid-cols-12 gap-8 items-center">
