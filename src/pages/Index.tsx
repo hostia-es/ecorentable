@@ -159,11 +159,11 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.7 }}
                 className="flex flex-col sm:flex-row gap-3 mb-12"
               >
-                <Link to="/servicios" className="btn-cta cursor-pointer">
-                  Ver servicios <ArrowRight size={16} />
+                <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer">
+                  DESCARBONIZACIÓN <ArrowRight size={16} />
                 </Link>
                 <Link to="/contacto" className="btn-glass cursor-pointer">
-                  <Play size={14} /> Solicitar diagnóstico
+                  CONTACTO
                 </Link>
               </motion.div>
 
