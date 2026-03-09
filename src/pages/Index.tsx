@@ -109,7 +109,7 @@ export default function Index() {
       {/* ══════════════════════════════════
           §0 TOP BAR
       ══════════════════════════════════ */}
-      <div className="w-full py-1.5 sm:py-2 text-center text-[10px] sm:text-xs bg-primary text-primary-foreground">
+      <div className="hidden sm:block w-full py-1.5 sm:py-2 text-center text-[10px] sm:text-xs bg-primary text-primary-foreground">
         <div className="container mx-auto px-3 sm:px-4 flex items-center justify-center gap-2 sm:gap-4 flex-wrap">
           <a href="mailto:info@ecologiarentable.es" className="flex items-center gap-1 sm:gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
             <Mail size={11} /> <span className="hidden sm:inline">info@ecologiarentable.es</span><span className="sm:hidden">Email</span>
@@ -161,13 +161,13 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.3 }}
                 className="mb-5 md:mb-6"
               >
-                <h1 className="text-[2.1rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.08] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
+                <h1 className="text-[2.5rem] sm:text-[2.8rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.08] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
                   Tu Motor Acumula Suciedad.
                 </h1>
                 <div className="min-h-[1.15em]">
                   <MorphingText
                     texts={["NOSOTROS LA ELIMINAMOS.", "EN MENOS DE 1 HORA.", "SIN ABRIR EL MOTOR.", "CON RESULTADOS MEDIBLES."]}
-                    className="text-[2.1rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
+                    className="text-[2.5rem] sm:text-[2.8rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
                   />
                 </div>
               </motion.div>
@@ -176,7 +176,7 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.45 }}
-                className="text-[15px] md:text-base lg:text-lg leading-relaxed max-w-xl mb-7 md:mb-8"
+                className="text-base md:text-lg lg:text-xl leading-relaxed max-w-xl mb-7 md:mb-8"
                 style={{ color: "hsl(0 0% 100% / 0.65)" }}
               >
                 Eliminamos los residuos de carbono de tu motor con hidrógeno. Sin desmontar, sin química, con informe.
@@ -188,10 +188,10 @@ export default function Index() {
                 transition={{ duration: 0.6, delay: 0.55 }}
                 className="flex flex-col sm:flex-row gap-3 mb-10 md:mb-12"
               >
-                <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer text-sm">
+                <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer text-sm w-full sm:w-auto text-center">
                   VER CÓMO FUNCIONA <ArrowRight size={14} />
                 </Link>
-                <Link to="/contacto" className="btn-glass cursor-pointer text-sm">
+                <Link to="/contacto" className="btn-glass cursor-pointer text-sm w-full sm:w-auto text-center">
                   PEDIR CITA
                 </Link>
               </motion.div>
@@ -200,7 +200,7 @@ export default function Index() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.65 }}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5"
+                className="hidden sm:grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5"
               >
                 {heroStats.map((s) => (
                   <div key={s.label} className="group">
@@ -284,6 +284,25 @@ export default function Index() {
         </motion.div>
 
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-20" />
+      </section>
+
+      {/* ══════════════════════════════════
+          §1b HERO STATS — Mobile strip
+      ══════════════════════════════════ */}
+      <section className="sm:hidden py-6 bg-secondary">
+        <div className="container mx-auto px-5">
+          <div className="grid grid-cols-2 gap-4">
+            {heroStats.map((s) => (
+              <div key={s.label} className="flex items-center gap-2">
+                <span className="text-primary">{s.icon}</span>
+                <div>
+                  <AnimatedCounter value={s.value} className="text-xl font-bold text-foreground" />
+                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{s.label}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ══════════════════════════════════
