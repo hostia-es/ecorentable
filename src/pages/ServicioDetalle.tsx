@@ -3,6 +3,29 @@ import { CheckCircle, AlertTriangle, ArrowRight, Euro } from "lucide-react";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import { AnimatedSection } from "@/components/common/Animations";
+import serviceHero from "@/assets/service-decarbonization-hero.jpg";
+import obd2Diagnostics from "@/assets/obd2-diagnostics.jpg";
+import mechanicWorkshop from "@/assets/mechanic-workshop-service.jpg";
+import engineDiagnostics from "@/assets/engine-diagnostics.jpg";
+import maquinaDescarbonizadora from "@/assets/maquina-descarbonizadora.jpg";
+import carbonFapMachine from "@/assets/carbon-fap-machine.png";
+
+const heroImages: Record<string, string> = {
+  descarbonizacion: serviceHero,
+  particulares: mechanicWorkshop,
+  talleres: engineDiagnostics,
+  flotas: maquinaDescarbonizadora,
+  "limpieza-filtros": carbonFapMachine,
+};
+
+const processImages: Record<string, string> = {
+  descarbonizacion: obd2Diagnostics,
+  particulares: serviceHero,
+  talleres: mechanicWorkshop,
+  flotas: engineDiagnostics,
+  "limpieza-filtros": maquinaDescarbonizadora,
+};
 
 interface ServicioData {
   title: string;
