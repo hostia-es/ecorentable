@@ -164,7 +164,7 @@ export default function Descarbonizacion() {
 
       {/* STATS */}
       <AnimatedSection>
-        <section className="py-14 section-dark">
+        <section className="py-14 bg-primary/5 border-y border-primary/10">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {[
@@ -174,10 +174,10 @@ export default function Descarbonizacion() {
                 { value: "40K+", label: "Clientes" },
               ].map((s) => (
                 <div key={s.label}>
-                  <div className="text-3xl md:text-4xl font-bold text-white mb-1">
+                  <div className="text-3xl md:text-4xl font-bold text-primary mb-1">
                     <AnimatedCounter value={s.value} />
                   </div>
-                  <div className="text-sm text-white/70">{s.label}</div>
+                  <div className="text-sm text-muted-foreground">{s.label}</div>
                 </div>
               ))}
             </div>
