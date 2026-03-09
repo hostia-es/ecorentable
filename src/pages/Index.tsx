@@ -456,7 +456,7 @@ export default function Index() {
           <CarXRayAnimation />
           <div className="flex justify-center mt-8">
             <Link to="/servicios/descarbonizacion" className="btn-primary cursor-pointer">
-              Descubre el tratamiento <ArrowRight size={15} />
+              Quiero limpiar mi motor <ArrowRight size={15} />
             </Link>
           </div>
         </div>
