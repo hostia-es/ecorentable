@@ -22,6 +22,7 @@ import { Timeline } from "@/components/ui/timeline";
 import { FuelLiquidAnimation } from "@/components/common/FuelLiquidAnimation";
 import { Globe } from "@/components/ui/globe";
 import { CarXRayAnimation } from "@/components/common/CarXRayAnimation";
+import { MorphingText } from "@/components/ui/morphing-text";
 
 /* ═══════════ DATA ═══════════ */
 const heroStats = [
