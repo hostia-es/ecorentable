@@ -13,6 +13,12 @@ import carbonFapMachine from "@/assets/carbon-fap-machine.png";
 import carWhite from "@/assets/car-white.png";
 import hyConnectMachine from "@/assets/hy-carbon-connect-machine.png";
 import worldMapPins from "@/assets/world-map-pins.png";
+import featureDiagnostico from "@/assets/feature-diagnostico.jpg";
+import featureLimpieza from "@/assets/feature-limpieza.jpg";
+import featureRapido from "@/assets/feature-rapido.jpg";
+import featureAhorro from "@/assets/feature-ahorro.jpg";
+import featureItv from "@/assets/feature-itv.jpg";
+import featureInforme from "@/assets/feature-informe.jpg";
 
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -23,6 +29,8 @@ import { FuelLiquidAnimation } from "@/components/common/FuelLiquidAnimation";
 import { Globe } from "@/components/ui/globe";
 import { CarXRayAnimation } from "@/components/common/CarXRayAnimation";
 import { MorphingText } from "@/components/ui/morphing-text";
+import FeatureTimeline from "@/components/ui/feature-timeline";
+import type { FeatureTimelineEntry } from "@/components/ui/feature-timeline";
 
 /* ═══════════ DATA ═══════════ */
 const heroStats = [
@@ -40,13 +48,21 @@ const aboutBullets = [
 ];
 
 const hyCarbonFeatures = [
-  { title: "Diagnóstico personalizado", desc: "Medición del estado real del motor antes del tratamiento. Sabes exactamente qué hay dentro antes de empezar.", icon: Stethoscope },
-  { title: "Limpieza profunda sin desmontaje", desc: "El gas HHO limpia válvulas EGR, colectores, inyectores, pistones, turbo y FAP. Sin abrir el motor.", icon: Cog },
-  { title: "Proceso en menos de 60 minutos", desc: "El motor funciona al ralentí durante todo el tratamiento. Entregas el coche y lo recoges en el mismo día.", icon: Timer },
-  { title: "Hasta un 15% de ahorro en combustible", desc: "Un motor limpio aprovecha mejor la mezcla aire-combustible. El ahorro empieza a notarse en los próximos depósitos.", icon: Fuel },
-  { title: "Facilita el paso por la ITV", desc: "Reducción de NOx, CO₂ y partículas sólidas. Especialmente efectivo como preparación para la prueba de gases.", icon: FileCheck },
-  { title: "Informe antes y después", desc: "Documentamos los valores de emisiones y estado del motor. La mejora queda registrada, no es una suposición.", icon: BarChart3 },
+  { title: "Diagnóstico personalizado", desc: "Medición del estado real del motor antes del tratamiento. Sabes exactamente qué hay dentro antes de empezar.", icon: Stethoscope, image: featureDiagnostico },
+  { title: "Limpieza profunda sin desmontaje", desc: "El gas HHO limpia válvulas EGR, colectores, inyectores, pistones, turbo y FAP. Sin abrir el motor.", icon: Cog, image: featureLimpieza },
+  { title: "Proceso en menos de 60 minutos", desc: "El motor funciona al ralentí durante todo el tratamiento. Entregas el coche y lo recoges en el mismo día.", icon: Timer, image: featureRapido },
+  { title: "Hasta un 15% de ahorro en combustible", desc: "Un motor limpio aprovecha mejor la mezcla aire-combustible. El ahorro empieza a notarse en los próximos depósitos.", icon: Fuel, image: featureAhorro },
+  { title: "Facilita el paso por la ITV", desc: "Reducción de NOx, CO₂ y partículas sólidas. Especialmente efectivo como preparación para la prueba de gases.", icon: FileCheck, image: featureItv },
+  { title: "Informe antes y después", desc: "Documentamos los valores de emisiones y estado del motor. La mejora queda registrada, no es una suposición.", icon: BarChart3, image: featureInforme },
 ];
+
+const hyCarbonTimelineEntries: FeatureTimelineEntry[] = hyCarbonFeatures.map((f) => ({
+  icon: f.icon,
+  title: f.title,
+  subtitle: "Hy-Carbon Connect",
+  description: f.desc,
+  image: f.image,
+}));
 
 const processSteps = [
   { num: "01", title: "Evaluación inicial", desc: "Conectamos el vehículo a diagnosis antes de tocar nada. Medimos emisiones, comprobamos el estado del motor y detectamos el nivel real de obstrucción." },
@@ -370,24 +386,9 @@ export default function Index() {
           </div>
 
           {/* 6 features grid */}
-          <StaggerChildren className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            {hyCarbonFeatures.map((f) => {
-              const Icon = f.icon;
-              return (
-                <motion.div key={f.title} variants={staggerItem}>
-                  <div className="bg-white rounded-2xl border border-border shadow-md h-full p-6 group hover:shadow-xl hover:border-primary/30 transition-all duration-200 hover:-translate-y-1 cursor-default">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">
-                      <Icon size={22} />
-                    </div>
-                    <h3 className="text-sm font-bold mb-2 text-foreground">{f.title}</h3>
-                    <p className="text-xs leading-relaxed text-muted-foreground">{f.desc}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </StaggerChildren>
+          <FeatureTimeline entries={hyCarbonTimelineEntries} />
 
-          <AnimatedSection>
+          <AnimatedSection className="mt-10">
             <Link to="/servicios/descarbonizacion" className="btn-primary cursor-pointer">
               Ver descarbonización <ArrowRight size={15} />
             </Link>
