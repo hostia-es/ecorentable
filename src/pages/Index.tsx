@@ -638,30 +638,26 @@ export default function Index() {
       {/* ══════════════════════════════════
           §8 CTA FINAL — Dark for impact
       ══════════════════════════════════ */}
-      <section className="py-28 relative overflow-hidden section-dark-mesh">
-        <div className="absolute inset-0 grid-pattern-animated opacity-30" />
-
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full" style={{ background: "radial-gradient(circle, hsl(148 50% 25% / 0.2), transparent 70%)" }} />
-
+      <section className="py-28 relative overflow-hidden bg-primary/5 border-t border-primary/10">
         <div className="container mx-auto px-6 text-center relative z-10">
           <AnimatedSection>
-            <span className="badge-glow mb-4 inline-flex">
+            <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
               El mantenimiento que siempre debiste hacer
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 max-w-3xl mx-auto leading-tight">
-              Tu motor lleva kilómetros acumulando lo que nosotros <span className="gradient-text">eliminamos en una hora</span>
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 max-w-3xl mx-auto leading-tight">
+              Tu motor lleva kilómetros acumulando lo que nosotros <span className="text-primary">eliminamos en una hora</span>
             </h2>
-            <p className="text-base mb-4 max-w-2xl mx-auto leading-relaxed" style={{ color: "hsl(0 0% 100% / 0.55)" }}>
+            <p className="text-base mb-4 max-w-2xl mx-auto leading-relaxed text-muted-foreground">
               La carbonilla no se ve, pero se nota. En el consumo, en la respuesta del acelerador, en el humo del escape, en la ITV. Un tratamiento de descarbonización y limpieza de filtro de partículas puede devolverte el rendimiento original del vehículo y ahorrarte cientos de euros en reparaciones futuras.
             </p>
-            <p className="text-sm mb-10 max-w-xl mx-auto" style={{ color: "hsl(0 0% 100% / 0.4)" }}>
+            <p className="text-sm mb-10 max-w-xl mx-auto text-muted-foreground/70">
               Sin química agresiva. Sin desmontaje. Con un informe que demuestra la diferencia.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/servicios" className="btn-cta cursor-pointer">
+              <Link to="/servicios" className="btn-primary cursor-pointer">
                 Ver servicios <ArrowRight size={15} />
               </Link>
-              <Link to="/contacto" className="btn-glass cursor-pointer">
+              <Link to="/contacto" className="btn-secondary cursor-pointer">
                 Solicitar diagnóstico
               </Link>
             </div>
