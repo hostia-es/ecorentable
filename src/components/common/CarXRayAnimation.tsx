@@ -31,6 +31,7 @@ export function CarXRayAnimation() {
           src={carXray}
           alt="Visualización del proceso de descarbonización Flex Fuel"
           className="w-full h-auto relative z-10 drop-shadow-2xl"
+          style={{ mixBlendMode: "multiply" }}
         />
 
         {/* Animated flow particles overlay */}
