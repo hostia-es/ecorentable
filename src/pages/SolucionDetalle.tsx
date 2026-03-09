@@ -310,18 +310,28 @@ export default function SolucionDetalle() {
 
       {/* PROCESO */}
       <section className="py-14 section-alt">
-        <div className="container mx-auto px-4 max-w-3xl">
+        <div className="container mx-auto px-4 max-w-5xl">
           <h2 className="text-2xl font-bold mb-8 text-center" style={{ color: "hsl(var(--foreground))" }}>¿Cómo se resuelve?</h2>
-          <div className="space-y-5">
-            {sol.process.map((p) => (
-              <div key={p.step} className="flex gap-5">
-                <div className="step-number shrink-0">{p.step}</div>
-                <div>
-                  <h3 className="font-bold mb-1" style={{ color: "hsl(var(--foreground))" }}>{p.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{p.desc}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="space-y-5">
+              {sol.process.map((p) => (
+                <div key={p.step} className="flex gap-5">
+                  <div className="step-number shrink-0">{p.step}</div>
+                  <div>
+                    <h3 className="font-bold mb-1" style={{ color: "hsl(var(--foreground))" }}>{p.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{p.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <AnimatedSection delay={0.2}>
+              <img
+                src={processImages[slug ?? ""] || obd2Diagnostics}
+                alt={`Proceso de ${sol.title}`}
+                className="rounded-2xl w-full shadow-xl object-cover h-64 lg:h-80"
+                loading="lazy"
+              />
+            </AnimatedSection>
           </div>
         </div>
       </section>
