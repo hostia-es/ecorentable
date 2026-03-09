@@ -6,6 +6,7 @@ import hyCaronFront from "@/assets/hy-carbon-connect-front.png";
 import diagnosticoMotor from "@/assets/diagnostico-motor.jpg";
 import tecnicoHyCarbon from "@/assets/tecnico-hy-carbon.jpg";
 import heroCinematic from "@/assets/hero-cinematic.jpg";
+import heroCinematicMobile from "@/assets/hero-cinematic-mobile.jpg";
 import serviceWide from "@/assets/service-wide.jpg";
 import hyCaronAngle from "@/assets/hy-carbon-connect-angle.png";
 import carbonFapMachine from "@/assets/carbon-fap-machine.png";
