@@ -109,7 +109,7 @@ export default function Index() {
       {/* ══════════════════════════════════
           §0 TOP BAR
       ══════════════════════════════════ */}
-      <div className="w-full py-1.5 sm:py-2 text-center text-[10px] sm:text-xs bg-primary text-primary-foreground">
+      <div className="hidden sm:block w-full py-1.5 sm:py-2 text-center text-[10px] sm:text-xs bg-primary text-primary-foreground">
         <div className="container mx-auto px-3 sm:px-4 flex items-center justify-center gap-2 sm:gap-4 flex-wrap">
           <a href="mailto:info@ecologiarentable.es" className="flex items-center gap-1 sm:gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
             <Mail size={11} /> <span className="hidden sm:inline">info@ecologiarentable.es</span><span className="sm:hidden">Email</span>
