@@ -150,8 +150,8 @@ export default function Index() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
-                <span className="badge-glow mb-6 inline-flex items-center">
-                  <Leaf size={18} className="mr-2 shrink-0" /> LIMPIEZA INTERNA DE MOTORES · SIN DESMONTAR · RESULTADOS EN 1 HORA
+                <span className="badge-glow mb-6 inline-flex items-center text-[10px] sm:text-xs">
+                  <Leaf size={16} className="mr-1.5 shrink-0 sm:mr-2" /> <span className="hidden sm:inline">LIMPIEZA INTERNA DE MOTORES · SIN DESMONTAR · RESULTADOS EN 1 HORA</span><span className="sm:hidden">LIMPIEZA DE MOTORES · SIN DESMONTAR · 1 HORA</span>
                 </span>
               </motion.div>
 
@@ -161,13 +161,13 @@ export default function Index() {
                 transition={{ duration: 0.8, delay: 0.35 }}
                 className="mb-6"
               >
-                <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
+                <h1 className="text-[clamp(1.75rem,5.5vw,5rem)] font-bold leading-[1.08] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
                   <span className="block">Tu Motor Acumula Suciedad.</span>
                 </h1>
                 <div className="min-h-[1.2em]">
                   <MorphingText
                     texts={["NOSOTROS LA ELIMINAMOS.", "EN MENOS DE 1 HORA.", "SIN ABRIR EL MOTOR.", "CON RESULTADOS MEDIBLES."]}
-                    className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.15] tracking-tight"
+                    className="text-[clamp(1.75rem,5.5vw,5rem)] font-bold leading-[1.15] tracking-tight"
                   />
                 </div>
               </motion.div>
@@ -200,15 +200,15 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.85 }}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-6"
+                className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6"
               >
                 {heroStats.map((s) => (
                   <div key={s.label} className="group">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
                       <span className="text-[hsl(148_60%_55%)] glow-icon">{s.icon}</span>
-                      <AnimatedCounter value={s.value} className="text-2xl md:text-3xl font-bold text-white glow-text" />
+                      <AnimatedCounter value={s.value} className="text-xl sm:text-2xl md:text-3xl font-bold text-white glow-text" />
                     </div>
-                    <div className="text-[11px] uppercase tracking-wider" style={{ color: "hsl(0 0% 100% / 0.35)" }}>{s.label}</div>
+                    <div className="text-[10px] sm:text-[11px] uppercase tracking-wider" style={{ color: "hsl(0 0% 100% / 0.35)" }}>{s.label}</div>
                   </div>
                 ))}
               </motion.div>
@@ -294,15 +294,15 @@ export default function Index() {
       {/* ══════════════════════════════════
           §2 QUIÉNES SOMOS — Light
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden bg-background">
+      <section className="py-14 md:py-24 relative overflow-hidden bg-background">
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection>
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                 Diagnósticos con datos reales
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
-                Somos especialistas en la <span className="text-primary">salud mecánica</span> de tu vehículo
+              <h2 className="text-2xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
+                Especialistas en <span className="text-primary">salud mecánica</span> de tu vehículo
               </h2>
               <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
                 La carbonilla se acumula en válvulas, inyectores, turbo y FAP. Nosotros la eliminamos con tecnología probada y te entregamos un informe antes y después.
@@ -344,7 +344,7 @@ export default function Index() {
       {/* ══════════════════════════════════
           §3 HY-CARBON CONNECT — Light with machine image
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden bg-secondary/50">
+      <section className="py-14 md:py-24 relative overflow-hidden bg-secondary/50">
         <div className="container mx-auto px-6 relative z-10">
           <AnimatedSection>
             <div className="flex flex-col md:flex-row md:items-end gap-6 mb-14">
@@ -352,10 +352,10 @@ export default function Index() {
                 <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                   Así funciona la limpieza de tu motor
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
-                  Inyectamos hidrógeno en tu motor para <span className="text-primary">disolver la suciedad que los aditivos no alcanzan</span>
+                <h2 className="text-2xl md:text-4xl font-bold leading-tight text-foreground">
+                  Hidrógeno que <span className="text-primary">disuelve la suciedad</span> que los aditivos no alcanzan
                 </h2>
-                <p className="text-sm mt-3 text-muted-foreground">Nuestro sistema se llama Hy-Carbon Connect. Es la tecnología que utilizan más de 300 talleres certificados en toda España.</p>
+                <p className="text-sm mt-3 text-muted-foreground">Tecnología Hy-Carbon Connect, utilizada en más de 300 talleres en España.</p>
               </div>
             </div>
           </AnimatedSection>
@@ -439,11 +439,11 @@ export default function Index() {
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                 Mira lo que pasa dentro de tu motor
               </span>
-              <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl md:text-5xl font-bold text-foreground mb-4">
                 El hidrógeno entra, la <span className="text-primary">carbonilla sale</span>
               </h2>
-              <p className="text-base max-w-2xl mx-auto text-muted-foreground">
-                Esta simulación muestra cómo el gas HHO recorre el interior de tu motor eliminando los depósitos de carbono acumulados en válvulas, turbo y filtro de partículas.
+              <p className="text-sm md:text-base max-w-2xl mx-auto text-muted-foreground">
+                Simulación del gas HHO eliminando carbono en válvulas, turbo y filtro de partículas.
               </p>
             </div>
           </AnimatedSection>
@@ -467,8 +467,8 @@ export default function Index() {
                 <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                   Estación profesional de limpieza de filtros de partículas
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
-                  Carbon FAP — porque sustituir un FAP puede costarte <span className="text-primary">entre 500 € y 2.000 €</span>
+                <h2 className="text-2xl md:text-4xl font-bold leading-tight text-foreground">
+                  Carbon FAP — evita sustituir un FAP de <span className="text-primary">500 € a 2.000 €</span>
                 </h2>
               </div>
             </div>
@@ -538,8 +538,8 @@ export default function Index() {
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                 Programa de socios certificados
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
-                Incorpora descarbonización a tu taller y <span className="text-primary">empieza a rentabilizarla</span> desde la primera semana
+              <h2 className="text-2xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
+                Descarbonización en tu taller: <span className="text-primary">rentable desde la primera semana</span>
               </h2>
               <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
                 Alta demanda, margen real y resultados medibles. Como socio accedes a tecnología, formación y soporte comercial desde el primer día.
@@ -644,8 +644,8 @@ export default function Index() {
             <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
               El mantenimiento que siempre debiste hacer
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 max-w-3xl mx-auto leading-tight">
-              Tu motor lleva kilómetros acumulando lo que nosotros <span className="text-primary">eliminamos en una hora</span>
+            <h2 className="text-2xl md:text-5xl font-bold text-foreground mb-6 max-w-3xl mx-auto leading-tight">
+              Tu motor acumula lo que nosotros <span className="text-primary">eliminamos en una hora</span>
             </h2>
             <p className="text-base mb-10 max-w-2xl mx-auto leading-relaxed text-muted-foreground">
               Sin química. Sin desmontaje. Con informe. Recupera el rendimiento de tu motor en una sola visita.
