@@ -352,10 +352,10 @@ export default function Index() {
                 <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                   Así funciona la limpieza de tu motor
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
-                  Inyectamos hidrógeno en tu motor para <span className="text-primary">disolver la suciedad que los aditivos no alcanzan</span>
+                <h2 className="text-2xl md:text-4xl font-bold leading-tight text-foreground">
+                  Hidrógeno que <span className="text-primary">disuelve la suciedad</span> que los aditivos no alcanzan
                 </h2>
-                <p className="text-sm mt-3 text-muted-foreground">Nuestro sistema se llama Hy-Carbon Connect. Es la tecnología que utilizan más de 300 talleres certificados en toda España.</p>
+                <p className="text-sm mt-3 text-muted-foreground">Tecnología Hy-Carbon Connect, utilizada en más de 300 talleres en España.</p>
               </div>
             </div>
           </AnimatedSection>
