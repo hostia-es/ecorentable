@@ -257,6 +257,11 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
+          FUEL LIQUID SCROLL ANIMATION
+      ══════════════════════════════════ */}
+      <FuelLiquidAnimation />
+
+      {/* ══════════════════════════════════
           §2 QUIÉNES SOMOS — Light
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden bg-background">
