@@ -20,6 +20,7 @@ import { useParallaxScroll, useMouseParallax } from "@/hooks/use-parallax";
 import { Timeline } from "@/components/ui/timeline";
 import { FuelLiquidAnimation } from "@/components/common/FuelLiquidAnimation";
 import { Globe } from "@/components/ui/globe";
+import { CarXRayAnimation } from "@/components/common/CarXRayAnimation";
 
 /* ═══════════ DATA ═══════════ */
 const heroStats = [
