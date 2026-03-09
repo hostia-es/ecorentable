@@ -162,13 +162,13 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.3 }}
                 className="mb-4 md:mb-6"
               >
-                <h1 className="text-[1.65rem] sm:text-[2.3rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
+                <h1 className="text-[2rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
                   Tu Motor Acumula Suciedad.
                 </h1>
                 <div className="min-h-[2.4em] sm:min-h-[1.15em]">
                   <MorphingText
                     texts={["NOSOTROS LA ELIMINAMOS.", "EN MENOS DE 1 HORA.", "SIN ABRIR EL MOTOR.", "CON RESULTADOS MEDIBLES."]}
-                    className="text-[1.65rem] sm:text-[2.3rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
+                    className="text-[2rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
                   />
                 </div>
               </motion.div>
@@ -217,7 +217,7 @@ export default function Index() {
             </div>
 
             {/* Right — Floating machine + cards (all screens) */}
-            <div className="relative lg:col-span-5 min-h-[220px] sm:min-h-[280px] lg:min-h-[500px] mt-4 lg:mt-0">
+            <div className="relative lg:col-span-5 min-h-[260px] sm:min-h-[300px] lg:min-h-[500px] mt-4 lg:mt-0">
               {/* Machine image */}
               <motion.div
                 style={{ y: floatingCard1Y, x: mouse.x }}
@@ -235,7 +235,7 @@ export default function Index() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.9, delay: 0.8 }}
-                className="absolute top-2 left-0 w-44 sm:w-52 lg:w-56"
+                className="absolute top-0 left-0 w-[11rem]1rem] sm:w-52 lg:w-56"
               >
                 <div className="rounded-2xl border backdrop-blur-xl p-3 sm:p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
                   <div className="flex items-center gap-2 sm:gap-3 mb-2">
@@ -266,7 +266,7 @@ export default function Index() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 1 }}
-                className="absolute bottom-0 sm:bottom-4 lg:bottom-12 left-2 sm:left-4 w-40 sm:w-44 lg:w-48"
+                className="absolute bottleft-0 sm:left-4 lg:bottom-12 w-[11rem] w-40 sm:w-44 lg:w-48"
               >
                 <div className="rounded-2xl border backdrop-blur-xl p-3 sm:p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
                   <div className="flex items-center gap-2 sm:gap-3 mb-2">
