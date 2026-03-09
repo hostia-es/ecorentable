@@ -150,8 +150,8 @@ export default function Index() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
-                <span className="badge-glow mb-6 inline-flex items-center">
-                  <Leaf size={18} className="mr-2 shrink-0" /> LIMPIEZA INTERNA DE MOTORES · SIN DESMONTAR · RESULTADOS EN 1 HORA
+                <span className="badge-glow mb-6 inline-flex items-center text-[10px] sm:text-xs">
+                  <Leaf size={16} className="mr-1.5 shrink-0 sm:mr-2" /> <span className="hidden sm:inline">LIMPIEZA INTERNA DE MOTORES · SIN DESMONTAR · RESULTADOS EN 1 HORA</span><span className="sm:hidden">LIMPIEZA DE MOTORES · SIN DESMONTAR · 1 HORA</span>
                 </span>
               </motion.div>
 
