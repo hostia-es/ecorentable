@@ -379,50 +379,37 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §4 PROCESO — Light timeline
+          §4 PROCESO — Aceternity Timeline
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden bg-background">
         <div className="container mx-auto px-6 relative z-10">
           <AnimatedSection>
-            <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-              Cómo trabajamos en Ecología Rentable
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-16">
-              Un proceso <span className="text-primary">transparente</span>,<br />de principio a fin
-            </h2>
+            <div className="max-w-7xl mx-auto md:px-10 mb-4">
+              <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
+                Cómo trabajamos en Ecología Rentable
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                Un proceso <span className="text-primary">transparente</span>,<br />de principio a fin
+              </h2>
+            </div>
           </AnimatedSection>
 
-          <div className="relative">
-            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-primary/50 via-primary/30 to-transparent" />
-
-            <StaggerChildren className="space-y-8 lg:space-y-0" staggerDelay={0.15}>
-              {processSteps.map((step, i) => (
-                <motion.div
-                  key={step.num}
-                  variants={staggerItem}
-                  className={`lg:grid lg:grid-cols-2 lg:gap-16 items-center ${i % 2 === 1 ? 'lg:direction-rtl' : ''}`}
-                >
-                  <div className={`${i % 2 === 1 ? 'lg:order-2 lg:text-left' : 'lg:text-right'} mb-6 lg:mb-0`}>
-                    <div className={`bg-white rounded-2xl border border-border shadow-md p-6 inline-block w-full ${i % 2 === 1 ? '' : 'lg:ml-auto'} max-w-md hover:shadow-xl hover:border-primary/30 transition-all duration-200`}>
-                      <div className="flex items-start gap-5">
-                        <div className="step-number text-lg">{step.num}</div>
-                        <div className="text-left">
-                          <h3 className="text-base font-bold text-foreground mb-2">{step.title}</h3>
-                          <p className="text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
-                        </div>
-                      </div>
+          <Timeline
+            data={processSteps.map((step) => ({
+              title: step.num,
+              content: (
+                <div className="bg-card rounded-2xl border border-border shadow-md p-6 hover:shadow-xl hover:border-primary/30 transition-all duration-200 max-w-lg">
+                  <div className="flex items-start gap-4">
+                    <div className="step-number text-lg shrink-0">{step.num}</div>
+                    <div>
+                      <h3 className="text-base font-bold text-foreground mb-2">{step.title}</h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
                     </div>
                   </div>
-
-                  <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center justify-center" style={{ top: `calc(${i * 25}% + 3rem)` }}>
-                    <div className="w-4 h-4 rounded-full bg-primary shadow-[0_0_15px_hsl(var(--primary)/0.5)]" />
-                  </div>
-
-                  <div className={`${i % 2 === 1 ? 'lg:order-1' : ''} hidden lg:block`} />
-                </motion.div>
-              ))}
-            </StaggerChildren>
-          </div>
+                </div>
+              ),
+            }))}
+          />
         </div>
       </section>
 
