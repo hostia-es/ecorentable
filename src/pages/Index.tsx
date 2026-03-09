@@ -679,40 +679,36 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §10 RED NACIONAL — World map with dark
+          §10 RED NACIONAL — Globe
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden section-dark-mesh">
         <div className="absolute inset-0 grid-pattern opacity-30" />
 
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <AnimatedSection>
-            <span className="badge-glow mb-4 inline-flex">
-              Red nacional e internacional
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold mb-5 max-w-2xl mx-auto leading-tight text-white">
-              Más de <span className="gradient-text-static">300 centros</span> certificados en España y en el mundo
-            </h2>
-            <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
-              Encuentra el centro más cercano o conviértete en socio y ofrece el servicio en tu taller.
-            </p>
-          </AnimatedSection>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left — Copy */}
+            <AnimatedSection>
+              <span className="badge-glow mb-4 inline-flex">
+                Red nacional e internacional
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold mb-5 leading-tight text-white">
+                Más de <span className="gradient-text-static">300 centros</span> certificados en España y en el mundo
+              </h2>
+              <p className="text-base mb-10 max-w-lg" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
+                Encuentra el centro más cercano o conviértete en socio y ofrece el servicio en tu taller.
+              </p>
+              <Link to="/contacto" className="btn-cta cursor-pointer">
+                <MapPin size={16} /> Contactar con nosotros
+              </Link>
+            </AnimatedSection>
 
-          {/* World map */}
-          <AnimatedSection delay={0.2}>
-            <div className="relative max-w-4xl mx-auto mb-12">
-              <img
-                src={worldMapPins}
-                alt="Mapa mundial de centros certificados Ecología Rentable"
-                className="w-full h-auto opacity-90 brightness-110"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[hsl(210_25%_5%/0.8)]" />
-            </div>
-          </AnimatedSection>
-
-          <Link to="/contacto" className="btn-cta cursor-pointer">
-            <MapPin size={16} /> Contactar con nosotros
-          </Link>
+            {/* Right — Globe */}
+            <AnimatedSection delay={0.2}>
+              <div className="relative mx-auto aspect-square w-full max-w-[500px]">
+                <Globe className="relative" />
+              </div>
+            </AnimatedSection>
+          </div>
         </div>
       </section>
 
