@@ -19,6 +19,7 @@ import { AnimatedSection, AnimatedCounter, StaggerChildren, staggerItem } from "
 import { useParallaxScroll, useMouseParallax } from "@/hooks/use-parallax";
 import { Timeline } from "@/components/ui/timeline";
 import { FuelLiquidAnimation } from "@/components/common/FuelLiquidAnimation";
+import { Globe } from "@/components/ui/globe";
 
 /* ═══════════ DATA ═══════════ */
 const heroStats = [
