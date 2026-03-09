@@ -241,8 +241,8 @@ export default function Index() {
                       <Zap size={14} />
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-white">Ahorro combustible</p>
-                      <p className="text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Tras tratamiento</p>
+                      <p className="text-xs font-semibold text-white">Consumo de combustible</p>
+                      <p className="text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Con descarbonización</p>
                     </div>
                   </div>
                   <p className="text-3xl font-bold gradient-text-static">-15%</p>
@@ -271,7 +271,10 @@ export default function Index() {
                     <div className="w-8 h-8 rounded-full flex items-center justify-center icon-circle-glow">
                       <Shield size={14} />
                     </div>
-                    <p className="text-xs font-semibold text-white">Emisiones reducidas</p>
+                    <div>
+                      <p className="text-xs font-semibold text-white">Emisiones contaminantes</p>
+                      <p className="text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Resultado medio tras servicio</p>
+                    </div>
                   </div>
                   <p className="text-2xl font-bold text-white">-20% <span className="text-xs font-normal" style={{ color: "hsl(0 0% 100% / 0.4)" }}>NOx/CO₂</span></p>
                 </div>
