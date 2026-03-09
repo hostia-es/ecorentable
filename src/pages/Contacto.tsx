@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Mail, MapPin, Clock, CheckCircle, Send } from "lucide-react";
+import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import FAQSection from "@/components/common/FAQSection";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
 
 const faqContacto = [
   { question: "¿Con qué rapidez responden?", answer: "Respondemos todos los mensajes en un máximo de 24 horas laborables. Para consultas urgentes, le recomendamos llamar directamente al teléfono de atención." },
@@ -39,43 +41,54 @@ export default function Contacto() {
       {/* CANALES */}
       <section className="py-12 section-light">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {channels.map((c) => (
-              <Card key={c.title} className="text-center">
-                <CardContent className="p-5 flex flex-col items-center gap-2">
-                  <div className="icon-circle w-11 h-11">{c.icon}</div>
-                  <div className="font-bold text-sm text-foreground">{c.title}</div>
-                  <div className="text-sm font-semibold text-primary">{c.val}</div>
-                  <div className="text-xs text-muted-foreground">{c.sub}</div>
-                </CardContent>
-              </Card>
+              <motion.div key={c.title} variants={staggerItem}>
+                <Card className="text-center h-full hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-200">
+                  <CardContent className="p-5 flex flex-col items-center gap-2">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary/10 text-primary">{c.icon}</div>
+                    <div className="font-bold text-sm text-foreground">{c.title}</div>
+                    <div className="text-sm font-semibold text-primary">{c.val}</div>
+                    <div className="text-xs text-muted-foreground">{c.sub}</div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* CHECKLIST */}
       <section className="py-10 section-alt">
         <div className="container mx-auto px-4 max-w-2xl">
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="font-bold mb-3 text-foreground">Antes de escribir, ¿has revisado…?</h3>
-              {[
-                { label: "Nuestra sección de Soluciones", href: "/soluciones", hint: "Si tienes una pregunta técnica sobre DPF, EGR o descarbonización" },
-                { label: "El Blog", href: "/blog", hint: "Con guías y artículos técnicos detallados" },
-                { label: "Socios", href: "/socios", hint: "Si eres taller y quieres conocer nuestro modelo de negocio" },
-                { label: "Hazte socio", href: "/socios/hazte-socio", hint: "Si eres taller y quieres unirte a la red" },
-              ].map((item) => (
-                <div key={item.href} className="flex items-start gap-2 mb-2">
-                  <CheckCircle size={14} className="shrink-0 mt-0.5 text-primary" />
-                  <span className="text-sm">
-                    <Link to={item.href} className="font-semibold underline text-primary">{item.label}</Link>
-                    <span className="text-muted-foreground"> — {item.hint}</span>
-                  </span>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+          <AnimatedSection>
+            <Card className="hover:shadow-lg transition-shadow duration-200">
+              <CardContent className="p-6">
+                <h3 className="font-bold mb-3 text-foreground">Antes de escribir, ¿has revisado…?</h3>
+                {[
+                  { label: "Nuestra sección de Soluciones", href: "/soluciones", hint: "Si tienes una pregunta técnica sobre DPF, EGR o descarbonización" },
+                  { label: "El Blog", href: "/blog", hint: "Con guías y artículos técnicos detallados" },
+                  { label: "Socios", href: "/socios", hint: "Si eres taller y quieres conocer nuestro modelo de negocio" },
+                  { label: "Hazte socio", href: "/socios/hazte-socio", hint: "Si eres taller y quieres unirte a la red" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.href}
+                    className="flex items-start gap-2 mb-2"
+                    initial={{ opacity: 0, x: -15 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.08 }}
+                    viewport={{ once: true }}
+                  >
+                    <CheckCircle size={14} className="shrink-0 mt-0.5 text-primary" />
+                    <span className="text-sm">
+                      <Link to={item.href} className="font-semibold underline text-primary">{item.label}</Link>
+                      <span className="text-muted-foreground"> — {item.hint}</span>
+                    </span>
+                  </motion.div>
+                ))}
+              </CardContent>
+            </Card>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -83,11 +96,18 @@ export default function Contacto() {
       <section className="py-16 section-light">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-3">
+            <AnimatedSection className="lg:col-span-3">
               {submitted ? (
                 <Card className="text-center">
                   <CardContent className="p-10">
-                    <div className="icon-circle w-16 h-16 mx-auto mb-4"><CheckCircle size={28} /></div>
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200 }}
+                      className="w-16 h-16 rounded-full flex items-center justify-center bg-primary/10 text-primary mx-auto mb-4"
+                    >
+                      <CheckCircle size={28} />
+                    </motion.div>
                     <h2 className="text-xl font-bold mb-2 text-foreground">¡Mensaje enviado!</h2>
                     <p className="text-sm mb-5 text-muted-foreground">Te responderemos en menos de 24 horas laborables.</p>
                     <Button asChild>
@@ -96,7 +116,7 @@ export default function Contacto() {
                   </CardContent>
                 </Card>
               ) : (
-                <Card>
+                <Card className="hover:shadow-lg transition-shadow duration-200">
                   <CardContent className="p-8">
                     <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
                       <h2 className="text-xl font-bold text-foreground">Formulario de contacto</h2>
@@ -141,9 +161,7 @@ export default function Contacto() {
                         <div className="space-y-1.5">
                           <Label>Número de vehículos en la flota</Label>
                           <Select defaultValue="1-10">
-                            <SelectTrigger>
-                              <SelectValue />
-                            </SelectTrigger>
+                            <SelectTrigger><SelectValue /></SelectTrigger>
                             <SelectContent>
                               <SelectItem value="1-10">1–10 vehículos</SelectItem>
                               <SelectItem value="11-50">11–50 vehículos</SelectItem>
@@ -165,10 +183,10 @@ export default function Contacto() {
                   </CardContent>
                 </Card>
               )}
-            </div>
+            </AnimatedSection>
 
-            <div className="lg:col-span-2 space-y-5">
-              <Card>
+            <AnimatedSection delay={0.2} className="lg:col-span-2 space-y-5">
+              <Card className="hover:shadow-lg hover:border-primary/30 transition-all duration-200">
                 <CardContent className="p-6">
                   <h3 className="font-bold mb-3 text-foreground">¿Eres taller?</h3>
                   <p className="text-sm mb-3 text-muted-foreground">Únete a nuestra red de socios y ofrece servicios de descarbonización a tus clientes.</p>
@@ -177,16 +195,16 @@ export default function Contacto() {
                   </Button>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="hover:shadow-lg hover:border-primary/30 transition-all duration-200">
                 <CardContent className="p-6">
-                  <h3 className="font-bold mb-3 text-foreground">¿Eres taller?</h3>
+                  <h3 className="font-bold mb-3 text-foreground">Formulario de socio</h3>
                   <p className="text-sm mb-3 text-muted-foreground">Si quieres unirte a nuestra red de socios, rellena el formulario específico para obtener una propuesta personalizada.</p>
                   <Button asChild size="sm">
                     <Link to="/socios/hazte-socio">Formulario de socio <ArrowRight size={13} className="ml-1" /></Link>
                   </Button>
                 </CardContent>
               </Card>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>

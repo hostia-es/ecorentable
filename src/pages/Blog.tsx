@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Clock, Tag } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
+import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import { blogPosts, blogCategories } from "@/data/blog";
-
+import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
 
 const faqBlog = [
   { question: "¿Con qué frecuencia se publica contenido nuevo?", answer: "Publicamos al menos 2 artículos al mes en las categorías de Guías, ITV, Innovación y Flotas. Suscríbete al newsletter para no perderte nada." },
@@ -28,61 +29,79 @@ export default function Blog() {
       {/* CATEGORÍAS */}
       <section className="py-12 section-light">
         <div className="container mx-auto px-4">
-          <h2 className="text-xl font-bold mb-6" style={{ color: "hsl(var(--foreground))" }}>Explorar por categoría</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          <AnimatedSection>
+            <h2 className="text-xl font-bold mb-6 text-foreground">Explorar por categoría</h2>
+          </AnimatedSection>
+          <StaggerChildren className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             {blogCategories.map((cat) => (
-              <Link key={cat.slug} to={`/blog/${cat.slug}`} className="card-eco p-4 text-center hover:border-primary transition-colors group">
-                <div className="text-lg font-bold mb-1" style={{ color: "hsl(var(--primary))" }}>{cat.count}</div>
-                <div className="text-xs font-semibold mb-1 group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>{cat.name}</div>
-                <div className="text-xs leading-tight" style={{ color: "hsl(var(--muted-foreground))" }}>{cat.description.substring(0, 50)}…</div>
-              </Link>
+              <motion.div key={cat.slug} variants={staggerItem}>
+                <Link to={`/blog/${cat.slug}`} className="bg-white rounded-xl border border-border shadow-sm p-4 text-center hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-200 block h-full group">
+                  <div className="text-lg font-bold mb-1 text-primary">{cat.count}</div>
+                  <div className="text-xs font-semibold mb-1 group-hover:text-primary transition-colors text-foreground">{cat.name}</div>
+                  <div className="text-xs leading-tight text-muted-foreground">{cat.description.substring(0, 50)}…</div>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* ARTÍCULOS DESTACADOS */}
       <section className="py-14 section-alt">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-8" style={{ color: "hsl(var(--foreground))" }}>Artículos destacados</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <AnimatedSection>
+            <h2 className="text-2xl font-bold mb-8 text-foreground">Artículos destacados</h2>
+          </AnimatedSection>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featured.map((post) => (
-              <Link key={post.id} to={`/blog/${post.slug}`} className="card-eco overflow-hidden flex flex-col gap-0 group hover:shadow-md transition-shadow">
-                <img src={post.image} alt={post.title} className="w-full h-44 object-cover" loading="lazy" />
-                <div className="p-6 flex flex-col gap-3 flex-1">
-                <span className="badge-green self-start text-xs">{post.category}</span>
-                <h3 className="font-bold text-base leading-snug group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>{post.title}</h3>
-                <p className="text-sm flex-1 leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{post.excerpt}</p>
-                <div className="flex items-center gap-3 text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>
-                  <span className="flex items-center gap-1"><Clock size={11} />{post.readTime}</span>
-                  <span>{post.date}</span>
-                </div>
-                <span className="text-xs font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: "hsl(var(--primary))" }}>Leer artículo <ArrowRight size={11} /></span>
-                </div>
-              </Link>
+              <motion.div key={post.id} variants={staggerItem}>
+                <Link to={`/blog/${post.slug}`} className="bg-white rounded-2xl border border-border shadow-md overflow-hidden flex flex-col gap-0 group hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-200 block h-full">
+                  <img src={post.image} alt={post.title} className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                  <div className="p-6 flex flex-col gap-3 flex-1">
+                    <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary self-start">{post.category}</span>
+                    <h3 className="font-bold text-base leading-snug group-hover:text-primary transition-colors text-foreground">{post.title}</h3>
+                    <p className="text-sm flex-1 leading-relaxed text-muted-foreground">{post.excerpt}</p>
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1"><Clock size={11} />{post.readTime}</span>
+                      <span>{post.date}</span>
+                    </div>
+                    <span className="text-xs font-semibold flex items-center gap-1 group-hover:gap-2 transition-all text-primary">Leer artículo <ArrowRight size={11} /></span>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* TODOS LOS ARTÍCULOS */}
       <section className="py-14 section-light">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-8" style={{ color: "hsl(var(--foreground))" }}>Todos los artículos</h2>
+          <AnimatedSection>
+            <h2 className="text-2xl font-bold mb-8 text-foreground">Todos los artículos</h2>
+          </AnimatedSection>
           <div className="space-y-4">
-            {recent.map((post) => (
-              <Link key={post.id} to={`/blog/${post.slug}`} className="card-eco p-0 overflow-hidden flex flex-col sm:flex-row sm:items-center gap-0 group hover:shadow-md transition-shadow">
-                <img src={post.image} alt={post.title} className="w-full sm:w-40 h-28 sm:h-full object-cover shrink-0" loading="lazy" />
-                <div className="p-5 flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="badge-steel text-xs">{post.category}</span>
-                    <span className="text-xs flex items-center gap-1" style={{ color: "hsl(var(--muted-foreground))" }}><Clock size={10} />{post.readTime}</span>
+            {recent.map((post, i) => (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                viewport={{ once: true }}
+              >
+                <Link to={`/blog/${post.slug}`} className="bg-white rounded-2xl border border-border shadow-sm p-0 overflow-hidden flex flex-col sm:flex-row sm:items-center gap-0 group hover:shadow-xl hover:border-primary/30 transition-all duration-200 block">
+                  <img src={post.image} alt={post.title} className="w-full sm:w-40 h-28 sm:h-full object-cover shrink-0" loading="lazy" />
+                  <div className="p-5 flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold bg-muted text-muted-foreground">{post.category}</span>
+                      <span className="text-xs flex items-center gap-1 text-muted-foreground"><Clock size={10} />{post.readTime}</span>
+                    </div>
+                    <h3 className="font-bold text-sm group-hover:text-primary transition-colors text-foreground">{post.title}</h3>
+                    <p className="text-xs mt-1 leading-relaxed text-muted-foreground">{post.excerpt}</p>
                   </div>
-                  <h3 className="font-bold text-sm group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>{post.title}</h3>
-                  <p className="text-xs mt-1 leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{post.excerpt}</p>
-                </div>
-                <div className="flex items-center gap-1 text-xs font-semibold shrink-0 pr-5" style={{ color: "hsl(var(--primary))" }}>Leer <ArrowRight size={11} /></div>
-              </Link>
+                  <div className="flex items-center gap-1 text-xs font-semibold shrink-0 pr-5 text-primary">Leer <ArrowRight size={11} /></div>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -91,23 +110,27 @@ export default function Blog() {
       {/* APRENDE Y ACTÚA */}
       <section className="py-14 section-alt">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>Aprende y actúa</h2>
-            <p className="text-base" style={{ color: "hsl(var(--muted-foreground))" }}>El conocimiento no sirve de nada si no va acompañado de acción. Después de leer, da el siguiente paso.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <AnimatedSection>
+            <div className="text-center mb-10">
+              <h2 className="text-2xl font-bold mb-3 text-foreground">Aprende y actúa</h2>
+              <p className="text-base text-muted-foreground">El conocimiento no sirve de nada si no va acompañado de acción. Después de leer, da el siguiente paso.</p>
+            </div>
+          </AnimatedSection>
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
               { title: "Ver servicios", desc: "Descarbonización, DPF, EGR y más servicios para tu vehículo.", href: "/servicios", cta: "Ver servicios" },
               { title: "Hazte socio", desc: "Únete a nuestra red de talleres certificados en toda España.", href: "/socios", cta: "Más información" },
               { title: "Soluciones técnicas", desc: "Profundiza en cada solución: causas, síntomas y proceso.", href: "/soluciones", cta: "Ver soluciones" },
             ].map((item) => (
-              <div key={item.title} className="card-eco p-5 flex flex-col gap-3">
-                <h3 className="font-bold" style={{ color: "hsl(var(--foreground))" }}>{item.title}</h3>
-                <p className="text-sm flex-1" style={{ color: "hsl(var(--muted-foreground))" }}>{item.desc}</p>
-                <Link to={item.href} className="btn-primary text-sm self-start">{item.cta} <ArrowRight size={12} /></Link>
-              </div>
+              <motion.div key={item.title} variants={staggerItem}>
+                <div className="bg-white rounded-2xl border border-border shadow-md p-5 flex flex-col gap-3 h-full hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-200">
+                  <h3 className="font-bold text-foreground">{item.title}</h3>
+                  <p className="text-sm flex-1 text-muted-foreground">{item.desc}</p>
+                  <Link to={item.href} className="btn-primary text-sm self-start">{item.cta} <ArrowRight size={12} /></Link>
+                </div>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 

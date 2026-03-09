@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle } from "lucide-react";
+import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
 
 const soluciones = [
   { slug: "descarbonizacion-motor-diesel", title: "Descarbonización motor diésel", desc: "Eliminación de depósitos carbonosos en pistones, válvulas y cámara de combustión de motores diésel.", badge: "Más solicitado" },
@@ -33,69 +35,77 @@ export default function Soluciones() {
       {/* GRID SOLUCIONES */}
       <section className="py-16 section-light">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>¿Cuál es tu situación?</h2>
-            <p className="text-base max-w-xl mx-auto" style={{ color: "hsl(var(--muted-foreground))" }}>Selecciona la solución que mejor describe el problema o necesidad de tu vehículo o flota.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatedSection>
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">¿Cuál es tu situación?</h2>
+              <p className="text-base max-w-xl mx-auto text-muted-foreground">Selecciona la solución que mejor describe el problema o necesidad de tu vehículo o flota.</p>
+            </div>
+          </AnimatedSection>
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {soluciones.map((s) => (
-              <Link key={s.slug} to={`/soluciones/${s.slug}`} className="card-eco p-6 flex flex-col gap-3 group hover:shadow-md transition-shadow">
-                {s.badge && <span className="badge-green self-start">{s.badge}</span>}
-                <h3 className="font-bold text-base group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>{s.title}</h3>
-                <p className="text-sm flex-1 leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{s.desc}</p>
-                <span className="text-xs font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: "hsl(var(--primary))" }}>Ver solución <ArrowRight size={11} /></span>
-              </Link>
+              <motion.div key={s.slug} variants={staggerItem}>
+                <Link to={`/soluciones/${s.slug}`} className="bg-white rounded-2xl border border-border shadow-md p-6 flex flex-col gap-3 group hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-200 block h-full">
+                  {s.badge && <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary self-start">{s.badge}</span>}
+                  <h3 className="font-bold text-base group-hover:text-primary transition-colors text-foreground">{s.title}</h3>
+                  <p className="text-sm flex-1 leading-relaxed text-muted-foreground">{s.desc}</p>
+                  <span className="text-xs font-semibold flex items-center gap-1 group-hover:gap-2 transition-all text-primary">Ver solución <ArrowRight size={11} /></span>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* CÓMO AYUDA */}
       <section className="py-14 section-alt">
         <div className="container mx-auto px-4 max-w-3xl">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>¿Por qué elegir una solución profesional?</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <AnimatedSection>
+            <div className="text-center mb-10">
+              <h2 className="text-2xl font-bold mb-3 text-foreground">¿Por qué elegir una solución profesional?</h2>
+            </div>
+          </AnimatedSection>
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {[
               { title: "Diagnóstico previo", desc: "Cada intervención comienza con una lectura OBD2 para identificar el problema con precisión." },
               { title: "Sin desmontaje", desc: "La mayoría de nuestras soluciones no requieren desmontar piezas, reduciendo el tiempo y el coste." },
               { title: "Resultados medibles", desc: "Antes y después del servicio se miden las emisiones y el rendimiento para cuantificar la mejora." },
               { title: "Centros certificados", desc: "Todos nuestros talleres están formados y certificados en los procesos de Ecología Rentable." },
             ].map((item) => (
-              <div key={item.title} className="card-eco p-5 flex gap-3">
-                <CheckCircle size={18} className="shrink-0 mt-0.5" style={{ color: "hsl(var(--primary))" }} />
-                <div>
-                  <h3 className="font-bold text-sm mb-1" style={{ color: "hsl(var(--foreground))" }}>{item.title}</h3>
-                  <p className="text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>{item.desc}</p>
+              <motion.div key={item.title} variants={staggerItem}>
+                <div className="bg-white rounded-2xl border border-border shadow-md p-5 flex gap-3 h-full hover:shadow-xl hover:border-primary/30 transition-all duration-200">
+                  <CheckCircle size={18} className="shrink-0 mt-0.5 text-primary" />
+                  <div>
+                    <h3 className="font-bold text-sm mb-1 text-foreground">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* ENLACES */}
       <section className="py-12 section-light">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-xl font-bold mb-6 text-center" style={{ color: "hsl(var(--foreground))" }}>Recursos relacionados</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            <div className="card-eco p-5">
-              <h3 className="font-bold mb-2 text-sm" style={{ color: "hsl(var(--foreground))" }}>Blog técnico</h3>
-              <p className="text-xs mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>Artículos en profundidad sobre cada solución, síntomas y resultados.</p>
-              <Link to="/blog" className="text-xs font-semibold flex items-center gap-1" style={{ color: "hsl(var(--primary))" }}>Ir al blog <ArrowRight size={11} /></Link>
-            </div>
-            <div className="card-eco p-5">
-              <h3 className="font-bold mb-2 text-sm" style={{ color: "hsl(var(--foreground))" }}>Servicios</h3>
-              <p className="text-xs mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>Servicios concretos para particulares, talleres y flotas.</p>
-              <Link to="/servicios" className="text-xs font-semibold flex items-center gap-1" style={{ color: "hsl(var(--primary))" }}>Ver servicios <ArrowRight size={11} /></Link>
-            </div>
-            <div className="card-eco p-5">
-              <h3 className="font-bold mb-2 text-sm" style={{ color: "hsl(var(--foreground))" }}>Contacta con nosotros</h3>
-              <p className="text-xs mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>Resolvemos tus dudas y te asesoramos sobre el servicio más adecuado.</p>
-              <Link to="/contacto" className="text-xs font-semibold flex items-center gap-1" style={{ color: "hsl(var(--primary))" }}>Contactar <ArrowRight size={11} /></Link>
-            </div>
-          </div>
+          <AnimatedSection>
+            <h2 className="text-xl font-bold mb-6 text-center text-foreground">Recursos relacionados</h2>
+          </AnimatedSection>
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {[
+              { title: "Blog técnico", desc: "Artículos en profundidad sobre cada solución, síntomas y resultados.", href: "/blog", cta: "Ir al blog" },
+              { title: "Servicios", desc: "Servicios concretos para particulares, talleres y flotas.", href: "/servicios", cta: "Ver servicios" },
+              { title: "Contacta con nosotros", desc: "Resolvemos tus dudas y te asesoramos sobre el servicio más adecuado.", href: "/contacto", cta: "Contactar" },
+            ].map((item) => (
+              <motion.div key={item.title} variants={staggerItem}>
+                <div className="bg-white rounded-2xl border border-border shadow-md p-5 flex flex-col gap-3 h-full hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-200">
+                  <h3 className="font-bold text-foreground">{item.title}</h3>
+                  <p className="text-sm flex-1 text-muted-foreground">{item.desc}</p>
+                  <Link to={item.href} className="btn-primary text-sm self-start">{item.cta} <ArrowRight size={12} /></Link>
+                </div>
+              </motion.div>
+            ))}
+          </StaggerChildren>
         </div>
       </section>
 

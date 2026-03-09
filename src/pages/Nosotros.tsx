@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { AnimatedSection } from "@/components/common/Animations";
 import PageHero from "@/components/common/PageHero";
 import FAQSection from "@/components/common/FAQSection";
@@ -27,63 +28,74 @@ export default function Nosotros() {
       />
 
       {/* INTRO + YOUNES */}
-      <AnimatedSection>
-        <section className="py-16 section-light">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <Badge variant="secondary" className="mb-3">limpieza y cuidado de tu vehículo</Badge>
-                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">Ecología rentable</h2>
-                <p className="text-base leading-relaxed text-muted-foreground mb-6">
-                  Nos comprometemos a ofrecer soluciones innovadoras y sostenibles para la descarbonización de coches y la limpieza de filtro de partículas. Con más de una década de experiencia en el sector, nuestro equipo de expertos se esfuerza por brindar un servicio de alta calidad que garantice el rendimiento óptimo de tu vehículo, al tiempo que contribuimos a la preservación del medio ambiente. ¡Confía en nosotros para mantener tu motor limpio y eficiente!
-                </p>
-                <Accordion type="single" collapsible className="space-y-2">
-                  <AccordionItem value="mision" className="border rounded-lg px-1 bg-card">
-                    <AccordionTrigger className="px-4 py-3 text-sm font-semibold hover:no-underline text-foreground">
-                      Nuestra Misión
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4 text-sm leading-relaxed text-muted-foreground">
-                      Nos dedicamos a ofrecer soluciones innovadoras para la descarbonización de vehículos y la limpieza de filtros de partículas. Nuestro objetivo es ayudar a particulares y profesionales a mantener sus vehículos en excelente estado, reduciendo costos de mantenimiento y contribuyendo a un ambiente más limpio y sostenible.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="vision" className="border rounded-lg px-1 bg-card">
-                    <AccordionTrigger className="px-4 py-3 text-sm font-semibold hover:no-underline text-foreground">
-                      Nuestra Visión
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4 text-sm leading-relaxed text-muted-foreground">
-                      Somos líderes en la industria de la descarbonización y la limpieza de filtros de partículas, comprometidos con la excelencia y la innovación. Nos esforzamos por proporcionar servicios de alta calidad que no solo mejoren el rendimiento de los vehículos, sino que también promuevan la sostenibilidad y la economía verde.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+      <section className="py-16 section-light">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <AnimatedSection>
+              <Badge variant="secondary" className="mb-3">limpieza y cuidado de tu vehículo</Badge>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">Ecología rentable</h2>
+              <p className="text-base leading-relaxed text-muted-foreground mb-6">
+                Nos comprometemos a ofrecer soluciones innovadoras y sostenibles para la descarbonización de coches y la limpieza de filtro de partículas. Con más de una década de experiencia en el sector, nuestro equipo de expertos se esfuerza por brindar un servicio de alta calidad que garantice el rendimiento óptimo de tu vehículo, al tiempo que contribuimos a la preservación del medio ambiente. ¡Confía en nosotros para mantener tu motor limpio y eficiente!
+              </p>
+              <Accordion type="single" collapsible className="space-y-2">
+                <AccordionItem value="mision" className="border rounded-lg px-1 bg-card hover:shadow-md transition-shadow">
+                  <AccordionTrigger className="px-4 py-3 text-sm font-semibold hover:no-underline text-foreground">
+                    Nuestra Misión
+                  </AccordionTrigger>
+                  <AccordionContent className="px-4 pb-4 text-sm leading-relaxed text-muted-foreground">
+                    Nos dedicamos a ofrecer soluciones innovadoras para la descarbonización de vehículos y la limpieza de filtros de partículas. Nuestro objetivo es ayudar a particulares y profesionales a mantener sus vehículos en excelente estado, reduciendo costos de mantenimiento y contribuyendo a un ambiente más limpio y sostenible.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="vision" className="border rounded-lg px-1 bg-card hover:shadow-md transition-shadow">
+                  <AccordionTrigger className="px-4 py-3 text-sm font-semibold hover:no-underline text-foreground">
+                    Nuestra Visión
+                  </AccordionTrigger>
+                  <AccordionContent className="px-4 pb-4 text-sm leading-relaxed text-muted-foreground">
+                    Somos líderes en la industria de la descarbonización y la limpieza de filtros de partículas, comprometidos con la excelencia y la innovación. Nos esforzamos por proporcionar servicios de alta calidad que no solo mejoren el rendimiento de los vehículos, sino que también promuevan la sostenibilidad y la economía verde.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </AnimatedSection>
+            <AnimatedSection delay={0.2}>
+              <div className="relative">
+                <div className="absolute -inset-4 rounded-2xl bg-primary/5 blur-2xl" />
+                <div className="relative rounded-2xl overflow-hidden border-2 border-primary/20 shadow-xl">
+                  <img
+                    src={`${WP}/2024/11/Ecologia-rentable-younes.jpg`}
+                    alt="Younes Smaini - Ecología Rentable"
+                    className="w-full shadow-lg"
+                    loading="lazy"
+                  />
+                </div>
               </div>
-              <div>
-                <img
-                  src={`${WP}/2024/11/Ecologia-rentable-younes.jpg`}
-                  alt="Younes Smaini - Ecología Rentable"
-                  className="rounded-xl w-full shadow-lg"
-                  loading="lazy"
-                />
-              </div>
-            </div>
+            </AnimatedSection>
           </div>
-        </section>
-      </AnimatedSection>
+        </div>
+      </section>
 
       {/* QUOTE CALLOUT */}
       <section className="py-10 section-alt">
         <div className="container mx-auto px-4 max-w-3xl text-center">
-          <blockquote className="text-lg md:text-xl font-medium text-primary italic leading-relaxed">
-            "Únete a Ecología Rentable y convierte tu negocio en un motor de cambio sostenible."
-          </blockquote>
-          <p className="mt-3 text-sm font-semibold text-foreground">— Younes Smaini</p>
-          <p className="text-xs text-muted-foreground">Fundador de Ecología Rentable</p>
+          <AnimatedSection>
+            <motion.blockquote
+              className="text-lg md:text-xl font-medium text-primary italic leading-relaxed"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              "Únete a Ecología Rentable y convierte tu negocio en un motor de cambio sostenible."
+            </motion.blockquote>
+            <p className="mt-3 text-sm font-semibold text-foreground">— Younes Smaini</p>
+            <p className="text-xs text-muted-foreground">Fundador de Ecología Rentable</p>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* CONTACT FORM */}
-      <AnimatedSection>
-        <section className="py-16 section-light">
-          <div className="container mx-auto px-4 max-w-2xl">
+      <section className="py-16 section-light">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <AnimatedSection>
             <h2 className="text-2xl font-bold text-center mb-3 text-foreground">
               ¿Listo para darle a tu vehículo el cuidado que se merece?
             </h2>
@@ -102,9 +114,9 @@ export default function Nosotros() {
               <div><Label htmlFor="mensaje">Mensaje</Label><Textarea id="mensaje" placeholder="¿En qué podemos ayudarte?" rows={4} /></div>
               <Button type="submit" className="w-full">ENVIAR</Button>
             </form>
-          </div>
-        </section>
-      </AnimatedSection>
+          </AnimatedSection>
+        </div>
+      </section>
 
       <FAQSection items={faqItems} title="Preguntas Frecuentes" />
     </main>
