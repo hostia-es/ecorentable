@@ -125,8 +125,23 @@ export default function Servicios() {
                 ))}
               </div>
             </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* MÉTRICAS */}
+      <section className="py-14 section-light">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <AnimatedSection>
+              <img
+                src={engineDiagnostics}
+                alt="Diagnóstico de motor con escáner OBD2"
+                className="rounded-2xl w-full shadow-xl"
+                loading="lazy"
+              />
             </AnimatedSection>
-            <AnimatedSection delay={0.3}>
+            <AnimatedSection delay={0.2}>
               <div className="space-y-4">
                 {metrics.map((m, i) => (
                   <motion.div
