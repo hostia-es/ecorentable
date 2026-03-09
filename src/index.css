@@ -356,8 +356,8 @@
 
   .badge-steel {
     @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold;
-    background: hsl(210 15% 15%);
-    color: hsl(210 15% 70%);
+    background: hsl(var(--secondary));
+    color: hsl(var(--muted-foreground));
   }
 
   /* ═══════ ICON CIRCLES ═══════ */
