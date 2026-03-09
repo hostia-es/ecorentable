@@ -422,7 +422,33 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §5 CARBON FAP — Light with machine image
+          §4.5 ANIMACIÓN 3D — Coche raio-X com Flex Fuel
+      ══════════════════════════════════ */}
+      <section className="py-24 relative overflow-hidden section-dark-mesh">
+        <div className="absolute inset-0 grid-pattern opacity-20" />
+        <div className="container mx-auto px-6 relative z-10">
+          <AnimatedSection>
+            <div className="text-center mb-8">
+              <span className="badge-glow mb-4 inline-flex">
+                Tecnología Flex Fuel en acción
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+                Así limpia el <span className="gradient-text-static">hidrógeno</span> tu motor por dentro
+              </h2>
+              <p className="text-base max-w-2xl mx-auto" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
+                Visualización 3D del proceso de descarbonización. Las partículas verdes representan el gas HHO eliminando depósitos de carbonilla del motor, turbo y filtro de partículas.
+              </p>
+            </div>
+          </AnimatedSection>
+          <CarXRayAnimation />
+          <div className="flex justify-center mt-8">
+            <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer">
+              Descubre el tratamiento <ArrowRight size={15} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden bg-secondary/50">
         <div className="container mx-auto px-6 relative z-10">
