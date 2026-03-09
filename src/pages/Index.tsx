@@ -22,6 +22,7 @@ import { Timeline } from "@/components/ui/timeline";
 import { FuelLiquidAnimation } from "@/components/common/FuelLiquidAnimation";
 import { Globe } from "@/components/ui/globe";
 import { CarXRayAnimation } from "@/components/common/CarXRayAnimation";
+import { MorphingText } from "@/components/ui/morphing-text";
 
 /* ═══════════ DATA ═══════════ */
 const heroStats = [
@@ -138,16 +139,22 @@ export default function Index() {
                 </span>
               </motion.div>
 
-              <motion.h1
+              <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.35 }}
-                className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight mb-6"
-                style={{ color: "hsl(0 0% 100%)" }}
+                className="mb-6"
               >
-                <span className="block">¡Revitaliza Tu Vehículo Con</span>
-                <span className="block gradient-text">ECOLOGÍA RENTABLE!</span>
-              </motion.h1>
+                <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
+                  <span className="block">¡Revitaliza Tu Vehículo Con</span>
+                </h1>
+                <div className="h-[clamp(3rem,7vw,5.5rem)]">
+                  <MorphingText
+                    texts={["ECOLOGÍA RENTABLE!", "DESCARBONIZACIÓN!", "TECNOLOGÍA HHO!", "MENOS EMISIONES!"]}
+                    className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight gradient-text"
+                  />
+                </div>
+              </motion.div>
 
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
