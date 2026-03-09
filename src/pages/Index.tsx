@@ -126,21 +126,21 @@ export default function Index() {
       {/* ══════════════════════════════════
           §1 HERO — Mobile-first fullscreen
       ══════════════════════════════════ */}
-      <section className="relative min-h-[85vh] md:min-h-screen overflow-hidden flex items-end pb-10 md:items-center md:pb-0 bg-dark-gradient">
+      <section className="relative min-h-[100svh] md:min-h-screen overflow-hidden flex items-center bg-dark-gradient">
         <motion.div
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
           style={{ y: heroImageY, scale: heroScale }}
         >
           <img src={heroCinematic} alt="Motor siendo tratado con tecnología de hidrógeno" className="hidden md:block w-full h-full object-cover" />
-          <img src={heroCinematicMobile} alt="Motor siendo tratado con tecnología de hidrógeno" className="block md:hidden w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[hsl(210_25%_4%/0.95)] via-[hsl(210_25%_4%/0.75)] to-[hsl(210_25%_4%/0.3)]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(210_25%_4%)] via-transparent to-[hsl(210_25%_4%/0.4)]" />
+          <img src={heroCinematicMobile} alt="Motor siendo tratado con tecnología de hidrógeno" className="block md:hidden w-full h-full object-cover object-center" />
+          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[hsl(210_25%_4%/0.93)] via-[hsl(210_25%_4%/0.8)] to-[hsl(210_25%_4%/0.4)]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(210_25%_4%/0.95)] via-transparent to-[hsl(210_25%_4%/0.5)]" />
         </motion.div>
 
         <div className="absolute inset-0 grid-pattern opacity-40" />
 
         <motion.div
-          className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-12 py-16 md:py-32"
+          className="relative z-10 container mx-auto px-5 sm:px-6 lg:px-12 pt-24 pb-12 md:py-32"
           style={{ y: heroTextY, opacity: heroOpacity }}
         >
           <div className="grid lg:grid-cols-12 gap-8 items-center">
@@ -150,7 +150,7 @@ export default function Index() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <span className="badge-glow mb-4 md:mb-6 inline-flex items-center text-[9px] sm:text-[10px] md:text-xs leading-tight">
+                <span className="badge-glow mb-5 md:mb-6 inline-flex items-center text-[11px] md:text-xs leading-tight">
                   <Leaf size={14} className="mr-1.5 shrink-0" /> LIMPIEZA DE MOTORES · SIN DESMONTAR · 1 HORA
                 </span>
               </motion.div>
@@ -159,15 +159,15 @@ export default function Index() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.3 }}
-                className="mb-4 md:mb-6"
+                className="mb-5 md:mb-6"
               >
-                <h1 className="text-[1.65rem] sm:text-[2rem] md:text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
+                <h1 className="text-[2.1rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.08] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
                   Tu Motor Acumula Suciedad.
                 </h1>
                 <div className="min-h-[1.15em]">
                   <MorphingText
                     texts={["NOSOTROS LA ELIMINAMOS.", "EN MENOS DE 1 HORA.", "SIN ABRIR EL MOTOR.", "CON RESULTADOS MEDIBLES."]}
-                    className="text-[1.65rem] sm:text-[2rem] md:text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.15] tracking-tight"
+                    className="text-[2.1rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
                   />
                 </div>
               </motion.div>
@@ -176,8 +176,8 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.45 }}
-                className="text-sm md:text-base lg:text-lg leading-relaxed max-w-xl mb-6 md:mb-8"
-                style={{ color: "hsl(0 0% 100% / 0.6)" }}
+                className="text-[15px] md:text-base lg:text-lg leading-relaxed max-w-xl mb-7 md:mb-8"
+                style={{ color: "hsl(0 0% 100% / 0.65)" }}
               >
                 Eliminamos los residuos de carbono de tu motor con hidrógeno. Sin desmontar, sin química, con informe.
               </motion.p>
@@ -186,7 +186,7 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.55 }}
-                className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mb-8 md:mb-12"
+                className="flex flex-col sm:flex-row gap-3 mb-10 md:mb-12"
               >
                 <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer text-sm">
                   VER CÓMO FUNCIONA <ArrowRight size={14} />
@@ -200,15 +200,15 @@ export default function Index() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.65 }}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5"
+                className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5"
               >
                 {heroStats.map((s) => (
                   <div key={s.label} className="group">
                     <div className="flex items-center gap-1.5 mb-0.5">
                       <span className="text-[hsl(148_60%_55%)] glow-icon">{s.icon}</span>
-                      <AnimatedCounter value={s.value} className="text-lg sm:text-xl md:text-3xl font-bold text-white glow-text" />
+                      <AnimatedCounter value={s.value} className="text-2xl sm:text-2xl md:text-3xl font-bold text-white glow-text" />
                     </div>
-                    <div className="text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-wider" style={{ color: "hsl(0 0% 100% / 0.35)" }}>{s.label}</div>
+                    <div className="text-[10px] sm:text-[10px] md:text-[11px] uppercase tracking-wider" style={{ color: "hsl(0 0% 100% / 0.4)" }}>{s.label}</div>
                   </div>
                 ))}
               </motion.div>
