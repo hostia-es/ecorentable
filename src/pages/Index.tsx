@@ -41,10 +41,10 @@ const heroStats = [
 ];
 
 const aboutBullets = [
-  "Recuperas la potencia original del motor",
-  "Reduces el consumo de combustible de forma medible",
-  "Evitas averías que pueden costarte entre 350 € y 2.000 €",
-  "Pasas la ITV sin sustos en la prueba de gases",
+  "Recuperas potencia",
+  "Reduces consumo de combustible",
+  "Evitas averías costosas",
+  "Pasas la ITV sin sustos",
 ];
 
 const hyCarbonFeatures = [
