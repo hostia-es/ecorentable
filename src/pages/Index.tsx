@@ -647,11 +647,8 @@ export default function Index() {
             <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 max-w-3xl mx-auto leading-tight">
               Tu motor lleva kilómetros acumulando lo que nosotros <span className="text-primary">eliminamos en una hora</span>
             </h2>
-            <p className="text-base mb-4 max-w-2xl mx-auto leading-relaxed text-muted-foreground">
-              La carbonilla no se ve, pero se nota. En el consumo, en la respuesta del acelerador, en el humo del escape, en la ITV. Un tratamiento de descarbonización y limpieza de filtro de partículas puede devolverte el rendimiento original del vehículo y ahorrarte cientos de euros en reparaciones futuras.
-            </p>
-            <p className="text-sm mb-10 max-w-xl mx-auto text-muted-foreground/70">
-              Sin química agresiva. Sin desmontaje. Con un informe que demuestra la diferencia.
+            <p className="text-base mb-10 max-w-2xl mx-auto leading-relaxed text-muted-foreground">
+              Sin química. Sin desmontaje. Con informe. Recupera el rendimiento de tu motor en una sola visita.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/servicios" className="btn-primary cursor-pointer">
