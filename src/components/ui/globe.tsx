@@ -1,3 +1,4 @@
+// Globe 3D component using COBE
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
