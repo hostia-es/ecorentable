@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
+import teamContacto from "@/assets/team-contacto.jpg";
 
 const faqContacto = [
   { question: "¿Con qué rapidez responden?", answer: "Respondemos todos los mensajes en un máximo de 24 horas laborables. Para consultas urgentes, le recomendamos llamar directamente al teléfono de atención." },
