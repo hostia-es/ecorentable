@@ -408,10 +408,10 @@ export default function Index() {
           <AnimatedSection>
             <div className="max-w-7xl mx-auto md:px-10 mb-4">
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-                Cómo trabajamos en Ecología Rentable
+                Paso a paso
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                Un proceso <span className="text-primary">transparente</span>,<br />de principio a fin
+                Así es una visita al taller: <span className="text-primary">sin sorpresas</span>
               </h2>
             </div>
           </AnimatedSection>
