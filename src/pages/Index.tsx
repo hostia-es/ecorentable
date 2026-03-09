@@ -109,106 +109,106 @@ export default function Index() {
       {/* ══════════════════════════════════
           §0 TOP BAR
       ══════════════════════════════════ */}
-      <div className="w-full py-2 text-center text-xs bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 flex items-center justify-center gap-4 flex-wrap">
-          <a href="mailto:info@ecologiarentable.es" className="flex items-center gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
-            <Mail size={12} /> info@ecologiarentable.es
+      <div className="w-full py-1.5 sm:py-2 text-center text-[10px] sm:text-xs bg-primary text-primary-foreground">
+        <div className="container mx-auto px-3 sm:px-4 flex items-center justify-center gap-2 sm:gap-4 flex-wrap">
+          <a href="mailto:info@ecologiarentable.es" className="flex items-center gap-1 sm:gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
+            <Mail size={11} /> <span className="hidden sm:inline">info@ecologiarentable.es</span><span className="sm:hidden">Email</span>
           </a>
           <span className="hidden sm:inline opacity-50">·</span>
-          <span className="flex items-center gap-1.5"><Clock size={12} /> Lun – Vie, 07:00 – 15:00</span>
+          <span className="hidden sm:flex items-center gap-1.5"><Clock size={12} /> Lun – Vie, 07:00 – 15:00</span>
           <span className="hidden sm:inline opacity-50">·</span>
-          <a href="tel:+34600000000" className="flex items-center gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
-            <Phone size={12} /> +34 600 000 000
+          <a href="tel:+34600000000" className="flex items-center gap-1 sm:gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
+            <Phone size={11} /> +34 600 000 000
           </a>
         </div>
       </div>
 
       {/* ══════════════════════════════════
-          §1 HERO — Cinematic fullscreen parallax (dark for impact)
+          §1 HERO — Mobile-first fullscreen
       ══════════════════════════════════ */}
-      <section className="relative min-h-screen overflow-hidden flex items-center bg-dark-gradient">
+      <section className="relative min-h-[85vh] md:min-h-screen overflow-hidden flex items-end pb-10 md:items-center md:pb-0 bg-dark-gradient">
         <motion.div
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
           style={{ y: heroImageY, scale: heroScale }}
         >
           <img src={heroCinematic} alt="Motor siendo tratado con tecnología de hidrógeno" className="hidden md:block w-full h-full object-cover" />
           <img src={heroCinematicMobile} alt="Motor siendo tratado con tecnología de hidrógeno" className="block md:hidden w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[hsl(210_25%_4%/0.92)] via-[hsl(210_25%_4%/0.7)] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[hsl(210_25%_4%/0.95)] via-[hsl(210_25%_4%/0.75)] to-[hsl(210_25%_4%/0.3)]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[hsl(210_25%_4%)] via-transparent to-[hsl(210_25%_4%/0.4)]" />
         </motion.div>
 
         <div className="absolute inset-0 grid-pattern opacity-40" />
 
         <motion.div
-          className="relative z-10 container mx-auto px-6 lg:px-12 py-32"
+          className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-12 py-16 md:py-32"
           style={{ y: heroTextY, opacity: heroOpacity }}
         >
           <div className="grid lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7">
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <span className="badge-glow mb-6 inline-flex items-center text-[10px] sm:text-xs">
-                  <Leaf size={16} className="mr-1.5 shrink-0 sm:mr-2" /> <span className="hidden sm:inline">LIMPIEZA INTERNA DE MOTORES · SIN DESMONTAR · RESULTADOS EN 1 HORA</span><span className="sm:hidden">LIMPIEZA DE MOTORES · SIN DESMONTAR · 1 HORA</span>
+                <span className="badge-glow mb-4 md:mb-6 inline-flex items-center text-[9px] sm:text-[10px] md:text-xs leading-tight">
+                  <Leaf size={14} className="mr-1.5 shrink-0" /> LIMPIEZA DE MOTORES · SIN DESMONTAR · 1 HORA
                 </span>
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.35 }}
-                className="mb-6"
+                transition={{ duration: 0.7, delay: 0.3 }}
+                className="mb-4 md:mb-6"
               >
-                <h1 className="text-[clamp(1.75rem,5.5vw,5rem)] font-bold leading-[1.08] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
-                  <span className="block">Tu Motor Acumula Suciedad.</span>
+                <h1 className="text-[1.65rem] sm:text-[2rem] md:text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
+                  Tu Motor Acumula Suciedad.
                 </h1>
-                <div className="min-h-[1.2em]">
+                <div className="min-h-[1.15em]">
                   <MorphingText
                     texts={["NOSOTROS LA ELIMINAMOS.", "EN MENOS DE 1 HORA.", "SIN ABRIR EL MOTOR.", "CON RESULTADOS MEDIBLES."]}
-                    className="text-[clamp(1.75rem,5.5vw,5rem)] font-bold leading-[1.15] tracking-tight"
+                    className="text-[1.65rem] sm:text-[2rem] md:text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.15] tracking-tight"
                   />
                 </div>
               </motion.div>
 
               <motion.p
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.55 }}
-                className="text-base md:text-lg leading-relaxed max-w-xl mb-8"
-                style={{ color: "hsl(0 0% 100% / 0.55)" }}
+                transition={{ duration: 0.6, delay: 0.45 }}
+                className="text-sm md:text-base lg:text-lg leading-relaxed max-w-xl mb-6 md:mb-8"
+                style={{ color: "hsl(0 0% 100% / 0.6)" }}
               >
                 Eliminamos los residuos de carbono de tu motor con hidrógeno. Sin desmontar, sin química, con informe.
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.7 }}
-                className="flex flex-col sm:flex-row gap-3 mb-12"
+                transition={{ duration: 0.6, delay: 0.55 }}
+                className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mb-8 md:mb-12"
               >
-                <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer">
-                  VER CÓMO FUNCIONA <ArrowRight size={16} />
+                <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer text-sm">
+                  VER CÓMO FUNCIONA <ArrowRight size={14} />
                 </Link>
-                <Link to="/contacto" className="btn-glass cursor-pointer">
+                <Link to="/contacto" className="btn-glass cursor-pointer text-sm">
                   PEDIR CITA
                 </Link>
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.85 }}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6"
+                transition={{ duration: 0.6, delay: 0.65 }}
+                className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5"
               >
                 {heroStats.map((s) => (
                   <div key={s.label} className="group">
-                    <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
+                    <div className="flex items-center gap-1.5 mb-0.5">
                       <span className="text-[hsl(148_60%_55%)] glow-icon">{s.icon}</span>
-                      <AnimatedCounter value={s.value} className="text-xl sm:text-2xl md:text-3xl font-bold text-white glow-text" />
+                      <AnimatedCounter value={s.value} className="text-lg sm:text-xl md:text-3xl font-bold text-white glow-text" />
                     </div>
-                    <div className="text-[10px] sm:text-[11px] uppercase tracking-wider" style={{ color: "hsl(0 0% 100% / 0.35)" }}>{s.label}</div>
+                    <div className="text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-wider" style={{ color: "hsl(0 0% 100% / 0.35)" }}>{s.label}</div>
                   </div>
                 ))}
               </motion.div>
