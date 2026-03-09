@@ -344,7 +344,7 @@ export default function Index() {
       {/* ══════════════════════════════════
           §3 HY-CARBON CONNECT — Light with machine image
       ══════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden bg-secondary/50">
+      <section className="py-14 md:py-24 relative overflow-hidden bg-secondary/50">
         <div className="container mx-auto px-6 relative z-10">
           <AnimatedSection>
             <div className="flex flex-col md:flex-row md:items-end gap-6 mb-14">
