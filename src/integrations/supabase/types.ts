@@ -14,7 +14,80 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      email_logs: {
+        Row: {
+          body: string
+          id: string
+          lead_id: string
+          sent_at: string
+          status: string
+          subject: string
+        }
+        Insert: {
+          body: string
+          id?: string
+          lead_id: string
+          sent_at?: string
+          status?: string
+          subject: string
+        }
+        Update: {
+          body?: string
+          id?: string
+          lead_id?: string
+          sent_at?: string
+          status?: string
+          subject?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_logs_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      leads: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          nombre: string
+          notas: string | null
+          origen: string
+          servicio: string | null
+          status: string
+          telefono: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          nombre: string
+          notas?: string | null
+          origen?: string
+          servicio?: string | null
+          status?: string
+          telefono?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          nombre?: string
+          notas?: string | null
+          origen?: string
+          servicio?: string | null
+          status?: string
+          telefono?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
