@@ -386,24 +386,9 @@ export default function Index() {
           </div>
 
           {/* 6 features grid */}
-          <StaggerChildren className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            {hyCarbonFeatures.map((f) => {
-              const Icon = f.icon;
-              return (
-                <motion.div key={f.title} variants={staggerItem}>
-                  <div className="bg-white rounded-2xl border border-border shadow-md h-full p-6 group hover:shadow-xl hover:border-primary/30 transition-all duration-200 hover:-translate-y-1 cursor-default">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">
-                      <Icon size={22} />
-                    </div>
-                    <h3 className="text-sm font-bold mb-2 text-foreground">{f.title}</h3>
-                    <p className="text-xs leading-relaxed text-muted-foreground">{f.desc}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </StaggerChildren>
+          <FeatureTimeline entries={hyCarbonTimelineEntries} />
 
-          <AnimatedSection>
+          <AnimatedSection className="mt-10">
             <Link to="/servicios/descarbonizacion" className="btn-primary cursor-pointer">
               Ver descarbonización <ArrowRight size={15} />
             </Link>
