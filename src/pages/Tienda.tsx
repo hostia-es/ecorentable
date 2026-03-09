@@ -56,6 +56,16 @@ export default function Tienda() {
         </div>
       </section>
 
+      {/* SHOWROOM IMAGE */}
+      <section className="py-0 overflow-hidden">
+        <img
+          src={tiendaShowroom}
+          alt="Showroom de máquinas descarbonizadoras profesionales"
+          className="w-full h-64 md:h-80 object-cover"
+          loading="lazy"
+        />
+      </section>
+
       {/* CATEGORÍAS */}
       <section className="py-14 section-alt">
         <div className="container mx-auto px-4">

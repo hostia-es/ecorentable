@@ -23,6 +23,15 @@ export default function HazteSocio() {
         breadcrumbs={[{ label: "Socios", href: "/socios" }, { label: "Hazte socio" }]}
         badge="Programa de socios"
       />
+      {/* PARTNERSHIP IMAGE */}
+      <section className="py-0 overflow-hidden">
+        <img
+          src={sociosPartnership}
+          alt="Socios de Ecología Rentable cerrando acuerdo"
+          className="w-full h-56 md:h-72 object-cover"
+          loading="lazy"
+        />
+      </section>
 
       <section className="py-16 section-light">
         <div className="container mx-auto px-4">

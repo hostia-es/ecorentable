@@ -59,6 +59,16 @@ export default function Contacto() {
         </div>
       </section>
 
+      {/* TEAM IMAGE */}
+      <section className="py-0 overflow-hidden">
+        <img
+          src={teamContacto}
+          alt="Equipo profesional de Ecología Rentable"
+          className="w-full h-64 md:h-80 object-cover"
+          loading="lazy"
+        />
+      </section>
+
       {/* CHECKLIST */}
       <section className="py-10 section-alt">
         <div className="container mx-auto px-4 max-w-2xl">
