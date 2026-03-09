@@ -538,8 +538,8 @@ export default function Index() {
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
                 Programa de socios certificados
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
-                Incorpora descarbonización a tu taller y <span className="text-primary">empieza a rentabilizarla</span> desde la primera semana
+              <h2 className="text-2xl md:text-4xl font-bold leading-tight mb-6 text-foreground">
+                Descarbonización en tu taller: <span className="text-primary">rentable desde la primera semana</span>
               </h2>
               <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
                 Alta demanda, margen real y resultados medibles. Como socio accedes a tecnología, formación y soporte comercial desde el primer día.
