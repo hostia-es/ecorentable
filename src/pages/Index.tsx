@@ -35,7 +35,7 @@ import type { FeatureTimelineEntry } from "@/components/ui/feature-timeline";
 /* ═══════════ DATA ═══════════ */
 const heroStats = [
   { value: "10+", label: "Años de experiencia", icon: <Clock size={18} /> },
-  { value: "500+", label: "Máquinas en servicio", icon: <Wrench size={18} /> },
+  { value: "300+", label: "Talleres en España", icon: <Wrench size={18} /> },
   { value: "50K+", label: "Vehículos tratados", icon: <Gauge size={18} /> },
   { value: "45K+", label: "Clientes satisfechos", icon: <Star size={18} /> },
 ];
@@ -151,7 +151,7 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
                 <span className="badge-glow mb-6 inline-flex items-center">
-                  <Leaf size={18} className="mr-2 shrink-0" /> DESCARBONIZACIÓN DE COCHES Y LIMPIEZA DE FILTRO DE PARTÍCULAS
+                  <Leaf size={18} className="mr-2 shrink-0" /> LIMPIEZA INTERNA DE MOTORES · SIN DESMONTAR · RESULTADOS EN 1 HORA
                 </span>
               </motion.div>
 
@@ -162,11 +162,11 @@ export default function Index() {
                 className="mb-6"
               >
                 <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
-                  <span className="block">¡Revitaliza Tu Vehículo Con</span>
+                  <span className="block">Tu Motor Acumula Suciedad.</span>
                 </h1>
                 <div className="min-h-[1.2em]">
                   <MorphingText
-                    texts={["ECO RENTABLE!", "HIDRÓGENO HHO!", "MOTOR LIMPIO!", "MENOS CO₂!"]}
+                    texts={["NOSOTROS LA ELIMINAMOS.", "EN MENOS DE 1 HORA.", "SIN ABRIR EL MOTOR.", "CON RESULTADOS MEDIBLES."]}
                     className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.15] tracking-tight"
                   />
                 </div>
@@ -179,7 +179,7 @@ export default function Index() {
                 className="text-base md:text-lg leading-relaxed max-w-xl mb-8"
                 style={{ color: "hsl(0 0% 100% / 0.55)" }}
               >
-                Descubre nuestros servicios de descarbonización y limpieza de filtros de partículas. ¡Mejora el rendimiento de tu coche y ahorra dinero mientras cuidas el medio ambiente!
+                Con el uso, tu motor acumula residuos de carbono que le hacen gastar más, perder potencia y contaminar. Nosotros los eliminamos con hidrógeno — sin desmontar nada, sin química agresiva y con un informe que demuestra la diferencia.
               </motion.p>
 
               <motion.div
@@ -189,10 +189,10 @@ export default function Index() {
                 className="flex flex-col sm:flex-row gap-3 mb-12"
               >
                 <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer">
-                  DESCARBONIZACIÓN <ArrowRight size={16} />
+                  VER CÓMO FUNCIONA <ArrowRight size={16} />
                 </Link>
                 <Link to="/contacto" className="btn-glass cursor-pointer">
-                  CONTACTO
+                  PEDIR CITA
                 </Link>
               </motion.div>
 
@@ -353,11 +353,12 @@ export default function Index() {
             <div className="flex flex-col md:flex-row md:items-end gap-6 mb-14">
               <div className="flex-1">
                 <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-                  Descarbonización por inyección de hidrógeno
+                  Así funciona la limpieza de tu motor
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
-                  Hy-Carbon Connect — el tratamiento que <span className="text-primary">limpia donde ningún aditivo llega</span>
+                  Inyectamos hidrógeno en tu motor para <span className="text-primary">disolver la suciedad que los aditivos no alcanzan</span>
                 </h2>
+                <p className="text-sm mt-3 text-muted-foreground">Nuestro sistema se llama Hy-Carbon Connect. Es la tecnología que utilizan más de 300 talleres certificados en toda España.</p>
               </div>
             </div>
           </AnimatedSection>
@@ -407,10 +408,10 @@ export default function Index() {
           <AnimatedSection>
             <div className="max-w-7xl mx-auto md:px-10 mb-4">
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-                Cómo trabajamos en Ecología Rentable
+                Paso a paso
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                Un proceso <span className="text-primary">transparente</span>,<br />de principio a fin
+                Así es una visita al taller: <span className="text-primary">sin sorpresas</span>
               </h2>
             </div>
           </AnimatedSection>
@@ -442,20 +443,20 @@ export default function Index() {
           <AnimatedSection>
             <div className="text-center mb-8">
               <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-                Tecnología Ecología Rentable en acción
+                Mira lo que pasa dentro de tu motor
               </span>
               <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-                Así limpia el <span className="text-primary">hidrógeno</span> tu motor por dentro
+                El hidrógeno entra, la <span className="text-primary">carbonilla sale</span>
               </h2>
               <p className="text-base max-w-2xl mx-auto text-muted-foreground">
-                Visualización 3D del proceso de descarbonización. Las partículas verdes representan el gas HHO eliminando depósitos de carbonilla del motor, turbo y filtro de partículas.
+                Esta simulación muestra cómo el gas HHO recorre el interior de tu motor eliminando los depósitos de carbono acumulados en válvulas, turbo y filtro de partículas.
               </p>
             </div>
           </AnimatedSection>
           <CarXRayAnimation />
           <div className="flex justify-center mt-8">
             <Link to="/servicios/descarbonizacion" className="btn-primary cursor-pointer">
-              Descubre el tratamiento <ArrowRight size={15} />
+              Quiero limpiar mi motor <ArrowRight size={15} />
             </Link>
           </div>
         </div>
