@@ -121,13 +121,9 @@ const SvgFilters: React.FC = () => (
 
 const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => (
   <div className={cn("relative w-full h-full", className)}>
-    <div
-      className="relative w-full h-full"
-      style={{ filter: "url(#threshold) blur(0.6px)" }}
-    >
+    <div className="relative w-full h-full">
       <Texts texts={texts} />
     </div>
-    <SvgFilters />
   </div>
 );
 
