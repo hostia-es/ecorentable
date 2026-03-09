@@ -5,6 +5,7 @@ import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
+import flexfuelEngine from "@/assets/flexfuel-engine.jpg";
 
 const soluciones = [
   { slug: "descarbonizacion-motor-diesel", title: "Descarbonización motor diésel", desc: "Eliminación de depósitos carbonosos en pistones, válvulas y cámara de combustión de motores diésel.", badge: "Más solicitado" },
