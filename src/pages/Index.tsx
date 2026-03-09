@@ -18,6 +18,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { AnimatedSection, AnimatedCounter, StaggerChildren, staggerItem } from "@/components/common/Animations";
 import { useParallaxScroll, useMouseParallax } from "@/hooks/use-parallax";
 import { Timeline } from "@/components/ui/timeline";
+import { FuelLiquidAnimation } from "@/components/common/FuelLiquidAnimation";
 
 /* ═══════════ DATA ═══════════ */
 const heroStats = [
@@ -254,6 +255,11 @@ export default function Index() {
 
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-20" />
       </section>
+
+      {/* ══════════════════════════════════
+          FUEL LIQUID SCROLL ANIMATION
+      ══════════════════════════════════ */}
+      <FuelLiquidAnimation />
 
       {/* ══════════════════════════════════
           §2 QUIÉNES SOMOS — Light
