@@ -134,7 +134,7 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
                 <span className="badge-glow mb-6 inline-flex items-center">
-                  <Leaf size={12} className="mr-1.5" /> DESCARBONIZACIÓN DE COCHES Y LIMPIEZA DE FILTRO DE PARTÍCULAS
+                  <Leaf size={18} className="mr-2 shrink-0" /> DESCARBONIZACIÓN DE COCHES Y LIMPIEZA DE FILTRO DE PARTÍCULAS
                 </span>
               </motion.div>
 
