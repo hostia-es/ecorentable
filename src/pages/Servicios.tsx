@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { AnimatedSection, StaggerChildren, staggerItem, AnimatedCounter } from "@/components/common/Animations";
+import mechanicWorkshop from "@/assets/mechanic-workshop-service.jpg";
+import engineDiagnostics from "@/assets/engine-diagnostics.jpg";
 
 const faqServicios = [
   { question: "¿Cuál es la diferencia entre descarbonización y limpieza DPF?", answer: "La descarbonización trata el interior del motor (pistones, válvulas, EGR) eliminando depósitos de carbono mediante hidrógeno. La limpieza DPF/FAP es un servicio específico para el filtro de partículas, que puede hacerse por vía química, ultrasónica o combinada." },
