@@ -217,70 +217,132 @@ export default function Index() {
             </div>
 
             {/* Right — Floating machine + cards (all screens) */}
-            <div className="relative lg:col-span-5 min-h-[260px] sm:min-h-[300px] lg:min-h-[500px] mt-4 lg:mt-0">
-              {/* Machine image */}
-              <motion.div
-                style={{ y: floatingCard1Y, x: mouse.x }}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="absolute top-0 right-0 w-[160px] sm:w-[200px] lg:w-[280px]"
-              >
-                <img src={hyConnectMachine} alt="Máquina Hy-Carbon Connect" className="w-full drop-shadow-2xl" />
-              </motion.div>
+            {/* Right — Floating machine + cards */}
+            <div className="lg:col-span-5 mt-4 lg:mt-0">
+              {/* Mobile/tablet: static flow layout; Desktop: absolute positioned */}
+              <div className="flex flex-col items-center gap-4 lg:hidden">
+                {/* Machine */}
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                  className="w-[180px] sm:w-[220px]"
+                >
+                  <img src={hyConnectMachine} alt="Máquina Hy-Carbon Connect" className="w-full drop-shadow-2xl" />
+                </motion.div>
 
-              {/* Floating glassmorphism card — Consumo */}
-              <motion.div
-                style={{ y: floatingCard2Y, x: mouse.x }}
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.9, delay: 0.8 }}
-                className="absolute top-0 left-0 w-[11rem]1rem] sm:w-52 lg:w-56"
-              >
-                <div className="rounded-2xl border backdrop-blur-xl p-3 sm:p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
-                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center icon-circle-glow">
-                      <Zap size={13} />
+                {/* Cards row */}
+                <div className="flex gap-3 w-full">
+                  {/* Consumo card */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.9, delay: 0.8 }}
+                    className="flex-1"
+                  >
+                    <div className="rounded-2xl border backdrop-blur-xl p-3" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-7 h-7 rounded-full flex items-center justify-center icon-circle-glow">
+                          <Zap size={13} />
+                        </div>
+                        <p className="text-[10px] font-semibold text-white leading-tight">Consumo de combustible</p>
+                      </div>
+                      <p className="text-2xl font-bold gradient-text-static">-15%</p>
+                      <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.1)" }}>
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: "85%" }}
+                          transition={{ duration: 1.5, delay: 1.2, ease: "easeOut" }}
+                          className="h-full rounded-full"
+                          style={{ background: "linear-gradient(90deg, hsl(148 60% 40%), hsl(148 72% 55%))" }}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-[11px] sm:text-xs font-semibold text-white">Consumo de combustible</p>
-                      <p className="text-[9px] sm:text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Con descarbonización</p>
-                    </div>
-                  </div>
-                  <p className="text-2xl sm:text-3xl font-bold gradient-text-static">-15%</p>
-                  <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.1)" }}>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: "85%" }}
-                      transition={{ duration: 1.5, delay: 1.2, ease: "easeOut" }}
-                      className="h-full rounded-full"
-                      style={{ background: "linear-gradient(90deg, hsl(148 60% 40%), hsl(148 72% 55%))" }}
-                    />
-                  </div>
-                </div>
-              </motion.div>
+                  </motion.div>
 
-              {/* Floating emissions card */}
-              <motion.div
-                style={{ y: floatingCard1Y }}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 1 }}
-                className="absolute bottleft-0 sm:left-4 lg:bottom-12 w-[11rem] w-40 sm:w-44 lg:w-48"
-              >
-                <div className="rounded-2xl border backdrop-blur-xl p-3 sm:p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
-                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center icon-circle-glow">
-                      <Shield size={13} />
+                  {/* Emissions card */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.9, delay: 1 }}
+                    className="flex-1"
+                  >
+                    <div className="rounded-2xl border backdrop-blur-xl p-3" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-7 h-7 rounded-full flex items-center justify-center icon-circle-glow">
+                          <Shield size={13} />
+                        </div>
+                        <p className="text-[10px] font-semibold text-white leading-tight">Emisiones contaminantes</p>
+                      </div>
+                      <p className="text-xl font-bold text-white">-20% <span className="text-[9px] font-normal" style={{ color: "hsl(0 0% 100% / 0.4)" }}>NOx/CO₂</span></p>
                     </div>
-                    <div>
-                      <p className="text-[11px] sm:text-xs font-semibold text-white">Emisiones contaminantes</p>
-                      <p className="text-[9px] sm:text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Resultado medio tras servicio</p>
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Desktop: absolute positioned layout */}
+              <div className="hidden lg:block relative min-h-[500px]">
+                <motion.div
+                  style={{ y: floatingCard1Y, x: mouse.x }}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                  className="absolute top-0 right-0 w-[280px]"
+                >
+                  <img src={hyConnectMachine} alt="Máquina Hy-Carbon Connect" className="w-full drop-shadow-2xl" />
+                </motion.div>
+
+                <motion.div
+                  style={{ y: floatingCard2Y, x: mouse.x }}
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.9, delay: 0.8 }}
+                  className="absolute top-4 left-0 w-56"
+                >
+                  <div className="rounded-2xl border backdrop-blur-xl p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center icon-circle-glow">
+                        <Zap size={14} />
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-white">Consumo de combustible</p>
+                        <p className="text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Con descarbonización</p>
+                      </div>
+                    </div>
+                    <p className="text-3xl font-bold gradient-text-static">-15%</p>
+                    <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.1)" }}>
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: "85%" }}
+                        transition={{ duration: 1.5, delay: 1.2, ease: "easeOut" }}
+                        className="h-full rounded-full"
+                        style={{ background: "linear-gradient(90deg, hsl(148 60% 40%), hsl(148 72% 55%))" }}
+                      />
                     </div>
                   </div>
-                  <p className="text-xl sm:text-2xl font-bold text-white">-20% <span className="text-[10px] sm:text-xs font-normal" style={{ color: "hsl(0 0% 100% / 0.4)" }}>NOx/CO₂</span></p>
-                </div>
-              </motion.div>
+                </motion.div>
+
+                <motion.div
+                  style={{ y: floatingCard1Y }}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.9, delay: 1 }}
+                  className="absolute bottom-12 left-4 w-48"
+                >
+                  <div className="rounded-2xl border backdrop-blur-xl p-4" style={{ background: "hsl(0 0% 8% / 0.65)", borderColor: "hsl(0 0% 100% / 0.12)" }}>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center icon-circle-glow">
+                        <Shield size={14} />
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-white">Emisiones contaminantes</p>
+                        <p className="text-[10px]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>Resultado medio tras servicio</p>
+                      </div>
+                    </div>
+                    <p className="text-2xl font-bold text-white">-20% <span className="text-xs font-normal" style={{ color: "hsl(0 0% 100% / 0.4)" }}>NOx/CO₂</span></p>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </motion.div>
