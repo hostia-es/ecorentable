@@ -690,7 +690,7 @@ export default function Index() {
               Red nacional e internacional
             </span>
             <h2 className="text-3xl md:text-5xl font-bold mb-5 max-w-2xl mx-auto leading-tight text-white">
-              Más de <span className="gradient-text-static">300 centros</span> certificados en toda España
+              Más de <span className="gradient-text-static">300 centros</span> certificados en España y en el mundo
             </h2>
             <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
               Encuentra el centro más cercano o conviértete en socio y ofrece el servicio en tu taller.
