@@ -3,6 +3,29 @@ import { CheckCircle, AlertTriangle, ArrowRight, Euro } from "lucide-react";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import { AnimatedSection } from "@/components/common/Animations";
+import serviceHero from "@/assets/service-decarbonization-hero.jpg";
+import obd2Diagnostics from "@/assets/obd2-diagnostics.jpg";
+import mechanicWorkshop from "@/assets/mechanic-workshop-service.jpg";
+import engineDiagnostics from "@/assets/engine-diagnostics.jpg";
+import maquinaDescarbonizadora from "@/assets/maquina-descarbonizadora.jpg";
+import carbonFapMachine from "@/assets/carbon-fap-machine.png";
+
+const heroImages: Record<string, string> = {
+  descarbonizacion: serviceHero,
+  particulares: mechanicWorkshop,
+  talleres: engineDiagnostics,
+  flotas: maquinaDescarbonizadora,
+  "limpieza-filtros": carbonFapMachine,
+};
+
+const processImages: Record<string, string> = {
+  descarbonizacion: obd2Diagnostics,
+  particulares: serviceHero,
+  talleres: mechanicWorkshop,
+  flotas: engineDiagnostics,
+  "limpieza-filtros": maquinaDescarbonizadora,
+};
 
 interface ServicioData {
   title: string;
@@ -155,6 +178,18 @@ export default function ServicioDetalle() {
         badge={s.badge}
       />
 
+      {/* HERO IMAGE */}
+      <section className="overflow-hidden">
+        <AnimatedSection>
+          <img
+            src={heroImages[servicio ?? ""] || serviceHero}
+            alt={`${s.title} - servicio profesional`}
+            className="w-full h-48 md:h-64 lg:h-72 object-cover"
+            loading="lazy"
+          />
+        </AnimatedSection>
+      </section>
+
       {/* DEFINICIÓN */}
       <section className="py-14 section-light">
         <div className="container mx-auto px-4 max-w-4xl">
@@ -190,18 +225,28 @@ export default function ServicioDetalle() {
 
       {/* PROCESO */}
       <section className="py-14 section-alt">
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-5xl">
           <h2 className="text-2xl font-bold mb-10 text-center" style={{ color: "hsl(var(--foreground))" }}>Cómo funciona</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {s.process.map((p) => (
-              <div key={p.step} className="card-eco p-6 flex gap-4 items-start">
-                <div className="step-number shrink-0 w-11 h-11 text-base">{p.step}</div>
-                <div>
-                  <h3 className="font-bold mb-1" style={{ color: "hsl(var(--foreground))" }}>{p.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{p.desc}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {s.process.map((p) => (
+                <div key={p.step} className="card-eco p-6 flex gap-4 items-start">
+                  <div className="step-number shrink-0 w-11 h-11 text-base">{p.step}</div>
+                  <div>
+                    <h3 className="font-bold mb-1" style={{ color: "hsl(var(--foreground))" }}>{p.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{p.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <AnimatedSection delay={0.2}>
+              <img
+                src={processImages[servicio ?? ""] || obd2Diagnostics}
+                alt={`Proceso de ${s.title}`}
+                className="rounded-2xl w-full shadow-xl object-cover h-64 lg:h-80"
+                loading="lazy"
+              />
+            </AnimatedSection>
           </div>
         </div>
       </section>

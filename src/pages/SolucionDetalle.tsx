@@ -3,6 +3,34 @@ import { CheckCircle, AlertTriangle, ArrowRight } from "lucide-react";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import { AnimatedSection } from "@/components/common/Animations";
+import serviceHero from "@/assets/service-decarbonization-hero.jpg";
+import obd2Diagnostics from "@/assets/obd2-diagnostics.jpg";
+import engineBeforeAfter from "@/assets/engine-before-after.jpg";
+import maquinaDescarbonizadora from "@/assets/maquina-descarbonizadora.jpg";
+import diagnosticoMotor from "@/assets/diagnostico-motor.jpg";
+import engineDetail from "@/assets/engine-detail.jpg";
+import carbonFapMachine from "@/assets/carbon-fap-machine.png";
+
+const heroImages: Record<string, string> = {
+  "descarbonizacion-motor-diesel": serviceHero,
+  "limpieza-filtro-particulas": carbonFapMachine,
+  "descarbonizacion-hidrogeno": maquinaDescarbonizadora,
+  "mantenimiento-motor-diesel": engineDetail,
+  "limpieza-egr-catalizador": engineBeforeAfter,
+  "itv-gases": diagnosticoMotor,
+  "aditivos-motor": engineDetail,
+};
+
+const processImages: Record<string, string> = {
+  "descarbonizacion-motor-diesel": obd2Diagnostics,
+  "limpieza-filtro-particulas": maquinaDescarbonizadora,
+  "descarbonizacion-hidrogeno": serviceHero,
+  "mantenimiento-motor-diesel": obd2Diagnostics,
+  "limpieza-egr-catalizador": diagnosticoMotor,
+  "itv-gases": engineBeforeAfter,
+  "aditivos-motor": carbonFapMachine,
+};
 
 interface SolucionData {
   title: string;
@@ -241,7 +269,18 @@ export default function SolucionDetalle() {
         badge={sol.badge}
       />
 
-      {/* CAUSAS + SÍNTOMAS */}
+      {/* HERO IMAGE */}
+      <section className="overflow-hidden">
+        <AnimatedSection>
+          <img
+            src={heroImages[slug ?? ""] || serviceHero}
+            alt={`${sol.title} - servicio profesional`}
+            className="w-full h-48 md:h-64 lg:h-72 object-cover"
+            loading="lazy"
+          />
+        </AnimatedSection>
+      </section>
+
       <section className="py-14 section-light">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -271,18 +310,28 @@ export default function SolucionDetalle() {
 
       {/* PROCESO */}
       <section className="py-14 section-alt">
-        <div className="container mx-auto px-4 max-w-3xl">
+        <div className="container mx-auto px-4 max-w-5xl">
           <h2 className="text-2xl font-bold mb-8 text-center" style={{ color: "hsl(var(--foreground))" }}>¿Cómo se resuelve?</h2>
-          <div className="space-y-5">
-            {sol.process.map((p) => (
-              <div key={p.step} className="flex gap-5">
-                <div className="step-number shrink-0">{p.step}</div>
-                <div>
-                  <h3 className="font-bold mb-1" style={{ color: "hsl(var(--foreground))" }}>{p.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{p.desc}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="space-y-5">
+              {sol.process.map((p) => (
+                <div key={p.step} className="flex gap-5">
+                  <div className="step-number shrink-0">{p.step}</div>
+                  <div>
+                    <h3 className="font-bold mb-1" style={{ color: "hsl(var(--foreground))" }}>{p.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{p.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <AnimatedSection delay={0.2}>
+              <img
+                src={processImages[slug ?? ""] || obd2Diagnostics}
+                alt={`Proceso de ${sol.title}`}
+                className="rounded-2xl w-full shadow-xl object-cover h-64 lg:h-80"
+                loading="lazy"
+              />
+            </AnimatedSection>
           </div>
         </div>
       </section>
