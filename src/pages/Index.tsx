@@ -287,6 +287,25 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
+          §1b HERO STATS — Mobile strip
+      ══════════════════════════════════ */}
+      <section className="sm:hidden py-6 bg-secondary">
+        <div className="container mx-auto px-5">
+          <div className="grid grid-cols-2 gap-4">
+            {heroStats.map((s) => (
+              <div key={s.label} className="flex items-center gap-2">
+                <span className="text-primary">{s.icon}</span>
+                <div>
+                  <AnimatedCounter value={s.value} className="text-xl font-bold text-foreground" />
+                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{s.label}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════
           FUEL LIQUID SCROLL ANIMATION
       ══════════════════════════════════ */}
       <FuelLiquidAnimation />
