@@ -200,15 +200,15 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.85 }}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-6"
+                className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6"
               >
                 {heroStats.map((s) => (
                   <div key={s.label} className="group">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
                       <span className="text-[hsl(148_60%_55%)] glow-icon">{s.icon}</span>
-                      <AnimatedCounter value={s.value} className="text-2xl md:text-3xl font-bold text-white glow-text" />
+                      <AnimatedCounter value={s.value} className="text-xl sm:text-2xl md:text-3xl font-bold text-white glow-text" />
                     </div>
-                    <div className="text-[11px] uppercase tracking-wider" style={{ color: "hsl(0 0% 100% / 0.35)" }}>{s.label}</div>
+                    <div className="text-[10px] sm:text-[11px] uppercase tracking-wider" style={{ color: "hsl(0 0% 100% / 0.35)" }}>{s.label}</div>
                   </div>
                 ))}
               </motion.div>
