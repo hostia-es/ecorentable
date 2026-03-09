@@ -78,11 +78,11 @@ const carbonFapBullets = [
 ];
 
 const faqs = [
-  { q: "¿En qué consiste la descarbonización con hidrógeno?", a: "Es un proceso de limpieza interna del motor mediante la inyección de gas HHO —hidrógeno y oxígeno— en el sistema de admisión. El gas reacciona con los depósitos de carbono acumulados en válvulas, inyectores, pistones y turbo, convirtiéndolos en CO₂ y vapor de agua que se expulsan por el escape. Sin química, sin desmontaje." },
-  { q: "¿Cuánto tiempo dura el tratamiento?", a: "El proceso completo con Hy-Carbon Connect se realiza en menos de 60 minutos con el motor en marcha. Puedes dejar el coche y recogerlo el mismo día." },
-  { q: "¿Cada cuántos kilómetros se recomienda?", a: "En conducción urbana frecuente, cada 15.000–20.000 km. En conducción mixta o de carretera, cada 30.000–40.000 km. Es especialmente recomendable antes de la ITV o tras una revisión del turbo o la EGR." },
-  { q: "¿Qué diferencia hay entre la descarbonización y la limpieza del FAP?", a: "La descarbonización actúa sobre el interior del motor: válvulas, inyectores, pistones y turbo. La limpieza del FAP se enfoca en el filtro de partículas, una pieza diferente cuya sustitución puede costar entre 500 y 2.000 €. En muchos casos hacemos ambos tratamientos en la misma visita." },
-  { q: "¿Es compatible con coches de gasolina e híbridos?", a: "Sí. El sistema Hy-Carbon Connect es compatible con motores de gasolina, diésel e híbridos. El diagnóstico previo nos permite ajustar el tratamiento al tipo y estado real de tu motor." },
+  { q: "¿En qué consiste la descarbonización con hidrógeno?", a: "Inyectamos gas HHO en la admisión del motor. Reacciona con los depósitos de carbono y los convierte en CO₂ y vapor de agua. Sin química, sin desmontaje." },
+  { q: "¿Cuánto tiempo dura el tratamiento?", a: "Menos de 60 minutos con el motor en marcha. Dejas el coche y lo recoges el mismo día." },
+  { q: "¿Cada cuántos kilómetros se recomienda?", a: "Cada 15.000–20.000 km en ciudad, cada 30.000–40.000 km en carretera. Recomendable antes de la ITV." },
+  { q: "¿Qué diferencia hay entre la descarbonización y la limpieza del FAP?", a: "La descarbonización limpia el interior del motor. La limpieza del FAP actúa sobre el filtro de partículas, cuya sustitución puede costar entre 500 y 2.000 €." },
+  { q: "¿Es compatible con coches de gasolina e híbridos?", a: "Sí. Compatible con gasolina, diésel e híbridos. El diagnóstico previo ajusta el tratamiento a tu motor." },
 ];
 
 const testimonials = [
