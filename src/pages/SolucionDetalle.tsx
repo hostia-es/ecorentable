@@ -3,6 +3,34 @@ import { CheckCircle, AlertTriangle, ArrowRight } from "lucide-react";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import { AnimatedSection } from "@/components/common/Animations";
+import serviceHero from "@/assets/service-decarbonization-hero.jpg";
+import obd2Diagnostics from "@/assets/obd2-diagnostics.jpg";
+import engineBeforeAfter from "@/assets/engine-before-after.jpg";
+import maquinaDescarbonizadora from "@/assets/maquina-descarbonizadora.jpg";
+import diagnosticoMotor from "@/assets/diagnostico-motor.jpg";
+import engineDetail from "@/assets/engine-detail.jpg";
+import carbonFapMachine from "@/assets/carbon-fap-machine.png";
+
+const heroImages: Record<string, string> = {
+  "descarbonizacion-motor-diesel": serviceHero,
+  "limpieza-filtro-particulas": carbonFapMachine,
+  "descarbonizacion-hidrogeno": maquinaDescarbonizadora,
+  "mantenimiento-motor-diesel": engineDetail,
+  "limpieza-egr-catalizador": engineBeforeAfter,
+  "itv-gases": diagnosticoMotor,
+  "aditivos-motor": engineDetail,
+};
+
+const processImages: Record<string, string> = {
+  "descarbonizacion-motor-diesel": obd2Diagnostics,
+  "limpieza-filtro-particulas": maquinaDescarbonizadora,
+  "descarbonizacion-hidrogeno": serviceHero,
+  "mantenimiento-motor-diesel": obd2Diagnostics,
+  "limpieza-egr-catalizador": diagnosticoMotor,
+  "itv-gases": engineBeforeAfter,
+  "aditivos-motor": carbonFapMachine,
+};
 
 interface SolucionData {
   title: string;
