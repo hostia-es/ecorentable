@@ -477,13 +477,10 @@ export default function Index() {
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <AnimatedSection>
               <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
-                El filtro de partículas (FAP/DPF) es una de las piezas más caras del vehículo cuando falla. Su sustitución oscila entre los 500 y los 2.000 euros según el modelo, sin contar mano de obra. Y la mayoría de las veces, la sustitución se puede evitar.
-              </p>
-              <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
-                La estación Carbon FAP de Ecología Rentable limpia el filtro con un ciclo automatizado que elimina el hollín acumulado, las partículas no quemadas y las obstrucciones internas, sin cortes, sin soldaduras y sin manipular la cerámica interior del filtro.
+                Sustituir un FAP cuesta entre 500 y 2.000 €. En la mayoría de casos, se puede evitar con una limpieza profesional.
               </p>
               <p className="text-sm leading-relaxed mb-8 text-muted-foreground">
-                Compatible con filtros de gasolina y diésel. Desarrollada específicamente para talleres que buscan resultados profesionales sin depender de aditivos individuales ni dispositivos de coste elevado.
+                La estación Carbon FAP limpia el filtro con un ciclo automatizado. Sin cortes, sin soldaduras. Compatible con gasolina y diésel.
               </p>
 
               <div className="space-y-4 mb-8">
