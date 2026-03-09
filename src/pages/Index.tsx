@@ -644,8 +644,8 @@ export default function Index() {
             <span className="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
               El mantenimiento que siempre debiste hacer
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 max-w-3xl mx-auto leading-tight">
-              Tu motor lleva kilómetros acumulando lo que nosotros <span className="text-primary">eliminamos en una hora</span>
+            <h2 className="text-2xl md:text-5xl font-bold text-foreground mb-6 max-w-3xl mx-auto leading-tight">
+              Tu motor acumula lo que nosotros <span className="text-primary">eliminamos en una hora</span>
             </h2>
             <p className="text-base mb-10 max-w-2xl mx-auto leading-relaxed text-muted-foreground">
               Sin química. Sin desmontaje. Con informe. Recupera el rendimiento de tu motor en una sola visita.
