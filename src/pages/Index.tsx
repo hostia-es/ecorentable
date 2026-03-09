@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AnimatedSection, AnimatedCounter, StaggerChildren, staggerItem } from "@/components/common/Animations";
 import { useParallaxScroll, useMouseParallax } from "@/hooks/use-parallax";
+import { Timeline } from "@/components/ui/timeline";
 
 /* ═══════════ DATA ═══════════ */
 const heroStats = [
