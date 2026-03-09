@@ -105,11 +105,6 @@ export function CarXRayAnimation() {
           />
         </div>
 
-        {/* Subtle glow underneath */}
-        <div
-          className="absolute -bottom-8 left-[10%] right-[10%] h-16 blur-2xl rounded-full z-0"
-          style={{ background: "hsl(148 70% 40% / 0.2)" }}
-        />
       </motion.div>
     </div>
   );
