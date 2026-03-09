@@ -179,7 +179,7 @@ export default function Index() {
                 className="text-base md:text-lg leading-relaxed max-w-xl mb-8"
                 style={{ color: "hsl(0 0% 100% / 0.55)" }}
               >
-                Descubre nuestros servicios de descarbonización y limpieza de filtros de partículas. ¡Mejora el rendimiento de tu coche y ahorra dinero mientras cuidas el medio ambiente!
+                Con el uso, tu motor acumula residuos de carbono que le hacen gastar más, perder potencia y contaminar. Nosotros los eliminamos con hidrógeno — sin desmontar nada, sin química agresiva y con un informe que demuestra la diferencia.
               </motion.p>
 
               <motion.div
