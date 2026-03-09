@@ -18,6 +18,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { AnimatedSection, AnimatedCounter, StaggerChildren, staggerItem } from "@/components/common/Animations";
 import { useParallaxScroll, useMouseParallax } from "@/hooks/use-parallax";
 import { Timeline } from "@/components/ui/timeline";
+import { FuelLiquidAnimation } from "@/components/common/FuelLiquidAnimation";
 
 /* ═══════════ DATA ═══════════ */
 const heroStats = [
