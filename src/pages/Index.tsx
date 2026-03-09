@@ -140,7 +140,7 @@ export default function Index() {
         <div className="absolute inset-0 grid-pattern opacity-40" />
 
         <motion.div
-          className="relative z-10 container mx-auto px-5 sm:px-6 lg:px-12 pt-24 pb-12 md:py-32"
+          className="relative z-10 container mx-auto px-5 sm:px-6 lg:px-12 pt-20 pb-10 md:py-32 flex items-end sm:items-center min-h-[calc(100svh-64px)] md:min-h-0"
           style={{ y: heroTextY, opacity: heroOpacity }}
         >
           <div className="grid lg:grid-cols-12 gap-8 items-center">
@@ -161,13 +161,13 @@ export default function Index() {
                 transition={{ duration: 0.7, delay: 0.3 }}
                 className="mb-5 md:mb-6"
               >
-                <h1 className="text-[2.5rem] sm:text-[2.8rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.08] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
+                <h1 className="text-[1.75rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight" style={{ color: "hsl(0 0% 100%)" }}>
                   Tu Motor Acumula Suciedad.
                 </h1>
-                <div className="min-h-[1.15em]">
+                <div className="min-h-[2.4em] sm:min-h-[1.15em]">
                   <MorphingText
                     texts={["NOSOTROS LA ELIMINAMOS.", "EN MENOS DE 1 HORA.", "SIN ABRIR EL MOTOR.", "CON RESULTADOS MEDIBLES."]}
-                    className="text-[2.5rem] sm:text-[2.8rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
+                    className="text-[1.75rem] sm:text-[2.5rem] md:text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.12] tracking-tight"
                   />
                 </div>
               </motion.div>

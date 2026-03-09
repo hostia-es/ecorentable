@@ -115,8 +115,8 @@ const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => {
         </defs>
       </svg>
 
-      {/* Invisible spacer — reserves height/width of longest word */}
-      <span className="block invisible whitespace-nowrap" aria-hidden="true">
+      {/* Invisible spacer — reserves height for wrapping text */}
+      <span className="block invisible" aria-hidden="true">
         {longestText}
       </span>
 
@@ -126,12 +126,12 @@ const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => {
       >
         <span
           ref={text1Ref}
-          className="absolute left-0 top-0 block w-full whitespace-nowrap"
+          className="absolute left-0 top-0 block w-full"
           style={{ color: "hsl(148 60% 55%)" }}
         />
         <span
           ref={text2Ref}
-          className="absolute left-0 top-0 block w-full whitespace-nowrap"
+          className="absolute left-0 top-0 block w-full"
           style={{ color: "hsl(148 60% 55%)" }}
         />
       </div>
