@@ -190,12 +190,12 @@ export default function Index() {
               {/* Car floating */}
               <motion.div
                 style={{ y: floatingCard1Y, x: mouse.x }}
-                initial={{ opacity: 0, x: 80 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.5 }}
-                className="absolute top-8 -right-4 w-[340px]"
+                className="absolute top-0 right-0 w-[280px]"
               >
-                <img src={carWhite} alt="Vehículo compatible con descarbonización" className="w-full drop-shadow-2xl" />
+                <img src={hyConnectMachine} alt="Máquina Hy-Carbon Connect" className="w-full drop-shadow-2xl" />
               </motion.div>
 
               {/* Floating glassmorphism card 1 */}
