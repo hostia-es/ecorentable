@@ -5,6 +5,7 @@ import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
+import flexfuelEngine from "@/assets/flexfuel-engine.jpg";
 
 const soluciones = [
   { slug: "descarbonizacion-motor-diesel", title: "Descarbonización motor diésel", desc: "Eliminación de depósitos carbonosos en pistones, válvulas y cámara de combustión de motores diésel.", badge: "Más solicitado" },
@@ -56,15 +57,26 @@ export default function Soluciones() {
         </div>
       </section>
 
-      {/* CÓMO AYUDA */}
+      {/* IMAGE + CÓMO AYUDA */}
       <section className="py-14 section-alt">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <AnimatedSection>
-            <div className="text-center mb-10">
-              <h2 className="text-2xl font-bold mb-3 text-foreground">¿Por qué elegir una solución profesional?</h2>
-            </div>
-          </AnimatedSection>
-          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+            <AnimatedSection>
+              <img
+                src={flexfuelEngine}
+                alt="Motor con sistema FlexFuel instalado"
+                className="rounded-2xl w-full shadow-xl"
+                loading="lazy"
+              />
+            </AnimatedSection>
+            <AnimatedSection delay={0.2}>
+              <div className="text-center lg:text-left">
+                <h2 className="text-2xl font-bold mb-3 text-foreground">¿Por qué elegir una solución profesional?</h2>
+                <p className="text-muted-foreground">Nuestras soluciones están respaldadas por tecnología de última generación y más de 10 años de experiencia en el sector.</p>
+              </div>
+            </AnimatedSection>
+          </div>
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
             {[
               { title: "Diagnóstico previo", desc: "Cada intervención comienza con una lectura OBD2 para identificar el problema con precisión." },
               { title: "Sin desmontaje", desc: "La mayoría de nuestras soluciones no requieren desmontar piezas, reduciendo el tiempo y el coste." },
@@ -72,7 +84,7 @@ export default function Soluciones() {
               { title: "Centros certificados", desc: "Todos nuestros talleres están formados y certificados en los procesos de Ecología Rentable." },
             ].map((item) => (
               <motion.div key={item.title} variants={staggerItem}>
-                <div className="bg-white rounded-2xl border border-border shadow-md p-5 flex gap-3 h-full hover:shadow-xl hover:border-primary/30 transition-all duration-200">
+                <div className="bg-card rounded-2xl border border-border shadow-md p-5 flex gap-3 h-full hover:shadow-xl hover:border-primary/30 transition-all duration-200">
                   <CheckCircle size={18} className="shrink-0 mt-0.5 text-primary" />
                   <div>
                     <h3 className="font-bold text-sm mb-1 text-foreground">{item.title}</h3>

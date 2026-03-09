@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import { AnimatedSection } from "@/components/common/Animations";
+import sociosPartnership from "@/assets/socios-partnership.jpg";
 
 export default function HazteSocio() {
   const [tipo, setTipo] = useState("taller");
@@ -22,6 +23,15 @@ export default function HazteSocio() {
         breadcrumbs={[{ label: "Socios", href: "/socios" }, { label: "Hazte socio" }]}
         badge="Programa de socios"
       />
+      {/* PARTNERSHIP IMAGE */}
+      <section className="py-0 overflow-hidden">
+        <img
+          src={sociosPartnership}
+          alt="Socios de Ecología Rentable cerrando acuerdo"
+          className="w-full h-56 md:h-72 object-cover"
+          loading="lazy"
+        />
+      </section>
 
       <section className="py-16 section-light">
         <div className="container mx-auto px-4">
