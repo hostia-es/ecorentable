@@ -441,7 +441,7 @@ export default function Index() {
           </AnimatedSection>
           <CarXRayAnimation />
           <div className="flex justify-center mt-8">
-            <Link to="/servicios/descarbonizacion" className="btn-cta cursor-pointer">
+            <Link to="/servicios/descarbonizacion" className="btn-primary cursor-pointer">
               Descubre el tratamiento <ArrowRight size={15} />
             </Link>
           </div>
