@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import { AnimatedSection } from "@/components/common/Animations";
+import sociosPartnership from "@/assets/socios-partnership.jpg";
 
 export default function HazteSocio() {
   const [tipo, setTipo] = useState("taller");
