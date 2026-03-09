@@ -85,11 +85,19 @@ export default function Servicios() {
         </div>
       </section>
 
-      {/* DIFERENCIACIÓN */}
+      {/* IMAGE BANNER */}
       <section className="py-14 section-alt">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
+              <img
+                src={mechanicWorkshop}
+                alt="Mecánico profesional realizando descarbonización"
+                className="rounded-2xl w-full shadow-xl"
+                loading="lazy"
+              />
+            </AnimatedSection>
+            <AnimatedSection delay={0.2}>
               <Badge variant="secondary" className="mb-3">¿Por qué Ecología Rentable?</Badge>
               <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
                 Diésel, gasolina e hidrógeno: lo cubrimos todo
