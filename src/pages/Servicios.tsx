@@ -125,7 +125,8 @@ export default function Servicios() {
                 ))}
               </div>
             </AnimatedSection>
-            <AnimatedSection delay={0.2}>
+            </AnimatedSection>
+            <AnimatedSection delay={0.3}>
               <div className="space-y-4">
                 {metrics.map((m, i) => (
                   <motion.div
