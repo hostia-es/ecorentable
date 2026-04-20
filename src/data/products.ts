@@ -212,31 +212,6 @@ export const products: Product[] = [
     featured: false,
   },
   {
-    id: "p9",
-    slug: "maquina-limpieza-dpf-ultrasonidos",
-    name: "Máquina Limpieza DPF Ultrasonidos",
-    shortName: "DPF Ultrasonidos Pro",
-    category: "Máquinas Descarbonizadoras",
-    categorySlug: "maquinas-descarbonizadoras",
-    price: "Consultar precio",
-    description: "Máquina de limpieza de filtros de partículas (DPF/FAP) por ultrasonidos y lavado a presión, para talleres especializados en regeneración de filtros.",
-    technicalDescription: "Sistema profesional de limpieza de DPF/FAP que combina baño de ultrasonidos a 40 kHz, lavado a presión (hasta 8 bar) y secado por insuflación de aire caliente. Capaz de limpiar filtros con obstrucción de hasta 90%, con ciclos de 60–90 minutos por unidad.",
-    specifications: [
-      { label: "Tecnología", value: "Ultrasonidos 40 kHz + lavado presión" },
-      { label: "Capacidad", value: "DPF hasta 500 mm de longitud" },
-      { label: "Presión lavado", value: "2–8 bar ajustable" },
-      { label: "Temperatura baño", value: "30–70°C ajustable" },
-      { label: "Potencia total", value: "3.800 W" },
-      { label: "Ciclo promedio", value: "60–90 min" },
-    ],
-    compatibility: ["DPF/FAP de todos los fabricantes", "Diésel y gasolina GDI", "Tamaños estándar turismos y furgonetas"],
-    includes: ["Máquina principal", "Depósito de baño 40 L", "Kit de adaptadores DPF (15 piezas)", "Líquido limpiador concentrado (5 L)", "Software de seguimiento de ciclos", "Formación inicial (4 h)", "Garantía 2 años"],
-    forWho: ["Talleres especializados en DPF", "Desguaces y talleres de reparación de filtros"],
-    benefits: ["Eficacia >90% en filtros muy obstruidos", "Sin productos abrasivos", "Ciclos automáticos programables"],
-    featured: false,
-    badge: "Profesional",
-  },
-  {
     id: "p10",
     slug: "kit-descarbonizacion-flotas",
     name: "Kit Descarbonización Flotas",
@@ -304,7 +279,7 @@ export const products: Product[] = [
 ];
 
 export const productCategories = [
-  { name: "Máquinas Descarbonizadoras", slug: "maquinas-descarbonizadoras", count: 3, description: "Equipos profesionales de descarbonización por hidrógeno y ultrasonidos para talleres." },
+  { name: "Máquinas Descarbonizadoras", slug: "maquinas-descarbonizadoras", count: 2, description: "Equipos profesionales de descarbonización por hidrógeno para talleres." },
   { name: "Accesorios y Consumibles", slug: "accesorios-consumibles", count: 3, description: "Consumibles, aceites y accesorios de calidad para complementar el servicio de descarbonización." },
   { name: "Kits de Limpieza", slug: "kits-limpieza", count: 3, description: "Kits completos para limpieza DPF, EGR y mantenimiento de motor diésel." },
   { name: "Aditivos", slug: "aditivos", count: 2, description: "Aditivos de combustible y tratamientos para DPF, FAP y sistema de escape." },
