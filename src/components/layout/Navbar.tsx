@@ -25,7 +25,6 @@ const navItems = [
       { label: "Mantenimiento diésel", href: "/soluciones/mantenimiento-motor-diesel" },
       { label: "Limpieza EGR/catalizador", href: "/soluciones/limpieza-egr-catalizador" },
       { label: "ITV gases", href: "/soluciones/itv-gases" },
-      { label: "Aditivos motor", href: "/soluciones/aditivos-motor" },
     ],
   },
   { label: "Blog", href: "/blog" },
