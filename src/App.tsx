@@ -1,3 +1,9 @@
+// 🔒 FROZEN ROUTES — DO NOT MODIFY EXISTING <Route path="..."> VALUES
+// Append-only. Renaming any path destroys SEO and breaks backlinks.
+// New routes: append at the bottom. Renames: add new path + 301 in seo_redirects.
+// See: src/config/frozenUrls.ts and mem://constraints/seo/frozen-urls-policy
+// Frozen on: 2026-04-20
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";

@@ -1,3 +1,8 @@
+# 🔒 FROZEN FILE — DO NOT MODIFY EXISTING ENTRIES
+# Append-only. Renaming any path requires a 301 redirect via seo_redirects.
+# See: src/config/frozenUrls.ts and mem://constraints/seo/frozen-urls-policy
+# Frozen on: 2026-04-20
+
 User-agent: Googlebot
 Allow: /
 
