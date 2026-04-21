@@ -74,22 +74,24 @@ export default function Navbar() {
                 </Link>
 
                 {item.children && activeDropdown === item.href && (
-                  <div
-                    className="absolute top-full left-0 mt-1 w-56 rounded-lg border bg-white shadow-lg py-1 z-50"
-                    style={{ borderColor: "hsl(var(--border))", boxShadow: "var(--shadow-hero)" }}
-                  >
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        to={child.href}
-                        className="block px-4 py-2 text-sm transition-colors hover:bg-secondary"
-                        style={{ color: "hsl(var(--foreground))" }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(var(--primary))")}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(var(--foreground))")}
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
+                  <div className="absolute top-full left-0 pt-2 w-56 z-50">
+                    <div
+                      className="rounded-lg border bg-white shadow-lg py-1"
+                      style={{ borderColor: "hsl(var(--border))", boxShadow: "var(--shadow-hero)" }}
+                    >
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          to={child.href}
+                          className="block px-4 py-2 text-sm transition-colors hover:bg-secondary"
+                          style={{ color: "hsl(var(--foreground))" }}
+                          onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(var(--primary))")}
+                          onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(var(--foreground))")}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
