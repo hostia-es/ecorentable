@@ -117,8 +117,8 @@ export default function Index() {
           <span className="hidden sm:inline opacity-50">·</span>
           <span className="hidden sm:flex items-center gap-1.5"><Clock size={12} /> Lun – Vie, 07:00 – 15:00</span>
           <span className="hidden sm:inline opacity-50">·</span>
-          <a href="tel:+34600000000" className="flex items-center gap-1 sm:gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
-            <Phone size={11} /> +34 600 000 000
+          <a href="tel:+34605928626" className="flex items-center gap-1 sm:gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
+            <Phone size={11} /> +34 605 928 626
           </a>
         </div>
       </div>
@@ -813,7 +813,7 @@ export default function Index() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href="tel:+34600000000" className="btn-primary cursor-pointer">
+              <a href="tel:+34605928626" className="btn-primary cursor-pointer">
                 <Phone size={15} /> Llamar ahora
               </a>
               <Link to="/contacto" className="btn-secondary cursor-pointer">

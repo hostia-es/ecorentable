@@ -110,7 +110,7 @@ export default function Accesibilidad() {
             </div>
             <div className="flex items-center gap-2 text-sm" style={{ color: "hsl(var(--foreground))" }}>
               <Phone size={14} style={{ color: "hsl(var(--primary))" }} />
-              <span>+34 900 123 456 (horario de oficina, L–V 9h–18h)</span>
+              <span>+34 605 928 626 (Lun–Vie 7:00–15:00)</span>
             </div>
             <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>Respondemos en un plazo máximo de 5 días hábiles. Si la respuesta no es satisfactoria, puedes acudir al <a href="https://administracion.gob.es" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: "hsl(var(--primary))" }}>Portal de la Administración del Estado</a>.</p>
           </div>
