@@ -1,138 +1,150 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 
+/**
+ * Minimal vertical "flow" animation.
+ * A single thin line draws itself as the user scrolls,
+ * with subtle particles and a refined wordmark in the center.
+ * Designed to feel calm, premium and editorial.
+ */
 export const FuelLiquidAnimation = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const liquidHeight = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "100%", "100%"]);
-  const liquidOpacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
-  const bubbleY1 = useTransform(scrollYProgress, [0.1, 0.5], [100, -20]);
-  const bubbleY2 = useTransform(scrollYProgress, [0.15, 0.55], [120, -30]);
-  const bubbleY3 = useTransform(scrollYProgress, [0.2, 0.6], [80, -40]);
-  const bubbleOpacity = useTransform(scrollYProgress, [0.1, 0.25, 0.5, 0.6], [0, 1, 1, 0]);
-  const dropY1 = useTransform(scrollYProgress, [0, 0.3], [-20, 200]);
-  const dropY2 = useTransform(scrollYProgress, [0.05, 0.35], [-30, 220]);
-  const dropY3 = useTransform(scrollYProgress, [0.1, 0.4], [-10, 180]);
-  const splashScale = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]);
-  const splashOpacity = useTransform(scrollYProgress, [0.4, 0.5, 0.65], [0, 0.8, 0]);
+  // Line drawing — slow, deliberate
+  const lineScale = useTransform(scrollYProgress, [0.05, 0.6], [0, 1]);
+  const lineOpacity = useTransform(scrollYProgress, [0, 0.1, 0.85, 1], [0, 1, 1, 0]);
+
+  // Wordmark fade — appears once the line has drawn most of itself
+  const wordmarkOpacity = useTransform(scrollYProgress, [0.25, 0.45, 0.85, 1], [0, 1, 1, 0]);
+  const wordmarkY = useTransform(scrollYProgress, [0.25, 0.45], [12, 0]);
+
+  // Horizontal accent line under the wordmark
+  const accentScale = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
+
+  // Subtle particles drifting upward
+  const particleOpacity = useTransform(scrollYProgress, [0.2, 0.4, 0.75, 0.9], [0, 1, 1, 0]);
 
   return (
-    <div ref={containerRef} className="relative h-[400px] w-full overflow-hidden">
-      {/* Background subtle gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-
-      {/* Central pipe / tube */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[3px] bg-border/50 rounded-full" />
-
-      {/* Liquid filling the pipe */}
-      <motion.div
-        className="absolute left-1/2 -translate-x-1/2 top-0 w-[3px] rounded-full origin-top"
+    <div
+      ref={containerRef}
+      className="relative h-[420px] w-full overflow-hidden"
+      aria-hidden="true"
+    >
+      {/* Soft radial glow behind the composition */}
+      <div
+        className="absolute inset-0 pointer-events-none"
         style={{
-          height: liquidHeight,
-          opacity: liquidOpacity,
-          background: "linear-gradient(180deg, hsl(82 70% 45% / 0.9), hsl(82 65% 40% / 0.7), hsl(45 80% 50% / 0.8))",
-          boxShadow: "0 0 12px hsl(82 70% 45% / 0.5), 0 0 30px hsl(82 70% 45% / 0.2)",
+          background:
+            "radial-gradient(ellipse 50% 60% at 50% 50%, hsl(148 60% 55% / 0.06), transparent 70%)",
         }}
       />
 
-      {/* Fuel drops falling */}
+      {/* Track (faint guide) */}
+      <div
+        className="absolute left-1/2 top-[12%] bottom-[12%] w-px -translate-x-1/2"
+        style={{ background: "hsl(var(--border) / 0.5)" }}
+      />
+
+      {/* Animated drawing line */}
+      <motion.div
+        className="absolute left-1/2 top-[12%] bottom-[12%] w-px -translate-x-1/2 origin-top"
+        style={{
+          scaleY: reduceMotion ? 1 : lineScale,
+          opacity: reduceMotion ? 1 : lineOpacity,
+          background:
+            "linear-gradient(180deg, transparent 0%, hsl(148 55% 50% / 0.9) 20%, hsl(148 55% 45% / 0.9) 80%, transparent 100%)",
+          boxShadow: "0 0 8px hsl(148 60% 50% / 0.35)",
+        }}
+      />
+
+      {/* Leading dot at the bottom of the drawing line */}
+      <motion.div
+        className="absolute left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full"
+        style={{
+          top: useTransform(scrollYProgress, [0.05, 0.6], ["12%", "88%"]),
+          opacity: lineOpacity,
+          background: "hsl(148 60% 50%)",
+          boxShadow: "0 0 14px hsl(148 60% 50% / 0.6), 0 0 28px hsl(148 60% 50% / 0.25)",
+        }}
+      />
+
+      {/* Floating particles */}
       {[
-        { x: "calc(50% - 15px)", y: dropY1, size: 8, delay: 0 },
-        { x: "calc(50% + 12px)", y: dropY2, size: 6, delay: 0.1 },
-        { x: "calc(50% - 5px)", y: dropY3, size: 10, delay: 0.15 },
-      ].map((drop, i) => (
+        { x: -60, delay: 0, size: 3 },
+        { x: 70, delay: 0.4, size: 2 },
+        { x: -90, delay: 0.8, size: 2 },
+        { x: 95, delay: 1.2, size: 3 },
+        { x: -40, delay: 1.6, size: 2 },
+        { x: 50, delay: 2.0, size: 2 },
+      ].map((p, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full"
+          className="absolute left-1/2 top-1/2 rounded-full"
           style={{
-            left: drop.x,
-            y: drop.y,
-            width: drop.size,
-            height: drop.size * 1.4,
-            opacity: liquidOpacity,
-            background: "radial-gradient(ellipse, hsl(82 70% 50% / 0.9), hsl(45 80% 45% / 0.7))",
-            boxShadow: "0 0 8px hsl(82 70% 45% / 0.4)",
-            borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+            width: p.size,
+            height: p.size,
+            background: "hsl(148 60% 55% / 0.6)",
+            opacity: particleOpacity,
+          }}
+          animate={
+            reduceMotion
+              ? undefined
+              : {
+                  x: [p.x, p.x + (p.x > 0 ? 8 : -8), p.x],
+                  y: [40, -40, 40],
+                }
+          }
+          transition={{
+            duration: 6 + i * 0.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: p.delay,
           }}
         />
       ))}
 
-      {/* Bubbles rising */}
-      {[
-        { x: "calc(50% - 20px)", y: bubbleY1, size: 6 },
-        { x: "calc(50% + 18px)", y: bubbleY2, size: 4 },
-        { x: "calc(50% - 8px)", y: bubbleY3, size: 5 },
-      ].map((bubble, i) => (
-        <motion.div
-          key={`bubble-${i}`}
-          className="absolute rounded-full"
-          style={{
-            left: bubble.x,
-            y: bubble.y,
-            width: bubble.size,
-            height: bubble.size,
-            opacity: bubbleOpacity,
-            background: "hsl(82 70% 60% / 0.3)",
-            border: "1px solid hsl(82 70% 55% / 0.5)",
-            boxShadow: "inset 0 -2px 4px hsl(82 70% 40% / 0.2)",
-          }}
-        />
-      ))}
-
-      {/* Splash effect at bottom */}
+      {/* Centered wordmark */}
       <motion.div
-        className="absolute left-1/2 -translate-x-1/2 bottom-[30%] w-24 h-6"
-        style={{ scale: splashScale, opacity: splashOpacity }}
+        className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+        style={{
+          opacity: reduceMotion ? 1 : wordmarkOpacity,
+          y: reduceMotion ? 0 : wordmarkY,
+        }}
       >
-        <div
-          className="w-full h-full rounded-[50%]"
-          style={{
-            background: "radial-gradient(ellipse, hsl(82 70% 50% / 0.4), transparent 70%)",
-            boxShadow: "0 0 20px hsl(82 70% 45% / 0.3)",
-          }}
-        />
-      </motion.div>
-
-      {/* "Flex Fuel" label */}
-      <motion.div
-        className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
-        style={{ opacity: liquidOpacity }}
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: "hsl(82 70% 40%)" }}>
+        <div className="flex items-center gap-3 mb-3">
+          <motion.div
+            className="h-px w-8"
+            style={{
+              background: "hsl(148 55% 50% / 0.5)",
+              scaleX: reduceMotion ? 1 : accentScale,
+              transformOrigin: "right",
+            }}
+          />
+          <span
+            className="text-[10px] font-medium tracking-[0.4em] uppercase"
+            style={{ color: "hsl(148 55% 40%)" }}
+          >
             Ecología Rentable
           </span>
-          <span className="text-[10px] tracking-wider uppercase text-muted-foreground">
-            Tecnología limpia
-          </span>
+          <motion.div
+            className="h-px w-8"
+            style={{
+              background: "hsl(148 55% 50% / 0.5)",
+              scaleX: reduceMotion ? 1 : accentScale,
+              transformOrigin: "left",
+            }}
+          />
         </div>
+        <span className="text-[11px] tracking-[0.25em] uppercase text-muted-foreground/80">
+          Tecnología limpia
+        </span>
       </motion.div>
-
-      {/* Side decorative drips */}
-      {[
-        { side: "left", offset: "30%", height: "40%" },
-        { side: "right", offset: "25%", height: "35%" },
-        { side: "left", offset: "60%", height: "25%" },
-        { side: "right", offset: "55%", height: "30%" },
-      ].map((drip, i) => (
-        <motion.div
-          key={`drip-${i}`}
-          className="absolute w-[2px] rounded-full origin-top"
-          style={{
-            [drip.side]: `calc(50% ${drip.side === "left" ? "-" : "+"} 40px)`,
-            top: drip.offset,
-            height: liquidHeight,
-            maxHeight: drip.height,
-            opacity: useTransform(scrollYProgress, [0.2 + i * 0.05, 0.35 + i * 0.05], [0, 0.5]),
-            background: `linear-gradient(180deg, hsl(82 70% 50% / 0.6), hsl(45 75% 50% / 0.3), transparent)`,
-          }}
-        />
-      ))}
     </div>
   );
 };
