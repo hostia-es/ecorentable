@@ -117,13 +117,16 @@ export default function Footer() {
             © {new Date().getFullYear()} Ecología Rentable. Todos los derechos reservados.
           </p>
 
-          {/* Kit Digital */}
-          <img
-            src={kitDigitalBanner}
-            alt="Financiado por la Unión Europea con el programa Kit Digital"
-            className="max-w-full h-auto mt-2"
-            style={{ maxHeight: "50px", filter: "brightness(0) invert(1)", opacity: 0.6 }}
-          />
+          {/* Kit Digital — banner institucional, no se debe alterar el color */}
+          <div className="mt-3 inline-block rounded-md bg-white px-4 py-2">
+            <img
+              src={kitDigitalBanner}
+              alt="Financiado por la Unión Europea con el programa Kit Digital del Plan de Recuperación, Transformación y Resiliencia (Next Generation EU)"
+              className="block h-auto w-auto"
+              style={{ maxHeight: "44px", maxWidth: "100%" }}
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
     </footer>
