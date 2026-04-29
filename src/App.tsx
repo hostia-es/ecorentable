@@ -91,11 +91,11 @@ function AppShell() {
         <Route path="/descarbonizacion" element={<LegacyDescarbonizacion />} />
         <Route path="/limpieza-de-filtros-de-particulas" element={<LegacyLimpiezaFiltros />} />
         <Route path="/socio" element={<Navigate to="/socios" replace />} />
-        <Route path="/carbon-fap" element={<Navigate to="/tienda/aditivos/carbon-fap" replace />} />
-        <Route path="/hy-calamine-1000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-1000s-egr-pilot" replace />} />
-        <Route path="/hy-calamine-2000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-2000s-egr-pilot" replace />} />
-        <Route path="/hy-calamine-3000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-3000s-egr-pilot" replace />} />
-        <Route path="/hy-carbon-connect" element={<Navigate to="/tienda/accesorios-consumibles/hy-carbon-connect" replace />} />
+        <Route path="/carbon-fap" element={<Navigate to="/tienda/maquinas-limpieza-filtro-particulas/carbon-fap" replace />} />
+        <Route path="/hy-calamine-1000s-egr-pilot" element={<Navigate to="/tienda/descarbonizadoras/h2-profit-1000" replace />} />
+        <Route path="/hy-calamine-2000s-egr-pilot" element={<Navigate to="/tienda/descarbonizadoras/h2-profit-2000" replace />} />
+        <Route path="/hy-calamine-3000s-egr-pilot" element={<Navigate to="/tienda/descarbonizadoras/h2-profit-3000" replace />} />
+        <Route path="/hy-carbon-connect" element={<Navigate to="/tienda/descarbonizadoras/hy-carbon-connect" replace />} />
 
         {/* APPEND-ONLY new routes */}
         <Route path="/encuentra-tu-centro" element={<EncuentraTuCentro />} />

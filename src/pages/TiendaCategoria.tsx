@@ -5,29 +5,29 @@ import CTABox from "@/components/common/CTABox";
 import { products } from "@/data/products";
 
 const categoryNames: Record<string, { name: string; desc: string }> = {
-  "maquinas-descarbonizadoras": { name: "Máquinas Descarbonizadoras", desc: "Gama completa Hy-Calamine de equipos profesionales de descarbonización por hidrógeno (HHO) y limpieza DPF por ultrasonidos." },
-  "accesorios-consumibles": { name: "Accesorios y Consumibles", desc: "Módulos de diagnóstico, adaptadores, limpiadores y consumibles para complementar el equipo de descarbonización." },
-  "kits-limpieza": { name: "Kits de Limpieza", desc: "Kits completos para limpieza DPF, EGR y descarbonización. Ideales para talleres que inician en el servicio o para flotas." },
-  "aditivos": { name: "Aditivos para Motor y Combustible", desc: "Aditivos profesionales para mantenimiento preventivo del DPF/FAP, EGR, catalizador e inyectores. Formatos taller y particular." },
-  "maquinas-descarbonizadoras-nuevas": {
-    name: "Máquinas descarbonizadoras nuevas",
-    desc: "Gama completa de máquinas descarbonizadoras nuevas para talleres, empresas y profesionales. Equipos certificados CE con garantía de 2 a 4 años.",
+  "descarbonizadoras": {
+    name: "Descarbonizadoras profesionales",
+    desc: "Gama H2 Profit 1000, 2000 y 3000 más Hy-Carbon Connect. Equipos nuevos de descarbonización por hidrógeno para coches, camiones y flotas.",
   },
-  "maquinas-descarbonizadoras-reacondicionadas": {
-    name: "Máquinas descarbonizadoras reacondicionadas",
-    desc: "Máquinas descarbonizadoras profesionales reacondicionadas y validadas técnicamente. Mismas prestaciones, mejor precio.",
+  "descarbonizadoras-reacondicionadas": {
+    name: "Descarbonizadoras reacondicionadas",
+    desc: "Equipos reacondicionados y validados técnicamente. Mismas prestaciones que los modelos nuevos con mejor precio. Disponibilidad sujeta a stock.",
   },
-  "maquinas-limpieza-filtro-de-particulas": {
+  "maquinas-limpieza-filtro-particulas": {
     name: "Máquinas de limpieza de filtro de partículas",
-    desc: "Equipos profesionales para limpieza de filtro de partículas DPF/FAP. Para talleres y centros especializados.",
+    desc: "Equipos profesionales para limpieza de filtro de partículas DPF/FAP gasolina y diésel. Para talleres especializados en DPF.",
   },
   "opacimetros": {
-    name: "Opacímetros",
-    desc: "Opacímetros homologados para talleres y empresas con necesidades de medición de opacidad y diagnóstico de emisiones diésel.",
+    name: "Opacímetros profesionales",
+    desc: "Opacímetros para talleres y centros pre-ITV con necesidades de medición de opacidad y diagnosis de emisiones diésel.",
   },
   "analizadores-de-gases": {
-    name: "Analizadores de gases",
-    desc: "Analizadores de gases de escape profesionales para diagnóstico y control de emisiones en talleres y flotas.",
+    name: "Analizadores de gases profesionales",
+    desc: "Analizadores de gases de escape para diagnosis y control de emisiones en gasolina y diésel. Para talleres y centros pre-ITV.",
+  },
+  "kit-opacidad": {
+    name: "Kit Opacidad para talleres",
+    desc: "Solución integral con opacímetro y analizador de gases. Para talleres que quieren equiparse completamente en diagnóstico de emisiones. Solo venta.",
   },
 };
 
