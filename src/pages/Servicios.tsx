@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Zap, Shield, Wrench, Truck, Leaf, TrendingUp, Package, Gauge, Activity } from "lucide-react";
+import { ArrowRight, CheckCircle, Zap, Shield, Wrench, Truck, Leaf, TrendingUp, Package, Gauge, Activity, Repeat2 } from "lucide-react";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
@@ -29,6 +29,7 @@ const services = [
   { icon: <Package size={22} />, title: "Alquiler y renting de descarbonizadoras", desc: "Accede a máquinas Hy-Calamine profesionales sin inversión. Alquiler mensual o renting con soporte técnico incluido.", href: "/servicios/alquiler-renting-maquinas-descarbonizadoras" },
   { icon: <Gauge size={22} />, title: "Alquiler y renting de opacímetros", desc: "Opacímetros homologados y calibrados sin coste de compra. Ideal para talleres con preparación de ITV.", href: "/servicios/alquiler-renting-opacimetros" },
   { icon: <Activity size={22} />, title: "Alquiler y renting de analizadores de gases", desc: "Analizadores de CO, CO₂, HC, O₂ y lambda en alquiler o renting. Formación y soporte incluidos.", href: "/servicios/alquiler-renting-analizadores-de-gases" },
+  { icon: <Repeat2 size={22} />, title: "Descarbonización para flotas de renting", desc: "Servicio especializado para empresas de renting de coches. Reducción de incidencias, control de emisiones y mantenimiento preventivo planificado.", href: "/servicios/descarbonizacion-para-flotas-de-renting" },
 ];
 
 const metrics = [

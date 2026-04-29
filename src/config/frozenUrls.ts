@@ -86,6 +86,11 @@ export const FROZEN_PUBLIC_URLS = Object.freeze([
 
   // NUEVO SERVICIO FLOTAS RENTING
   "/servicios/descarbonizacion-para-flotas-de-renting",
+
+  // SERVICIOS ALQUILER/RENTING POR TIPO DE EQUIPO
+  "/servicios/alquiler-renting-maquinas-descarbonizadoras",
+  "/servicios/alquiler-renting-opacimetros",
+  "/servicios/alquiler-renting-analizadores-de-gases",
 ] as const);
 
 export type FrozenPublicUrl = (typeof FROZEN_PUBLIC_URLS)[number];
