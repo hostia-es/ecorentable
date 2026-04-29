@@ -1,16 +1,20 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Navigate, Outlet, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
   Settings,
   ChevronLeft,
   Activity,
+  FileText,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { label: "Blog", href: "/admin/blog", icon: FileText },
   { label: "Leads / CRM", href: "/admin/leads", icon: Users },
   { label: "Configuración", href: "/admin/settings", icon: Settings },
 ];
@@ -18,6 +22,14 @@ const navItems = [
 export default function AdminLayout() {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
+  const { user, isEditor, loading, signOut } = useAuth();
+
+  if (loading) {
+    return <div className="min-h-screen bg-[hsl(210,25%,4%)] text-white flex items-center justify-center text-sm">Cargando…</div>;
+  }
+  if (!user || !isEditor) {
+    return <Navigate to="/admin/login" replace state={{ from: location.pathname }} />;
+  }
 
   const isActive = (href: string) =>
     href === "/admin"
@@ -26,7 +38,6 @@ export default function AdminLayout() {
 
   return (
     <div className="min-h-screen flex bg-[hsl(210,25%,4%)] text-white">
-      {/* Sidebar */}
       <aside
         className={cn(
           "sticky top-0 h-screen flex flex-col border-r border-white/5 transition-all duration-300",
@@ -34,7 +45,6 @@ export default function AdminLayout() {
         )}
         style={{ background: "hsl(210 25% 6%)" }}
       >
-        {/* Header */}
         <div className="flex items-center justify-between h-14 px-4 border-b border-white/5">
           {!collapsed && (
             <span className="flex items-center gap-2 text-sm font-bold tracking-wide text-[hsl(148,72%,45%)]">
@@ -46,14 +56,10 @@ export default function AdminLayout() {
             onClick={() => setCollapsed(!collapsed)}
             className="p-1 rounded hover:bg-white/10 transition-colors"
           >
-            <ChevronLeft
-              size={18}
-              className={cn("transition-transform", collapsed && "rotate-180")}
-            />
+            <ChevronLeft size={18} className={cn("transition-transform", collapsed && "rotate-180")} />
           </button>
         </div>
 
-        {/* Nav */}
         <nav className="flex-1 py-4 space-y-1 px-2">
           {navItems.map((item) => (
             <Link
@@ -72,19 +78,21 @@ export default function AdminLayout() {
           ))}
         </nav>
 
-        {/* Back to site */}
-        <div className="p-3 border-t border-white/5">
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-xs text-[hsl(0,0%,45%)] hover:text-white transition-colors"
+        <div className="p-3 border-t border-white/5 space-y-2">
+          <button
+            onClick={() => signOut()}
+            className="flex items-center gap-2 text-xs text-[hsl(0,0%,45%)] hover:text-white transition-colors w-full"
           >
+            <LogOut size={14} />
+            {!collapsed && <span>Cerrar sesión</span>}
+          </button>
+          <Link to="/" className="flex items-center gap-2 text-xs text-[hsl(0,0%,45%)] hover:text-white transition-colors">
             <ChevronLeft size={14} />
             {!collapsed && <span>Volver al sitio</span>}
           </Link>
         </div>
       </aside>
 
-      {/* Main */}
       <main className="flex-1 overflow-auto">
         <Outlet />
       </main>
