@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { MapPin, Navigation, Phone, SearchX, ExternalLink, BadgeCheck, Search, Wrench, Lightbulb, ShoppingBag, Users, BookOpen, Leaf } from "lucide-react";
+import { Link } from "react-router-dom";
+import { MapPin, Navigation, Phone, SearchX, BadgeCheck, Search, Wrench, Lightbulb, ShoppingBag, Users, BookOpen, Leaf, ArrowRight } from "lucide-react";
 import RelatedHubs from "@/components/common/RelatedHubs";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import { workshops, workshopProvincias } from "@/data/workshops";
+import { getProvinciaSlug, getWorkshopsByProvincia } from "@/lib/workshopHelpers";
 
 // Extrae solo dígitos nacionales (sin prefijo +34)
 const getNationalDigits = (phone: string) => {
@@ -188,18 +190,50 @@ export default function EncuentraTuCentro() {
                     </div>
                   )}
 
-                  <a
-                    href={`https://www.flexfuel-company.es/encuentra-un-taller/${w.slug}/`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    to={`/encuentra-tu-centro/${getProvinciaSlug(w.provincia)}/${w.slug}`}
                     className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
                   >
-                    Ver más detalles <ExternalLink size={13} />
-                  </a>
+                    Ver ficha completa <ArrowRight size={13} aria-hidden="true" />
+                  </Link>
                 </article>
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* GRID POR PROVINCIA */}
+      <section className="py-14 section-light" aria-labelledby="seccion-provincias">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 id="seccion-provincias" className="text-2xl md:text-3xl font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>
+            Centros por provincia
+          </h2>
+          <p className="text-sm mb-8 max-w-2xl" style={{ color: "hsl(var(--muted-foreground))" }}>
+            Acceda a la ficha completa de cada provincia con servicios, área de cobertura y FAQ específico.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {workshopProvincias.map((p) => {
+              const count = getWorkshopsByProvincia(p).length;
+              return (
+                <Link
+                  key={p}
+                  to={`/encuentra-tu-centro/${getProvinciaSlug(p)}`}
+                  className="card-eco p-4 group hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <MapPin size={14} className="text-primary" aria-hidden="true" />
+                    <span className="text-sm font-semibold group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>
+                      {p}
+                    </span>
+                  </div>
+                  <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>
+                    {count} centro{count !== 1 ? "s" : ""}
+                  </p>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
 

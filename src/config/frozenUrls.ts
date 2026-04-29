@@ -95,6 +95,10 @@ export const FROZEN_PUBLIC_URLS = Object.freeze([
   // BLOG PILLAR PAGES
   "/blog/itv",
   "/blog/guias",
+
+  // CENTROS POR PROVINCIA Y FICHAS DE CENTRO (rutas dinámicas)
+  "/encuentra-tu-centro/:provincia",
+  "/encuentra-tu-centro/:provincia/:slug",
 ] as const);
 
 // Note: append-only additions go inside FROZEN_PUBLIC_URLS above this line.
