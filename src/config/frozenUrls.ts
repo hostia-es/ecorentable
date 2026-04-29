@@ -56,6 +56,9 @@ export const FROZEN_PUBLIC_URLS = Object.freeze([
   "/hy-calamine-2000s-egr-pilot",
   "/hy-calamine-3000s-egr-pilot",
   "/hy-carbon-connect",
+
+  // APPEND-ONLY new public URLs
+  "/encuentra-tu-centro",
 ] as const);
 
 export type FrozenPublicUrl = (typeof FROZEN_PUBLIC_URLS)[number];

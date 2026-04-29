@@ -28,7 +28,7 @@ const navItems = [
     ],
   },
   { label: "Blog", href: "/blog" },
-  
+  { label: "Encuentra tu centro", href: "/encuentra-tu-centro" },
   { label: "Socios", href: "/socios" },
   { label: "Tienda", href: "/tienda" },
   { label: "Nosotros", href: "/nosotros" },
