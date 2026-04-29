@@ -9,6 +9,26 @@ const categoryNames: Record<string, { name: string; desc: string }> = {
   "accesorios-consumibles": { name: "Accesorios y Consumibles", desc: "Módulos de diagnóstico, adaptadores, limpiadores y consumibles para complementar el equipo de descarbonización." },
   "kits-limpieza": { name: "Kits de Limpieza", desc: "Kits completos para limpieza DPF, EGR y descarbonización. Ideales para talleres que inician en el servicio o para flotas." },
   "aditivos": { name: "Aditivos para Motor y Combustible", desc: "Aditivos profesionales para mantenimiento preventivo del DPF/FAP, EGR, catalizador e inyectores. Formatos taller y particular." },
+  "maquinas-descarbonizadoras-nuevas": {
+    name: "Máquinas descarbonizadoras nuevas",
+    desc: "Gama completa de máquinas descarbonizadoras nuevas para talleres, empresas y profesionales. Equipos certificados CE con garantía de 2 a 4 años.",
+  },
+  "maquinas-descarbonizadoras-reacondicionadas": {
+    name: "Máquinas descarbonizadoras reacondicionadas",
+    desc: "Máquinas descarbonizadoras profesionales reacondicionadas y validadas técnicamente. Mismas prestaciones, mejor precio.",
+  },
+  "maquinas-limpieza-filtro-de-particulas": {
+    name: "Máquinas de limpieza de filtro de partículas",
+    desc: "Equipos profesionales para limpieza de filtro de partículas DPF/FAP. Para talleres y centros especializados.",
+  },
+  "opacimetros": {
+    name: "Opacímetros",
+    desc: "Opacímetros homologados para talleres y empresas con necesidades de medición de opacidad y diagnóstico de emisiones diésel.",
+  },
+  "analizadores-de-gases": {
+    name: "Analizadores de gases",
+    desc: "Analizadores de gases de escape profesionales para diagnóstico y control de emisiones en talleres y flotas.",
+  },
 };
 
 export default function TiendaCategoria() {

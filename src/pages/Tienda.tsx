@@ -13,6 +13,11 @@ const categories = [
   { slug: "accesorios-consumibles", name: "Accesorios y Consumibles", desc: "Módulos de diagnóstico, adaptadores y consumibles para máquinas descarbonizadoras.", count: products.filter(p => p.categorySlug === "accesorios-consumibles").length },
   { slug: "kits-limpieza", name: "Kits de Limpieza", desc: "Kits completos para limpieza DPF, EGR y descarbonización para flotas o talleres.", count: products.filter(p => p.categorySlug === "kits-limpieza").length },
   { slug: "aditivos", name: "Aditivos", desc: "Aditivos profesionales para combustible, DPF/FAP y motor. Formatos taller y particular.", count: products.filter(p => p.categorySlug === "aditivos").length },
+  { slug: "maquinas-descarbonizadoras-nuevas", name: "Descarbonizadoras Nuevas", desc: "Gama completa Hy-Calamine nueva, con garantía 2–4 años y soporte técnico incluido.", count: products.filter(p => p.categorySlug === "maquinas-descarbonizadoras-nuevas").length },
+  { slug: "maquinas-descarbonizadoras-reacondicionadas", name: "Descarbonizadoras Reacondicionadas", desc: "Equipos reacondicionados y validados técnicamente. Mismas prestaciones, mejor precio.", count: products.filter(p => p.categorySlug === "maquinas-descarbonizadoras-reacondicionadas").length },
+  { slug: "maquinas-limpieza-filtro-de-particulas", name: "Limpieza de Filtro DPF/FAP", desc: "Equipos profesionales de limpieza de filtro de partículas para talleres especializados.", count: products.filter(p => p.categorySlug === "maquinas-limpieza-filtro-de-particulas").length },
+  { slug: "opacimetros", name: "Opacímetros", desc: "Opacímetros homologados para medición de opacidad y control de emisiones diésel.", count: products.filter(p => p.categorySlug === "opacimetros").length },
+  { slug: "analizadores-de-gases", name: "Analizadores de Gases", desc: "Analizadores profesionales de CO, CO₂, HC, O₂ y lambda para talleres y flotas.", count: products.filter(p => p.categorySlug === "analizadores-de-gases").length },
 ];
 
 const faqTienda = [
