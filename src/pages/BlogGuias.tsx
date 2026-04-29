@@ -241,7 +241,7 @@ export default function BlogGuias() {
             <ol className="space-y-2 text-sm list-decimal pl-5" style={{ color: "hsl(var(--muted-foreground))" }}>
               <li>Cambio de aceite de calidad ACEA C3/C4 cada 15.000 km en uso urbano.</li>
               <li>Sustitución de filtro de aire y combustible según fabricante.</li>
-              <li>Trayecto largo (>50 km) cada 2 semanas para favorecer regeneración del DPF.</li>
+              <li>Trayecto largo (&gt;50 km) cada 2 semanas para favorecer regeneración del DPF.</li>
               <li>Descarbonización HHO preventiva cada 30.000-50.000 km.</li>
               <li>Lectura OBD2 anual para detectar derivas tempranas.</li>
             </ol>
