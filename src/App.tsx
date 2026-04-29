@@ -36,6 +36,8 @@ import Accesibilidad from "./pages/Accesibilidad";
 import BlogItv from "./pages/BlogItv";
 import BlogGuias from "./pages/BlogGuias";
 import EncuentraTuCentro from "./pages/EncuentraTuCentro";
+import CentroProvincia from "./pages/CentroProvincia";
+import CentroDetalle from "./pages/CentroDetalle";
 import LegacyDescarbonizacion from "./pages/LegacyDescarbonizacion";
 import LegacyLimpiezaFiltros from "./pages/LegacyLimpiezaFiltros";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -103,6 +105,8 @@ function AppShell() {
 
         {/* APPEND-ONLY new routes */}
         <Route path="/encuentra-tu-centro" element={<EncuentraTuCentro />} />
+        <Route path="/encuentra-tu-centro/:provincia" element={<CentroProvincia />} />
+        <Route path="/encuentra-tu-centro/:provincia/:slug" element={<CentroDetalle />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
