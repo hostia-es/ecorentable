@@ -34,6 +34,7 @@ import ProductoDetalle from "./pages/ProductoDetalle";
 import Contacto from "./pages/Contacto";
 import Accesibilidad from "./pages/Accesibilidad";
 import BlogItv from "./pages/BlogItv";
+import BlogGuias from "./pages/BlogGuias";
 import EncuentraTuCentro from "./pages/EncuentraTuCentro";
 import LegacyDescarbonizacion from "./pages/LegacyDescarbonizacion";
 import LegacyLimpiezaFiltros from "./pages/LegacyLimpiezaFiltros";
@@ -69,6 +70,7 @@ function AppShell() {
         {/* BLOG */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/itv" element={<BlogItv />} />
+        <Route path="/blog/guias" element={<BlogGuias />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/blog/categoria/:category" element={<BlogCategory />} />
 
