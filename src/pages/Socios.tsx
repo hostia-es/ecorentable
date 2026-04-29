@@ -49,7 +49,7 @@ export default function Socios() {
     <main>
       <PageHero
         title="Únete a Nuestra Red de Socios"
-        breadcrumbs={[{ label: "¿Quiéres Ser Socio?" }]}
+        breadcrumbs={[{ label: "Socios" }]}
       />
 
       {/* MODELO DE NEGOCIO */}

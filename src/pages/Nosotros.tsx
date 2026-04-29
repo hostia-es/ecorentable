@@ -24,7 +24,7 @@ export default function Nosotros() {
     <main>
       <PageHero
         title="Nosotros"
-        breadcrumbs={[{ label: "¿Quiénes somos?" }]}
+        breadcrumbs={[{ label: "Nosotros" }]}
       />
 
       {/* INTRO + YOUNES */}
