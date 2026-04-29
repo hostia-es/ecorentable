@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Zap, Shield, Wrench, Truck, Leaf, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle, Zap, Shield, Wrench, Truck, Leaf, TrendingUp, Package, Gauge, Activity } from "lucide-react";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
@@ -26,6 +26,9 @@ const services = [
   { icon: <Wrench size={22} />, title: "Para talleres", desc: "Equipos descarbonizadores, formación y soporte técnico para talleres que quieren ofrecer el servicio a sus clientes.", href: "/servicios/talleres" },
   { icon: <Truck size={22} />, title: "Para flotas", desc: "Planes de mantenimiento preventivo para flotas de empresa: mantenimiento programado, informes y presupuesto por vehículo.", href: "/servicios/flotas" },
   { icon: <TrendingUp size={22} />, title: "Reducción gases ITV", desc: "Descarbonización previa a la ITV para reducir emisiones por debajo de los límites exigidos en la inspección.", href: "/soluciones/itv-gases" },
+  { icon: <Package size={22} />, title: "Alquiler y renting de descarbonizadoras", desc: "Accede a máquinas Hy-Calamine profesionales sin inversión. Alquiler mensual o renting con soporte técnico incluido.", href: "/servicios/alquiler-renting-maquinas-descarbonizadoras" },
+  { icon: <Gauge size={22} />, title: "Alquiler y renting de opacímetros", desc: "Opacímetros homologados y calibrados sin coste de compra. Ideal para talleres con preparación de ITV.", href: "/servicios/alquiler-renting-opacimetros" },
+  { icon: <Activity size={22} />, title: "Alquiler y renting de analizadores de gases", desc: "Analizadores de CO, CO₂, HC, O₂ y lambda en alquiler o renting. Formación y soporte incluidos.", href: "/servicios/alquiler-renting-analizadores-de-gases" },
 ];
 
 const metrics = [
