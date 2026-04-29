@@ -181,7 +181,7 @@ export default function EncuentraTuCentro() {
                           className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors"
                         >
                           <Phone size={13} className="text-primary shrink-0" />
-                          <span>{p}</span>
+                          <span>{formatPhoneES(p)}</span>
                         </a>
                       ))}
                     </div>
