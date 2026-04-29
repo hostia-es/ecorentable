@@ -203,6 +203,19 @@ export default function EncuentraTuCentro() {
         </div>
       </section>
 
+      <RelatedHubs
+        eyebrow="Navegación"
+        heading="Continúe explorando Ecología Rentable"
+        items={[
+          { title: "Servicios", description: "Tratamientos profesionales para particulares y flotas.", href: "/servicios", icon: Wrench },
+          { title: "Soluciones técnicas", description: "Procesos y equipos por tipo de motor.", href: "/soluciones", icon: Lightbulb },
+          { title: "Tienda profesional", description: "Catálogo de máquinas y consumibles.", href: "/tienda", icon: ShoppingBag },
+          { title: "Hazte socio", description: "Únase a la red de talleres certificados.", href: "/socios", icon: Users },
+          { title: "Blog técnico", description: "Guías prácticas y novedades.", href: "/blog", icon: BookOpen },
+          { title: "Sobre nosotros", description: "Conozca el equipo y la trayectoria.", href: "/nosotros", icon: Leaf },
+        ]}
+      />
+
       <CTABox
         title="¿Tienes un taller y quieres aparecer aquí?"
         description="Únete a la red de centros certificados Ecología Rentable. Formación, soporte técnico y captación de clientes incluidos."

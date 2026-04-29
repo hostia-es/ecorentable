@@ -119,6 +119,19 @@ export default function Nosotros() {
       </section>
 
       <FAQSection items={faqItems} title="Preguntas Frecuentes" />
+
+      <RelatedHubs
+        eyebrow="Navegación"
+        heading="Continúe explorando Ecología Rentable"
+        items={[
+          { title: "Servicios", description: "Tratamientos profesionales para particulares y flotas.", href: "/servicios", icon: Wrench },
+          { title: "Soluciones técnicas", description: "Procesos y equipos por tipo de motor.", href: "/soluciones", icon: Lightbulb },
+          { title: "Tienda profesional", description: "Catálogo de máquinas y consumibles.", href: "/tienda", icon: ShoppingBag },
+          { title: "Encuentra tu centro", description: "Red nacional de talleres certificados.", href: "/encuentra-tu-centro", icon: MapPin },
+          { title: "Hazte socio", description: "Programa para talleres y distribuidores.", href: "/socios", icon: Users },
+          { title: "Blog técnico", description: "Guías prácticas y novedades.", href: "/blog", icon: BookOpen },
+        ]}
+      />
     </main>
   );
 }
