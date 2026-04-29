@@ -154,7 +154,8 @@ export default function Blog() {
                             </div>
                           </div>
                         </article>
-                      </Link>
+                        </Link>
+                      </FollowerPointerCard>
                     ))}
                   </div>
 
