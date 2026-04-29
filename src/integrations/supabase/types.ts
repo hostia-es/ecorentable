@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      blog_calendar_sync: {
+        Row: {
+          blog_post_id: string | null
+          created_at: string
+          error_message: string | null
+          id: string
+          keyword_slug: string
+          sheet_category: string | null
+          sheet_city: string | null
+          sheet_fecha: string | null
+          sheet_idea: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          blog_post_id?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          keyword_slug: string
+          sheet_category?: string | null
+          sheet_city?: string | null
+          sheet_fecha?: string | null
+          sheet_idea?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          blog_post_id?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          keyword_slug?: string
+          sheet_category?: string | null
+          sheet_city?: string | null
+          sheet_fecha?: string | null
+          sheet_idea?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       blog_comments: {
         Row: {
           approved: boolean
