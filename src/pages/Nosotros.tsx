@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { AnimatedSection } from "@/components/common/Animations";
 import PageHero from "@/components/common/PageHero";
 import FAQSection from "@/components/common/FAQSection";
+import RelatedHubs from "@/components/common/RelatedHubs";
+import { Wrench, Lightbulb, ShoppingBag, MapPin, Users, BookOpen } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
