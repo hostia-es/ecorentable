@@ -1,269 +1,316 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Clock, Calendar, Tag, MapPin, Twitter, Facebook, Linkedin, Lock, ArrowRight } from "lucide-react";
-import PageHero from "@/components/common/PageHero";
-import CTABox from "@/components/common/CTABox";
-import { blogPosts as legacyPosts } from "@/data/blog";
 import { supabase } from "@/integrations/supabase/client";
-import { renderMarkdown } from "@/lib/markdown";
+import { Calendar, User, ArrowLeft, Tag, MapPin, Share2, Twitter, Facebook, Linkedin, Mail, Lock, CheckCircle2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
 import CommentsSection from "@/components/blog/CommentsSection";
 import { toast } from "sonner";
 
-interface DbPost {
-  id: string; slug: string; title: string; excerpt: string; content: string;
+interface BlogPost {
+  id: string; title: string; slug: string; excerpt: string; content: string;
   author: string; category: string; city: string | null; image_url: string | null;
-  meta_title: string | null; meta_description: string | null; published_at: string;
+  published_at: string; meta_title: string | null; meta_description: string | null;
 }
+interface RelatedPost { id: string; title: string; slug: string; excerpt: string; category: string; image_url: string | null; }
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
-  const [dbPost, setDbPost] = useState<DbPost | null>(null);
-  const [loaded, setLoaded] = useState(false);
-  const [unlocked, setUnlocked] = useState(false);
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [relatedPosts, setRelatedPosts] = useState<RelatedPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
   const [email, setEmail] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [related, setRelated] = useState<DbPost[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    if (localStorage.getItem("blog_unlocked_email")) setUnlocked(true);
-  }, []);
+  useEffect(() => { if (localStorage.getItem("blog_unlocked_email")) setIsUnlocked(true); }, []);
 
   useEffect(() => {
     if (!slug) return;
     (async () => {
-      const { data } = await supabase
-        .from("blog_posts").select("*")
-        .eq("slug", slug).eq("published", true).maybeSingle();
-      setDbPost(data as DbPost | null);
-      if (data) {
-        const { data: rel } = await supabase
-          .from("blog_posts")
-          .select("id, slug, title, excerpt, content, author, category, city, image_url, meta_title, meta_description, published_at")
-          .eq("published", true).eq("category", data.category).neq("id", data.id).limit(3);
-        setRelated((rel as any) || []);
-      }
-      setLoaded(true);
+      setIsLoading(true); setNotFound(false);
+      const { data, error } = await supabase.from("blog_posts").select("*").eq("slug", slug).eq("published", true).maybeSingle();
+      if (error || !data) { setNotFound(true); setIsLoading(false); return; }
+      setPost(data as BlogPost);
+      const { data: rel } = await supabase.from("blog_posts")
+        .select("id, title, slug, excerpt, category, image_url")
+        .eq("published", true).eq("category", data.category).neq("id", data.id).limit(3);
+      if (rel) setRelatedPosts(rel as RelatedPost[]);
+      setIsLoading(false);
     })();
   }, [slug]);
 
-  const legacy = useMemo(() => legacyPosts.find((p) => p.slug === slug) || null, [slug]);
-
-  // SEO
   useEffect(() => {
-    const post = dbPost || legacy;
     if (!post) return;
-    const title = (dbPost?.meta_title) || (post as any).title;
-    const desc = (dbPost?.meta_description) || (post as any).excerpt;
-    document.title = `${title} | Ecología Rentable Blog`;
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) { meta = document.createElement("meta"); meta.setAttribute("name", "description"); document.head.appendChild(meta); }
-    meta.setAttribute("content", desc || "");
-  }, [dbPost, legacy]);
+    document.title = `${post.meta_title || post.title} | Ecología Rentable`;
+    const m = document.querySelector('meta[name="description"]');
+    if (m) m.setAttribute("content", post.meta_description || post.excerpt);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [post]);
 
-  if (!loaded) return null;
+  const readingTime = useMemo(() => {
+    if (!post) return 0;
+    return Math.max(1, Math.ceil(post.content.split(/\s+/).length / 200));
+  }, [post]);
 
-  // ── DB POST: full render with markdown + paywall + comments ──
-  if (dbPost) {
-    const readingMin = Math.max(1, Math.ceil((dbPost.content || "").trim().split(/\s+/).length / 200));
-    const rendered = renderMarkdown(dbPost.content || "");
-    const cut = Math.ceil(rendered.length * 0.4);
-    const visible = rendered.slice(0, cut);
-    const hidden = rendered.slice(cut);
-    const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-    const shareText = `${dbPost.title} — Ecología Rentable`;
+  const handleUnlock = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.includes("@")) { toast.error("Email inválido"); return; }
+    setIsSubmitting(true);
+    const { error } = await supabase.from("newsletter_subscribers").insert({ email, source: "blog_unlock", is_active: true });
+    setIsSubmitting(false);
+    if (error && !error.message.includes("duplicate")) return toast.error(error.message);
+    localStorage.setItem("blog_unlocked_email", email);
+    setIsUnlocked(true);
+    toast.success("¡Contenido desbloqueado!");
+  };
 
-    async function unlock(e: React.FormEvent) {
-      e.preventDefault();
-      if (!email.includes("@")) return toast.error("Email inválido");
-      setSubmitting(true);
-      const { error } = await supabase.from("newsletter_subscribers")
-        .insert({ email, source: "blog_unlock", is_active: true });
-      setSubmitting(false);
-      if (error && !error.message.includes("duplicate")) return toast.error(error.message);
-      localStorage.setItem("blog_unlocked_email", email);
-      setUnlocked(true);
-      toast.success("¡Contenido desbloqueado!");
-    }
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  const handleShare = (p: "twitter" | "facebook" | "linkedin") => {
+    const text = post ? `${post.title} — Ecología Rentable` : "";
+    const urls = {
+      twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(text)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
+    };
+    window.open(urls[p], "_blank", "width=600,height=400");
+  };
 
-    function share(p: "twitter" | "facebook" | "linkedin") {
-      const urls = {
-        twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`,
-        facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
-        linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
-      };
-      window.open(urls[p], "_blank", "width=600,height=400");
-    }
+  const formatDate = (d: string) => new Date(d).toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" });
 
+  if (isLoading) {
     return (
-      <main>
-        <PageHero
-          title={dbPost.title}
-          subtitle={dbPost.excerpt}
-          breadcrumbs={[{ label: "Blog", href: "/blog" }, { label: dbPost.category }, { label: dbPost.title.substring(0, 40) + "…" }]}
-          badge={dbPost.category}
-        />
-
-        <section className="py-14 section-light">
-          <div className="container mx-auto px-4 max-w-3xl">
-            {/* Meta bar */}
-            <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1"><Calendar size={13} />{new Date(dbPost.published_at).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" })}</span>
-              <span className="flex items-center gap-1"><Clock size={13} />{readingMin} min de lectura</span>
-              <span className="flex items-center gap-1"><Tag size={13} />{dbPost.author}</span>
-              {dbPost.city && <span className="flex items-center gap-1"><MapPin size={13} />{dbPost.city}</span>}
-              <Link to="/blog" className="ml-auto flex items-center gap-1 hover:text-primary transition-colors"><ArrowLeft size={13} />Volver al blog</Link>
-            </div>
-
-            {/* Hero image */}
-            {dbPost.image_url && (
-              <div className="rounded-xl overflow-hidden mb-8 aspect-[21/9]">
-                <img src={dbPost.image_url} alt={dbPost.title} className="w-full h-full object-cover" />
-              </div>
-            )}
-
-            {/* Share */}
-            <div className="flex items-center gap-2 mb-6 pb-6 border-b border-border">
-              <span className="text-xs text-muted-foreground mr-1">Compartir:</span>
-              <button onClick={() => share("twitter")} className="p-2 rounded-full hover:bg-muted transition-colors" aria-label="Twitter"><Twitter size={14} /></button>
-              <button onClick={() => share("facebook")} className="p-2 rounded-full hover:bg-muted transition-colors" aria-label="Facebook"><Facebook size={14} /></button>
-              <button onClick={() => share("linkedin")} className="p-2 rounded-full hover:bg-muted transition-colors" aria-label="LinkedIn"><Linkedin size={14} /></button>
-            </div>
-
-            {/* Content */}
-            <article className="card-eco p-6 md:p-8">
-              {visible}
-
-              {!unlocked && hidden.length > 0 && (
-                <div className="relative mt-2">
-                  <div className="max-h-48 overflow-hidden relative pointer-events-none select-none" aria-hidden="true">
-                    <div className="opacity-50">{hidden.slice(0, 3)}</div>
-                  </div>
-                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-card to-transparent" />
-                  <form onSubmit={unlock} className="mt-6 p-6 rounded-xl border border-primary/30 bg-primary/5 text-center">
-                    <Lock size={28} className="mx-auto mb-3 text-primary" />
-                    <h3 className="font-bold text-lg mb-2 text-foreground">Continúa leyendo gratis</h3>
-                    <p className="text-sm text-muted-foreground mb-4">Introduce tu email para desbloquear el resto del artículo y recibir contenido técnico exclusivo.</p>
-                    <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-                      <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-                        placeholder="tu@email.com" className="flex-1 px-3 py-2 rounded-lg border border-border bg-background text-sm" />
-                      <button type="submit" disabled={submitting} className="btn-primary text-sm disabled:opacity-60">
-                        {submitting ? "..." : "Desbloquear"}
-                      </button>
-                    </div>
-                    <p className="text-[11px] text-muted-foreground mt-3">Cumplimos RGPD. Te puedes dar de baja en cualquier momento.</p>
-                  </form>
-                </div>
-              )}
-
-              {unlocked && hidden}
-            </article>
-
-            {unlocked && (
-              <>
-                {/* Author card */}
-                <div className="mt-10 p-6 card-eco flex items-center gap-5">
-                  <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center text-primary font-bold">
-                    {dbPost.author.charAt(0)}
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">{dbPost.author}</h3>
-                    <p className="text-sm text-muted-foreground">Equipo técnico de Ecología Rentable</p>
-                  </div>
-                </div>
-
-                {/* Related */}
-                {related.length > 0 && (
-                  <section className="mt-12">
-                    <h2 className="text-xl font-bold mb-6 text-foreground">Artículos relacionados</h2>
-                    <div className="grid sm:grid-cols-3 gap-4">
-                      {related.map((r) => (
-                        <Link key={r.id} to={`/blog/${r.slug}`} className="card-eco overflow-hidden group hover:shadow-md transition-shadow">
-                          {r.image_url && <img src={r.image_url} alt={r.title} className="w-full h-32 object-cover" loading="lazy" />}
-                          <div className="p-4">
-                            <span className="badge-green text-xs mb-2 inline-block">{r.category}</span>
-                            <h3 className="text-sm font-bold group-hover:text-primary transition-colors text-foreground line-clamp-2">{r.title}</h3>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </section>
-                )}
-
-                <CommentsSection postId={dbPost.id} />
-              </>
-            )}
-          </div>
-        </section>
-
-        <CTABox title="¿Listo para actuar?" description="Consulta con un experto sobre descarbonización para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
+      <main className="min-h-screen bg-background pt-32 pb-24">
+        <div className="container mx-auto px-4 md:px-6 flex items-center justify-center py-24">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+        </div>
       </main>
     );
   }
 
-  // ── LEGACY POST fallback (mantém comportamento anterior) ──
-  if (legacy) {
-    const relatedLegacy = legacyPosts.filter((p) => p.categorySlug === legacy.categorySlug && p.id !== legacy.id).slice(0, 3);
+  if (notFound || !post) {
     return (
-      <main>
-        <PageHero
-          title={legacy.title}
-          subtitle={legacy.excerpt}
-          breadcrumbs={[{ label: "Blog", href: "/blog" }, { label: legacy.category, href: `/blog/${legacy.categorySlug}` }, { label: legacy.title.substring(0, 40) + "…" }]}
-          badge={legacy.category}
-        />
-        <section className="py-14 section-light">
-          <div className="container mx-auto px-4 max-w-3xl">
-            <div className="flex items-center gap-4 mb-8 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1"><Clock size={13} />{legacy.readTime} de lectura</span>
-              <span>{legacy.date}</span>
-              <Link to="/blog" className="ml-auto flex items-center gap-1 hover:text-primary transition-colors"><ArrowLeft size={13} />Volver al blog</Link>
-            </div>
-            <div className="rounded-xl overflow-hidden mb-8">
-              <img src={legacy.image} alt={legacy.title} className="w-full h-64 md:h-80 object-cover" />
-            </div>
-            <div className="card-eco p-8">
-              <p className="text-base leading-relaxed mb-6 text-foreground">{legacy.excerpt}</p>
-              <p className="leading-relaxed text-muted-foreground">
-                Este artículo aborda <strong>{legacy.title}</strong> desde una perspectiva técnica y práctica.
-                Para más información, consulta nuestras <Link to="/soluciones" className="underline text-primary">soluciones técnicas</Link> o <Link to="/contacto" className="underline text-primary">contacta con un experto</Link>.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-6">
-              {legacy.tags.map((tag) => (<span key={tag} className="badge-steel text-xs">{tag}</span>))}
-            </div>
-          </div>
-        </section>
-        {relatedLegacy.length > 0 && (
-          <section className="py-12 section-alt">
-            <div className="container mx-auto px-4 max-w-3xl">
-              <h2 className="text-xl font-bold mb-6 text-foreground">Artículos relacionados</h2>
-              <div className="grid sm:grid-cols-3 gap-4">
-                {relatedLegacy.map((r) => (
-                  <Link key={r.id} to={`/blog/${r.slug}`} className="card-eco overflow-hidden group hover:shadow-md transition-shadow">
-                    <img src={r.image} alt={r.title} className="w-full h-32 object-cover" loading="lazy" />
-                    <div className="p-4">
-                      <span className="badge-green text-xs mb-2 inline-block">{r.category}</span>
-                      <h3 className="text-sm font-bold group-hover:text-primary transition-colors text-foreground">{r.title}</h3>
-                      <p className="text-xs mt-1 text-muted-foreground">{r.readTime}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-        <CTABox title="¿Listo para actuar?" description="Consulta con un experto sobre descarbonización para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
+      <main className="min-h-screen bg-background pt-32 pb-24">
+        <div className="container mx-auto px-4 md:px-6 text-center py-24">
+          <h1 className="text-4xl font-bold text-foreground mb-4">Artículo no encontrado</h1>
+          <p className="text-muted-foreground mb-8">El artículo que buscas no existe o ha sido movido.</p>
+          <Button asChild>
+            <Link to="/blog"><ArrowLeft className="w-4 h-4 mr-2" />Volver al blog</Link>
+          </Button>
+        </div>
       </main>
     );
   }
 
-  // ── 404 ──
   return (
-    <main>
-      <PageHero title="Artículo no encontrado" subtitle="El artículo que buscas no existe o ha sido movido." breadcrumbs={[{ label: "Blog", href: "/blog" }, { label: "No encontrado" }]} />
-      <div className="py-16 text-center">
-        <Link to="/blog" className="btn-primary inline-flex items-center gap-1.5"><ArrowLeft size={14} /> Volver al blog <ArrowRight size={14} /></Link>
-      </div>
+    <main className="min-h-screen bg-background pt-28 pb-24">
+      {/* Hero image full-width */}
+      {post.image_url ? (
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-6 mb-10">
+          <div className="aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl">
+            <img src={post.image_url} alt={post.title} className="w-full h-full object-cover" />
+          </div>
+        </div>
+      ) : (
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-6 mb-10">
+          <div className="aspect-[21/9] rounded-2xl bg-gradient-to-br from-primary/20 via-primary/10 to-accent/10 flex items-center justify-center shadow-lg">
+            <span className="text-7xl">📝</span>
+          </div>
+        </div>
+      )}
+
+      <article className="container mx-auto px-4 md:px-6 max-w-3xl">
+        <nav className="mb-6">
+          <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+            <ArrowLeft className="w-4 h-4" /> Volver al blog
+          </Link>
+        </nav>
+
+        <div className="flex flex-wrap items-center gap-2 mb-5">
+          <Badge className="bg-primary/10 text-primary border-0 font-medium"><Tag className="w-3 h-3 mr-1" />{post.category}</Badge>
+          {post.city && (<Badge variant="secondary" className="border-0"><MapPin className="w-3 h-3 mr-1" />{post.city}</Badge>)}
+          <span className="text-xs text-muted-foreground ml-1">{readingTime} min de lectura</span>
+        </div>
+
+        <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold leading-tight tracking-tight text-foreground mb-5">{post.title}</h1>
+
+        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6 font-light">{post.excerpt}</p>
+
+        <div className="flex flex-wrap items-center gap-5 text-sm text-muted-foreground pb-8 border-b border-border mb-10">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center"><User className="w-4 h-4 text-primary" /></div>
+            <span className="font-medium text-foreground">{post.author}</span>
+          </div>
+          <div className="flex items-center gap-2"><Calendar className="w-4 h-4" /><time dateTime={post.published_at}>{formatDate(post.published_at)}</time></div>
+          <div className="ml-auto flex items-center gap-1">
+            <button onClick={() => handleShare("twitter")} className="p-2 rounded-full hover:bg-muted transition-colors" aria-label="Twitter"><Twitter className="w-4 h-4 text-muted-foreground hover:text-foreground" /></button>
+            <button onClick={() => handleShare("facebook")} className="p-2 rounded-full hover:bg-muted transition-colors" aria-label="Facebook"><Facebook className="w-4 h-4 text-muted-foreground hover:text-foreground" /></button>
+            <button onClick={() => handleShare("linkedin")} className="p-2 rounded-full hover:bg-muted transition-colors" aria-label="LinkedIn"><Linkedin className="w-4 h-4 text-muted-foreground hover:text-foreground" /></button>
+          </div>
+        </div>
+
+        <ContentRenderer content={post.content} isUnlocked={isUnlocked} onUnlockSubmit={handleUnlock} email={email} setEmail={setEmail} isSubmitting={isSubmitting} />
+
+        {isUnlocked && (
+          <>
+            <Separator className="my-10" />
+            <div className="flex items-center justify-center gap-3 flex-wrap">
+              <Share2 className="w-4 h-4 text-muted-foreground" />
+              <span className="text-sm text-muted-foreground">Compartir:</span>
+              <Button variant="outline" size="sm" onClick={() => handleShare("twitter")}><Twitter className="w-4 h-4 mr-1" /> Twitter</Button>
+              <Button variant="outline" size="sm" onClick={() => handleShare("linkedin")}><Linkedin className="w-4 h-4 mr-1" /> LinkedIn</Button>
+            </div>
+
+            <div className="mt-12 p-6 bg-muted/40 rounded-2xl border border-border flex items-center gap-5">
+              <div className="w-14 h-14 rounded-full bg-primary/15 flex items-center justify-center shrink-0"><User className="w-6 h-6 text-primary" /></div>
+              <div>
+                <h3 className="font-semibold text-foreground text-base">{post.author}</h3>
+                <p className="text-sm text-muted-foreground mt-0.5">Equipo técnico de Ecología Rentable</p>
+              </div>
+            </div>
+
+            {relatedPosts.length > 0 && (
+              <section className="mt-16">
+                <h2 className="text-2xl font-bold text-foreground mb-8">Artículos relacionados</h2>
+                <div className="grid gap-6 md:grid-cols-3">
+                  {relatedPosts.map((r) => (
+                    <Link key={r.id} to={`/blog/${r.slug}`} className="group block rounded-xl border border-border bg-card hover:shadow-lg transition-all duration-300 overflow-hidden">
+                      <div className="aspect-video bg-muted overflow-hidden">
+                        {r.image_url ? (
+                          <img src={r.image_url} alt={r.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5"><span className="text-3xl">📝</span></div>
+                        )}
+                      </div>
+                      <div className="p-4">
+                        <Badge variant="secondary" className="mb-2 text-xs border-0">{r.category}</Badge>
+                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 text-sm leading-snug">{r.title}</h3>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            <CommentsSection postId={post.id} />
+
+            <section className="mt-16 p-8 bg-primary/5 rounded-2xl border border-primary/20 text-center">
+              <h2 className="text-2xl font-bold text-foreground mb-3">¿Listo para actuar?</h2>
+              <p className="text-muted-foreground mb-6 max-w-lg mx-auto">Consulta con un experto sobre descarbonización para tu vehículo.</p>
+              <Button asChild size="lg"><Link to="/contacto">Contactar</Link></Button>
+            </section>
+          </>
+        )}
+      </article>
     </main>
   );
+}
+
+// ─── Markdown Content Renderer ───
+function ContentRenderer({ content, isUnlocked, onUnlockSubmit, email, setEmail, isSubmitting }: {
+  content: string; isUnlocked: boolean; onUnlockSubmit: (e: React.FormEvent) => void;
+  email: string; setEmail: (v: string) => void; isSubmitting: boolean;
+}) {
+  const rendered = useMemo(() => parseMarkdown(content), [content]);
+  const cutIndex = Math.ceil(rendered.length * 0.4);
+  const visiblePart = rendered.slice(0, cutIndex);
+  const hiddenPart = rendered.slice(cutIndex);
+
+  return (
+    <div className="blog-content">
+      {visiblePart}
+      {!isUnlocked && hiddenPart.length > 0 ? (
+        <div className="relative mt-0">
+          <div className="max-h-48 overflow-hidden relative pointer-events-none select-none" aria-hidden="true">
+            {hiddenPart.slice(0, 4)}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/70 to-background" />
+          </div>
+          <div className="relative -mt-4 py-10 px-6 md:px-10 bg-card border-2 border-primary/20 rounded-2xl shadow-xl text-center">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center"><Lock className="w-7 h-7 text-primary" /></div>
+            <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">Continúa leyendo gratis</h3>
+            <p className="text-muted-foreground mb-6 max-w-md mx-auto text-sm">Introduce tu email para desbloquear el resto del artículo y recibir contenido técnico exclusivo.</p>
+            <form onSubmit={onUnlockSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto mb-4">
+              <Input type="email" placeholder="tu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1 h-11" required />
+              <Button type="submit" disabled={isSubmitting} className="h-11 px-6 shrink-0">
+                {isSubmitting ? (<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground" />) : (<><Mail className="w-4 h-4 mr-2" /> Desbloquear</>)}
+              </Button>
+            </form>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-500" /> Sin spam</span>
+              <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-500" /> Cancela cuando quieras</span>
+              <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-500" /> 100 % gratis</span>
+            </div>
+          </div>
+        </div>
+      ) : (hiddenPart)}
+    </div>
+  );
+}
+
+function parseMarkdown(content: string): React.ReactNode[] {
+  const blocks = content.split(/\n{2,}/);
+  const elements: React.ReactNode[] = [];
+  blocks.forEach((block, i) => {
+    const trimmed = block.trim();
+    if (!trimmed) return;
+    if (trimmed.startsWith("### ")) {
+      elements.push(<h3 key={i} className="text-xl font-bold text-foreground mt-8 mb-3">{inlineFormat(trimmed.slice(4))}</h3>);
+    } else if (trimmed.startsWith("## ")) {
+      elements.push(<h2 key={i} className="text-2xl font-bold text-foreground mt-10 mb-4 pb-2 border-b border-border">{inlineFormat(trimmed.slice(3))}</h2>);
+    } else if (trimmed.startsWith("# ")) {
+      elements.push(<h2 key={i} className="text-2xl font-bold text-foreground mt-10 mb-4">{inlineFormat(trimmed.slice(2))}</h2>);
+    } else if (/^\d+[\\.]\s/.test(trimmed)) {
+      const items = trimmed.split("\n").filter((line) => /^\d+[\\.]\s/.test(line.trim()));
+      elements.push(<ol key={i} className="list-decimal list-outside ml-6 space-y-2 my-5 text-foreground/85 leading-relaxed">{items.map((it, j) => (<li key={j} className="pl-1">{inlineFormat(it.replace(/^\d+[\\.]\s*/, ""))}</li>))}</ol>);
+    } else if (trimmed.startsWith("- ") || trimmed.startsWith("• ") || trimmed.startsWith("* ")) {
+      const items = trimmed.split("\n").filter((line) => /^[-•*]\s/.test(line.trim()));
+      elements.push(<ul key={i} className="list-disc list-outside ml-6 space-y-2 my-5 text-foreground/85 leading-relaxed">{items.map((it, j) => (<li key={j} className="pl-1">{inlineFormat(it.replace(/^[-•*]\s*/, ""))}</li>))}</ul>);
+    } else if (trimmed.includes("|") && trimmed.split("\n").filter((l) => l.trim().startsWith("|")).length >= 2) {
+      const rows = trimmed.split("\n").filter((l) => l.trim().includes("|"));
+      const dataRows = rows.filter((r) => !/^\|?\s*[-:]+\s*(\|\s*[-:]+\s*)*\|?\s*$/.test(r.trim()));
+      if (dataRows.length >= 1) {
+        const parseRow = (row: string) => row.split("|").map((c) => c.trim()).filter((c) => c.length > 0);
+        const headerCells = parseRow(dataRows[0]);
+        const bodyRows = dataRows.slice(1);
+        elements.push(
+          <div key={i} className="my-6 overflow-x-auto rounded-xl border border-border">
+            <table className="w-full text-sm">
+              <thead><tr className="bg-muted/60">{headerCells.map((c, ci) => (<th key={ci} className="px-4 py-3 text-left font-semibold text-foreground border-b border-border">{inlineFormat(c)}</th>))}</tr></thead>
+              <tbody>{bodyRows.map((row, ri) => { const cells = parseRow(row); return (<tr key={ri} className={ri % 2 === 0 ? "bg-background" : "bg-muted/20"}>{cells.map((c, ci) => (<td key={ci} className="px-4 py-3 text-foreground/85 border-b border-border/50">{inlineFormat(c)}</td>))}</tr>); })}</tbody>
+            </table>
+          </div>
+        );
+      } else {
+        elements.push(<p key={i} className="text-foreground/85 leading-[1.8] mb-5 text-[1.05rem]">{inlineFormat(trimmed)}</p>);
+      }
+    } else if (trimmed.startsWith("> ")) {
+      elements.push(<blockquote key={i} className="border-l-4 border-primary/40 pl-5 my-6 italic text-muted-foreground">{inlineFormat(trimmed.replace(/^>\s*/gm, ""))}</blockquote>);
+    } else {
+      elements.push(<p key={i} className="text-foreground/85 leading-[1.8] mb-5 text-[1.05rem]">{inlineFormat(trimmed)}</p>);
+    }
+  });
+  return elements;
+}
+
+function inlineFormat(text: string): React.ReactNode {
+  const parts: React.ReactNode[] = [];
+  const regex = /\*\*(.+?)\*\*|\*(.+?)\*|\[([^\]]+)\]\(([^)]+)\)/g;
+  let lastIndex = 0; let match;
+  const cleanText = text.replace(/\\([.#*\-!>])/g, "$1");
+  while ((match = regex.exec(cleanText)) !== null) {
+    if (match.index > lastIndex) parts.push(cleanText.slice(lastIndex, match.index));
+    if (match[1]) parts.push(<strong key={match.index} className="font-semibold text-foreground">{match[1]}</strong>);
+    else if (match[2]) parts.push(<em key={match.index}>{match[2]}</em>);
+    else if (match[3] && match[4]) {
+      const url = match[4];
+      if (url.startsWith("/")) parts.push(<Link key={match.index} to={url} className="text-primary hover:underline font-medium">{match[3]}</Link>);
+      else parts.push(<a key={match.index} href={url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">{match[3]}</a>);
+    }
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < cleanText.length) parts.push(cleanText.slice(lastIndex));
+  return parts.length > 0 ? <>{parts}</> : cleanText;
 }
