@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Plus, Edit, Trash2, Eye, EyeOff, Search } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 interface Post {
@@ -13,6 +13,8 @@ export default function AdminBlog() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncStatus, setSyncStatus] = useState("");
 
   useEffect(() => { load(); }, []);
 
@@ -42,6 +44,79 @@ export default function AdminBlog() {
     load();
   }
 
+  async function handleSyncCalendar() {
+    if (isSyncing) return;
+    const csvUrl = prompt(
+      "Pega la URL del CSV público de tu Google Sheet:\n\n(Google Sheets → Archivo → Compartir → Publicar en la web → CSV)"
+    );
+    if (!csvUrl) return;
+
+    setIsSyncing(true);
+    setSyncStatus("Analizando calendario...");
+
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData.session?.access_token;
+      if (!token) throw new Error("No autenticado");
+
+      const dryRes = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-blog-calendar`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ csv_url: csvUrl, dry_run: true }),
+        }
+      );
+      const dryData = await dryRes.json();
+      if (!dryRes.ok) throw new Error(dryData.error || "Error al analizar");
+
+      if (dryData.to_process === 0) {
+        toast.info(`Sin posts pendientes. ${dryData.already_processed} ya procesados de ${dryData.due_today_or_past} con fecha vencida.`);
+        setIsSyncing(false); setSyncStatus("");
+        return;
+      }
+
+      const ok = confirm(
+        `Se encontraron ${dryData.to_process} posts pendientes (de ${dryData.due_today_or_past} con fecha ≤ hoy).\n\nSe procesarán en lotes de 3. ¿Continuar?`
+      );
+      if (!ok) { setIsSyncing(false); setSyncStatus(""); return; }
+
+      let totalProcessed = 0;
+      let remaining = dryData.to_process;
+
+      while (remaining > 0) {
+        setSyncStatus(`Generando posts... (${totalProcessed} completados, ${remaining} restantes)`);
+        const syncRes = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-blog-calendar`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ csv_url: csvUrl, batch_size: 3 }),
+          }
+        );
+        const syncData = await syncRes.json();
+        if (!syncRes.ok) throw new Error(syncData.error || "Error al sincronizar");
+
+        totalProcessed += syncData.batch_processed;
+        remaining = syncData.remaining;
+
+        const errors = syncData.results?.filter((r: any) => r.status === "error").length || 0;
+        const published = syncData.results?.filter((r: any) => r.status === "published").length || 0;
+        if (errors > 0) toast.warning(`Lote: ${published} publicados, ${errors} errores`);
+        if (remaining <= 0) break;
+      }
+
+      toast.success(`¡Sincronización completada! ${totalProcessed} posts procesados.`);
+      load();
+    } catch (error) {
+      console.error("Sync error:", error);
+      toast.error(error instanceof Error ? error.message : "Error durante la sincronización");
+    } finally {
+      setIsSyncing(false);
+      setSyncStatus("");
+    }
+  }
+
   const filtered = posts.filter(
     (p) => p.title.toLowerCase().includes(q.toLowerCase()) || p.category.toLowerCase().includes(q.toLowerCase())
   );
@@ -53,10 +128,28 @@ export default function AdminBlog() {
           <h1 className="text-2xl font-bold tracking-tight">Blog</h1>
           <p className="text-sm text-[hsl(0,0%,50%)] mt-1">{posts.length} posts en la base de datos.</p>
         </div>
-        <Link to="/admin/blog/new" className="inline-flex items-center gap-2 bg-[hsl(148,72%,45%)] hover:bg-[hsl(148,72%,40%)] text-black font-semibold rounded-lg px-4 py-2 text-sm">
-          <Plus size={16} /> Nuevo post
-        </Link>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleSyncCalendar}
+            disabled={isSyncing}
+            className="inline-flex items-center gap-2 border border-white/15 hover:bg-white/5 rounded-lg px-4 py-2 text-sm disabled:opacity-50"
+            title="Importar y generar posts desde Google Sheet"
+          >
+            {isSyncing ? <Loader2 size={16} className="animate-spin" /> : <RefreshCw size={16} />}
+            {isSyncing ? "Sincronizando..." : "Sincronizar calendario"}
+          </button>
+          <Link to="/admin/blog/new" className="inline-flex items-center gap-2 bg-[hsl(148,72%,45%)] hover:bg-[hsl(148,72%,40%)] text-black font-semibold rounded-lg px-4 py-2 text-sm">
+            <Plus size={16} /> Nuevo post
+          </Link>
+        </div>
       </div>
+
+      {isSyncing && syncStatus && (
+        <div className="rounded-xl border border-[hsl(148,72%,45%)]/40 bg-[hsl(148,72%,45%)]/5 p-4 flex items-center gap-3">
+          <Loader2 className="w-5 h-5 animate-spin text-[hsl(148,72%,55%)]" />
+          <p className="text-sm font-medium">{syncStatus}</p>
+        </div>
+      )}
 
       <div className="relative max-w-md">
         <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
