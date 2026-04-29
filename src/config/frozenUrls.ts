@@ -93,6 +93,7 @@ export const FROZEN_PUBLIC_URLS = Object.freeze([
   "/servicios/alquiler-renting-analizadores-de-gases",
 ] as const);
 
+// Note: append-only additions go inside FROZEN_PUBLIC_URLS above this line.
 export type FrozenPublicUrl = (typeof FROZEN_PUBLIC_URLS)[number];
 
 /**
