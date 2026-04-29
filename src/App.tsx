@@ -33,6 +33,7 @@ import TiendaCategoria from "./pages/TiendaCategoria";
 import ProductoDetalle from "./pages/ProductoDetalle";
 import Contacto from "./pages/Contacto";
 import Accesibilidad from "./pages/Accesibilidad";
+import EncuentraTuCentro from "./pages/EncuentraTuCentro";
 import LegacyDescarbonizacion from "./pages/LegacyDescarbonizacion";
 import LegacyLimpiezaFiltros from "./pages/LegacyLimpiezaFiltros";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -95,6 +96,9 @@ function AppShell() {
         <Route path="/hy-calamine-2000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-2000s-egr-pilot" replace />} />
         <Route path="/hy-calamine-3000s-egr-pilot" element={<Navigate to="/tienda/maquinas-descarbonizadoras/hy-calamine-3000s-egr-pilot" replace />} />
         <Route path="/hy-carbon-connect" element={<Navigate to="/tienda/accesorios-consumibles/hy-carbon-connect" replace />} />
+
+        {/* APPEND-ONLY new routes */}
+        <Route path="/encuentra-tu-centro" element={<EncuentraTuCentro />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
