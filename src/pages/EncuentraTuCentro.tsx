@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { MapPin, Navigation, Phone, SearchX, ExternalLink, BadgeCheck, Search } from "lucide-react";
+import { MapPin, Navigation, Phone, SearchX, ExternalLink, BadgeCheck, Search, Wrench, Lightbulb, ShoppingBag, Users, BookOpen, Leaf } from "lucide-react";
+import RelatedHubs from "@/components/common/RelatedHubs";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import { workshops, workshopProvincias } from "@/data/workshops";
