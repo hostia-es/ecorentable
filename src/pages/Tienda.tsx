@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ShoppingCart, Star, Truck, Shield, Phone } from "lucide-react";
+import { ArrowRight, ShoppingCart, Star, Truck, Shield, Phone, Wrench, Lightbulb, MapPin, Users, BookOpen, Leaf } from "lucide-react";
+import RelatedHubs from "@/components/common/RelatedHubs";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
@@ -154,6 +155,19 @@ export default function Tienda() {
           </AnimatedSection>
         </div>
       </section>
+
+      <RelatedHubs
+        eyebrow="Navegación"
+        heading="Continúe explorando Ecología Rentable"
+        items={[
+          { title: "Servicios", description: "Tratamientos profesionales para particulares y flotas.", href: "/servicios", icon: Wrench },
+          { title: "Soluciones técnicas", description: "Procesos y equipos para cada tipo de motor.", href: "/soluciones", icon: Lightbulb },
+          { title: "Encuentra tu centro", description: "Red nacional de talleres certificados.", href: "/encuentra-tu-centro", icon: MapPin },
+          { title: "Hazte socio", description: "Programa de talleres con condiciones especiales.", href: "/socios", icon: Users },
+          { title: "Blog técnico", description: "Guías de equipos, mantenimiento y diagnóstico.", href: "/blog", icon: BookOpen },
+          { title: "Sobre nosotros", description: "Quiénes somos y nuestro compromiso.", href: "/nosotros", icon: Leaf },
+        ]}
+      />
 
       <FAQSection items={faqTienda} />
       <CTABox title="¿Necesitas asesoramiento?" description="Nuestro equipo técnico te ayuda a elegir el equipo más adecuado para tu taller o flota." primaryLabel="Solicitar asesoramiento" primaryHref="/contacto" secondaryLabel="Ver socios" secondaryHref="/socios" />

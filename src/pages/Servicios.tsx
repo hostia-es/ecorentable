@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Zap, Shield, Wrench, Truck, Leaf, TrendingUp, Package, Gauge, Activity, Repeat2 } from "lucide-react";
+import { ArrowRight, CheckCircle, Zap, Shield, Wrench, Truck, Leaf, TrendingUp, Package, Gauge, Activity, Repeat2, ShoppingBag, MapPin, Users, BookOpen, Lightbulb } from "lucide-react";
+import RelatedHubs from "@/components/common/RelatedHubs";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
@@ -234,6 +235,19 @@ export default function Servicios() {
           </StaggerChildren>
         </div>
       </section>
+
+      <RelatedHubs
+        eyebrow="Navegación"
+        heading="Continúe explorando Ecología Rentable"
+        items={[
+          { title: "Soluciones técnicas", description: "Equipos y procesos profesionales para cada tipo de motor.", href: "/soluciones", icon: Lightbulb },
+          { title: "Tienda profesional", description: "Descarbonizadoras, opacímetros y analizadores certificados.", href: "/tienda", icon: ShoppingBag },
+          { title: "Encuentra tu centro", description: "Red nacional de talleres certificados en toda España.", href: "/encuentra-tu-centro", icon: MapPin },
+          { title: "Hazte socio", description: "Programa de talleres con formación y soporte técnico.", href: "/socios", icon: Users },
+          { title: "Blog técnico", description: "Guías de mantenimiento, ITV y descarbonización.", href: "/blog", icon: BookOpen },
+          { title: "Sobre nosotros", description: "Misión, equipo y compromiso medioambiental.", href: "/nosotros", icon: Leaf },
+        ]}
+      />
 
       <FAQSection items={faqServicios} />
 

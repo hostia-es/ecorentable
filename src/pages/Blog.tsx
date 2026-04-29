@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock, Wrench, Lightbulb, ShoppingBag, MapPin, Users, Leaf } from "lucide-react";
+import RelatedHubs from "@/components/common/RelatedHubs";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
@@ -133,6 +134,19 @@ export default function Blog() {
           </StaggerChildren>
         </div>
       </section>
+
+      <RelatedHubs
+        eyebrow="Navegación"
+        heading="Continúe explorando Ecología Rentable"
+        items={[
+          { title: "Servicios", description: "Tratamientos profesionales para particulares y flotas.", href: "/servicios", icon: Wrench },
+          { title: "Soluciones técnicas", description: "Equipos y procesos por tipo de motor.", href: "/soluciones", icon: Lightbulb },
+          { title: "Tienda profesional", description: "Catálogo de máquinas y consumibles.", href: "/tienda", icon: ShoppingBag },
+          { title: "Encuentra tu centro", description: "Red nacional de talleres certificados.", href: "/encuentra-tu-centro", icon: MapPin },
+          { title: "Hazte socio", description: "Programa para talleres y distribuidores.", href: "/socios", icon: Users },
+          { title: "Sobre nosotros", description: "Misión, equipo y compromiso medioambiental.", href: "/nosotros", icon: Leaf },
+        ]}
+      />
 
       <FAQSection items={faqBlog} />
       <CTABox title="¿Tienes dudas técnicas?" description="Nuestro equipo técnico responde consultas sobre descarbonización, DPF, EGR e ITV." primaryLabel="Contactar experto" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />

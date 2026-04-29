@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, TrendingUp, GraduationCap, BarChart, Package, Users, Heart, Quote } from "lucide-react";
+import { ArrowRight, CheckCircle, TrendingUp, GraduationCap, BarChart, Package, Users, Heart, Quote, Wrench, Lightbulb, ShoppingBag, MapPin, BookOpen, Leaf } from "lucide-react";
+import RelatedHubs from "@/components/common/RelatedHubs";
 import { AnimatedSection, StaggerChildren, AnimatedCounter } from "@/components/common/Animations";
 import PageHero from "@/components/common/PageHero";
 import FAQSection from "@/components/common/FAQSection";
@@ -49,7 +50,7 @@ export default function Socios() {
     <main>
       <PageHero
         title="Únete a Nuestra Red de Socios"
-        breadcrumbs={[{ label: "¿Quiéres Ser Socio?" }]}
+        breadcrumbs={[{ label: "Socios" }]}
       />
 
       {/* MODELO DE NEGOCIO */}
@@ -299,6 +300,19 @@ export default function Socios() {
           </div>
         </section>
       </AnimatedSection>
+
+      <RelatedHubs
+        eyebrow="Navegación"
+        heading="Continúe explorando Ecología Rentable"
+        items={[
+          { title: "Servicios", description: "Catálogo de tratamientos disponibles para talleres.", href: "/servicios", icon: Wrench },
+          { title: "Soluciones técnicas", description: "Procesos y equipos profesionales.", href: "/soluciones", icon: Lightbulb },
+          { title: "Tienda profesional", description: "Equipos certificados con precios para socios.", href: "/tienda", icon: ShoppingBag },
+          { title: "Encuentra tu centro", description: "Red nacional de talleres certificados.", href: "/encuentra-tu-centro", icon: MapPin },
+          { title: "Blog técnico", description: "Guías y novedades del sector.", href: "/blog", icon: BookOpen },
+          { title: "Sobre nosotros", description: "Conozca el equipo y la trayectoria.", href: "/nosotros", icon: Leaf },
+        ]}
+      />
 
       <FAQSection items={faqItems} title="Preguntas Frecuentes" />
     </main>

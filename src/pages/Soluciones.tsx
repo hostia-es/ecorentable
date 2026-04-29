@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, Wrench, ShoppingBag, MapPin, Users, BookOpen, Leaf } from "lucide-react";
+import RelatedHubs from "@/components/common/RelatedHubs";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
@@ -120,6 +121,19 @@ export default function Soluciones() {
           </StaggerChildren>
         </div>
       </section>
+
+      <RelatedHubs
+        eyebrow="Navegación"
+        heading="Continúe explorando Ecología Rentable"
+        items={[
+          { title: "Servicios", description: "Catálogo completo de tratamientos para particulares y flotas.", href: "/servicios", icon: Wrench },
+          { title: "Tienda profesional", description: "Equipos certificados para taller y diagnóstico.", href: "/tienda", icon: ShoppingBag },
+          { title: "Encuentra tu centro", description: "Red nacional de talleres certificados.", href: "/encuentra-tu-centro", icon: MapPin },
+          { title: "Hazte socio", description: "Únase a la red de talleres Ecología Rentable.", href: "/socios", icon: Users },
+          { title: "Blog técnico", description: "Guías prácticas y novedades del sector.", href: "/blog", icon: BookOpen },
+          { title: "Sobre nosotros", description: "Conozca nuestra trayectoria y compromiso.", href: "/nosotros", icon: Leaf },
+        ]}
+      />
 
       <FAQSection items={faqSoluciones} />
       <CTABox title="¿Ya sabes qué necesitas?" description="Contacta con nuestro equipo y solicita presupuesto para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />

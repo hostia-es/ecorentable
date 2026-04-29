@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { AnimatedSection } from "@/components/common/Animations";
 import PageHero from "@/components/common/PageHero";
 import FAQSection from "@/components/common/FAQSection";
+import RelatedHubs from "@/components/common/RelatedHubs";
+import { Wrench, Lightbulb, ShoppingBag, MapPin, Users, BookOpen } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
@@ -24,7 +26,7 @@ export default function Nosotros() {
     <main>
       <PageHero
         title="Nosotros"
-        breadcrumbs={[{ label: "¿Quiénes somos?" }]}
+        breadcrumbs={[{ label: "Nosotros" }]}
       />
 
       {/* INTRO + YOUNES */}
@@ -119,6 +121,19 @@ export default function Nosotros() {
       </section>
 
       <FAQSection items={faqItems} title="Preguntas Frecuentes" />
+
+      <RelatedHubs
+        eyebrow="Navegación"
+        heading="Continúe explorando Ecología Rentable"
+        items={[
+          { title: "Servicios", description: "Tratamientos profesionales para particulares y flotas.", href: "/servicios", icon: Wrench },
+          { title: "Soluciones técnicas", description: "Procesos y equipos por tipo de motor.", href: "/soluciones", icon: Lightbulb },
+          { title: "Tienda profesional", description: "Catálogo de máquinas y consumibles.", href: "/tienda", icon: ShoppingBag },
+          { title: "Encuentra tu centro", description: "Red nacional de talleres certificados.", href: "/encuentra-tu-centro", icon: MapPin },
+          { title: "Hazte socio", description: "Programa para talleres y distribuidores.", href: "/socios", icon: Users },
+          { title: "Blog técnico", description: "Guías prácticas y novedades.", href: "/blog", icon: BookOpen },
+        ]}
+      />
     </main>
   );
 }
