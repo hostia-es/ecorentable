@@ -91,6 +91,9 @@ export const FROZEN_PUBLIC_URLS = Object.freeze([
   "/servicios/alquiler-renting-maquinas-descarbonizadoras",
   "/servicios/alquiler-renting-opacimetros",
   "/servicios/alquiler-renting-analizadores-de-gases",
+
+  // BLOG PILLAR PAGES
+  "/blog/itv",
 ] as const);
 
 // Note: append-only additions go inside FROZEN_PUBLIC_URLS above this line.
