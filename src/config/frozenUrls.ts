@@ -94,6 +94,7 @@ export const FROZEN_PUBLIC_URLS = Object.freeze([
 
   // BLOG PILLAR PAGES
   "/blog/itv",
+  "/blog/guias",
 ] as const);
 
 // Note: append-only additions go inside FROZEN_PUBLIC_URLS above this line.
