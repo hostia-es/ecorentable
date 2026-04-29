@@ -59,6 +59,33 @@ export const FROZEN_PUBLIC_URLS = Object.freeze([
 
   // APPEND-ONLY new public URLs
   "/encuentra-tu-centro",
+
+  // NUEVAS CATEGORÍAS DE TIENDA
+  "/tienda/descarbonizadoras",
+  "/tienda/descarbonizadoras/:slug",
+  "/tienda/descarbonizadoras-reacondicionadas",
+  "/tienda/descarbonizadoras-reacondicionadas/:slug",
+  "/tienda/maquinas-limpieza-filtro-particulas",
+  "/tienda/maquinas-limpieza-filtro-particulas/:slug",
+  "/tienda/opacimetros",
+  "/tienda/opacimetros/:slug",
+  "/tienda/analizadores-de-gases",
+  "/tienda/analizadores-de-gases/:slug",
+  "/tienda/kit-opacidad",
+  "/tienda/kit-opacidad/:slug",
+
+  // SERVICIOS ALQUILER/RENTING POR MODELO
+  "/servicios/alquiler-renting-equipos",
+  "/servicios/alquiler-renting-h2-profit-1000",
+  "/servicios/alquiler-renting-h2-profit-2000",
+  "/servicios/alquiler-renting-h2-profit-3000",
+  "/servicios/alquiler-renting-hy-carbon-connect",
+  "/servicios/alquiler-renting-carbon-fap",
+  "/servicios/alquiler-renting-opacimetro-ecologia-rentable",
+  "/servicios/alquiler-renting-analizador-gases-ecologia-rentable",
+
+  // NUEVO SERVICIO FLOTAS RENTING
+  "/servicios/descarbonizacion-para-flotas-de-renting",
 ] as const);
 
 export type FrozenPublicUrl = (typeof FROZEN_PUBLIC_URLS)[number];

@@ -9,15 +9,42 @@ import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/comm
 import tiendaShowroom from "@/assets/tienda-showroom.jpg";
 
 const categories = [
-  { slug: "maquinas-descarbonizadoras", name: "Máquinas Descarbonizadoras", desc: "Gama Hy-Calamine 1000S, 2000S y 3000S EGR PILOT. La tecnología HHO más avanzada para talleres profesionales.", count: products.filter(p => p.categorySlug === "maquinas-descarbonizadoras").length },
-  { slug: "accesorios-consumibles", name: "Accesorios y Consumibles", desc: "Módulos de diagnóstico, adaptadores y consumibles para máquinas descarbonizadoras.", count: products.filter(p => p.categorySlug === "accesorios-consumibles").length },
-  { slug: "kits-limpieza", name: "Kits de Limpieza", desc: "Kits completos para limpieza DPF, EGR y descarbonización para flotas o talleres.", count: products.filter(p => p.categorySlug === "kits-limpieza").length },
-  { slug: "aditivos", name: "Aditivos", desc: "Aditivos profesionales para combustible, DPF/FAP y motor. Formatos taller y particular.", count: products.filter(p => p.categorySlug === "aditivos").length },
-  { slug: "maquinas-descarbonizadoras-nuevas", name: "Descarbonizadoras Nuevas", desc: "Gama completa Hy-Calamine nueva, con garantía 2–4 años y soporte técnico incluido.", count: products.filter(p => p.categorySlug === "maquinas-descarbonizadoras-nuevas").length },
-  { slug: "maquinas-descarbonizadoras-reacondicionadas", name: "Descarbonizadoras Reacondicionadas", desc: "Equipos reacondicionados y validados técnicamente. Mismas prestaciones, mejor precio.", count: products.filter(p => p.categorySlug === "maquinas-descarbonizadoras-reacondicionadas").length },
-  { slug: "maquinas-limpieza-filtro-de-particulas", name: "Limpieza de Filtro DPF/FAP", desc: "Equipos profesionales de limpieza de filtro de partículas para talleres especializados.", count: products.filter(p => p.categorySlug === "maquinas-limpieza-filtro-de-particulas").length },
-  { slug: "opacimetros", name: "Opacímetros", desc: "Opacímetros homologados para medición de opacidad y control de emisiones diésel.", count: products.filter(p => p.categorySlug === "opacimetros").length },
-  { slug: "analizadores-de-gases", name: "Analizadores de Gases", desc: "Analizadores profesionales de CO, CO₂, HC, O₂ y lambda para talleres y flotas.", count: products.filter(p => p.categorySlug === "analizadores-de-gases").length },
+  {
+    slug: "descarbonizadoras",
+    name: "Descarbonizadoras",
+    desc: "Gama H2 Profit (1000, 2000, 3000) y Hy-Carbon Connect. Equipos nuevos para coches, camiones y flotas.",
+    count: products.filter(p => p.categorySlug === "descarbonizadoras").length,
+  },
+  {
+    slug: "descarbonizadoras-reacondicionadas",
+    name: "Reacondicionadas",
+    desc: "Equipos reacondicionados y validados. Mismas prestaciones, mejor precio. Disponibilidad sujeta a stock.",
+    count: products.filter(p => p.categorySlug === "descarbonizadoras-reacondicionadas").length,
+  },
+  {
+    slug: "maquinas-limpieza-filtro-particulas",
+    name: "Limpieza DPF/FAP",
+    desc: "Carbon FAP y equipos para limpieza profesional de filtros de partículas gasolina y diésel.",
+    count: products.filter(p => p.categorySlug === "maquinas-limpieza-filtro-particulas").length,
+  },
+  {
+    slug: "opacimetros",
+    name: "Opacímetros",
+    desc: "Opacímetros para talleres y pre-ITV con medición de opacidad en diésel.",
+    count: products.filter(p => p.categorySlug === "opacimetros").length,
+  },
+  {
+    slug: "analizadores-de-gases",
+    name: "Analizadores de gases",
+    desc: "Analizadores de CO, CO₂, HC, O₂ y NOx para diagnóstico de emisiones gasolina y diésel.",
+    count: products.filter(p => p.categorySlug === "analizadores-de-gases").length,
+  },
+  {
+    slug: "kit-opacidad",
+    name: "Kit Opacidad",
+    desc: "Solución integral opacímetro + analizador. Solo venta. Para talleres que quieren una línea completa de emisiones.",
+    count: products.filter(p => p.categorySlug === "kit-opacidad").length,
+  },
 ];
 
 const faqTienda = [
