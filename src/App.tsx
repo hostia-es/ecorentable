@@ -43,6 +43,10 @@ import LegacyLimpiezaFiltros from "./pages/LegacyLimpiezaFiltros";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminLeads from "./pages/admin/AdminLeads";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminBlog from "./pages/admin/AdminBlog";
+import AdminBlogEditor from "./pages/admin/AdminBlogEditor";
+import { AuthProvider } from "@/hooks/useAuth";
 
 const queryClient = new QueryClient();
 
@@ -87,8 +91,12 @@ function AppShell() {
         <Route path="/tienda/:categoria/:slug" element={<ProductoDetalle />} />
 
         {/* ADMIN — hidden panel */}
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
+          <Route path="blog" element={<AdminBlog />} />
+          <Route path="blog/new" element={<AdminBlogEditor />} />
+          <Route path="blog/:id" element={<AdminBlogEditor />} />
           <Route path="leads" element={<AdminLeads />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
@@ -122,7 +130,9 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AppShell />
+        <AuthProvider>
+          <AppShell />
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
