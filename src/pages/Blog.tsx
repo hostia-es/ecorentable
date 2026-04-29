@@ -3,6 +3,11 @@ import { Link, useSearchParams } from "react-router-dom";
 import { Calendar, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { FollowerPointerCard } from "@/components/ui/following-pointer";
+
+const TitleComponent = ({ title }: { title: string }) => (
+  <div className="flex items-center space-x-2"><span className="text-sm font-medium">{title}</span></div>
+);
 
 interface BlogPost {
   id: string;
@@ -111,7 +116,8 @@ export default function Blog() {
                 <>
                   <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {paginatedPosts.map((post) => (
-                      <Link key={post.id} to={`/blog/${post.slug}`} className="block cursor-pointer h-full">
+                      <FollowerPointerCard key={post.id} title={<TitleComponent title={post.author} />} className="w-full">
+                        <Link to={`/blog/${post.slug}`} className="block cursor-pointer h-full">
                         <article className="group relative h-full rounded-2xl border border-border bg-card transition-all duration-300 hover:shadow-xl overflow-hidden">
                           <div className="relative aspect-video w-full overflow-hidden rounded-t-2xl bg-muted">
                             {post.image_url ? (
@@ -148,7 +154,8 @@ export default function Blog() {
                             </div>
                           </div>
                         </article>
-                      </Link>
+                        </Link>
+                      </FollowerPointerCard>
                     ))}
                   </div>
 
