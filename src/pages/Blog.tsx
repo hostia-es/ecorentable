@@ -1,12 +1,26 @@
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Clock, Wrench, Lightbulb, ShoppingBag, MapPin, Users, Leaf } from "lucide-react";
-import RelatedHubs from "@/components/common/RelatedHubs";
+import { ArrowRight, Clock, Wrench, Lightbulb, ShoppingBag, MapPin, Users, Leaf, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
+import RelatedHubs from "@/components/common/RelatedHubs";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
-import { blogPosts, blogCategories } from "@/data/blog";
+import { blogPosts as legacyPosts, blogCategories } from "@/data/blog";
 import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
+import { supabase } from "@/integrations/supabase/client";
+
+interface UnifiedPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  image: string;
+  date: string;
+  readTime: string;
+  source: "db" | "legacy";
+}
 
 const faqBlog = [
   { question: "¿Con qué frecuencia se publica contenido nuevo?", answer: "Publicamos al menos 2 artículos al mes en las categorías de Guías, ITV, Innovación y Flotas. Suscríbete al newsletter para no perderte nada." },
@@ -14,9 +28,43 @@ const faqBlog = [
   { question: "¿Cómo puedo proponer un tema?", answer: "Escríbenos a través del formulario de contacto indicando el asunto 'Sugerencia Blog'. Revisamos todas las propuestas." },
 ];
 
+function readTimeOf(text: string) {
+  const w = (text || "").trim().split(/\s+/).length;
+  return `${Math.max(1, Math.ceil(w / 200))} min`;
+}
+
 export default function Blog() {
-  const featured = blogPosts.slice(0, 3);
-  const recent = blogPosts.slice(3);
+  const [dbPosts, setDbPosts] = useState<UnifiedPost[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("blog_posts")
+        .select("id, slug, title, excerpt, category, image_url, published_at, content")
+        .eq("published", true)
+        .order("published_at", { ascending: false });
+      if (data) {
+        setDbPosts(data.map((p: any) => ({
+          id: p.id, slug: p.slug, title: p.title, excerpt: p.excerpt || "",
+          category: p.category, image: p.image_url || "/placeholder.svg",
+          date: new Date(p.published_at).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" }),
+          readTime: readTimeOf(p.content || ""), source: "db",
+        })));
+      }
+    })();
+  }, []);
+
+  const allPosts: UnifiedPost[] = useMemo(() => {
+    const legacy: UnifiedPost[] = legacyPosts.map((p) => ({
+      id: p.id, slug: p.slug, title: p.title, excerpt: p.excerpt,
+      category: p.category, image: p.image, date: p.date, readTime: p.readTime, source: "legacy",
+    }));
+    // DB primeiro (mais recentes), legacy depois
+    return [...dbPosts, ...legacy];
+  }, [dbPosts]);
+
+  const featured = allPosts.slice(0, 3);
+  const recent = allPosts.slice(3);
 
   return (
     <main>
@@ -64,7 +112,7 @@ export default function Blog() {
                     <p className="text-sm flex-1 leading-relaxed text-muted-foreground">{post.excerpt}</p>
                     <div className="flex items-center gap-3 text-xs text-muted-foreground">
                       <span className="flex items-center gap-1"><Clock size={11} />{post.readTime}</span>
-                      <span>{post.date}</span>
+                      <span className="flex items-center gap-1"><Calendar size={11} />{post.date}</span>
                     </div>
                     <span className="text-xs font-semibold flex items-center gap-1 group-hover:gap-2 transition-all text-primary">Leer artículo <ArrowRight size={11} /></span>
                   </div>
@@ -83,13 +131,7 @@ export default function Blog() {
           </AnimatedSection>
           <div className="space-y-4">
             {recent.map((post, i) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }}
-                viewport={{ once: true }}
-              >
+              <motion.div key={post.id} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }}>
                 <Link to={`/blog/${post.slug}`} className="bg-white rounded-2xl border border-border shadow-sm p-0 overflow-hidden flex flex-col sm:flex-row sm:items-center gap-0 group hover:shadow-xl hover:border-primary/30 transition-all duration-200 block">
                   <img src={post.image} alt={post.title} className="w-full sm:w-40 h-28 sm:h-full object-cover shrink-0" loading="lazy" />
                   <div className="p-5 flex-1">
