@@ -413,8 +413,10 @@ export default function Accesibilidad() {
             <CTABox
               title="¿Necesita ayuda adicional?"
               description="Nuestro equipo está disponible para asistirle por el canal que prefiera."
-              primaryCta={{ label: "Ir a contacto", href: "/contacto" }}
-              secondaryCta={{ label: "Ver servicios", href: "/servicios" }}
+              primaryLabel="Ir a contacto"
+              primaryHref="/contacto"
+              secondaryLabel="Ver servicios"
+              secondaryHref="/servicios"
             />
           </div>
         </div>
