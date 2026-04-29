@@ -4,8 +4,23 @@ import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import { workshops, workshopProvincias } from "@/data/workshops";
 
-const telHref = (phone: string) =>
-  `tel:${phone.replace(/\s/g, "").replace("(+34)", "+34")}`;
+// Extrae solo dígitos nacionales (sin prefijo +34)
+const getNationalDigits = (phone: string) => {
+  const digits = phone.replace(/\D/g, "");
+  return digits.startsWith("34") ? digits.slice(2) : digits;
+};
+
+// Formato España: +34 XXX XX XX XX (9 dígitos nacionales)
+const formatPhoneES = (phone: string) => {
+  const n = getNationalDigits(phone);
+  if (n.length !== 9) return phone;
+  return `+34 ${n.slice(0, 3)} ${n.slice(3, 5)} ${n.slice(5, 7)} ${n.slice(7, 9)}`;
+};
+
+const telHref = (phone: string) => {
+  const n = getNationalDigits(phone);
+  return `tel:+34${n}`;
+};
 
 export default function EncuentraTuCentro() {
   const [search, setSearch] = useState("");
