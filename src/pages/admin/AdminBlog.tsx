@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2, X, Calendar, FileSpreadsheet } from "lucide-react";
 import { toast } from "sonner";
 
 interface Post {
@@ -15,6 +15,9 @@ export default function AdminBlog() {
   const [q, setQ] = useState("");
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncStatus, setSyncStatus] = useState("");
+  const [syncOpen, setSyncOpen] = useState(false);
+  const [sheetUrl, setSheetUrl] = useState("");
+  const [preview, setPreview] = useState<any | null>(null);
 
   useEffect(() => { load(); }, []);
 
@@ -44,69 +47,79 @@ export default function AdminBlog() {
     load();
   }
 
-  async function handleSyncCalendar() {
-    if (isSyncing) return;
-    const csvUrl = prompt(
-      "Pega la URL del CSV público de tu Google Sheet:\n\n(Google Sheets → Archivo → Compartir → Publicar en la web → CSV)"
-    );
-    if (!csvUrl) return;
+  function buildPayload(url: string) {
+    const isCsv = /output=csv|\/pub\?/i.test(url);
+    return isCsv ? { csv_url: url } : { sheet_url: url };
+  }
 
+  async function analyzeSheet() {
+    if (!sheetUrl.trim()) return toast.error("Pega una URL");
     setIsSyncing(true);
     setSyncStatus("Analizando calendario...");
-
+    setPreview(null);
     try {
       const { data: sessionData } = await supabase.auth.getSession();
       const token = sessionData.session?.access_token;
       if (!token) throw new Error("No autenticado");
 
-      const dryRes = await fetch(
+      const res = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-blog-calendar`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ csv_url: csvUrl, dry_run: true }),
+          body: JSON.stringify({ ...buildPayload(sheetUrl), dry_run: true }),
         }
       );
-      const dryData = await dryRes.json();
-      if (!dryRes.ok) throw new Error(dryData.error || "Error al analizar");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al analizar");
+      setPreview(data);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Error");
+    } finally {
+      setIsSyncing(false);
+      setSyncStatus("");
+    }
+  }
 
-      if (dryData.to_process === 0) {
-        toast.info(`Sin posts pendientes. ${dryData.already_processed} ya procesados de ${dryData.due_today_or_past} con fecha vencida.`);
-        setIsSyncing(false); setSyncStatus("");
-        return;
-      }
-
-      const ok = confirm(
-        `Se encontraron ${dryData.to_process} posts pendientes (de ${dryData.due_today_or_past} con fecha ≤ hoy).\n\nSe procesarán en lotes de 3. ¿Continuar?`
-      );
-      if (!ok) { setIsSyncing(false); setSyncStatus(""); return; }
+  async function runSync() {
+    if (!preview || preview.to_process === 0) return;
+    setIsSyncing(true);
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData.session?.access_token;
+      if (!token) throw new Error("No autenticado");
 
       let totalProcessed = 0;
-      let remaining = dryData.to_process;
+      let remaining = preview.to_process;
+      const payload = buildPayload(sheetUrl);
 
       while (remaining > 0) {
         setSyncStatus(`Generando posts... (${totalProcessed} completados, ${remaining} restantes)`);
-        const syncRes = await fetch(
+        const res = await fetch(
           `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-blog-calendar`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            body: JSON.stringify({ csv_url: csvUrl, batch_size: 3 }),
+            body: JSON.stringify({ ...payload, batch_size: 3 }),
           }
         );
-        const syncData = await syncRes.json();
-        if (!syncRes.ok) throw new Error(syncData.error || "Error al sincronizar");
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Error al sincronizar");
 
-        totalProcessed += syncData.batch_processed;
-        remaining = syncData.remaining;
+        totalProcessed += data.batch_processed;
+        remaining = data.remaining;
 
-        const errors = syncData.results?.filter((r: any) => r.status === "error").length || 0;
-        const published = syncData.results?.filter((r: any) => r.status === "published").length || 0;
-        if (errors > 0) toast.warning(`Lote: ${published} publicados, ${errors} errores`);
+        const errors = data.results?.filter((r: any) => r.status === "error").length || 0;
+        const pub = data.results?.filter((r: any) => r.status === "published").length || 0;
+        const sched = data.results?.filter((r: any) => r.status === "scheduled").length || 0;
+        if (errors > 0) toast.warning(`Lote: ${pub} publicados, ${sched} programados, ${errors} errores`);
         if (remaining <= 0) break;
       }
 
       toast.success(`¡Sincronización completada! ${totalProcessed} posts procesados.`);
+      setSyncOpen(false);
+      setPreview(null);
+      setSheetUrl("");
       load();
     } catch (error) {
       console.error("Sync error:", error);
