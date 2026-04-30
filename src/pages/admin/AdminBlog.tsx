@@ -143,13 +143,13 @@ export default function AdminBlog() {
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={handleSyncCalendar}
+            onClick={() => setSyncOpen(true)}
             disabled={isSyncing}
             className="inline-flex items-center gap-2 border border-white/15 hover:bg-white/5 rounded-lg px-4 py-2 text-sm disabled:opacity-50"
             title="Importar y generar posts desde Google Sheet"
           >
-            {isSyncing ? <Loader2 size={16} className="animate-spin" /> : <RefreshCw size={16} />}
-            {isSyncing ? "Sincronizando..." : "Sincronizar calendario"}
+            {isSyncing ? <Loader2 size={16} className="animate-spin" /> : <FileSpreadsheet size={16} />}
+            {isSyncing ? "Sincronizando..." : "Importar de Google Sheets"}
           </button>
           <Link to="/admin/blog/new" className="inline-flex items-center gap-2 bg-[hsl(148,72%,45%)] hover:bg-[hsl(148,72%,40%)] text-black font-semibold rounded-lg px-4 py-2 text-sm">
             <Plus size={16} /> Nuevo post
