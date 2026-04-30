@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, Sparkles, Image as ImageIcon, Save, Eye, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import RichTextEditor from "@/components/admin/RichTextEditor";
 
 const slugify = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -207,10 +208,9 @@ export default function AdminBlogEditor() {
             <textarea value={f.excerpt} onChange={(e) => update("excerpt", e.target.value)} rows={2}
               className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm" />
           </Field>
-          <Field label="Contenido (Markdown)">
-            <textarea value={f.content} onChange={(e) => update("content", e.target.value)} rows={24}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm font-mono leading-relaxed" />
-            <p className="text-[11px] text-white/40 mt-1">Soporta # H1, ## H2, **negrita**, *itálica*, [enlaces](/url), tablas Markdown, listas.</p>
+          <Field label="Contenido">
+            <RichTextEditor value={f.content} onChange={(v) => update("content", v)} placeholder="Empieza a escribir tu artículo…" />
+            <p className="text-[11px] text-white/40 mt-1">Editor visual: títulos, formato, listas, enlaces, imágenes y tablas. Se guarda como Markdown.</p>
           </Field>
         </div>
 
