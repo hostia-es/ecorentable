@@ -248,6 +248,8 @@ export default function AdminBlogEditor() {
             </Field>
           </div>
 
+          <SeoValidationPanel post={f} />
+
           <div className="rounded-xl border border-white/5 p-4 space-y-3" style={{ background: "hsl(210 25% 7%)" }}>
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-semibold text-white/80 uppercase tracking-wide">Imagen destacada</h3>
