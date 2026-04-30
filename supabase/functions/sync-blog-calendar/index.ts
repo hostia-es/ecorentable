@@ -6,6 +6,8 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const SHEETS_GATEWAY = "https://connector-gateway.lovable.dev/google_sheets/v4";
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -53,32 +55,80 @@ function parseDate(dateStr: string): Date | null {
   return isNaN(d.getTime()) ? null : d;
 }
 
+/** Extracts the spreadsheet ID from a Google Sheets URL */
+function extractSheetId(url: string): string | null {
+  const m = url.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+  return m ? m[1] : null;
+}
+
+/** Fetches all values of the first sheet via Google Sheets gateway, returns as rows */
+async function fetchSheetRows(spreadsheetId: string, lovableKey: string, sheetsKey: string): Promise<Record<string, string>[]> {
+  // Get spreadsheet metadata to find first sheet name
+  const metaRes = await fetch(`${SHEETS_GATEWAY}/spreadsheets/${spreadsheetId}?fields=sheets.properties`, {
+    headers: {
+      Authorization: `Bearer ${lovableKey}`,
+      "X-Connection-Api-Key": sheetsKey,
+    },
+  });
+  if (!metaRes.ok) throw new Error(`Sheets metadata failed [${metaRes.status}]: ${await metaRes.text()}`);
+  const meta = await metaRes.json();
+  const firstSheet = meta.sheets?.[0]?.properties?.title || "Sheet1";
+
+  const range = `${firstSheet}!A1:Z10000`;
+  const valuesRes = await fetch(`${SHEETS_GATEWAY}/spreadsheets/${spreadsheetId}/values/${range}`, {
+    headers: {
+      Authorization: `Bearer ${lovableKey}`,
+      "X-Connection-Api-Key": sheetsKey,
+    },
+  });
+  if (!valuesRes.ok) throw new Error(`Sheets values failed [${valuesRes.status}]: ${await valuesRes.text()}`);
+  const data = await valuesRes.json();
+  const values: string[][] = data.values || [];
+  if (values.length < 2) return [];
+  const headers = values[0].map((h) => (h || "").trim());
+  return values.slice(1).map((row) => {
+    const obj: Record<string, string> = {};
+    headers.forEach((h, i) => { obj[h] = (row[i] || "").trim(); });
+    return obj;
+  });
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY not configured");
+    const SHEETS_API_KEY = Deno.env.get("GOOGLE_SHEETS_API_KEY");
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const body = await req.json().catch(() => ({}));
-    const csvUrl = body.csv_url;
+    const sheetUrl: string | undefined = body.sheet_url;
+    const csvUrl: string | undefined = body.csv_url;
     const batchSize = body.batch_size || 3;
     const dryRun = body.dry_run || false;
 
-    if (!csvUrl) {
-      return new Response(JSON.stringify({ error: "csv_url es obligatorio. Publica tu Google Sheet como CSV y proporciona la URL." }), {
+    if (!sheetUrl && !csvUrl) {
+      return new Response(JSON.stringify({ error: "Proporciona sheet_url (Google Sheets) o csv_url (CSV publicado)." }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    const csvResponse = await fetch(csvUrl);
-    if (!csvResponse.ok) throw new Error(`No se pudo obtener el CSV: ${csvResponse.status}`);
-    const csvText = await csvResponse.text();
-    const rows = parseCSV(csvText);
+    // Fetch rows: prefer Google Sheets gateway, fallback to CSV
+    let rows: Record<string, string>[] = [];
+    if (sheetUrl) {
+      const sheetId = extractSheetId(sheetUrl);
+      if (!sheetId) throw new Error("URL de Google Sheets no válida");
+      if (!SHEETS_API_KEY) throw new Error("Conector Google Sheets no configurado");
+      rows = await fetchSheetRows(sheetId, LOVABLE_API_KEY, SHEETS_API_KEY);
+    } else if (csvUrl) {
+      const csvResponse = await fetch(csvUrl);
+      if (!csvResponse.ok) throw new Error(`No se pudo obtener el CSV: ${csvResponse.status}`);
+      rows = parseCSV(await csvResponse.text());
+    }
 
     const today = new Date();
     today.setHours(23, 59, 59, 999);
@@ -100,11 +150,12 @@ serve(async (req) => {
 
       if (!idea || !kwPrincipal) continue;
       const postDate = parseDate(fecha);
-      if (!postDate || postDate > today) continue;
+      if (!postDate) continue;
 
       pending.push({
         keywordSlug: slugify(kwPrincipal),
         fecha: postDate.toISOString().split("T")[0],
+        isFuture: postDate > today,
         idea, kwPrincipal, kwSec1, kwSec2, kwSec3,
         tipo, intencion, objetivo, categoria, autor, ciudad,
       });
@@ -122,14 +173,19 @@ serve(async (req) => {
       return !status || status === "error";
     });
 
+    const futureCount = toProcess.filter((p) => p.isFuture).length;
+    const dueCount = toProcess.filter((p) => !p.isFuture).length;
+
     if (dryRun) {
       return new Response(JSON.stringify({
         total_in_sheet: rows.length,
-        due_today_or_past: pending.length,
+        valid_rows: pending.length,
         already_processed: pending.length - toProcess.length,
         to_process: toProcess.length,
+        scheduled_future: futureCount,
+        publish_now: dueCount,
         pending_items: toProcess.slice(0, 10).map((p) => ({
-          slug: p.keywordSlug, fecha: p.fecha,
+          slug: p.keywordSlug, fecha: p.fecha, future: p.isFuture,
           idea: p.idea.slice(0, 60), categoria: p.categoria,
         })),
       }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
@@ -290,6 +346,9 @@ Solo JSON válido en la respuesta.`;
         }
 
         const slug = generated.slug || item.keywordSlug;
+        // Future posts: create as DRAFT, scheduled with published_at = sheet date
+        // Past/today posts: publish immediately
+        const shouldPublishNow = !item.isFuture;
         const { data: insertedPost, error: insertError } = await supabase
           .from("blog_posts")
           .insert({
@@ -303,7 +362,7 @@ Solo JSON válido en la respuesta.`;
             image_url: imageUrl,
             meta_title: generated.meta_title || null,
             meta_description: generated.meta_description || null,
-            published: true,
+            published: shouldPublishNow,
             published_at: item.fecha,
           })
           .select("id")
@@ -312,11 +371,11 @@ Solo JSON válido en la respuesta.`;
         if (insertError) throw new Error(`Insert failed: ${insertError.message}`);
 
         await supabase.from("blog_calendar_sync").update({
-          status: "published",
+          status: shouldPublishNow ? "published" : "scheduled",
           blog_post_id: insertedPost.id,
         }).eq("keyword_slug", item.keywordSlug);
 
-        results.push({ slug, title: generated.title, status: "published", image: !!imageUrl });
+        results.push({ slug, title: generated.title, status: shouldPublishNow ? "published" : "scheduled", scheduled_for: item.fecha, image: !!imageUrl });
         await new Promise((r) => setTimeout(r, 3000));
       } catch (err) {
         console.error(`Error processing ${item.kwPrincipal}:`, err);
@@ -334,7 +393,7 @@ Solo JSON válido en la respuesta.`;
 
     return new Response(JSON.stringify({
       total_in_sheet: rows.length,
-      due_today_or_past: pending.length,
+      valid_rows: pending.length,
       batch_processed: batch.length,
       remaining: toProcess.length - batch.length,
       results,
