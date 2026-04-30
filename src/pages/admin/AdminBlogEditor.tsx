@@ -4,6 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, Sparkles, Image as ImageIcon, Save, Eye, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import RichTextEditor from "@/components/admin/RichTextEditor";
+import SeoValidationPanel from "@/components/admin/SeoValidationPanel";
+import { runSeoChecks, seoSummary } from "@/lib/seoChecks";
 
 const slugify = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
