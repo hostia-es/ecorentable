@@ -113,6 +113,15 @@ export default function AdminBlogEditor() {
 
   async function save() {
     if (!f.title || !f.slug) return toast.error("Título y slug son obligatorios");
+
+    // Block publishing when SEO has critical errors
+    if (f.published) {
+      const summary = seoSummary(runSeoChecks(f));
+      if (!summary.canPublish) {
+        return toast.error(`No se puede publicar: ${summary.fail} error(es) SEO. Revisa el panel.`);
+      }
+    }
+
     setSaving(true);
     const payload = { ...f, slug: slugify(f.slug) };
     const { data, error } = isNew
@@ -120,7 +129,7 @@ export default function AdminBlogEditor() {
       : await supabase.from("blog_posts").update(payload).eq("id", id!).select().single();
     setSaving(false);
     if (error) return toast.error(error.message);
-    toast.success("Guardado");
+    toast.success(f.published ? "Publicado" : "Guardado como borrador");
     if (isNew && data) nav(`/admin/blog/${data.id}`, { replace: true });
   }
 
