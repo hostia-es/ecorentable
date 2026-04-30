@@ -4,6 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, Sparkles, Image as ImageIcon, Save, Eye, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import RichTextEditor from "@/components/admin/RichTextEditor";
+import SeoValidationPanel from "@/components/admin/SeoValidationPanel";
+import { runSeoChecks, seoSummary } from "@/lib/seoChecks";
 
 const slugify = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -111,6 +113,15 @@ export default function AdminBlogEditor() {
 
   async function save() {
     if (!f.title || !f.slug) return toast.error("Título y slug son obligatorios");
+
+    // Block publishing when SEO has critical errors
+    if (f.published) {
+      const summary = seoSummary(runSeoChecks(f));
+      if (!summary.canPublish) {
+        return toast.error(`No se puede publicar: ${summary.fail} error(es) SEO. Revisa el panel.`);
+      }
+    }
+
     setSaving(true);
     const payload = { ...f, slug: slugify(f.slug) };
     const { data, error } = isNew
@@ -118,7 +129,7 @@ export default function AdminBlogEditor() {
       : await supabase.from("blog_posts").update(payload).eq("id", id!).select().single();
     setSaving(false);
     if (error) return toast.error(error.message);
-    toast.success("Guardado");
+    toast.success(f.published ? "Publicado" : "Guardado como borrador");
     if (isNew && data) nav(`/admin/blog/${data.id}`, { replace: true });
   }
 
@@ -236,6 +247,8 @@ export default function AdminBlogEditor() {
                 className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm" />
             </Field>
           </div>
+
+          <SeoValidationPanel post={f} />
 
           <div className="rounded-xl border border-white/5 p-4 space-y-3" style={{ background: "hsl(210 25% 7%)" }}>
             <div className="flex items-center justify-between">
