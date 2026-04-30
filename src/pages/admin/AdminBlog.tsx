@@ -225,6 +225,89 @@ export default function AdminBlog() {
           </tbody>
         </table>
       </div>
+
+      {syncOpen && (
+        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" onClick={() => !isSyncing && setSyncOpen(false)}>
+          <div className="w-full max-w-2xl rounded-2xl border border-white/10 p-6" style={{ background: "hsl(210 25% 9%)" }} onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <FileSpreadsheet className="w-5 h-5 text-[hsl(148,72%,55%)]" />
+                <h2 className="text-lg font-semibold">Importar calendario desde Google Sheets</h2>
+              </div>
+              <button onClick={() => !isSyncing && setSyncOpen(false)} className="p-1 rounded hover:bg-white/10"><X size={18} /></button>
+            </div>
+
+            <p className="text-sm text-white/60 mb-4">
+              Pega el enlace de tu Google Sheet. Posts con fecha pasada se publican al instante; los futuros quedan programados y se publican automáticamente cada hora cuando llega la fecha.
+            </p>
+
+            <input
+              value={sheetUrl}
+              onChange={(e) => setSheetUrl(e.target.value)}
+              placeholder="https://docs.google.com/spreadsheets/d/..."
+              disabled={isSyncing}
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm mb-3"
+            />
+
+            <div className="flex gap-2 mb-4">
+              <button
+                onClick={analyzeSheet}
+                disabled={isSyncing || !sheetUrl}
+                className="inline-flex items-center gap-2 border border-white/15 hover:bg-white/5 rounded-lg px-4 py-2 text-sm disabled:opacity-50"
+              >
+                {isSyncing && !preview ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
+                Analizar
+              </button>
+              {preview && preview.to_process > 0 && (
+                <button
+                  onClick={runSync}
+                  disabled={isSyncing}
+                  className="inline-flex items-center gap-2 bg-[hsl(148,72%,45%)] hover:bg-[hsl(148,72%,40%)] text-black font-semibold rounded-lg px-4 py-2 text-sm disabled:opacity-50"
+                >
+                  {isSyncing ? <Loader2 size={14} className="animate-spin" /> : <Calendar size={14} />}
+                  Generar {preview.to_process} posts
+                </button>
+              )}
+            </div>
+
+            {syncStatus && (
+              <div className="rounded-lg border border-[hsl(148,72%,45%)]/40 bg-[hsl(148,72%,45%)]/5 p-3 mb-3 text-sm flex items-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin text-[hsl(148,72%,55%)]" />
+                {syncStatus}
+              </div>
+            )}
+
+            {preview && (
+              <div className="rounded-lg border border-white/10 p-4 space-y-2 text-sm">
+                <div className="grid grid-cols-2 gap-2">
+                  <div><span className="text-white/50">Filas en hoja:</span> <strong>{preview.total_in_sheet}</strong></div>
+                  <div><span className="text-white/50">Filas válidas:</span> <strong>{preview.valid_rows}</strong></div>
+                  <div><span className="text-white/50">Ya procesados:</span> <strong>{preview.already_processed}</strong></div>
+                  <div><span className="text-white/50">Pendientes:</span> <strong className="text-[hsl(148,72%,55%)]">{preview.to_process}</strong></div>
+                  <div><span className="text-white/50">Publicar ahora:</span> <strong>{preview.publish_now}</strong></div>
+                  <div><span className="text-white/50">Programados:</span> <strong>{preview.scheduled_future}</strong></div>
+                </div>
+                {preview.pending_items?.length > 0 && (
+                  <div className="pt-2 border-t border-white/10">
+                    <p className="text-xs text-white/50 mb-1">Próximos posts a generar:</p>
+                    <ul className="space-y-1 text-xs">
+                      {preview.pending_items.map((it: any, i: number) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className={`px-1.5 py-0.5 rounded text-[10px] ${it.future ? "bg-amber-500/20 text-amber-300" : "bg-[hsl(148,72%,45%)]/20 text-[hsl(148,72%,55%)]"}`}>
+                            {it.future ? "Programado" : "Hoy"}
+                          </span>
+                          <span className="text-white/40">{it.fecha}</span>
+                          <span className="truncate">{it.idea}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
