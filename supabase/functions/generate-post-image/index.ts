@@ -32,26 +32,38 @@ serve(async (req) => {
     const allowed = (roles || []).some((r: any) => r.role === "admin" || r.role === "editor");
     if (!allowed) return json({ error: "Solo editores" }, 403);
 
-    const { title, category, slug } = await req.json();
+    const { title, category, slug, excerpt } = await req.json();
     if (!title) return json({ error: "title requerido" }, 400);
 
-    const prompt = `Imagen de cabecera profesional para un blog español sobre automoción ecológica (marca "Ecología Rentable"). Tema del artículo: "${title}". Categoría: ${category || "automoción"}.
+    const prompt = `Crea una imagen de cabecera EDUCATIVA y FOTORREALISTA para un blog técnico de automoción de la marca "Ecología Rentable" (España).
 
-ESTILO:
-- Limpio, luminoso, profesional, fondo claro o pastel suave.
-- Iluminación natural cálida.
-- Estética de revista técnica de motor — NO futurista, NO sci-fi, NO oscuro.
-- Tonos: verdes naturales, blancos, gris claro, ámbar suave (paleta eco/sostenible).
-- Cuando sea relevante, mostrar elementos reales: motor de coche, taller mecánico limpio, hidrógeno (H2), filtro DPF, hojas verdes integradas con motor.
-- Personas opcionales: técnicos profesionales con uniforme.
-- SIN texto, SIN logos, SIN watermarks.
-- Formato 16:9, alta calidad fotográfica o ilustración realista.`;
+CONTEXTO DEL PRODUCTO REAL (muy importante — represéntalo con fidelidad):
+- "Ecología Rentable" descarboniza motores diésel y gasolina inyectando HIDRÓGENO (HHO) generado por electrólisis directamente en la admisión del motor mientras el coche está en ralentí en taller.
+- Las máquinas reales son carros profesionales de taller (modelos H2 Profit 1000/2000/3000 y Hy-Carbon Connect): estructura metálica con ruedas, color claro/blanco con detalles verdes, panel de control digital, mangueras flexibles que conectan a la admisión del motor, depósito de agua destilada, generador de HHO interno. Hy-Carbon Connect además tiene tablet/pantalla y dongle OBD bluetooth.
+- También limpian filtros de partículas DPF/FAP con la estación Carbon FAP (limpieza sin disolventes, agua + aire comprimido a 6 bares), y miden emisiones con opacímetros y analizadores de gases para pre-ITV.
+- Entorno típico: taller mecánico profesional limpio y luminoso, suelo epoxi gris, coche con capó abierto, técnico uniformado.
+
+TEMA DEL ARTÍCULO: "${title}"
+${excerpt ? `Resumen: ${excerpt}` : ""}
+Categoría: ${category || "automoción"}
+
+ESTILO VISUAL OBLIGATORIO:
+- Fotografía editorial de revista técnica de automoción + ilustración educativa cuando ayude a explicar lo que ocurre dentro del motor (vista corte/sección semitransparente del cilindro mostrando carbonilla en válvulas, pistón, EGR o DPF obstruido).
+- Iluminación natural luminosa, profesional, alto contraste suave, foco nítido, profundidad de campo realista.
+- Paleta: verdes naturales (#1f9d55, #2bc48a), blancos, grises claros, azul acero, ámbar puntual. Aspecto eco/profesional, NUNCA cyberpunk, NUNCA neón saturado, NUNCA sci-fi futurista, NUNCA oscuro.
+- Si muestras la máquina, dibújala REALISTA y reconocible: carro vertical de taller con ruedas, panel digital, mangueras, NO la inventes como un robot abstracto.
+- Si el tema es DPF/FAP: muestra un filtro de partículas real en sección (estructura cerámica panal de abeja con hollín atrapado vs limpio).
+- Si el tema es ITV/emisiones: muestra opacímetro/analizador real conectado al tubo de escape.
+- Si el tema es HHO/hidrógeno: muestra burbujas de gas H2/O2 saliendo de electrolisis y mangueras hacia la admisión.
+- Composición horizontal 16:9, espacio limpio para overlay de título a la izquierda o abajo.
+- SIN texto, SIN números visibles, SIN logos, SIN marcas de agua, SIN gente borrosa generada por IA con manos deformes (mejor primer plano del componente sin caras).
+- Resultado debe parecer una foto real tomada en un taller profesional español, no un render 3D plástico.`;
 
     const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image",
+        model: "google/gemini-3-pro-image-preview",
         messages: [{ role: "user", content: prompt }],
         modalities: ["image", "text"],
       }),
