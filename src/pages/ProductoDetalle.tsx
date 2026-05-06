@@ -59,8 +59,11 @@ export default function ProductoDetalle() {
               {product.badge && <span className="badge-green self-start">{product.badge}</span>}
               <div className="text-3xl font-bold" style={{ color: "hsl(var(--primary))" }}>{product.price}</div>
               <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>Precio orientativo sin IVA. Solicita presupuesto para precio final y condiciones.</p>
-              <Link to="/contacto" className="btn-primary w-full justify-center flex items-center gap-2"><ShoppingCart size={15} />Solicitar presupuesto</Link>
+              <Link to={`/contacto?intent=presupuesto&item=${product.slug}`} className="btn-primary w-full justify-center flex items-center gap-2"><ShoppingCart size={15} />Solicitar presupuesto</Link>
               <Link to="/socios/hazte-socio" className="btn-secondary w-full justify-center">Precio de socio (mejor tarifa)</Link>
+              {(product as any).hasRental && (
+                <Link to={`/contacto?intent=alquiler&item=${product.slug}`} className="text-xs text-center underline text-primary">¿Prefieres alquiler o renting? Solicita info</Link>
+              )}
               <div className="pt-3 border-t" style={{ borderColor: "hsl(var(--border))" }}>
                 <p className="text-xs font-semibold mb-2" style={{ color: "hsl(var(--foreground))" }}>¿Para quién es este producto?</p>
                 <ul className="space-y-1">
