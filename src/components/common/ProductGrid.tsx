@@ -20,7 +20,7 @@ export default function ProductGrid({ products, title, subtitle, showCategory = 
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => (
-          <Link key={product.id} to={`/${product.slug}`} className="product-card block">
+          <Link key={product.id} to={`/tienda/${product.categorySlug}/${product.slug}`} className="product-card block">
             <div className="relative h-40 flex items-center justify-center" style={{ background: "hsl(var(--secondary))" }}>
               <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: "var(--gradient-primary)" }}>
                 <Tag size={28} color="white" />
