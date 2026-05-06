@@ -4,6 +4,7 @@ import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import { AnimatedSection } from "@/components/common/Animations";
+import { extraSoluciones } from "@/data/extraSolutions";
 import serviceHero from "@/assets/service-decarbonization-hero.jpg";
 import obd2Diagnostics from "@/assets/obd2-diagnostics.jpg";
 import engineBeforeAfter from "@/assets/engine-before-after.jpg";
@@ -247,9 +248,11 @@ const data: Record<string, SolucionData> = {
   },
 };
 
+const allData: Record<string, SolucionData> = { ...data, ...extraSoluciones };
+
 export default function SolucionDetalle() {
   const { slug } = useParams<{ slug: string }>();
-  const sol = data[slug ?? ""];
+  const sol = allData[slug ?? ""];
 
   if (!sol) {
     return (
