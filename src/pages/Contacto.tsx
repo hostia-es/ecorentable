@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight, Phone, Mail, MapPin, Clock, CheckCircle, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import teamContacto from "@/assets/team-contacto.jpg";
 
 const faqContacto = [
@@ -27,8 +29,71 @@ const channels = [
 ];
 
 export default function Contacto() {
-  const [tipo, setTipo] = useState("particular");
+  const [params] = useSearchParams();
+  const { toast } = useToast();
+  const initialIntent = params.get("intent") || ""; // e.g. presupuesto, alquiler, socio, demo
+  const item = params.get("item") || ""; // e.g. h2-profit-2000
+  const initialTipo = params.get("tipo") === "taller" || params.get("tipo") === "flota" ? params.get("tipo")! : "particular";
+  const [tipo, setTipo] = useState(initialTipo);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    nombre: "",
+    email: "",
+    telefono: "",
+    provincia: "",
+    flotaTam: "1-10",
+    asunto: item || initialIntent
+      ? `${initialIntent ? `[${initialIntent.toUpperCase()}] ` : ""}${item ? `Producto/servicio: ${item}\n` : ""}`
+      : "",
+  });
+
+  useEffect(() => {
+    if (initialIntent || item) {
+      setForm((f) => ({
+        ...f,
+        asunto:
+          (initialIntent ? `[${initialIntent.toUpperCase()}] ` : "") +
+          (item ? `Producto/servicio: ${item}\n` : "") +
+          (f.asunto && !f.asunto.startsWith("[") ? f.asunto : ""),
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const notas = [
+        initialIntent && `Intención: ${initialIntent}`,
+        item && `Item: ${item}`,
+        form.provincia && `Provincia: ${form.provincia}`,
+        tipo === "flota" && `Flota: ${form.flotaTam} vehículos`,
+        form.asunto && `Mensaje: ${form.asunto}`,
+      ]
+        .filter(Boolean)
+        .join("\n");
+      const { error } = await supabase.from("leads").insert({
+        nombre: form.nombre,
+        email: form.email,
+        telefono: form.telefono || null,
+        servicio: tipo,
+        origen: initialIntent ? `Web · ${initialIntent}` : "Formulario Web",
+        notas,
+      });
+      if (error) throw error;
+      setSubmitted(true);
+    } catch (err: any) {
+      toast({
+        title: "No pudimos enviar tu mensaje",
+        description: err.message || "Intenta de nuevo en unos instantes.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main>
@@ -129,8 +194,14 @@ export default function Contacto() {
               ) : (
                 <Card className="hover:shadow-lg transition-shadow duration-200">
                   <CardContent className="p-8">
-                    <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
+                    <form className="space-y-5" onSubmit={handleSubmit}>
                       <h2 className="text-xl font-bold text-foreground">Formulario de contacto</h2>
+                      {(initialIntent || item) && (
+                        <div className="text-xs rounded-md px-3 py-2 bg-primary/10 text-primary">
+                          {initialIntent && <span className="font-semibold uppercase">{initialIntent}</span>}
+                          {item && <span> · {item}</span>}
+                        </div>
+                      )}
 
                       <div>
                         <Label className="mb-2 block">Soy…</Label>
@@ -152,26 +223,26 @@ export default function Contacto() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1.5">
                           <Label htmlFor="nombre">Nombre *</Label>
-                          <Input id="nombre" required placeholder="Tu nombre" />
+                          <Input id="nombre" required maxLength={100} value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} placeholder="Tu nombre" />
                         </div>
                         <div className="space-y-1.5">
                           <Label htmlFor="email">Email *</Label>
-                          <Input id="email" type="email" required placeholder="tu@email.com" />
+                          <Input id="email" type="email" required maxLength={255} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="tu@email.com" />
                         </div>
                         <div className="space-y-1.5">
                           <Label htmlFor="tel">Teléfono</Label>
-                          <Input id="tel" type="tel" placeholder="+34 600 000 000" />
+                          <Input id="tel" type="tel" maxLength={30} value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} placeholder="+34 600 000 000" />
                         </div>
                         <div className="space-y-1.5">
                           <Label htmlFor="provincia">Provincia</Label>
-                          <Input id="provincia" placeholder="Madrid" />
+                          <Input id="provincia" maxLength={60} value={form.provincia} onChange={(e) => setForm({ ...form, provincia: e.target.value })} placeholder="Madrid" />
                         </div>
                       </div>
 
                       {tipo === "flota" && (
                         <div className="space-y-1.5">
                           <Label>Número de vehículos en la flota</Label>
-                          <Select defaultValue="1-10">
+                          <Select value={form.flotaTam} onValueChange={(v) => setForm({ ...form, flotaTam: v })}>
                             <SelectTrigger><SelectValue /></SelectTrigger>
                             <SelectContent>
                               <SelectItem value="1-10">1–10 vehículos</SelectItem>
@@ -184,11 +255,11 @@ export default function Contacto() {
 
                       <div className="space-y-1.5">
                         <Label htmlFor="asunto">Asunto / motivo de consulta *</Label>
-                        <Textarea id="asunto" required rows={4} placeholder="Describe tu consulta o necesidad..." />
+                        <Textarea id="asunto" required rows={4} maxLength={1500} value={form.asunto} onChange={(e) => setForm({ ...form, asunto: e.target.value })} placeholder="Describe tu consulta o necesidad..." />
                       </div>
 
-                      <Button type="submit" className="w-full">
-                        <Send size={15} className="mr-1" /> Enviar mensaje
+                      <Button type="submit" className="w-full" disabled={loading}>
+                        <Send size={15} className="mr-1" /> {loading ? "Enviando…" : "Enviar mensaje"}
                       </Button>
                     </form>
                   </CardContent>

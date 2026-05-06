@@ -89,7 +89,7 @@ export default function EncuentraTuCentro() {
     <main>
       <PageHero
         title="Encuentra tu centro de descarbonización"
-        subtitle="Más de 80 talleres certificados en toda España, equipados con tecnología Hy-Calamine. Localiza el más cercano a ti."
+        subtitle="Más de 80 talleres certificados en toda España, equipados con tecnología H2 Profit. Localiza el más cercano a ti."
         breadcrumbs={[{ label: "Encuentra tu centro" }]}
         badge="83 centros certificados"
       />

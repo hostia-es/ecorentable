@@ -58,7 +58,7 @@ const data: Record<string, SolucionData> = {
     symptoms: ["Pérdida de potencia y tirones en aceleración", "Aumento del consumo de combustible ≥8%", "Humos negros por el escape", "Testigo de motor encendido (P0420, P0401…)", "Ruidos de traqueteo en frío", "Regeneraciones DPF frecuentes o fallidas"],
     process: [
       { step: 1, title: "Diagnóstico OBD2", desc: "Lectura de códigos de error y parámetros del motor antes de la intervención." },
-      { step: 2, title: "Preparación del vehículo", desc: "Calentamiento del motor a temperatura normal de trabajo. Conexión de la máquina Hy-Calamine." },
+      { step: 2, title: "Preparación del vehículo", desc: "Calentamiento del motor a temperatura normal de trabajo. Conexión de la descarbonizadora H2 Profit." },
       { step: 3, title: "Ciclo de descarbonización", desc: "Introducción de gas HHO durante 15–45 minutos según el modelo de máquina y el vehículo." },
       { step: 4, title: "Verificación", desc: "Medición de emisiones y parámetros post-ciclo. Borrado de códigos de error si procede." },
     ],
@@ -126,14 +126,14 @@ const data: Record<string, SolucionData> = {
     priceVariables: ["Modelo de máquina (1000S/2000S/3000S)", "Cilindrada del motor", "Tiempo de ciclo requerido"],
     risks: ["No aplicar en motores con juntas de culata dañadas", "Verificar ausencia de fugas antes del tratamiento"],
     faq: [
-      { question: "¿Es seguro el hidrógeno en el taller?", answer: "Sí. Las máquinas profesionales Hy-Calamine producen HHO bajo demanda y en pequeñas cantidades, sin acumulación peligrosa. Cuentan con válvulas de seguridad automáticas." },
+      { question: "¿Es seguro el hidrógeno en el taller?", answer: "Sí. Las máquinas profesionales H2 Profit producen HHO bajo demanda y en pequeñas cantidades, sin acumulación peligrosa. Cuentan con válvulas de seguridad automáticas." },
       { question: "¿Es lo mismo que añadir agua al motor?", answer: "No. El gas HHO actúa de forma muy diferente al agua líquida. Nunca se introduce agua en estado líquido en el motor." },
     ],
     relatedBlog: [
       { title: "Descarbonización por hidrógeno: cómo funciona", href: "/blog/descarbonizacion-hidrogeno-como-funciona" },
     ],
     relatedServices: [
-      { title: "Ver máquinas Hy-Calamine", href: "/tienda/maquinas-descarbonizadoras" },
+      { title: "Ver descarbonizadoras H2 Profit", href: "/tienda/descarbonizadoras" },
       { title: "Servicio descarbonización", href: "/servicios/descarbonizacion" },
     ],
   },

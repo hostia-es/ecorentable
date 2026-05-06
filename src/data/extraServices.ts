@@ -105,7 +105,7 @@ export const extraServicios: Record<string, ServicioData> = {
     priceNote: "El precio depende de la cilindrada, el tipo de combustible, los servicios complementarios (EGR, DPF, catalizador) y el centro elegido. Solicita presupuesto sin compromiso.",
     process: [
       { step: 1, title: "Diagnóstico OBD2 inicial", desc: "Lectura de códigos de avería, parámetros de presión, EGR, lambda y regeneraciones del DPF antes de la intervención." },
-      { step: 2, title: "Preparación del motor", desc: "Calentamiento del motor a temperatura óptima de trabajo (85–95 °C) y conexión del equipo Hy-Calamine a la admisión." },
+      { step: 2, title: "Preparación del motor", desc: "Calentamiento del motor a temperatura óptima de trabajo (85–95 °C) y conexión del equipo H2 Profit a la admisión." },
       { step: 3, title: "Ciclo HHO", desc: "Introducción del gas HHO durante 15–45 minutos según el modelo de máquina (1000S/2000S/3000S) y la cilindrada del vehículo." },
       { step: 4, title: "Tratamientos complementarios", desc: "Si el diagnóstico lo recomienda: limpieza de la válvula EGR por admisión, regeneración forzada del DPF o tratamiento del catalizador." },
       { step: 5, title: "Verificación y entrega", desc: "Nueva lectura OBD2, medición comparativa de emisiones (antes/después), borrado de códigos cuando proceda y entrega del informe técnico." },
@@ -136,7 +136,7 @@ export const extraServicios: Record<string, ServicioData> = {
     title: "Descarbonización con hidrógeno (HHO)",
     subtitle: "La tecnología más limpia y certificada para eliminar carbono del motor. Proceso electroquímico, sin productos químicos, sin residuos y compatible con todos los motores de combustión.",
     badge: "Tecnología HHO",
-    definition: "La descarbonización por hidrógeno (HHO) es un procedimiento electroquímico que utiliza una mezcla gaseosa de hidrógeno y oxígeno (H₂ + O), generada in situ por electrólisis del agua destilada con un electrolito alcalino, para eliminar los depósitos carbonosos del interior del motor. La máquina Hy-Calamine produce el gas únicamente bajo demanda y lo introduce por la toma de admisión mientras el motor permanece en marcha. A las temperaturas de combustión (>900 °C), el oxígeno reacciona con el carbono sólido y lo convierte en CO₂ gaseoso, mientras que el hidrógeno enriquece la combustión y se expulsa como vapor de agua. Es un proceso 100 % trazable, certificado CE, conforme a normativa europea de seguridad y compatible con catalizador, sonda lambda y filtro de partículas.",
+    definition: "La descarbonización por hidrógeno (HHO) es un procedimiento electroquímico que utiliza una mezcla gaseosa de hidrógeno y oxígeno (H₂ + O), generada in situ por electrólisis del agua destilada con un electrolito alcalino, para eliminar los depósitos carbonosos del interior del motor. La descarbonizadora H2 Profit produce el gas únicamente bajo demanda y lo introduce por la toma de admisión mientras el motor permanece en marcha. A las temperaturas de combustión (>900 °C), el oxígeno reacciona con el carbono sólido y lo convierte en CO₂ gaseoso, mientras que el hidrógeno enriquece la combustión y se expulsa como vapor de agua. Es un proceso 100 % trazable, certificado CE, conforme a normativa europea de seguridad y compatible con catalizador, sonda lambda y filtro de partículas.",
     symptoms: [
       "Pérdida de potencia y respuesta deficiente del acelerador",
       "Consumo de combustible elevado respecto al histórico",
@@ -154,9 +154,9 @@ export const extraServicios: Record<string, ServicioData> = {
       "Servicio en menos de 1 hora, sin desmontaje de piezas",
     ],
     priceRange: "Consultar precio",
-    priceNote: "El precio varía según el modelo de máquina utilizada (Hy-Calamine 1000S, 2000S o 3000S), la cilindrada del motor y los servicios complementarios. Solicita presupuesto.",
+    priceNote: "El precio varía según el modelo de máquina utilizada (H2 Profit 1000, 2000S o 3000S), la cilindrada del motor y los servicios complementarios. Solicita presupuesto.",
     process: [
-      { step: 1, title: "Electrólisis del agua", desc: "La máquina Hy-Calamine descompone el agua destilada en H₂ y O mediante una corriente continua de baja intensidad sobre un electrolito alcalino estable." },
+      { step: 1, title: "Electrólisis del agua", desc: "La descarbonizadora H2 Profit descompone el agua destilada en H₂ y O mediante una corriente continua de baja intensidad sobre un electrolito alcalino estable." },
       { step: 2, title: "Introducción en el motor", desc: "El gas HHO se introduce por la toma de admisión a presión controlada, con válvulas de seguridad antiretorno." },
       { step: 3, title: "Acción sobre el carbono", desc: "A la temperatura de combustión, el O reacciona con los depósitos sólidos de carbono formando CO₂. El H₂ enriquece la mezcla, mejorando la combustión durante el ciclo." },
       { step: 4, title: "Expulsión por el escape", desc: "Los gases resultantes (CO₂ y vapor de agua) se expulsan por el tubo de escape como parte del ciclo normal del motor." },
@@ -169,7 +169,7 @@ export const extraServicios: Record<string, ServicioData> = {
       "Flotas con políticas internas de sostenibilidad",
     ],
     faq: [
-      { question: "¿Es seguro tener una máquina HHO en el taller?", answer: "Sí. Las máquinas Hy-Calamine producen HHO únicamente bajo demanda y en pequeñas cantidades, sin acumulación. Disponen de válvulas de seguridad antiretorno, sensor de presión y corte automático en caso de anomalía. Cumplen la directiva europea PED 2014/68/UE." },
+      { question: "¿Es seguro tener una máquina HHO en el taller?", answer: "Sí. Las descarbonizadoras H2 Profit producen HHO únicamente bajo demanda y en pequeñas cantidades, sin acumulación. Disponen de válvulas de seguridad antiretorno, sensor de presión y corte automático en caso de anomalía. Cumplen la directiva europea PED 2014/68/UE." },
       { question: "¿Es lo mismo que añadir agua al motor?", answer: "No. El gas HHO es una mezcla gaseosa de hidrógeno y oxígeno. Nunca se introduce agua en estado líquido en el motor. El comportamiento físico-químico es completamente diferente." },
       { question: "¿Puede afectar al catalizador o a la sonda lambda?", answer: "No. El HHO es totalmente compatible con catalizador, sonda lambda y DPF. De hecho, su uso periódico ayuda a mantener limpios estos componentes." },
       { question: "¿Hay diferencia entre las máquinas H2 Profit 1000, 2000 y 3000?", answer: "Sí: el caudal de HHO producido (litros/hora) y el tiempo de ciclo recomendado por cilindrada. La 1000S es ideal para utilitarios y compactos, la 2000S para SUV y berlinas medias, y la 3000S para vehículos pesados, industriales y grandes cilindradas." },
@@ -185,7 +185,7 @@ export const extraServicios: Record<string, ServicioData> = {
     title: "Descarbonización para particulares",
     subtitle: "Servicio de descarbonización dirigido al conductor particular. Mejora el rendimiento, reduce el consumo y prepara tu vehículo para superar la ITV con margen.",
     badge: "Particulares",
-    definition: "El servicio para particulares de Ecología Rentable está pensado para el conductor que quiere mantener su vehículo en óptimas condiciones de eficiencia y emisiones. Incluye un diagnóstico OBD2 inicial gratuito, descarbonización HHO completa, opcionalmente limpieza de la válvula EGR, regeneración del DPF/FAP y tratamiento del catalizador, y entrega de un informe con la comparativa antes/después. El servicio se realiza en cualquier centro asociado de la red nacional Ecología Rentable, con técnicos formados específicamente y equipos Hy-Calamine certificados.",
+    definition: "El servicio para particulares de Ecología Rentable está pensado para el conductor que quiere mantener su vehículo en óptimas condiciones de eficiencia y emisiones. Incluye un diagnóstico OBD2 inicial gratuito, descarbonización HHO completa, opcionalmente limpieza de la válvula EGR, regeneración del DPF/FAP y tratamiento del catalizador, y entrega de un informe con la comparativa antes/después. El servicio se realiza en cualquier centro asociado de la red nacional Ecología Rentable, con técnicos formados específicamente y equipos H2 Profit certificados.",
     symptoms: [
       "Notas que el coche tira menos o consume más que antes",
       "Tienes el testigo de motor o de DPF encendido",
@@ -231,9 +231,9 @@ export const extraServicios: Record<string, ServicioData> = {
 
   "descarbonizacion-para-talleres": {
     title: "Descarbonización para talleres",
-    subtitle: "Incorpora la descarbonización profesional a tu taller. Equipo Hy-Calamine, formación, leads cualificados de tu zona y soporte técnico continuo.",
+    subtitle: "Incorpora la descarbonización profesional a tu taller. Equipo H2 Profit, formación, leads cualificados de tu zona y soporte técnico continuo.",
     badge: "Talleres B2B",
-    definition: "El programa para talleres de Ecología Rentable permite a cualquier mecánico ofrecer descarbonización profesional a sus clientes con respaldo de marca, equipo certificado y soporte continuo. El taller puede adquirir la máquina Hy-Calamine en propiedad o acceder a ella en alquiler/renting, y opcionalmente entrar en la red de centros asociados, lo que le permite recibir leads cualificados de su zona geográfica directamente desde la web de Ecología Rentable. Se incluye formación inicial presencial o telemática, manuales operativos, plantillas comerciales y soporte técnico ilimitado.",
+    definition: "El programa para talleres de Ecología Rentable permite a cualquier mecánico ofrecer descarbonización profesional a sus clientes con respaldo de marca, equipo certificado y soporte continuo. El taller puede adquirir la descarbonizadora H2 Profit en propiedad o acceder a ella en alquiler/renting, y opcionalmente entrar en la red de centros asociados, lo que le permite recibir leads cualificados de su zona geográfica directamente desde la web de Ecología Rentable. Se incluye formación inicial presencial o telemática, manuales operativos, plantillas comerciales y soporte técnico ilimitado.",
     symptoms: [
       "Quieres diversificar los servicios de tu taller con un servicio de alto margen",
       "Tus clientes te preguntan por descarbonización, DPF o EGR",
@@ -255,7 +255,7 @@ export const extraServicios: Record<string, ServicioData> = {
     process: [
       { step: 1, title: "Conversación comercial", desc: "Hablamos con el responsable del taller para entender el volumen estimado, tipología de clientes y la modalidad más adecuada (compra/alquiler/renting)." },
       { step: 2, title: "Propuesta y contrato", desc: "Propuesta económica con condiciones del programa de socios, formación incluida y servicios complementarios." },
-      { step: 3, title: "Entrega e instalación", desc: "Entrega del equipo Hy-Calamine en el taller en 7–10 días con configuración inicial." },
+      { step: 3, title: "Entrega e instalación", desc: "Entrega del equipo H2 Profit en el taller en 7–10 días con configuración inicial." },
       { step: 4, title: "Formación operativa", desc: "Sesión presencial o telemática de formación técnica y comercial al equipo del taller." },
       { step: 5, title: "Alta en la red y arranque", desc: "Si entra en el programa de socios, alta en el directorio de centros con leads de su zona y acompañamiento durante los primeros servicios." },
     ],
@@ -275,7 +275,7 @@ export const extraServicios: Record<string, ServicioData> = {
     relatedLinks: [
       { label: "Hazte socio", href: "/socios/hazte-socio" },
       { label: "Hub alquiler y renting", href: "/servicios/alquiler-renting-equipos" },
-      { label: "Tienda — máquinas Hy-Calamine", href: "/tienda/descarbonizadoras" },
+      { label: "Tienda — descarbonizadoras H2 Profit", href: "/tienda/descarbonizadoras" },
     ],
   },
 
@@ -332,7 +332,7 @@ export const extraServicios: Record<string, ServicioData> = {
     title: "Descarbonización para flotas de camiones",
     subtitle: "Servicio especializado para flotas de transporte y vehículos industriales pesados: tractoras, rígidos, camiones de obra y vehículos especiales.",
     badge: "Industrial pesado",
-    definition: "El servicio de descarbonización para flotas de camiones está diseñado para empresas de transporte, logística pesada, obra civil y servicios industriales con vehículos de gran cilindrada (motores de 7 a 16 litros). Utilizamos las máquinas Hy-Calamine 3000S, específicamente preparadas para vehículos industriales, con caudal de HHO ampliado y ciclos extendidos. El servicio se programa por lote y, en flotas grandes, se ejecuta en las instalaciones del cliente con jornadas técnicas. Incluye reporting por matrícula con lecturas OBD2 / EOBD pesado y certificación del servicio.",
+    definition: "El servicio de descarbonización para flotas de camiones está diseñado para empresas de transporte, logística pesada, obra civil y servicios industriales con vehículos de gran cilindrada (motores de 7 a 16 litros). Utilizamos las máquinas H2 Profit 3000, específicamente preparadas para vehículos industriales, con caudal de HHO ampliado y ciclos extendidos. El servicio se programa por lote y, en flotas grandes, se ejecuta en las instalaciones del cliente con jornadas técnicas. Incluye reporting por matrícula con lecturas OBD2 / EOBD pesado y certificación del servicio.",
     symptoms: [
       "Camiones con consumo creciente sin causa mecánica aparente",
       "Pérdida de potencia en cuestas o con carga máxima",
@@ -354,7 +354,7 @@ export const extraServicios: Record<string, ServicioData> = {
     process: [
       { step: 1, title: "Análisis de flota", desc: "Estudio del parque: matrículas, motorización, antigüedad, kilometraje y patrón de uso." },
       { step: 2, title: "Programación", desc: "Calendario de intervenciones por lote, optimizado para minimizar el impacto en la operativa de transporte." },
-      { step: 3, title: "Servicio (in situ o en centro)", desc: "Ciclo HHO específico para gran cilindrada con la máquina Hy-Calamine 3000S, complementado con tratamientos EGR/DPF cuando procede." },
+      { step: 3, title: "Servicio (in situ o en centro)", desc: "Ciclo HHO específico para gran cilindrada con la máquina H2 Profit 3000, complementado con tratamientos EGR/DPF cuando procede." },
       { step: 4, title: "Verificación EOBD", desc: "Lectura comparativa antes/después con escáner EOBD para vehículo pesado." },
       { step: 5, title: "Reporting de flota", desc: "Reporte por matrícula y agregado de la flota, con KPIs de emisiones y mantenimiento preventivo." },
     ],
@@ -366,13 +366,13 @@ export const extraServicios: Record<string, ServicioData> = {
       "Administraciones con flotas pesadas (limpieza viaria, residuos…)",
     ],
     faq: [
-      { question: "¿Es viable hacerlo en mis propias instalaciones?", answer: "Sí, a partir de un volumen mínimo organizamos jornadas técnicas con uno o varios equipos Hy-Calamine 3000S desplazados a tus instalaciones." },
+      { question: "¿Es viable hacerlo en mis propias instalaciones?", answer: "Sí, a partir de un volumen mínimo organizamos jornadas técnicas con uno o varios equipos H2 Profit 3000 desplazados a tus instalaciones." },
       { question: "¿Cuánto se reduce el consumo?", answer: "En flotas pesadas con un programa preventivo periódico, se observa una reducción de consumo del 3–8 % de media, dependiendo del estado previo y patrón de uso." },
       { question: "¿Qué documentación se entrega?", answer: "Certificado del servicio por matrícula y reporting agregado de la flota con KPIs de emisiones y mantenimiento preventivo, utilizable como evidencia ESG." },
     ],
     relatedLinks: [
       { label: "Descarbonización para empresas", href: "/servicios/descarbonizacion-para-empresas" },
-      { label: "Comprar Hy-Calamine 3000S", href: "/tienda/descarbonizadoras/h2-profit-3000" },
+      { label: "Comprar H2 Profit 3000", href: "/tienda/descarbonizadoras/h2-profit-3000" },
       { label: "Solicitar propuesta para flota pesada", href: "/contacto" },
     ],
   },
@@ -466,9 +466,9 @@ export const extraServicios: Record<string, ServicioData> = {
     ],
   },
 
-  "mantenimiento-maquinas-flexfuel": {
+  "mantenimiento-descarbonizadoras": {
     title: "Mantenimiento de máquinas descarbonizadoras",
-    subtitle: "Servicio técnico oficial de mantenimiento, calibración y reparación para máquinas Hy-Calamine y descarbonizadoras profesionales en uso en talleres.",
+    subtitle: "Servicio técnico oficial de mantenimiento, calibración y reparación para descarbonizadoras H2 Profit y descarbonizadoras profesionales en uso en talleres.",
     badge: "Servicio técnico",
     definition: "El servicio de mantenimiento de máquinas descarbonizadoras de Ecología Rentable cubre la revisión preventiva anual, la sustitución periódica de consumibles, la calibración del caudal de HHO, la limpieza del depósito de electrolito, la verificación de seguridad de las válvulas antiretorno, el firmware del control electrónico cuando aplica y la reparación correctiva en caso de avería. Está disponible para máquinas adquiridas a Ecología Rentable y para equipos compatibles. Incluye soporte telefónico ilimitado y prioridad de respuesta para clientes con contrato de mantenimiento.",
     symptoms: [
@@ -494,7 +494,7 @@ export const extraServicios: Record<string, ServicioData> = {
       { step: 4, title: "Calibración y certificación", desc: "Verificación final del caudal HHO, presión y seguridad. Emisión de certificado de mantenimiento." },
     ],
     target: [
-      "Talleres con máquinas Hy-Calamine en uso",
+      "Talleres con descarbonizadoras H2 Profit en uso",
       "Centros con contrato de renting que requiere mantenimiento incluido",
       "Empresas con equipos descarbonizadores propios",
     ],
@@ -512,9 +512,9 @@ export const extraServicios: Record<string, ServicioData> = {
   // ─── Hub Alquiler y Renting ───
   "alquiler-renting-equipos": {
     title: "Alquiler y renting de equipos profesionales",
-    subtitle: "Accede a máquinas descarbonizadoras Hy-Calamine, opacímetros, analizadores de gases y equipos Carbon FAP sin inversión inicial. Cuota mensual fija con servicio integral.",
+    subtitle: "Accede a máquinas descarbonizadoras H2 Profit, opacímetros, analizadores de gases y equipos Carbon FAP sin inversión inicial. Cuota mensual fija con servicio integral.",
     badge: "Hub alquiler & renting",
-    definition: "El hub de alquiler y renting de Ecología Rentable centraliza el acceso a toda la gama de equipos profesionales sin necesidad de inversión inicial. Disponemos de máquinas descarbonizadoras Hy-Calamine (1000S, 2000S, 3000S y Hy-Carbon Connect), máquinas Carbon FAP para limpieza de filtros de partículas, opacímetros homologados y analizadores de gases para inspección previa a la ITV. Las modalidades disponibles son alquiler mensual sin permanencia y renting a 12, 24 o 36 meses con mantenimiento, formación y soporte incluidos.",
+    definition: "El hub de alquiler y renting de Ecología Rentable centraliza el acceso a toda la gama de equipos profesionales sin necesidad de inversión inicial. Disponemos de máquinas descarbonizadoras H2 Profit (1000S, 2000S, 3000S y Hy-Carbon Connect), máquinas Carbon FAP para limpieza de filtros de partículas, opacímetros homologados y analizadores de gases para inspección previa a la ITV. Las modalidades disponibles son alquiler mensual sin permanencia y renting a 12, 24 o 36 meses con mantenimiento, formación y soporte incluidos.",
     symptoms: [
       "Quieres equipar tu taller sin comprometer capital",
       "Necesitas un equipo certificado y siempre actualizado",

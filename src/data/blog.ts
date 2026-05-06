@@ -137,13 +137,13 @@ export const blogPosts: BlogPost[] = [
   {
     id: "bp10",
     slug: "hy-calamine-comparativa-maquinas-descarbonizadoras",
-    title: "Hy-Calamine 1000S vs 2000S vs 3000S: ¿cuál elegir?",
-    excerpt: "Comparativa técnica y económica de las tres gamas de máquinas descarbonizadoras Hy-Calamine para ayudar a talleres a elegir la inversión adecuada.",
+    title: "H2 Profit 1000 vs 2000 vs 3000: ¿cuál elegir?",
+    excerpt: "Comparativa técnica y económica de las tres gamas de descarbonizadoras H2 Profit para ayudar a talleres a elegir la inversión adecuada.",
     category: "Productos",
     categorySlug: "productos",
     readTime: "6 min",
     date: "2024-05-01",
-    tags: ["Hy-Calamine", "comparativa", "máquina descarbonizadora", "taller"],
+    tags: ["H2 Profit", "comparativa", "descarbonizadora", "taller"],
     image: blogHyCalamineComparativa,
   },
   {

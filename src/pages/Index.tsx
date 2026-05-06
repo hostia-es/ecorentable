@@ -494,7 +494,7 @@ export default function Index() {
       </section>
 
       {/* ══════════════════════════════════
-          §4.5 ANIMACIÓN 3D — Coche raio-X com Flex Fuel
+          §4.5 ANIMACIÓN 3D — Coche raio-X com Ecología Rentable
       ══════════════════════════════════ */}
       <section className="py-24 relative overflow-hidden bg-white">
         <div className="container mx-auto px-6 relative z-10">
