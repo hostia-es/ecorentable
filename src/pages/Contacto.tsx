@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight, Phone, Mail, MapPin, Clock, CheckCircle, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import teamContacto from "@/assets/team-contacto.jpg";
 
 const faqContacto = [
@@ -27,8 +29,71 @@ const channels = [
 ];
 
 export default function Contacto() {
-  const [tipo, setTipo] = useState("particular");
+  const [params] = useSearchParams();
+  const { toast } = useToast();
+  const initialIntent = params.get("intent") || ""; // e.g. presupuesto, alquiler, socio, demo
+  const item = params.get("item") || ""; // e.g. h2-profit-2000
+  const initialTipo = params.get("tipo") === "taller" || params.get("tipo") === "flota" ? params.get("tipo")! : "particular";
+  const [tipo, setTipo] = useState(initialTipo);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    nombre: "",
+    email: "",
+    telefono: "",
+    provincia: "",
+    flotaTam: "1-10",
+    asunto: item || initialIntent
+      ? `${initialIntent ? `[${initialIntent.toUpperCase()}] ` : ""}${item ? `Producto/servicio: ${item}\n` : ""}`
+      : "",
+  });
+
+  useEffect(() => {
+    if (initialIntent || item) {
+      setForm((f) => ({
+        ...f,
+        asunto:
+          (initialIntent ? `[${initialIntent.toUpperCase()}] ` : "") +
+          (item ? `Producto/servicio: ${item}\n` : "") +
+          (f.asunto && !f.asunto.startsWith("[") ? f.asunto : ""),
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const notas = [
+        initialIntent && `Intención: ${initialIntent}`,
+        item && `Item: ${item}`,
+        form.provincia && `Provincia: ${form.provincia}`,
+        tipo === "flota" && `Flota: ${form.flotaTam} vehículos`,
+        form.asunto && `Mensaje: ${form.asunto}`,
+      ]
+        .filter(Boolean)
+        .join("\n");
+      const { error } = await supabase.from("leads").insert({
+        nombre: form.nombre,
+        email: form.email,
+        telefono: form.telefono || null,
+        servicio: tipo,
+        origen: initialIntent ? `Web · ${initialIntent}` : "Formulario Web",
+        notas,
+      });
+      if (error) throw error;
+      setSubmitted(true);
+    } catch (err: any) {
+      toast({
+        title: "No pudimos enviar tu mensaje",
+        description: err.message || "Intenta de nuevo en unos instantes.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main>
