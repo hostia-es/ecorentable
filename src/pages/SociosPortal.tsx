@@ -77,7 +77,7 @@ export default function SociosPortal() {
           <div className="card-eco p-6">
             <h3 className="font-bold mb-4" style={{ color: "hsl(var(--foreground))" }}>Recursos técnicos disponibles (demo)</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {["Manual operación Hy-Calamine 2000S.pdf", "Protocolo limpieza DPF — versión 3.2.pdf", "Tabla compatibilidad motores Euro 6d.xlsx", "Guía fijación de precios — 2024.pdf"].map((r) => (
+              {["Manual operación H2 Profit 2000.pdf", "Protocolo limpieza DPF — versión 3.2.pdf", "Tabla compatibilidad motores Euro 6d.xlsx", "Guía fijación de precios — 2024.pdf"].map((r) => (
                 <div key={r} className="flex items-center gap-2 p-3 rounded-lg border text-sm" style={{ borderColor: "hsl(var(--border))", color: "hsl(var(--foreground))" }}>
                   <FileText size={14} style={{ color: "hsl(var(--primary))", flexShrink: 0 }} />
                   <span className="truncate">{r}</span>

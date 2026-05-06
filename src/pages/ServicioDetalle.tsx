@@ -65,7 +65,7 @@ const servicios: Record<string, ServicioData> = {
       { question: "¿Se nota inmediatamente?", answer: "La mayoría de conductores nota mejoría en la respuesta del motor y suavidad de marcha desde el primer día. La reducción de consumo se observa en los primeros 1.000 km." },
       { question: "¿Cada cuánto debo hacerlo?", answer: "Para uso mixto, cada 30.000–50.000 km. Para uso urbano intensivo, cada 20.000–30.000 km." },
     ],
-    relatedLinks: [{ label: "Solución: Descarbonización motor diésel", href: "/soluciones/descarbonizacion-motor-diesel" }, { label: "Artículo: ¿Qué es la descarbonización?", href: "/blog/que-es-descarbonizacion-motor" }, { label: "Gama Hy-Calamine", href: "/tienda/maquinas-descarbonizadoras" }],
+    relatedLinks: [{ label: "Solución: Descarbonización motor diésel", href: "/soluciones/descarbonizacion-motor-diesel" }, { label: "Artículo: ¿Qué es la descarbonización?", href: "/blog/que-es-descarbonizacion-motor" }, { label: "Gama H2 Profit", href: "/tienda/maquinas-descarbonizadoras" }],
   },
   particulares: {
     title: "Servicio para Particulares",
@@ -93,7 +93,7 @@ const servicios: Record<string, ServicioData> = {
     title: "Servicios para Talleres",
     subtitle: "Añade descarbonización profesional a la oferta de tu taller. Máquina, formación, leads y soporte incluidos.",
     badge: "B2B",
-    definition: "El servicio para talleres de Ecología Rentable permite a cualquier mecánico ofrecer descarbonización profesional a sus clientes, ya sea mediante la adquisición o alquiler de una máquina Hy-Calamine, o como centro de derivación de nuestro directorio.",
+    definition: "El servicio para talleres de Ecología Rentable permite a cualquier mecánico ofrecer descarbonización profesional a sus clientes, ya sea mediante la adquisición o alquiler de una descarbonizadora H2 Profit, o como centro de derivación de nuestro directorio.",
     symptoms: ["Quieres diversificar los servicios de tu taller", "Tus clientes te preguntan por descarbonización y DPF", "Buscas un servicio de alto margen con baja inversión", "Quieres recibir leads cualificados de tu zona"],
     benefits: ["Margen por servicio entre 50 y 150 €", "ROI de la máquina en 3–6 meses", "Leads de clientes de tu zona geográfica", "Formación técnica incluida", "Soporte técnico y comercial continuo"],
     priceRange: "Consultar precio",
@@ -159,7 +159,7 @@ const servicios: Record<string, ServicioData> = {
     title: "Alquiler y renting de máquinas descarbonizadoras",
     subtitle: "Incorpora la descarbonización a tu taller sin inversión inicial. Alquiler mensual o renting a largo plazo con soporte técnico incluido.",
     badge: "Alquiler / Renting",
-    definition: "El servicio de alquiler y renting de máquinas descarbonizadoras de Ecología Rentable permite a talleres, empresas y gestores de flotas acceder a equipos profesionales Hy-Calamine sin necesidad de inversión en compra. Disponible en modalidad de alquiler mensual (sin permanencia) o renting a 12/24/36 meses con mantenimiento y soporte incluidos.",
+    definition: "El servicio de alquiler y renting de máquinas descarbonizadoras de Ecología Rentable permite a talleres, empresas y gestores de flotas acceder a equipos profesionales H2 Profit sin necesidad de inversión en compra. Disponible en modalidad de alquiler mensual (sin permanencia) o renting a 12/24/36 meses con mantenimiento y soporte incluidos.",
     symptoms: [
       "Quieres ofrecer descarbonización pero no quieres invertir en compra",
       "Tienes demanda estacional y no quieres equipo fijo",
@@ -188,7 +188,7 @@ const servicios: Record<string, ServicioData> = {
       "Gestores de flotas con necesidad de equipamiento temporal",
     ],
     faq: [
-      { question: "¿Qué modelos están disponibles en alquiler?", answer: "Disponemos de la gama Hy-Calamine 1000S, 2000S y 3000S EGR PILOT. El modelo recomendado depende del volumen de servicios estimado y el tipo de vehículos." },
+      { question: "¿Qué modelos están disponibles en alquiler?", answer: "Disponemos de la gama H2 Profit 1000, 2000S y 3000S EGR PILOT. El modelo recomendado depende del volumen de servicios estimado y el tipo de vehículos." },
       { question: "¿Cuál es la diferencia entre alquiler y renting?", answer: "El alquiler mensual ofrece mayor flexibilidad y se puede cancelar con preaviso. El renting a plazo fijo (12–36 meses) tiene una cuota menor y normalmente incluye más servicios (mantenimiento preventivo, seguro, actualizaciones)." },
       { question: "¿Qué pasa si la máquina se avería?", answer: "El mantenimiento y la asistencia técnica están incluidos. En caso de avería, sustituimos el equipo en un plazo máximo de 48–72 horas laborables." },
     ],
