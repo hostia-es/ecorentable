@@ -436,7 +436,7 @@ export default function ServicioDetalle() {
               <h2 className="font-bold mb-3 flex items-center gap-2" style={{ color: "hsl(var(--foreground))" }}><Euro size={16} style={{ color: "hsl(var(--primary))" }} />Precio orientativo</h2>
               <div className="text-2xl font-bold mb-2" style={{ color: "hsl(var(--primary))" }}>{s.priceRange}</div>
               <p className="text-xs mb-4" style={{ color: "hsl(var(--muted-foreground))" }}>{s.priceNote}</p>
-              <Link to="/contacto" className="btn-cta text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
+              <Link to={`/contacto?intent=${(servicio||"").startsWith("alquiler")?"alquiler":"presupuesto"}&item=${servicio||""}`} className="btn-cta text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
             </div>
             <div className="card-eco p-6">
               <h2 className="font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>¿Para quién es?</h2>
@@ -467,7 +467,7 @@ export default function ServicioDetalle() {
       </section>
 
       <FAQSection items={s.faq} />
-      <CTABox title="¿Listo para el servicio?" description="Contacta con nuestro equipo y solicita presupuesto para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
+      <CTABox title="¿Listo para el servicio?" description="Contacta con nuestro equipo y solicita presupuesto para tu vehículo." primaryLabel="Solicitar presupuesto" primaryHref={`/contacto?intent=${(servicio||"").startsWith("alquiler")?"alquiler":"presupuesto"}&item=${servicio||""}`} secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
 }
