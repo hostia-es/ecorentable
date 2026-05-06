@@ -248,9 +248,11 @@ const data: Record<string, SolucionData> = {
   },
 };
 
+const allData: Record<string, SolucionData> = { ...data, ...extraSoluciones };
+
 export default function SolucionDetalle() {
   const { slug } = useParams<{ slug: string }>();
-  const sol = data[slug ?? ""];
+  const sol = allData[slug ?? ""];
 
   if (!sol) {
     return (

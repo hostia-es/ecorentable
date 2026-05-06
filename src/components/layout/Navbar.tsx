@@ -33,7 +33,7 @@ const navItems: NavItem[] = [
         title: "DPF, mantenimiento y postventa",
         items: [
           { label: "Limpieza filtro de partículas", href: "/servicios/limpieza-filtro-de-particulas" },
-          { label: "Mantenimiento máquinas FlexFuel", href: "/servicios/mantenimiento-maquinas-flexfuel" },
+          { label: "Mantenimiento de máquinas descarbonizadoras", href: "/servicios/mantenimiento-maquinas-flexfuel" },
         ],
       },
       {
