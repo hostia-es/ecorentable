@@ -65,7 +65,7 @@ const servicios: Record<string, ServicioData> = {
       { question: "¿Se nota inmediatamente?", answer: "La mayoría de conductores nota mejoría en la respuesta del motor y suavidad de marcha desde el primer día. La reducción de consumo se observa en los primeros 1.000 km." },
       { question: "¿Cada cuánto debo hacerlo?", answer: "Para uso mixto, cada 30.000–50.000 km. Para uso urbano intensivo, cada 20.000–30.000 km." },
     ],
-    relatedLinks: [{ label: "Solución: Descarbonización motor diésel", href: "/soluciones/descarbonizacion-motor-diesel" }, { label: "Artículo: ¿Qué es la descarbonización?", href: "/blog/que-es-descarbonizacion-motor" }, { label: "Gama H2 Profit", href: "/tienda/maquinas-descarbonizadoras" }],
+    relatedLinks: [{ label: "Solución: Descarbonización motor diésel", href: "/soluciones/descarbonizacion-motor-diesel" }, { label: "Artículo: ¿Qué es la descarbonización?", href: "/blog/que-es-descarbonizacion-motor" }, { label: "Gama H2 Profit", href: "/tienda/descarbonizadoras" }],
   },
   particulares: {
     title: "Servicio para Particulares",
@@ -109,7 +109,7 @@ const servicios: Record<string, ServicioData> = {
       { question: "¿Necesito experiencia previa en descarbonización?", answer: "No. La formación inicial que incluimos es suficiente para empezar a ofrecer el servicio con garantías." },
       { question: "¿Cuánto espacio necesito?", answer: "Mínimo 4 m² para la máquina y toma de corriente 220V. La mayoría de talleres cumplen estos requisitos sin obras." },
     ],
-    relatedLinks: [{ label: "Programa de socios", href: "/socios" }, { label: "Hazte socio", href: "/socios/hazte-socio" }, { label: "Ver máquinas", href: "/tienda/maquinas-descarbonizadoras" }],
+    relatedLinks: [{ label: "Programa de socios", href: "/socios" }, { label: "Hazte socio", href: "/socios/hazte-socio" }, { label: "Ver máquinas", href: "/tienda/descarbonizadoras" }],
   },
   flotas: {
     title: "Servicios para Flotas",
@@ -193,7 +193,7 @@ const servicios: Record<string, ServicioData> = {
       { question: "¿Qué pasa si la máquina se avería?", answer: "El mantenimiento y la asistencia técnica están incluidos. En caso de avería, sustituimos el equipo en un plazo máximo de 48–72 horas laborables." },
     ],
     relatedLinks: [
-      { label: "Ver máquinas descarbonizadoras en venta", href: "/tienda/maquinas-descarbonizadoras-nuevas" },
+      { label: "Ver máquinas descarbonizadoras en venta", href: "/tienda/descarbonizadoras-nuevas" },
       { label: "Hazte socio de Ecología Rentable", href: "/socios/hazte-socio" },
       { label: "Contactar para solicitar propuesta", href: "/contacto" },
     ],

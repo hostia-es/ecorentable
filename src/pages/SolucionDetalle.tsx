@@ -133,7 +133,7 @@ const data: Record<string, SolucionData> = {
       { title: "Descarbonización por hidrógeno: cómo funciona", href: "/blog/descarbonizacion-hidrogeno-como-funciona" },
     ],
     relatedServices: [
-      { title: "Ver descarbonizadoras H2 Profit", href: "/tienda/maquinas-descarbonizadoras" },
+      { title: "Ver descarbonizadoras H2 Profit", href: "/tienda/descarbonizadoras" },
       { title: "Servicio descarbonización", href: "/servicios/descarbonizacion" },
     ],
   },
