@@ -4,6 +4,7 @@ import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import { AnimatedSection } from "@/components/common/Animations";
+import { extraServicios } from "@/data/extraServices";
 import serviceHero from "@/assets/service-decarbonization-hero.jpg";
 import obd2Diagnostics from "@/assets/obd2-diagnostics.jpg";
 import mechanicWorkshop from "@/assets/mechanic-workshop-service.jpg";
@@ -330,9 +331,11 @@ const servicios: Record<string, ServicioData> = {
   },
 };
 
+const allServicios: Record<string, ServicioData> = { ...servicios, ...extraServicios };
+
 export default function ServicioDetalle() {
   const { servicio } = useParams<{ servicio: string }>();
-  const s = servicios[servicio ?? ""];
+  const s = allServicios[servicio ?? ""];
 
   if (!s) {
     return (
