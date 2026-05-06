@@ -466,7 +466,7 @@ export const extraServicios: Record<string, ServicioData> = {
     ],
   },
 
-  "mantenimiento-maquinas-flexfuel": {
+  "mantenimiento-descarbonizadoras": {
     title: "Mantenimiento de máquinas descarbonizadoras",
     subtitle: "Servicio técnico oficial de mantenimiento, calibración y reparación para descarbonizadoras H2 Profit y descarbonizadoras profesionales en uso en talleres.",
     badge: "Servicio técnico",
