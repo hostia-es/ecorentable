@@ -3,6 +3,7 @@ import { CheckCircle, Package, Users, ArrowRight, ShoppingCart } from "lucide-re
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import AddToCartButton from "@/components/common/AddToCartButton";
 import { products } from "@/data/products";
 
 export default function ProductoDetalle() {
