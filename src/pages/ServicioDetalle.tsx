@@ -1,8 +1,9 @@
 import { useParams, Link } from "react-router-dom";
-import { CheckCircle, AlertTriangle, ArrowRight, Euro } from "lucide-react";
-import PageHero from "@/components/common/PageHero";
+import { CheckCircle, AlertTriangle, ArrowRight, Euro, ShieldCheck, Clock, Award, Phone } from "lucide-react";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import Breadcrumbs from "@/components/common/Breadcrumbs";
+import QuoteForm from "@/components/common/QuoteForm";
 import { AnimatedSection } from "@/components/common/Animations";
 import { extraServicios } from "@/data/extraServices";
 import serviceHero from "@/assets/service-decarbonization-hero.jpg";
