@@ -115,7 +115,7 @@ export default function Index() {
             <Mail size={11} /> <span className="hidden sm:inline">info@ecologiarentable.es</span><span className="sm:hidden">Email</span>
           </a>
           <span className="hidden sm:inline opacity-50">·</span>
-          <span className="hidden sm:flex items-center gap-1.5"><Clock size={12} /> Lun – Vie, 07:00 – 15:00</span>
+          <span className="hidden sm:flex items-center gap-1.5"><Clock size={12} /> Lun – Vie, 09:00 – 19:00</span>
           <span className="hidden sm:inline opacity-50">·</span>
           <a href="tel:+34605928626" className="flex items-center gap-1 sm:gap-1.5 hover:underline cursor-pointer transition-opacity duration-200 hover:opacity-80">
             <Phone size={11} /> +34 605 928 626
