@@ -33,6 +33,7 @@ import SociosPortal from "./pages/SociosPortal";
 import Tienda from "./pages/Tienda";
 import TiendaCategoria from "./pages/TiendaCategoria";
 import ProductoDetalle from "./pages/ProductoDetalle";
+import TiendaCheckout from "./pages/TiendaCheckout";
 import Contacto from "./pages/Contacto";
 import Accesibilidad from "./pages/Accesibilidad";
 import BlogItv from "./pages/BlogItv";
