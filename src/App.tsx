@@ -13,7 +13,9 @@ import Navbar from "@/components/layout/Navbar";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/common/WhatsAppButton";
+import CartFAB from "@/components/common/CartFAB";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { CartProvider } from "@/hooks/useCart";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -31,6 +33,7 @@ import SociosPortal from "./pages/SociosPortal";
 import Tienda from "./pages/Tienda";
 import TiendaCategoria from "./pages/TiendaCategoria";
 import ProductoDetalle from "./pages/ProductoDetalle";
+import TiendaCheckout from "./pages/TiendaCheckout";
 import Contacto from "./pages/Contacto";
 import Accesibilidad from "./pages/Accesibilidad";
 import BlogItv from "./pages/BlogItv";
@@ -87,6 +90,7 @@ function AppShell() {
 
         {/* TIENDA */}
         <Route path="/tienda" element={<Tienda />} />
+        <Route path="/tienda/checkout" element={<TiendaCheckout />} />
         <Route path="/tienda/:categoria" element={<TiendaCategoria />} />
         <Route path="/tienda/:categoria/:slug" element={<ProductoDetalle />} />
 
@@ -120,6 +124,7 @@ function AppShell() {
       </Routes>
       {!isAdmin && <Footer />}
       {!isAdmin && <WhatsAppButton />}
+      {!isAdmin && <CartFAB />}
     </>
   );
 }
@@ -131,7 +136,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
-          <AppShell />
+          <CartProvider>
+            <AppShell />
+          </CartProvider>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
