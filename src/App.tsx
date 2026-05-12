@@ -124,6 +124,7 @@ function AppShell() {
       </Routes>
       {!isAdmin && <Footer />}
       {!isAdmin && <WhatsAppButton />}
+      {!isAdmin && <CartFAB />}
     </>
   );
 }
