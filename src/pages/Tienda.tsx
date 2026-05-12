@@ -153,23 +153,36 @@ export default function Tienda() {
           <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featured.map((p) => (
               <motion.div key={p.id} variants={staggerItem}>
-                <Link to={`/tienda/${p.categorySlug}/${p.slug}`} className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden group hover:shadow-md hover:border-primary/30 transition-all duration-200 block h-full flex flex-col">
-                  <div className="aspect-[16/10] overflow-hidden bg-secondary">
+                <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden group hover:shadow-md hover:border-primary/30 transition-all duration-200 h-full flex flex-col">
+                  <Link to={`/tienda/${p.categorySlug}/${p.slug}`} className="aspect-[16/10] overflow-hidden bg-secondary block">
                     <img
                       src={`/generated/products/${p.slug}.jpg`}
                       alt={p.name}
                       className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
                       loading="lazy"
                     />
-                  </div>
+                  </Link>
                   <div className="p-6 flex flex-col gap-3 flex-1">
                     {p.badge && <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary self-start">{p.badge}</span>}
-                    <h3 className="font-bold group-hover:text-primary transition-colors text-foreground">{p.name}</h3>
+                    <Link to={`/tienda/${p.categorySlug}/${p.slug}`} className="font-bold group-hover:text-primary transition-colors text-foreground">{p.name}</Link>
                     <p className="text-sm flex-1 leading-relaxed text-muted-foreground">{p.description}</p>
                     <div className="font-bold text-primary">{p.price}</div>
-                    <span className="btn-primary text-sm justify-center flex items-center gap-1"><ShoppingCart size={13} />Ver producto</span>
+                    <div className="grid grid-cols-2 gap-2 mt-1">
+                      <Link to={`/tienda/${p.categorySlug}/${p.slug}`} className="btn-secondary text-xs justify-center flex items-center gap-1">Ver producto</Link>
+                      <AddToCartButton
+                        product={{
+                          slug: p.slug,
+                          name: p.name,
+                          category: p.category,
+                          categorySlug: p.categorySlug,
+                          image: `/generated/products/${p.slug}.jpg`,
+                        }}
+                        variant="compact"
+                        className="w-full"
+                      />
+                    </div>
                   </div>
-                </Link>
+                </div>
               </motion.div>
             ))}
           </StaggerChildren>
