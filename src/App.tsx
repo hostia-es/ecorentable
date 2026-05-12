@@ -90,6 +90,7 @@ function AppShell() {
 
         {/* TIENDA */}
         <Route path="/tienda" element={<Tienda />} />
+        <Route path="/tienda/checkout" element={<TiendaCheckout />} />
         <Route path="/tienda/:categoria" element={<TiendaCategoria />} />
         <Route path="/tienda/:categoria/:slug" element={<ProductoDetalle />} />
 
