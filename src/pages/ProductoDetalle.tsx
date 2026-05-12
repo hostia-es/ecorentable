@@ -35,6 +35,16 @@ export default function ProductoDetalle() {
         badge={product.badge ?? product.category}
       />
 
+      {/* HERO IMAGE */}
+      <section className="overflow-hidden">
+        <img
+          src={`/generated/products/${product.slug}.jpg`}
+          alt={`${product.name} - equipo profesional Ecología Rentable`}
+          className="w-full h-48 md:h-64 lg:h-80 object-cover"
+          loading="lazy"
+        />
+      </section>
+
       {/* HERO PRODUCTO */}
       <section className="py-14 section-light">
         <div className="container mx-auto px-4 max-w-5xl">
