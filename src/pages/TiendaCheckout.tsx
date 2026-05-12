@@ -89,10 +89,10 @@ export default function TiendaCheckout() {
       }
       setErrors({});
     }
-    setStep((s) => Math.min(2, (s + 1) as 0 | 1 | 2));
+    setStep((s) => (Math.min(2, s + 1) as 0 | 1 | 2));
   };
 
-  const goBack = () => setStep((s) => Math.max(0, (s - 1) as 0 | 1 | 2));
+  const goBack = () => setStep((s) => (Math.max(0, s - 1) as 0 | 1 | 2));
 
   const submitOrder = async () => {
     setSubmitting(true);
