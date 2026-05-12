@@ -6,6 +6,7 @@ import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import QuoteForm from "@/components/common/QuoteForm";
+import AddToCartButton from "@/components/common/AddToCartButton";
 import { products } from "@/data/products";
 import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
 import tiendaShowroom from "@/assets/tienda-showroom.jpg";
