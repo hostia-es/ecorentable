@@ -13,7 +13,9 @@ import Navbar from "@/components/layout/Navbar";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/common/WhatsAppButton";
+import CartFAB from "@/components/common/CartFAB";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { CartProvider } from "@/hooks/useCart";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
