@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Zap, Shield, Wrench, Truck, Leaf, TrendingUp, Package, Gauge, Activity, Repeat2, ShoppingBag, MapPin, Users, BookOpen, Lightbulb } from "lucide-react";
+import { ArrowRight, CheckCircle, Zap, Shield, Wrench, Truck, Leaf, TrendingUp, Package, Gauge, Activity, Repeat2, ShoppingBag, MapPin, Users, BookOpen, Lightbulb, Sparkles, Timer, Award } from "lucide-react";
 import RelatedHubs from "@/components/common/RelatedHubs";
 import { motion } from "framer-motion";
-import PageHero from "@/components/common/PageHero";
+import Breadcrumbs from "@/components/common/Breadcrumbs";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import QuoteForm from "@/components/common/QuoteForm";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { AnimatedSection, StaggerChildren, staggerItem, AnimatedCounter } from "@/components/common/Animations";
+import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/common/Animations";
 import mechanicWorkshop from "@/assets/mechanic-workshop-service.jpg";
 import engineDiagnostics from "@/assets/engine-diagnostics.jpg";
 
@@ -21,16 +22,16 @@ const faqServicios = [
 ];
 
 const services = [
-  { icon: <Zap size={22} />, title: "Descarbonización de motor", desc: "Eliminación de depósitos de carbono en pistones, cámara, válvulas y escape. Compatible con diésel, gasolina e híbridos.", href: "/servicios/descarbonizacion" },
-  { icon: <Shield size={22} />, title: "Limpieza de filtros DPF/FAP", desc: "Regeneración profesional del filtro de partículas para recuperar la presión de escape y el rendimiento del motor.", href: "/servicios/limpieza-filtros" },
-  { icon: <Leaf size={22} />, title: "Para particulares", desc: "Servicio dirigido al conductor particular que quiere mejorar el rendimiento, reducir el consumo o preparar la ITV.", href: "/servicios/particulares" },
-  { icon: <Wrench size={22} />, title: "Para talleres", desc: "Equipos descarbonizadores, formación y soporte técnico para talleres que quieren ofrecer el servicio a sus clientes.", href: "/servicios/talleres" },
-  { icon: <Truck size={22} />, title: "Para flotas", desc: "Planes de mantenimiento preventivo para flotas de empresa: mantenimiento programado, informes y presupuesto por vehículo.", href: "/servicios/flotas" },
-  { icon: <TrendingUp size={22} />, title: "Reducción gases ITV", desc: "Descarbonización previa a la ITV para reducir emisiones por debajo de los límites exigidos en la inspección.", href: "/soluciones/itv-gases" },
-  { icon: <Package size={22} />, title: "Alquiler y renting de descarbonizadoras", desc: "Accede a descarbonizadoras H2 Profit profesionales sin inversión. Alquiler mensual o renting con soporte técnico incluido.", href: "/servicios/alquiler-renting-maquinas-descarbonizadoras" },
-  { icon: <Gauge size={22} />, title: "Alquiler y renting de opacímetros", desc: "Opacímetros homologados y calibrados sin coste de compra. Ideal para talleres con preparación de ITV.", href: "/servicios/alquiler-renting-opacimetros" },
-  { icon: <Activity size={22} />, title: "Alquiler y renting de analizadores de gases", desc: "Analizadores de CO, CO₂, HC, O₂ y lambda en alquiler o renting. Formación y soporte incluidos.", href: "/servicios/alquiler-renting-analizadores-de-gases" },
-  { icon: <Repeat2 size={22} />, title: "Descarbonización para flotas de renting", desc: "Servicio especializado para empresas de renting de coches. Reducción de incidencias, control de emisiones y mantenimiento preventivo planificado.", href: "/servicios/descarbonizacion-para-flotas-de-renting" },
+  { icon: <Zap size={22} />, title: "Descarbonización de motor", desc: "Eliminación de depósitos de carbono en pistones, cámara, válvulas y escape. Diésel, gasolina e híbridos.", href: "/servicios/descarbonizacion" },
+  { icon: <Shield size={22} />, title: "Limpieza de filtros DPF/FAP", desc: "Regeneración profesional del filtro de partículas para recuperar presión de escape y rendimiento.", href: "/servicios/limpieza-filtros" },
+  { icon: <Leaf size={22} />, title: "Para particulares", desc: "Servicio para conductores: más potencia, menos consumo y preparación de ITV.", href: "/servicios/particulares" },
+  { icon: <Wrench size={22} />, title: "Para talleres", desc: "Equipos descarbonizadores, formación y soporte técnico para ofrecer el servicio en taller.", href: "/servicios/talleres" },
+  { icon: <Truck size={22} />, title: "Para flotas", desc: "Planes de mantenimiento preventivo con informes y presupuesto por vehículo.", href: "/servicios/flotas" },
+  { icon: <TrendingUp size={22} />, title: "Reducción gases ITV", desc: "Descarbonización previa a la ITV para bajar emisiones por debajo del límite legal.", href: "/soluciones/itv-gases" },
+  { icon: <Package size={22} />, title: "Alquiler y renting de descarbonizadoras", desc: "H2 Profit profesionales sin inversión. Alquiler mensual o renting con soporte incluido.", href: "/servicios/alquiler-renting-maquinas-descarbonizadoras" },
+  { icon: <Gauge size={22} />, title: "Alquiler y renting de opacímetros", desc: "Opacímetros homologados y calibrados, ideales para preparación de ITV.", href: "/servicios/alquiler-renting-opacimetros" },
+  { icon: <Activity size={22} />, title: "Alquiler y renting de analizadores de gases", desc: "Analizadores de CO, CO₂, HC, O₂ y lambda con formación y soporte incluidos.", href: "/servicios/alquiler-renting-analizadores-de-gases" },
+  { icon: <Repeat2 size={22} />, title: "Descarbonización para flotas de renting", desc: "Reducción de incidencias y control de emisiones para empresas de renting.", href: "/servicios/descarbonizacion-para-flotas-de-renting" },
 ];
 
 const metrics = [
@@ -41,28 +42,168 @@ const metrics = [
 ];
 
 const audiences = [
-  { title: "Particulares", desc: "Conductores que notan pérdida de potencia, más consumo, humos o que quieren preparar la ITV.", cta: "Ver servicio particular", href: "/servicios/particulares" },
-  { title: "Talleres", desc: "Mecánicos que quieren ofrecer descarbonización a sus clientes con equipo propio y soporte técnico.", cta: "Ver servicio taller", href: "/servicios/talleres" },
-  { title: "Flotas", desc: "Empresas con flota de vehículos diésel que necesitan un plan de mantenimiento preventivo eficiente.", cta: "Ver servicio flotas", href: "/servicios/flotas" },
+  {
+    id: "particular",
+    title: "Particulares",
+    icon: <Leaf size={20} />,
+    desc: "Notas pérdida de potencia, más consumo, humo o tienes la ITV cerca. Te decimos el centro más próximo y el precio orientativo.",
+    points: ["Diagnóstico previo OBD2", "45–90 min sin desmontaje", "Garantía de resultado en ITV"],
+    href: "/servicios/particulares",
+    formTitle: "Consulta tu precio orientativo",
+    formSubtitle: "Cuéntanos el modelo, los kilómetros y el motivo. Te respondemos con el centro certificado más cercano y precio.",
+    formMessage: "Vehículo: \nKilómetros: \nMotivo (potencia / consumo / ITV / humos): ",
+    defaultTipo: "particular" as const,
+  },
+  {
+    id: "taller",
+    title: "Talleres",
+    icon: <Wrench size={20} />,
+    desc: "Quieres ofrecer descarbonización con equipo propio o en alquiler. Te enviamos plan de adquisición/renting y formación.",
+    points: ["H2 Profit, opacímetros y analizadores", "Renting sin inversión inicial", "Formación + soporte técnico"],
+    href: "/servicios/talleres",
+    formTitle: "Plan para tu taller en 24 h",
+    formSubtitle: "Indícanos volumen previsto y modalidad (compra, alquiler o renting). Te preparamos una propuesta cerrada.",
+    formMessage: "Taller: \nLocalidad: \nModalidad de interés (compra / alquiler / renting): \nVolumen mensual estimado: ",
+    defaultTipo: "taller" as const,
+  },
+  {
+    id: "flota",
+    title: "Flotas y empresas",
+    icon: <Truck size={20} />,
+    desc: "Mantenimiento preventivo planificado para flotas de empresa, renting o transporte. Reducimos averías y emisiones.",
+    points: ["Plan por vehículo", "Informe antes/después", "Cobertura nacional"],
+    href: "/servicios/flotas",
+    formTitle: "Presupuesto por flota",
+    formSubtitle: "Dinos el tamaño y tipo de flota. Te respondemos con plan, calendario y precio por vehículo.",
+    formMessage: "Empresa: \nNº de vehículos: \nTipo (turismos / furgonetas / camiones): \nUbicación principal: ",
+    defaultTipo: "flota" as const,
+  },
 ];
+
+const guarantees = [
+  { icon: <Timer size={18} />, title: "Respuesta en 24 h", desc: "Asesor técnico real, no bots." },
+  { icon: <Award size={18} />, title: "Más de 300 centros", desc: "Red certificada en toda España." },
+  { icon: <Sparkles size={18} />, title: "Garantía de resultado", desc: "Si no mejora, repetimos sin coste." },
+  { icon: <ShieldCheckIcon />, title: "Sin desmontaje", desc: "Proceso seguro para tu motor." },
+];
+
+function ShieldCheckIcon() {
+  return <Shield size={18} />;
+}
 
 export default function Servicios() {
   return (
     <main>
-      <PageHero
-        title="Servicios de descarbonización profesional"
-        subtitle="De la limpieza DPF/FAP al tratamiento EGR y la reducción de emisiones ITV. Soluciones para particulares, talleres y flotas."
-        breadcrumbs={[{ label: "Servicios" }]}
-        badge="Servicios"
-      />
+      {/* HERO LANDING */}
+      <section className="relative bg-gradient-to-br from-primary/5 via-background to-background border-b border-border">
+        <div className="container mx-auto px-4 pt-8 pb-14 md:pt-10 md:pb-20">
+          <Breadcrumbs items={[{ label: "Servicios" }]} />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mt-6">
+            <div className="lg:col-span-7">
+              <Badge variant="secondary" className="mb-4">Servicios profesionales</Badge>
+              <h1 className="text-3xl md:text-5xl font-bold leading-tight text-foreground mb-5">
+                Descarbonización, DPF y reducción de emisiones para cada tipo de cliente
+              </h1>
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-7 leading-relaxed">
+                Particulares, talleres y flotas. Diagnóstico OBD2, proceso por hidrógeno sin desmontaje y garantía de resultado en una red de más de 300 centros certificados.
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-2xl mb-8">
+                {guarantees.map((g) => (
+                  <div key={g.title} className="bg-white/70 backdrop-blur rounded-xl border border-border p-3">
+                    <div className="text-primary mb-1.5">{g.icon}</div>
+                    <div className="text-xs font-bold text-foreground leading-tight">{g.title}</div>
+                    <div className="text-[11px] text-muted-foreground leading-snug mt-0.5">{g.desc}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Button asChild size="lg">
+                  <a href="#audiencias">Ver mi servicio <ArrowRight size={16} className="ml-1.5" /></a>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <a href="#catalogo">Catálogo completo</a>
+                </Button>
+              </div>
+            </div>
+            <div className="lg:col-span-5 lg:sticky lg:top-24">
+              <QuoteForm
+                context="servicios"
+                title="Consulta tu precio en 24 h"
+                subtitle="Te respondemos con el servicio recomendado, el centro más cercano y precio orientativo. Sin compromiso."
+                defaultMessage={"Servicio de interés: \nVehículo o flota: \nMotivo: "}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {/* HUB DE SERVICIOS */}
-      <section className="py-16 section-light">
+      {/* AUDIENCIAS CON FORM POR TIPO */}
+      <section id="audiencias" className="py-16 section-light">
+        <div className="container mx-auto px-4">
+          <AnimatedSection>
+            <div className="text-center mb-10 max-w-2xl mx-auto">
+              <Badge variant="secondary" className="mb-3">Para cada tipo de cliente</Badge>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
+                Elige tu perfil y consulta precio sin compromiso
+              </h2>
+              <p className="text-muted-foreground text-sm md:text-base">
+                Cada perfil tiene un proceso, un precio y un soporte distinto. Te respondemos con la propuesta que encaja contigo.
+              </p>
+            </div>
+          </AnimatedSection>
+          <div className="space-y-12">
+            {audiences.map((a, idx) => (
+              <motion.div
+                key={a.id}
+                id={a.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45 }}
+                viewport={{ once: true }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
+              >
+                <div className={`lg:col-span-7 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">{a.icon}</span>
+                    <Badge variant="outline" className="text-xs">{a.title}</Badge>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3">{a.desc}</h3>
+                  <ul className="space-y-2 mb-5">
+                    {a.points.map((p) => (
+                      <li key={p} className="flex items-start gap-2 text-sm text-foreground">
+                        <CheckCircle size={15} className="text-primary mt-0.5 shrink-0" />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button asChild variant="outline" size="sm">
+                    <Link to={a.href}>Ver servicio detallado <ArrowRight size={13} className="ml-1" /></Link>
+                  </Button>
+                </div>
+                <div className={`lg:col-span-5 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
+                  <QuoteForm
+                    context={`servicios-${a.id}`}
+                    title={a.formTitle}
+                    subtitle={a.formSubtitle}
+                    defaultMessage={a.formMessage}
+                    defaultTipo={a.defaultTipo}
+                    compact
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CATÁLOGO */}
+      <section id="catalogo" className="py-16 section-alt">
         <div className="container mx-auto px-4">
           <AnimatedSection>
             <div className="text-center mb-10">
+              <Badge variant="secondary" className="mb-3">Catálogo completo</Badge>
               <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
-                ¿Qué incluye nuestro catálogo de servicios?
+                Todos los servicios de Ecología Rentable
               </h2>
               <p className="text-base max-w-2xl mx-auto text-muted-foreground">
                 Cubrimos todo el ciclo de mantenimiento del sistema de combustión y postratamiento de gases.
@@ -91,7 +232,7 @@ export default function Servicios() {
       </section>
 
       {/* IMAGE BANNER */}
-      <section className="py-14 section-alt">
+      <section className="py-14 section-light">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
@@ -135,18 +276,14 @@ export default function Servicios() {
       </section>
 
       {/* MÉTRICAS */}
-      <section className="py-14 section-light">
+      <section className="py-14 section-alt">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <AnimatedSection>
-              <img
-                src={engineDiagnostics}
-                alt="Diagnóstico de motor con escáner OBD2"
-                className="rounded-2xl w-full shadow-xl"
-                loading="lazy"
-              />
-            </AnimatedSection>
             <AnimatedSection delay={0.2}>
+              <Badge variant="secondary" className="mb-3">Resultados medibles</Badge>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
+                Lo que puedes esperar tras un servicio
+              </h2>
               <div className="space-y-4">
                 {metrics.map((m, i) => (
                   <motion.div
@@ -165,6 +302,14 @@ export default function Servicios() {
                 ))}
               </div>
             </AnimatedSection>
+            <AnimatedSection>
+              <img
+                src={engineDiagnostics}
+                alt="Diagnóstico de motor con escáner OBD2"
+                className="rounded-2xl w-full shadow-xl"
+                loading="lazy"
+              />
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -174,8 +319,9 @@ export default function Servicios() {
         <div className="container mx-auto px-4">
           <AnimatedSection>
             <div className="text-center mb-10">
+              <Badge variant="secondary" className="mb-3">Cómo trabajamos</Badge>
               <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
-                ¿Cómo es el proceso?
+                Un proceso claro, sin sorpresas
               </h2>
             </div>
           </AnimatedSection>
@@ -208,31 +354,25 @@ export default function Servicios() {
         </div>
       </section>
 
-      {/* PARA QUIÉN */}
-      <section className="py-14 section-alt">
-        <div className="container mx-auto px-4">
+      {/* FORMULARIO FINAL */}
+      <section className="py-16 section-alt">
+        <div className="container mx-auto px-4 max-w-3xl">
           <AnimatedSection>
-            <div className="text-center mb-10">
-              <h2 className="text-2xl font-bold text-foreground">¿Para quién son nuestros servicios?</h2>
+            <div className="text-center mb-8">
+              <Badge variant="secondary" className="mb-3">Consulta tu precio</Badge>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
+                Cuéntanos qué necesitas y te respondemos en menos de 24 h
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                Sin formularios eternos. Solo lo justo para entender tu caso y enviarte el presupuesto.
+              </p>
             </div>
           </AnimatedSection>
-          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {audiences.map((p) => (
-              <motion.div key={p.title} variants={staggerItem}>
-                <Card className="h-full hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-200">
-                  <CardContent className="p-6">
-                    <h3 className="font-bold text-lg mb-3 text-foreground">{p.title}</h3>
-                    <p className="text-sm leading-relaxed mb-4 text-muted-foreground">{p.desc}</p>
-                    <Button asChild size="sm">
-                      <Link to={p.href}>
-                        {p.cta} <ArrowRight size={14} className="ml-1" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </StaggerChildren>
+          <QuoteForm
+            context="servicios-final"
+            title="Solicita tu presupuesto"
+            subtitle="Te asignamos un asesor técnico real que conoce el servicio. Sin coste ni compromiso."
+          />
         </div>
       </section>
 
