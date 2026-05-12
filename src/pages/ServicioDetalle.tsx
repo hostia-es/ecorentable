@@ -359,7 +359,8 @@ export default function ServicioDetalle() {
       <section className="overflow-hidden">
         <AnimatedSection>
           <img
-            src={heroImages[servicio ?? ""] || serviceHero}
+            src={`/generated/services/${servicio}.jpg`}
+            onError={(e) => { (e.currentTarget as HTMLImageElement).src = heroImages[servicio ?? ""] || serviceHero; }}
             alt={`${s.title} - servicio profesional`}
             className="w-full h-48 md:h-64 lg:h-72 object-cover"
             loading="lazy"
