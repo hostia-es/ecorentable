@@ -340,30 +340,96 @@ export default function ServicioDetalle() {
 
   if (!s) {
     return (
-      <main>
-        <PageHero title="Servicio no encontrado" subtitle="" breadcrumbs={[{ label: "Servicios", href: "/servicios" }, { label: "No encontrado" }]} />
-        <div className="py-16 text-center"><Link to="/servicios" className="btn-primary">← Ver todos los servicios</Link></div>
+      <main className="container mx-auto px-4 py-20 text-center">
+        <h1 className="text-2xl font-bold mb-4 text-foreground">Servicio no encontrado</h1>
+        <Link to="/servicios" className="btn-primary">← Ver todos los servicios</Link>
       </main>
     );
   }
 
+  const heroImg = `/generated/services/${servicio}.jpg`;
+  const procImg = processImages[servicio ?? ""] || obd2Diagnostics;
+  const top3Benefits = s.benefits.slice(0, 3);
+  const isAlquiler = (servicio || "").startsWith("alquiler");
+  const intent = isAlquiler ? "alquiler" : "presupuesto";
+  const ctaHref = `/contacto?intent=${intent}&item=${servicio || ""}`;
+  const defaultMsg = `Hola, me interesa "${s.title}". `;
+
   return (
     <main>
-      <PageHero
-        title={s.title}
-        subtitle={s.subtitle}
-        breadcrumbs={[{ label: "Servicios", href: "/servicios" }, { label: s.title }]}
-        badge={s.badge}
-      />
+      {/* HERO LP — texto + formulario */}
+      <section className="relative bg-gradient-to-b from-secondary to-background border-b border-border">
+        <div className="container mx-auto px-4 py-10 md:py-14">
+          <Breadcrumbs items={[{ label: "Servicios", href: "/servicios" }, { label: s.title }]} />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-6 items-start">
+            {/* IZQ — copy */}
+            <div className="lg:col-span-7">
+              <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary border border-primary/20 mb-4">
+                {s.badge}
+              </span>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.1] mb-4">
+                {s.title}
+              </h1>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl mb-6">
+                {s.subtitle}
+              </p>
 
-      {/* HERO IMAGE */}
+              {top3Benefits.length > 0 && (
+                <ul className="space-y-2.5 mb-7">
+                  {top3Benefits.map((b) => (
+                    <li key={b} className="flex items-start gap-2.5 text-sm md:text-[15px] text-foreground">
+                      <CheckCircle size={16} className="shrink-0 mt-0.5 text-primary" />
+                      <span className="leading-relaxed">{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <div className="flex flex-wrap gap-3 mb-7">
+                <Link to={ctaHref} className="btn-cta">
+                  Solicitar presupuesto <ArrowRight size={14} />
+                </Link>
+                <a href="tel:+34605928626" className="btn-secondary inline-flex items-center gap-1.5">
+                  <Phone size={14} /> +34 605 928 626
+                </a>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 max-w-md">
+                {[
+                  { icon: <Clock size={14} />, label: "Respuesta < 24 h" },
+                  { icon: <ShieldCheck size={14} />, label: "Sin compromiso" },
+                  { icon: <Award size={14} />, label: "Servicio certificado" },
+                ].map((t) => (
+                  <div key={t.label} className="flex flex-col items-center text-center gap-1 p-3 rounded-xl bg-white border border-border">
+                    <span className="text-primary">{t.icon}</span>
+                    <span className="text-[11px] font-semibold text-foreground leading-tight">{t.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* DER — formulario */}
+            <div className="lg:col-span-5 lg:sticky lg:top-24">
+              <QuoteForm
+                context={servicio || "servicio"}
+                title={isAlquiler ? "Consulta tu cuota mensual" : "Consulta tu precio sin compromiso"}
+                subtitle="Te enviamos presupuesto a medida en menos de 24 h. Te atiende un asesor técnico real, no un bot."
+                defaultMessage={defaultMsg}
+                defaultTipo={isAlquiler || servicio?.includes("taller") || servicio?.includes("flota") ? "taller" : "particular"}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* IMAGEN HERO */}
       <section className="overflow-hidden">
         <AnimatedSection>
           <img
-            src={`/generated/services/${servicio}.jpg`}
+            src={heroImg}
             onError={(e) => { (e.currentTarget as HTMLImageElement).src = heroImages[servicio ?? ""] || serviceHero; }}
-            alt={`${s.title} - servicio profesional`}
-            className="w-full h-48 md:h-64 lg:h-72 object-cover"
+            alt={`${s.title} - servicio profesional Ecología Rentable`}
+            className="w-full h-56 md:h-72 lg:h-80 object-cover"
             loading="lazy"
           />
         </AnimatedSection>
@@ -372,28 +438,30 @@ export default function ServicioDetalle() {
       {/* DEFINICIÓN */}
       <section className="py-14 section-light">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div className="card-eco p-6 mb-8">
-            <h2 className="font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>¿En qué consiste?</h2>
-            <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{s.definition}</p>
-          </div>
+          <AnimatedSection>
+            <div className="card-eco p-7 mb-10">
+              <h2 className="font-bold text-xl mb-3 text-foreground">¿En qué consiste?</h2>
+              <p className="text-[15px] leading-relaxed text-muted-foreground">{s.definition}</p>
+            </div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h2 className="font-bold text-lg mb-4" style={{ color: "hsl(var(--foreground))" }}>¿Cuándo lo necesitas?</h2>
-              <ul className="space-y-2">
+              <h2 className="font-bold text-lg mb-4 text-foreground">¿Cuándo lo necesitas?</h2>
+              <ul className="space-y-2.5">
                 {s.symptoms.map((sym) => (
-                  <li key={sym} className="flex items-start gap-2 text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
-                    <AlertTriangle size={13} className="shrink-0 mt-0.5" style={{ color: "hsl(var(--primary))" }} />{sym}
+                  <li key={sym} className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <AlertTriangle size={14} className="shrink-0 mt-0.5 text-primary" />{sym}
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <h2 className="font-bold text-lg mb-4" style={{ color: "hsl(var(--foreground))" }}>Resultados esperados</h2>
-              <ul className="space-y-2">
+              <h2 className="font-bold text-lg mb-4 text-foreground">Resultados esperados</h2>
+              <ul className="space-y-2.5">
                 {s.benefits.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
-                    <CheckCircle size={13} className="shrink-0 mt-0.5" style={{ color: "hsl(var(--primary))" }} />{b}
+                  <li key={b} className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <CheckCircle size={14} className="shrink-0 mt-0.5 text-primary" />{b}
                   </li>
                 ))}
               </ul>
@@ -405,22 +473,27 @@ export default function ServicioDetalle() {
       {/* PROCESO */}
       <section className="py-14 section-alt">
         <div className="container mx-auto px-4 max-w-5xl">
-          <h2 className="text-2xl font-bold mb-10 text-center" style={{ color: "hsl(var(--foreground))" }}>Cómo funciona</h2>
+          <AnimatedSection>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center text-foreground">Cómo funciona</h2>
+            <p className="text-sm text-muted-foreground text-center mb-10 max-w-xl mx-auto">
+              Un proceso transparente, paso a paso, sin sorpresas ni costes ocultos.
+            </p>
+          </AnimatedSection>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {s.process.map((p) => (
-                <div key={p.step} className="card-eco p-6 flex gap-4 items-start">
-                  <div className="step-number shrink-0 w-11 h-11 text-base">{p.step}</div>
+                <div key={p.step} className="card-eco p-5 flex gap-4 items-start">
+                  <div className="step-number shrink-0 w-10 h-10 text-sm">{p.step}</div>
                   <div>
-                    <h3 className="font-bold mb-1" style={{ color: "hsl(var(--foreground))" }}>{p.title}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{p.desc}</p>
+                    <h3 className="font-bold mb-1 text-foreground text-[15px]">{p.title}</h3>
+                    <p className="text-xs leading-relaxed text-muted-foreground">{p.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
             <AnimatedSection delay={0.2}>
               <img
-                src={processImages[servicio ?? ""] || obd2Diagnostics}
+                src={procImg}
                 alt={`Proceso de ${s.title}`}
                 className="rounded-2xl w-full shadow-xl object-cover h-64 lg:h-80"
                 loading="lazy"
@@ -433,19 +506,23 @@ export default function ServicioDetalle() {
       {/* PRECIO + TARGET */}
       <section className="py-14 section-light">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="card-eco p-6">
-              <h2 className="font-bold mb-3 flex items-center gap-2" style={{ color: "hsl(var(--foreground))" }}><Euro size={16} style={{ color: "hsl(var(--primary))" }} />Precio orientativo</h2>
-              <div className="text-2xl font-bold mb-2" style={{ color: "hsl(var(--primary))" }}>{s.priceRange}</div>
-              <p className="text-xs mb-4" style={{ color: "hsl(var(--muted-foreground))" }}>{s.priceNote}</p>
-              <Link to={`/contacto?intent=${(servicio||"").startsWith("alquiler")?"alquiler":"presupuesto"}&item=${servicio||""}`} className="btn-cta text-sm w-full justify-center">Solicitar presupuesto <ArrowRight size={12} /></Link>
+              <h2 className="font-bold mb-3 flex items-center gap-2 text-foreground">
+                <Euro size={16} className="text-primary" />Inversión orientativa
+              </h2>
+              <div className="text-2xl font-bold mb-2 text-primary">{s.priceRange}</div>
+              <p className="text-xs mb-4 text-muted-foreground leading-relaxed">{s.priceNote}</p>
+              <Link to={ctaHref} className="btn-cta text-sm w-full justify-center">
+                Solicitar presupuesto <ArrowRight size={12} />
+              </Link>
             </div>
             <div className="card-eco p-6">
-              <h2 className="font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>¿Para quién es?</h2>
+              <h2 className="font-bold mb-3 text-foreground">¿Para quién es?</h2>
               <ul className="space-y-2">
                 {s.target.map((t) => (
-                  <li key={t} className="flex items-start gap-2 text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
-                    <CheckCircle size={13} className="shrink-0 mt-0.5" style={{ color: "hsl(var(--primary))" }} />{t}
+                  <li key={t} className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <CheckCircle size={13} className="shrink-0 mt-0.5 text-primary" />{t}
                   </li>
                 ))}
               </ul>
@@ -454,14 +531,53 @@ export default function ServicioDetalle() {
         </div>
       </section>
 
+      {/* SEGUNDO FORMULARIO — PERSUASIVO */}
+      <section className="py-16 bg-gradient-to-b from-background to-secondary border-y border-border">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary border border-primary/20 mb-3">
+                Presupuesto a medida
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground leading-tight">
+                ¿Listo para conocer tu precio exacto?
+              </h2>
+              <p className="text-[15px] text-muted-foreground mb-5 leading-relaxed">
+                Cuéntanos lo justo. Un técnico te contesta con propuesta clara, sin letra pequeña y sin presión comercial. La consulta es gratuita y solo te llevará un minuto.
+              </p>
+              <ul className="space-y-2.5">
+                {[
+                  "Asesoramiento técnico personalizado, no un correo automático.",
+                  "Comparativa de modalidades (servicio puntual, alquiler, renting).",
+                  "Sin compromiso, sin coste y sin compartir tus datos con terceros.",
+                ].map((line) => (
+                  <li key={line} className="flex items-start gap-2.5 text-sm text-foreground">
+                    <CheckCircle size={15} className="shrink-0 mt-0.5 text-primary" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <QuoteForm
+              context={`${servicio}-cta`}
+              title="Consulta tu precio en 24 h"
+              subtitle="Rápido, claro y sin compromiso. Te responde un asesor humano."
+              defaultMessage={defaultMsg}
+              defaultTipo={isAlquiler || servicio?.includes("taller") || servicio?.includes("flota") ? "taller" : "particular"}
+              compact
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ENLACES */}
-      <section className="py-10 section-alt">
+      <section className="py-12 section-alt">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="font-bold mb-4" style={{ color: "hsl(var(--foreground))" }}>Recursos relacionados</h2>
+          <h2 className="font-bold mb-4 text-foreground">Recursos relacionados</h2>
           <div className="flex flex-wrap gap-3">
             {s.relatedLinks.map((l) => (
               <Link key={l.href} to={l.href} className="badge-steel text-sm px-4 py-2 hover:border-primary transition-colors flex items-center gap-1">
-                <ArrowRight size={11} style={{ color: "hsl(var(--primary))" }} />{l.label}
+                <ArrowRight size={11} className="text-primary" />{l.label}
               </Link>
             ))}
           </div>
@@ -469,7 +585,14 @@ export default function ServicioDetalle() {
       </section>
 
       <FAQSection items={s.faq} />
-      <CTABox title="¿Listo para el servicio?" description="Contacta con nuestro equipo y solicita presupuesto para tu vehículo." primaryLabel="Solicitar presupuesto" primaryHref={`/contacto?intent=${(servicio||"").startsWith("alquiler")?"alquiler":"presupuesto"}&item=${servicio||""}`} secondaryLabel="Ver servicios" secondaryHref="/servicios" />
+      <CTABox
+        title="¿Listo para empezar?"
+        description="Habla con un asesor técnico real y recibe propuesta clara en menos de 24 h."
+        primaryLabel="Solicitar presupuesto"
+        primaryHref={ctaHref}
+        secondaryLabel="Ver todos los servicios"
+        secondaryHref="/servicios"
+      />
     </main>
   );
 }
