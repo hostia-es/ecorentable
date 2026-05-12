@@ -59,13 +59,26 @@ export default function TiendaCategoria() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {catProducts.map((p) => (
-              <Link key={p.id} to={`/tienda/${p.categorySlug}/${p.slug}`} className="card-eco p-6 flex flex-col gap-3 group hover:shadow-md transition-shadow">
+              <div key={p.id} className="card-eco p-6 flex flex-col gap-3 group hover:shadow-md transition-shadow">
                 {p.badge && <span className="badge-green self-start">{p.badge}</span>}
-                <h2 className="font-bold text-base group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>{p.name}</h2>
+                <Link to={`/tienda/${p.categorySlug}/${p.slug}`} className="font-bold text-base group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>{p.name}</Link>
                 <p className="text-sm flex-1 leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{p.description}</p>
                 <div className="font-bold" style={{ color: "hsl(var(--primary))" }}>{p.price}</div>
-                <span className="btn-primary text-sm justify-center flex items-center gap-1"><ShoppingCart size={13} />Ver detalles</span>
-              </Link>
+                <div className="grid grid-cols-2 gap-2">
+                  <Link to={`/tienda/${p.categorySlug}/${p.slug}`} className="btn-secondary text-xs justify-center flex items-center gap-1">Ver detalles</Link>
+                  <AddToCartButton
+                    product={{
+                      slug: p.slug,
+                      name: p.name,
+                      category: p.category,
+                      categorySlug: p.categorySlug,
+                      image: `/generated/products/${p.slug}.jpg`,
+                    }}
+                    variant="compact"
+                    className="w-full"
+                  />
+                </div>
+              </div>
             ))}
           </div>
 
