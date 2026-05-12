@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
+import AddToCartButton from "@/components/common/AddToCartButton";
 import { products } from "@/data/products";
 
 const categoryNames: Record<string, { name: string; desc: string }> = {
