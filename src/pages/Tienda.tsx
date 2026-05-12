@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ShoppingCart, Star, Truck, Shield, Phone, Wrench, Lightbulb, MapPin, Users, BookOpen, Leaf, CheckCircle, Award, Clock } from "lucide-react";
+import { ArrowRight, ShoppingCart, Star, Truck, Shield, ShieldCheck, Phone, Wrench, Lightbulb, MapPin, Users, BookOpen, Leaf, CheckCircle, Award, Clock } from "lucide-react";
 import RelatedHubs from "@/components/common/RelatedHubs";
 import { motion } from "framer-motion";
 import CTABox from "@/components/common/CTABox";
@@ -67,10 +67,10 @@ export default function Tienda() {
               <div className="grid grid-cols-3 gap-3 max-w-md">
                 {[
                   { icon: <Clock size={14} />, label: "Respuesta < 24 h" },
-                  { icon: <ShieldCheck />, label: "Garantía 2–4 años" },
+                  { icon: <ShieldCheck size={14} />, label: "Garantía 2–4 años" },
                   { icon: <Award size={14} />, label: "CE · RoHS · ISO 9001" },
-                ].map((t, i) => (
-                  <div key={i} className="flex flex-col items-center text-center gap-1 p-3 rounded-xl bg-white border border-border">
+                ].map((t) => (
+                  <div key={t.label} className="flex flex-col items-center text-center gap-1 p-3 rounded-xl bg-white border border-border">
                     <span className="text-primary">{t.icon}</span>
                     <span className="text-[11px] font-semibold text-foreground leading-tight">{t.label}</span>
                   </div>
@@ -257,7 +257,3 @@ export default function Tienda() {
   );
 }
 
-// Local alias to avoid extra import of ShieldCheck twice
-function ShieldCheck() {
-  return <Shield size={14} />;
-}
