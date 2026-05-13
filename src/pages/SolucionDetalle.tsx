@@ -3,6 +3,7 @@ import { CheckCircle, AlertTriangle, ArrowRight } from "lucide-react";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import Seo from "@/components/common/Seo";
 import { AnimatedSection } from "@/components/common/Animations";
 import { extraSoluciones } from "@/data/extraSolutions";
 import serviceHero from "@/assets/service-decarbonization-hero.jpg";

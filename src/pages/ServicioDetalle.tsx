@@ -4,6 +4,7 @@ import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import QuoteForm from "@/components/common/QuoteForm";
+import Seo from "@/components/common/Seo";
 import { AnimatedSection } from "@/components/common/Animations";
 import { extraServicios } from "@/data/extraServices";
 import serviceHero from "@/assets/service-decarbonization-hero.jpg";

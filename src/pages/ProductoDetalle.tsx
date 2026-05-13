@@ -4,6 +4,7 @@ import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import AddToCartButton from "@/components/common/AddToCartButton";
+import Seo from "@/components/common/Seo";
 import { products } from "@/data/products";
 
 export default function ProductoDetalle() {
