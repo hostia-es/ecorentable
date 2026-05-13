@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import CommentsSection from "@/components/blog/CommentsSection";
+import Seo from "@/components/common/Seo";
 import { toast } from "sonner";
 
 interface BlogPost {
@@ -44,11 +45,7 @@ export default function BlogPost() {
   }, [slug]);
 
   useEffect(() => {
-    if (!post) return;
-    document.title = `${post.meta_title || post.title} | Ecología Rentable`;
-    const m = document.querySelector('meta[name="description"]');
-    if (m) m.setAttribute("content", post.meta_description || post.excerpt);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (post) window.scrollTo({ top: 0, behavior: "smooth" });
   }, [post]);
 
   const readingTime = useMemo(() => {
