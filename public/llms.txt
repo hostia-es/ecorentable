@@ -1,0 +1,45 @@
+# Ecología Rentable
+
+> Especialistas en descarbonización por hidrógeno (HHO) y limpieza de filtros de partículas DPF/FAP. Equipos H2 Profit, servicio nacional y red de talleres certificados en España.
+
+## Servicios
+
+- [Servicios](/servicios): Descarbonización HHO, limpieza DPF/FAP, EGR, pre-ITV.
+- [Descarbonización con hidrógeno](/servicios/descarbonizacion-con-hidrogeno): Limpieza interna del motor sin desmontaje.
+- [Limpieza filtro de partículas](/servicios/limpieza-filtro-de-particulas): Recuperación del DPF/FAP obstruido.
+- [Para particulares](/servicios/descarbonizacion-para-particulares): Servicio para conductores.
+- [Para talleres](/servicios/descarbonizacion-para-talleres): Equipamiento y formación.
+- [Para flotas](/servicios/descarbonizacion-para-flotas-de-camiones): Mantenimiento preventivo de flotas.
+
+## Soluciones
+
+- [Soluciones](/soluciones): Diagnóstico y solución a síntomas frecuentes.
+- [Humo negro diésel](/soluciones/humo-negro-diesel)
+- [Filtro de partículas obstruido](/soluciones/filtro-particulas-obstruido)
+- [Fallo EGR](/soluciones/fallo-egr)
+- [Pérdida de potencia en diésel](/soluciones/perdida-potencia-coche-diesel)
+- [Gases altos en ITV (diésel)](/soluciones/gases-altos-itv-diesel)
+
+## Tienda
+
+- [Tienda](/tienda): Equipos profesionales para talleres.
+- [Descarbonizadoras H2 Profit](/tienda/descarbonizadoras): Modelos 1000, 2000, 3000 y Hy-Carbon Connect.
+- [Máquinas limpieza DPF](/tienda/maquinas-limpieza-filtro-particulas): Carbon FAP y consumibles.
+- [Opacímetros](/tienda/opacimetros) y [Analizadores de gases](/tienda/analizadores-de-gases).
+
+## Blog
+
+- [Blog](/blog): Guías técnicas, ITV, mantenimiento y novedades.
+- [Guías](/blog/guias) y [ITV](/blog/itv).
+
+## Empresa
+
+- [Nosotros](/nosotros): Quiénes somos.
+- [Socios](/socios): Red nacional de talleres certificados.
+- [Encuentra tu centro](/encuentra-tu-centro): Localiza el taller más cercano.
+- [Contacto](/contacto): Solicita presupuesto sin compromiso.
+
+## Optional
+
+- [Hazte socio](/socios/hazte-socio)
+- [Accesibilidad](/accesibilidad)

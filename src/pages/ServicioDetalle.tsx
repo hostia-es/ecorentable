@@ -4,6 +4,7 @@ import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import QuoteForm from "@/components/common/QuoteForm";
+import Seo from "@/components/common/Seo";
 import { AnimatedSection } from "@/components/common/Animations";
 import { extraServicios } from "@/data/extraServices";
 import serviceHero from "@/assets/service-decarbonization-hero.jpg";
@@ -357,6 +358,20 @@ export default function ServicioDetalle() {
 
   return (
     <main>
+      <Seo
+        title={s.title}
+        description={s.subtitle}
+        path={`/servicios/${servicio}`}
+        image={`https://ecorentable.lovable.app${heroImg}`}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: s.title,
+          description: s.subtitle,
+          provider: { "@type": "Organization", name: "Ecología Rentable" },
+          areaServed: "ES",
+        }}
+      />
       {/* HERO LP — texto + formulario */}
       <section className="relative bg-gradient-to-b from-secondary to-background border-b border-border">
         <div className="container mx-auto px-4 py-10 md:py-14">

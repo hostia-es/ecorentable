@@ -3,6 +3,7 @@ import { CheckCircle, AlertTriangle, ArrowRight } from "lucide-react";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import Seo from "@/components/common/Seo";
 import { AnimatedSection } from "@/components/common/Animations";
 import { extraSoluciones } from "@/data/extraSolutions";
 import serviceHero from "@/assets/service-decarbonization-hero.jpg";
@@ -265,6 +266,20 @@ export default function SolucionDetalle() {
 
   return (
     <main>
+      <Seo
+        title={sol.title}
+        description={sol.subtitle}
+        path={`/soluciones/${slug}`}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: sol.faq.map((f) => ({
+            "@type": "Question",
+            name: f.question,
+            acceptedAnswer: { "@type": "Answer", text: f.answer },
+          })),
+        }}
+      />
       <PageHero
         title={sol.title}
         subtitle={sol.subtitle}

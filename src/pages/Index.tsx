@@ -30,6 +30,7 @@ import { Globe } from "@/components/ui/globe";
 import { CarXRayAnimation } from "@/components/common/CarXRayAnimation";
 import { MorphingText } from "@/components/ui/morphing-text";
 import FeatureTimeline from "@/components/ui/feature-timeline";
+import Seo from "@/components/common/Seo";
 import type { FeatureTimelineEntry } from "@/components/ui/feature-timeline";
 
 /* ═══════════ DATA ═══════════ */
@@ -105,6 +106,19 @@ export default function Index() {
 
   return (
     <main className="overflow-x-hidden bg-background">
+      <Seo
+        title="Ecología Rentable — Descarbonización HHO y DPF"
+        description="Descarbonización por hidrógeno y limpieza de filtros DPF/FAP. Equipos H2 Profit y red nacional de talleres certificados."
+        path="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            { "@type": "Question", name: "¿Qué es la descarbonización por hidrógeno?", acceptedAnswer: { "@type": "Answer", text: "Es una limpieza interna del motor mediante HHO que elimina la carbonilla acumulada sin desmontar piezas." } },
+            { "@type": "Question", name: "¿Cuánto dura el servicio?", acceptedAnswer: { "@type": "Answer", text: "Entre 45 y 90 minutos según el modelo de motor." } },
+          ],
+        }}
+      />
 
       {/* ══════════════════════════════════
           §0 TOP BAR
