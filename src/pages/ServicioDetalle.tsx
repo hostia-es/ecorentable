@@ -357,6 +357,20 @@ export default function ServicioDetalle() {
 
   return (
     <main>
+      <Seo
+        title={s.title}
+        description={s.subtitle}
+        path={`/servicios/${servicio}`}
+        image={`https://ecorentable.lovable.app${heroImg}`}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: s.title,
+          description: s.subtitle,
+          provider: { "@type": "Organization", name: "Ecología Rentable" },
+          areaServed: "ES",
+        }}
+      />
       {/* HERO LP — texto + formulario */}
       <section className="relative bg-gradient-to-b from-secondary to-background border-b border-border">
         <div className="container mx-auto px-4 py-10 md:py-14">

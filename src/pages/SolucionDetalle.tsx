@@ -265,6 +265,20 @@ export default function SolucionDetalle() {
 
   return (
     <main>
+      <Seo
+        title={sol.title}
+        description={sol.subtitle}
+        path={`/soluciones/${slug}`}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: sol.faq.map((f) => ({
+            "@type": "Question",
+            name: f.question,
+            acceptedAnswer: { "@type": "Answer", text: f.answer },
+          })),
+        }}
+      />
       <PageHero
         title={sol.title}
         subtitle={sol.subtitle}
