@@ -104,6 +104,27 @@ export default function BlogPost() {
 
   return (
     <main className="min-h-screen bg-background pt-28 pb-24">
+      <Seo
+        title={post.meta_title || post.title}
+        description={post.meta_description || post.excerpt}
+        path={`/blog/${post.slug}`}
+        type="article"
+        image={post.image_url || undefined}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: post.title,
+          description: post.meta_description || post.excerpt,
+          image: post.image_url || undefined,
+          datePublished: post.published_at,
+          author: { "@type": "Person", name: post.author },
+          publisher: {
+            "@type": "Organization",
+            name: "Ecología Rentable",
+            logo: { "@type": "ImageObject", url: "https://ecorentable.lovable.app/logo-ecologia-rentable.png" },
+          },
+        }}
+      />
       {/* Hero image full-width */}
       {post.image_url ? (
         <div className="w-full max-w-6xl mx-auto px-4 md:px-6 mb-10">
