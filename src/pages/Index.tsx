@@ -30,6 +30,7 @@ import { Globe } from "@/components/ui/globe";
 import { CarXRayAnimation } from "@/components/common/CarXRayAnimation";
 import { MorphingText } from "@/components/ui/morphing-text";
 import FeatureTimeline from "@/components/ui/feature-timeline";
+import Seo from "@/components/common/Seo";
 import type { FeatureTimelineEntry } from "@/components/ui/feature-timeline";
 
 /* ═══════════ DATA ═══════════ */
