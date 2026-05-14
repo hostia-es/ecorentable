@@ -31,7 +31,7 @@ const processImages: Record<string, string> = {
   "mantenimiento-motor-diesel": obd2Diagnostics,
   "limpieza-egr-catalizador": diagnosticoMotor,
   "itv-gases": engineBeforeAfter,
-  "aditivos-motor": carbonFapMachine,
+  
 };
 
 interface SolucionData {
