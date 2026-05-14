@@ -467,8 +467,8 @@ export const extraServicios: Record<string, ServicioData> = {
   },
 
   "mantenimiento-descarbonizadoras": {
-    title: "Mantenimiento de máquinas descarbonizadoras",
-    subtitle: "Servicio técnico oficial de mantenimiento, calibración y reparación para descarbonizadoras H2 Profit y descarbonizadoras profesionales en uso en talleres.",
+    title: "Mantenimiento de descarbonizadoras FlexFuel",
+    subtitle: "Servicio técnico oficial de mantenimiento, calibración y reparación para descarbonizadoras FlexFuel H2 Profit y equipos profesionales en uso en talleres.",
     badge: "Servicio técnico",
     definition: "El servicio de mantenimiento de máquinas descarbonizadoras de Ecología Rentable cubre la revisión preventiva anual, la sustitución periódica de consumibles, la calibración del caudal de HHO, la limpieza del depósito de electrolito, la verificación de seguridad de las válvulas antiretorno, el firmware del control electrónico cuando aplica y la reparación correctiva en caso de avería. Está disponible para máquinas adquiridas a Ecología Rentable y para equipos compatibles. Incluye soporte telefónico ilimitado y prioridad de respuesta para clientes con contrato de mantenimiento.",
     symptoms: [

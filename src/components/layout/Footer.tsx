@@ -12,7 +12,7 @@ const servicios = [
   { label: "Flotas de camiones", href: "/servicios/descarbonizacion-para-flotas-de-camiones" },
   { label: "Coches de renting", href: "/servicios/descarbonizacion-para-coches-de-renting" },
   { label: "Limpieza de filtro de partículas", href: "/servicios/limpieza-filtro-de-particulas" },
-  { label: "Mantenimiento de máquinas descarbonizadoras", href: "/servicios/mantenimiento-descarbonizadoras" },
+  { label: "Mantenimiento de descarbonizadoras FlexFuel", href: "/servicios/mantenimiento-descarbonizadoras" },
 ];
 
 const alquilerRenting = [
