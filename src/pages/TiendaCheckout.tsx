@@ -257,7 +257,7 @@ export default function TiendaCheckout() {
                         <ShoppingBag size={36} className="mx-auto text-muted-foreground mb-3" />
                         <p className="font-semibold text-foreground mb-1">Aún no has añadido productos</p>
                         <p className="text-sm text-muted-foreground mb-5">
-                          Explora nuestro catálogo de descarbonizadoras, kits, consumibles y aditivos.
+                          Explora nuestro catálogo de descarbonizadoras, kits y consumibles.
                         </p>
                         <Button asChild>
                           <Link to="/tienda">Ir a la tienda</Link>
