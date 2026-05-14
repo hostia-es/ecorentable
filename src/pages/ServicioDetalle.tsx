@@ -13,13 +13,14 @@ import mechanicWorkshop from "@/assets/mechanic-workshop-service.jpg";
 import engineDiagnostics from "@/assets/engine-diagnostics.jpg";
 import maquinaDescarbonizadora from "@/assets/maquina-descarbonizadora.jpg";
 import carbonFapMachine from "@/assets/carbon-fap-machine.png";
+import dpfCleaningHero from "@/assets/dpf-cleaning-hero.jpg";
 
 const heroImages: Record<string, string> = {
   descarbonizacion: serviceHero,
   particulares: mechanicWorkshop,
   talleres: engineDiagnostics,
   flotas: maquinaDescarbonizadora,
-  "limpieza-filtros": carbonFapMachine,
+  "limpieza-filtros": dpfCleaningHero,
 };
 
 const processImages: Record<string, string> = {

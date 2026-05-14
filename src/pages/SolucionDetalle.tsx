@@ -3,6 +3,7 @@ import { CheckCircle, AlertTriangle, ArrowRight } from "lucide-react";
 import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
+import QuoteForm from "@/components/common/QuoteForm";
 import Seo from "@/components/common/Seo";
 import { AnimatedSection } from "@/components/common/Animations";
 import { extraSoluciones } from "@/data/extraSolutions";
@@ -407,6 +408,45 @@ export default function SolucionDetalle() {
       </section>
 
       <FAQSection items={sol.faq} />
+
+      {/* FORMULARIO DE CONVERSIÓN — landing final */}
+      <section className="py-16 bg-gradient-to-b from-background to-secondary border-y border-border">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary border border-primary/20 mb-3">
+                Presupuesto a medida
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground leading-tight">
+                ¿Listo para resolver tu {sol.title.toLowerCase()}?
+              </h2>
+              <p className="text-[15px] text-muted-foreground mb-5 leading-relaxed">
+                Cuéntanos lo justo. Un técnico te contesta con propuesta clara, sin letra pequeña y sin presión comercial. Consulta gratuita en menos de 24 h.
+              </p>
+              <ul className="space-y-2.5">
+                {[
+                  "Asesoramiento técnico personalizado, no un correo automático.",
+                  "Diagnóstico previo y propuesta adaptada a tu vehículo.",
+                  "Sin compromiso, sin coste y sin compartir tus datos.",
+                ].map((line) => (
+                  <li key={line} className="flex items-start gap-2.5 text-sm text-foreground">
+                    <CheckCircle size={15} className="shrink-0 mt-0.5 text-primary" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <QuoteForm
+              context={`solucion-${slug}`}
+              title="Consulta tu precio en 24 h"
+              subtitle="Rápido, claro y sin compromiso. Te responde un asesor humano."
+              defaultMessage={`Estoy interesado/a en: ${sol.title}.`}
+              compact
+            />
+          </div>
+        </div>
+      </section>
+
       <CTABox title="¿Listo para resolver el problema?" description="Contacta con nuestro equipo y solicita presupuesto para tu vehículo." primaryLabel="Contactar" primaryHref="/contacto" secondaryLabel="Ver servicios" secondaryHref="/servicios" />
     </main>
   );
