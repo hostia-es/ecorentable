@@ -13,13 +13,14 @@ import mechanicWorkshop from "@/assets/mechanic-workshop-service.jpg";
 import engineDiagnostics from "@/assets/engine-diagnostics.jpg";
 import maquinaDescarbonizadora from "@/assets/maquina-descarbonizadora.jpg";
 import carbonFapMachine from "@/assets/carbon-fap-machine.png";
+import dpfCleaningHero from "@/assets/dpf-cleaning-hero.jpg";
 
 const heroImages: Record<string, string> = {
   descarbonizacion: serviceHero,
   particulares: mechanicWorkshop,
   talleres: engineDiagnostics,
   flotas: maquinaDescarbonizadora,
-  "limpieza-filtros": carbonFapMachine,
+  "limpieza-filtros": dpfCleaningHero,
 };
 
 const processImages: Record<string, string> = {
@@ -56,12 +57,13 @@ const servicios: Record<string, ServicioData> = {
     priceRange: "Consultar precio",
     priceNote: "El precio depende de la cilindrada del vehículo, el modelo de máquina y los servicios adicionales. Solicita presupuesto sin compromiso.",
     process: [
-      { step: 1, title: "Diagnóstico OBD2", desc: "Lectura de parámetros y códigos de error del motor." },
-      { step: 2, title: "Preparación", desc: "Calentamiento del motor a temperatura óptima y conexión del equipo." },
-      { step: 3, title: "Ciclo HHO", desc: "Introducción del gas HHO durante 15–45 minutos según el vehículo." },
-      { step: 4, title: "Verificación", desc: "Medición de emisiones antes/después y borrado de códigos si corresponde." },
+      { step: 1, title: "Diagnóstico OBD2 inicial", desc: "Lectura de códigos de avería, parámetros de presión, FAP, lambda y regeneraciones del DPF antes de la intervención." },
+      { step: 2, title: "Preparación del motor", desc: "Calentamiento del motor a temperatura óptima de trabajo (80–95 °C) y conexión del equipo H2 Profit a la admisión." },
+      { step: 3, title: "Ciclo HHO", desc: "Introducción del gas HHO durante 30–120 minutos según el modelo de máquina (1000S/2000S/3000S) y la cilindrada del vehículo." },
+      { step: 4, title: "Tratamientos complementarios", desc: "Si el diagnóstico lo recomienda: limpieza de la válvula EGR por admisión, limpieza de la geometría variable del turbo, regeneración forzada del DPF, tratamiento del catalizador y eliminación de humo negro para pasar la ITV." },
+      { step: 5, title: "Verificación y entrega", desc: "Nueva lectura OBD2, medición comparativa de emisiones (antes/después), borrado de códigos cuando proceda y entrega del informe técnico." },
     ],
-    target: ["Conductores particulares con vehículo diésel o gasolina", "Flotas de empresa que buscan reducir costes de mantenimiento", "Talleres que quieren ofrecer el servicio a sus clientes"],
+    target: ["Conductores particulares con vehículo diésel o gasolina con más de 60.000 km", "Vehículos con uso urbano intensivo o trayectos cortos", "Conductores que van a pasar la ITV o que la han suspendido por emisiones", "Flotas comerciales que buscan reducir consumo y averías", "Talleres que ofrecen el servicio bajo la marca Ecología Rentable"],
     faq: [
       { question: "¿Cuánto tarda el servicio?", answer: "Entre 30 y 90 minutos incluyendo diagnóstico y verificación. Puedes esperar en el taller." },
       { question: "¿Se nota inmediatamente?", answer: "La mayoría de conductores nota mejoría en la respuesta del motor y suavidad de marcha desde el primer día. La reducción de consumo se observa en los primeros 1.000 km." },
