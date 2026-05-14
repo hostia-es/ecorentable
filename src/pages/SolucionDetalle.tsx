@@ -21,7 +21,7 @@ const heroImages: Record<string, string> = {
   "mantenimiento-motor-diesel": engineDetail,
   "limpieza-egr-catalizador": engineBeforeAfter,
   "itv-gases": diagnosticoMotor,
-  "aditivos-motor": engineDetail,
+  
 };
 
 const processImages: Record<string, string> = {
