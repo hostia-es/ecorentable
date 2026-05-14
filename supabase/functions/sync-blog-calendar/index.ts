@@ -55,31 +55,29 @@ function parseDate(dateStr: string): Date | null {
   return isNaN(d.getTime()) ? null : d;
 }
 
-/** Extracts the spreadsheet ID from a Google Sheets URL */
 function extractSheetId(url: string): string | null {
   const m = url.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
   return m ? m[1] : null;
 }
 
-/** Fetches all values of the first sheet via Google Sheets gateway, returns as rows */
-async function fetchSheetRows(spreadsheetId: string, lovableKey: string, sheetsKey: string): Promise<Record<string, string>[]> {
-  // Get spreadsheet metadata to find first sheet name
-  const metaRes = await fetch(`${SHEETS_GATEWAY}/spreadsheets/${spreadsheetId}?fields=sheets.properties`, {
-    headers: {
-      Authorization: `Bearer ${lovableKey}`,
-      "X-Connection-Api-Key": sheetsKey,
-    },
-  });
-  if (!metaRes.ok) throw new Error(`Sheets metadata failed [${metaRes.status}]: ${await metaRes.text()}`);
-  const meta = await metaRes.json();
-  const firstSheet = meta.sheets?.[0]?.properties?.title || "Sheet1";
+/** Fetches sheet rows. If sheetName provided, uses it; otherwise first sheet. */
+async function fetchSheetRows(spreadsheetId: string, lovableKey: string, sheetsKey: string, sheetName?: string): Promise<Record<string, string>[]> {
+  let firstSheet = sheetName;
+  if (!firstSheet) {
+    const metaRes = await fetch(`${SHEETS_GATEWAY}/spreadsheets/${spreadsheetId}?fields=sheets.properties`, {
+      headers: { Authorization: `Bearer ${lovableKey}`, "X-Connection-Api-Key": sheetsKey },
+    });
+    if (!metaRes.ok) throw new Error(`Sheets metadata failed [${metaRes.status}]: ${await metaRes.text()}`);
+    const meta = await metaRes.json();
+    // Prefer "Calendario_90_dias" if it exists, otherwise first sheet
+    const sheets = meta.sheets || [];
+    const cal = sheets.find((s: any) => /calendario/i.test(s.properties?.title || ""));
+    firstSheet = cal?.properties?.title || sheets[0]?.properties?.title || "Sheet1";
+  }
 
-  const range = `${firstSheet}!A1:Z10000`;
+  const range = `${firstSheet}!A1:AZ10000`;
   const valuesRes = await fetch(`${SHEETS_GATEWAY}/spreadsheets/${spreadsheetId}/values/${range}`, {
-    headers: {
-      Authorization: `Bearer ${lovableKey}`,
-      "X-Connection-Api-Key": sheetsKey,
-    },
+    headers: { Authorization: `Bearer ${lovableKey}`, "X-Connection-Api-Key": sheetsKey },
   });
   if (!valuesRes.ok) throw new Error(`Sheets values failed [${valuesRes.status}]: ${await valuesRes.text()}`);
   const data = await valuesRes.json();
@@ -91,6 +89,36 @@ async function fetchSheetRows(spreadsheetId: string, lovableKey: string, sheetsK
     headers.forEach((h, i) => { obj[h] = (row[i] || "").trim(); });
     return obj;
   });
+}
+
+function pick(row: Record<string, string>, ...keys: string[]): string {
+  for (const k of keys) if (row[k]) return row[k];
+  return "";
+}
+
+/** Validate generated content against the row's checklist + global brand rules. */
+function validateContent(generated: any, item: any): string[] {
+  const errors: string[] = [];
+  const content = (generated.content || "").toLowerCase();
+  const title = (generated.title || "").toLowerCase();
+  const kw = (item.kwPrincipal || "").toLowerCase();
+
+  if (kw && !title.includes(kw) && !content.slice(0, 500).includes(kw)) {
+    errors.push(`Keyword principal "${item.kwPrincipal}" no aparece en H1 ni primer párrafo`);
+  }
+  if (/flex\s*fuel/i.test(content) || /flex\s*fuel/i.test(title)) {
+    errors.push('Mención prohibida a "Flex Fuel"');
+  }
+  if (/\b\d+[.,]?\d*\s*€/.test(generated.content || "") || /\beur\b/i.test(content)) {
+    errors.push("Precio monetario explícito (debe ser 'Consultar precio')");
+  }
+  if (generated.meta_title && generated.meta_title.length > 60) {
+    errors.push(`meta_title demasiado largo (${generated.meta_title.length} chars)`);
+  }
+  if (generated.meta_description && generated.meta_description.length > 160) {
+    errors.push(`meta_description demasiado largo (${generated.meta_description.length} chars)`);
+  }
+  return errors;
 }
 
 serve(async (req) => {
@@ -108,6 +136,7 @@ serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const sheetUrl: string | undefined = body.sheet_url;
     const csvUrl: string | undefined = body.csv_url;
+    const sheetName: string | undefined = body.sheet_name;
     const batchSize = body.batch_size || 3;
     const dryRun = body.dry_run || false;
 
@@ -117,13 +146,12 @@ serve(async (req) => {
       });
     }
 
-    // Fetch rows: prefer Google Sheets gateway, fallback to CSV
     let rows: Record<string, string>[] = [];
     if (sheetUrl) {
       const sheetId = extractSheetId(sheetUrl);
       if (!sheetId) throw new Error("URL de Google Sheets no válida");
       if (!SHEETS_API_KEY) throw new Error("Conector Google Sheets no configurado");
-      rows = await fetchSheetRows(sheetId, LOVABLE_API_KEY, SHEETS_API_KEY);
+      rows = await fetchSheetRows(sheetId, LOVABLE_API_KEY, SHEETS_API_KEY, sheetName);
     } else if (csvUrl) {
       const csvResponse = await fetch(csvUrl);
       if (!csvResponse.ok) throw new Error(`No se pudo obtener el CSV: ${csvResponse.status}`);
@@ -135,18 +163,9 @@ serve(async (req) => {
 
     const pending: any[] = [];
     for (const row of rows) {
-      const fecha = row["Fecha de publicación"] || row["Fecha"] || row["fecha"] || "";
-      const idea = row["Idea del contenido *"] || row["Idea del Contenido"] || row["Idea"] || row["idea"] || "";
-      const kwPrincipal = row["Keyword principal *"] || row["Keyword Principal"] || row["keyword_principal"] || "";
-      const kwSec1 = row["Keyword sec. 1"] || row["Keyword Sec 1"] || row["keyword_sec_1"] || "";
-      const kwSec2 = row["Keyword sec. 2"] || row["Keyword Sec 2"] || row["keyword_sec_2"] || "";
-      const kwSec3 = row["Keyword sec. 3"] || row["Keyword Sec 3"] || row["keyword_sec_3"] || "";
-      const tipo = row["Tipo de post"] || row["Tipo de Post"] || row["tipo"] || "informativo";
-      const intencion = row["Intención de búsqueda"] || row["Intención de Búsqueda"] || row["intencion"] || "informacional";
-      const objetivo = row["Objetivo conversión"] || row["Objetivo de Conversión"] || row["objetivo"] || "contacto";
-      const categoria = row["Categoría"] || row["categoria"] || "Ecología Rentable";
-      const autor = row["Autor"] || row["autor"] || "Ecología Rentable";
-      const ciudad = row["Ciudad"] || row["ciudad"] || "";
+      const fecha = pick(row, "Fecha de publicación", "Fecha", "fecha");
+      const idea = pick(row, "Idea del contenido *", "Idea del contenido", "Idea", "idea");
+      const kwPrincipal = pick(row, "Keyword principal *", "Keyword principal", "Keyword Principal", "keyword_principal");
 
       if (!idea || !kwPrincipal) continue;
       const postDate = parseDate(fecha);
@@ -156,18 +175,54 @@ serve(async (req) => {
         keywordSlug: slugify(kwPrincipal),
         fecha: postDate.toISOString().split("T")[0],
         isFuture: postDate > today,
-        idea, kwPrincipal, kwSec1, kwSec2, kwSec3,
-        tipo, intencion, objetivo, categoria, autor, ciudad,
+        idea,
+        kwPrincipal,
+        kwSec1: pick(row, "Keyword sec. 1", "Keyword Sec 1"),
+        kwSec2: pick(row, "Keyword sec. 2", "Keyword Sec 2"),
+        kwSec3: pick(row, "Keyword sec. 3", "Keyword Sec 3"),
+        tipo: pick(row, "Tipo de post", "Tipo de Post", "tipo") || "informativo",
+        intencion: pick(row, "Intención de búsqueda", "Intención de Búsqueda") || "informacional",
+        objetivo: pick(row, "Objetivo conversión", "Objetivo de Conversión") || "contacto",
+        categoria: pick(row, "Categoría", "categoria") || "Ecología Rentable",
+        autor: pick(row, "Autor", "autor") || "Ecología Rentable",
+        ciudad: pick(row, "Ciudad", "ciudad"),
+        // Sheet-provided structural fields (specialist's spec — use AS-IS)
+        extension: pick(row, "Extensión objetivo"),
+        formato: pick(row, "Formato Lovable recomendado"),
+        h1Sugerido: pick(row, "H1 sugerido"),
+        h2Recomendados: pick(row, "H2 recomendados"),
+        tablaObligatoria: pick(row, "Tabla obligatoria sugerida"),
+        faqSugeridas: pick(row, "FAQ sugeridas"),
+        ctaRecomendado: pick(row, "CTA recomendado"),
+        enlacesInternos: pick(row, "Enlaces internos sugeridos"),
+        fuenteExterna: pick(row, "Fuente externa sugerida"),
+        imagenAlt: pick(row, "Imagen + ALT sugeridos"),
+        promptFila: pick(row, "Prompt Lovable por fila"),
+        checklist: pick(row, "Checklist anti-error"),
+        metaTitleSug: pick(row, "Meta title sugerido"),
+        metaDescSug: pick(row, "Meta description sugerida"),
+        slugSug: pick(row, "Slug sugerido"),
+        primerParrafo: pick(row, "Primer párrafo obligatorio"),
+        h2KwPrincipal: pick(row, "H2 keyword principal"),
+        h2KwSecundarias: pick(row, "H2 keywords secundarias"),
+        estructuraSeo: pick(row, "Estructura SEO mejorada"),
+        promptReforzado: pick(row, "Prompt Lovable reforzado"),
+        validacionKw: pick(row, "Validación keyword"),
       });
     }
 
     const slugs = pending.map((p) => p.keywordSlug);
-    const { data: existing } = await supabase
-      .from("blog_calendar_sync")
-      .select("keyword_slug, status")
-      .in("keyword_slug", slugs);
+    // chunk to avoid URL length limits
+    const existingMap = new Map<string, string>();
+    for (let i = 0; i < slugs.length; i += 200) {
+      const chunk = slugs.slice(i, i + 200);
+      const { data: existing } = await supabase
+        .from("blog_calendar_sync")
+        .select("keyword_slug, status")
+        .in("keyword_slug", chunk);
+      (existing || []).forEach((e: any) => existingMap.set(e.keyword_slug, e.status));
+    }
 
-    const existingMap = new Map((existing || []).map((e: any) => [e.keyword_slug, e.status]));
     const toProcess = pending.filter((p) => {
       const status = existingMap.get(p.keywordSlug);
       return !status || status === "error";
@@ -210,75 +265,89 @@ serve(async (req) => {
           .select("title, slug, category")
           .eq("published", true)
           .order("published_at", { ascending: false })
-          .limit(20);
+          .limit(40);
 
         const relatedPosts = (existingPosts || [])
-          .filter((p: any) => p.category === item.categoria || Math.random() > 0.5)
-          .slice(0, 8);
+          .filter((p: any) => p.category === item.categoria)
+          .slice(0, 8)
+          .concat((existingPosts || []).filter((p: any) => p.category !== item.categoria).slice(0, 4));
 
         const postsForLinking = relatedPosts
           .map((p: any) => `- "${p.title}" → /blog/${p.slug}`)
           .join("\n");
 
-        const wordRanges: Record<string, string> = {
-          comercial: "900–1400 palabras",
-          informativo: "1400–2000 palabras",
-          comparativo: "1400–2000 palabras",
-          "guía": "1800–2500 palabras",
-        };
-
         const secondaryKws = [item.kwSec1, item.kwSec2, item.kwSec3].filter(Boolean);
 
-        const systemPrompt = `Eres un redactor SEO experto senior de Ecología Rentable, especialistas en descarbonización de motores, mantenimiento eficiente, HHO, DPF/FAP y EGR. Generas contenido que posiciona en Google siguiendo estrictamente las directrices EEAT.
+        // Build the spec block — specialist's instructions go FIRST and OVERRIDE any defaults
+        const specialistSpec = `
+=== ESPECIFICACIÓN OBLIGATORIA POR FILA (de la especialista SEO) ===
+${item.promptReforzado ? `INSTRUCCIÓN MAESTRA (REFORZADA — sigue al pie de la letra):\n${item.promptReforzado}\n` : ""}
+${item.promptFila ? `INSTRUCCIÓN POR FILA:\n${item.promptFila}\n` : ""}
+${item.estructuraSeo ? `ESTRUCTURA SEO REQUERIDA:\n${item.estructuraSeo}\n` : ""}
+${item.checklist ? `CHECKLIST ANTI-ERROR (debe cumplirse al 100%):\n${item.checklist}\n` : ""}
+${item.validacionKw ? `VALIDACIÓN DE KEYWORD:\n${item.validacionKw}\n` : ""}
 
-REGLAS ABSOLUTAS DE ESTRUCTURA:
-1. TITLE TAG (meta_title): Máximo 58 caracteres. Debe contener la keyword principal.
-2. META DESCRIPTION (meta_description): Máximo 155 caracteres. Incluir keyword principal + CTA implícito.
-3. H1: Único. Contiene la keyword principal.
-4. Solo H2 para subsecciones. NUNCA H3, H4, etc.
-5. Primer párrafo con la keyword principal de forma natural.
-6. Keyword principal: 2-4 veces en el contenido.
-7. Keywords secundarias distribuidas naturalmente.
-
-REGLAS DE CONTENIDO:
-8. Incluir MÍNIMO 2 tablas Markdown.
-9. ENLAZADO INTERNO OBLIGATORIO:
-   - 2-6 enlaces a posts relacionados del blog
-   - Enlace a Home: [Ecología Rentable](/)
-   - Enlace a Contacto: [contacta con nosotros](/contacto)
-   - Enlace a Servicios: [nuestros servicios](/servicios)
-   ${postsForLinking ? `Posts disponibles para enlazar:\n${postsForLinking}` : ""}
-10. CTA FINAL: Llamada a la acción clara invitando a "Consultar precio" o solicitar diagnóstico.
-11. PRECIOS: NUNCA menciones valores monetarios concretos. Usar siempre "Consultar precio" o "Solicita presupuesto".
-12. MARCA: Usar SOLO "Ecología Rentable". PROHIBIDO mencionar "Flex Fuel" u otras marcas.
-13. EEAT: Datos concretos, ejemplos reales, lenguaje experto pero accesible.
-14. EXTENSIÓN: ${wordRanges[item.tipo] || "1400-2000 palabras"}
-15. IDIOMA: Español de España. SIEMPRE.
-16. SLUG: SEO-friendly basado en la keyword principal.
-
-FORMATO DE RESPUESTA - Solo JSON válido:
-{
-  "title": "H1 del artículo",
-  "slug": "slug-seo-friendly",
-  "meta_title": "Title tag (max 58 chars)",
-  "meta_description": "Meta description (max 155 chars)",
-  "excerpt": "Extracto de 1-2 frases",
-  "content": "Contenido completo en Markdown",
-  "category": "${item.categoria}"
-}`;
-
-        const userPrompt = `Genera un post de blog SEO completo:
+=== ELEMENTOS FIJOS (úsalos exactamente como vienen) ===
 - IDEA: ${item.idea}
 - KEYWORD PRINCIPAL: ${item.kwPrincipal}
-${secondaryKws.length > 0 ? `- KEYWORDS SECUNDARIAS: ${secondaryKws.join(", ")}` : ""}
+${secondaryKws.length ? `- KEYWORDS SECUNDARIAS: ${secondaryKws.join(", ")}` : ""}
 - TIPO: ${item.tipo}
 - INTENCIÓN: ${item.intencion}
-- OBJETIVO: ${item.objetivo}
-- CATEGORÍA: ${item.categoria}
+- OBJETIVO DE CONVERSIÓN: ${item.objetivo}
+- CATEGORÍA (no cambiar): ${item.categoria}
 - AUTOR: ${item.autor}
 ${item.ciudad ? `- CIUDAD: ${item.ciudad}` : ""}
+${item.extension ? `- EXTENSIÓN OBJETIVO: ${item.extension}` : ""}
+${item.formato ? `- FORMATO: ${item.formato}` : ""}
+${item.h1Sugerido ? `- H1 OBLIGATORIO (úsalo TAL CUAL): ${item.h1Sugerido}` : ""}
+${item.h2Recomendados ? `- H2 OBLIGATORIOS (úsalos en este orden, TAL CUAL):\n${item.h2Recomendados}` : ""}
+${item.h2KwPrincipal ? `- H2 con keyword principal: ${item.h2KwPrincipal}` : ""}
+${item.h2KwSecundarias ? `- H2 con keywords secundarias: ${item.h2KwSecundarias}` : ""}
+${item.primerParrafo ? `- PRIMER PÁRRAFO OBLIGATORIO (úsalo como base del primer párrafo, debe contener la keyword principal):\n${item.primerParrafo}` : ""}
+${item.tablaObligatoria ? `- TABLA OBLIGATORIA (incluye una tabla Markdown sobre): ${item.tablaObligatoria}` : ""}
+${item.faqSugeridas ? `- FAQ OBLIGATORIAS (sección "## Preguntas Frecuentes" con estas preguntas como mínimo):\n${item.faqSugeridas}` : ""}
+${item.ctaRecomendado ? `- CTA FINAL: ${item.ctaRecomendado}` : ""}
+${item.enlacesInternos ? `- ENLACES INTERNOS OBLIGATORIOS (inclúyelos como enlaces Markdown):\n${item.enlacesInternos}` : ""}
+${item.fuenteExterna ? `- FUENTE EXTERNA (cita como referencia al final): ${item.fuenteExterna}` : ""}
+${item.imagenAlt ? `- IMAGEN + ALT SUGERIDOS:\n${item.imagenAlt}` : ""}
+${item.metaTitleSug ? `- META TITLE OBLIGATORIO (úsalo TAL CUAL, máx 60 chars): ${item.metaTitleSug}` : ""}
+${item.metaDescSug ? `- META DESCRIPTION OBLIGATORIA (úsala TAL CUAL, máx 160 chars): ${item.metaDescSug}` : ""}
+${item.slugSug ? `- SLUG OBLIGATORIO (úsalo TAL CUAL): ${item.slugSug}` : ""}
 
-Solo JSON válido en la respuesta.`;
+POSTS DEL BLOG DISPONIBLES PARA ENLAZADO INTERNO:
+${postsForLinking || "(sin posts previos publicados todavía)"}
+`.trim();
+
+        const systemPrompt = `Eres un redactor SEO senior de Ecología Rentable. Tu única misión es seguir AL PIE DE LA LETRA la especificación que recibes. Las reglas de marca son INVIOLABLES.
+
+REGLAS DE MARCA INVIOLABLES:
+- La marca es "Ecología Rentable". PROHIBIDO mencionar "Flex Fuel" o cualquier competidor.
+- Idioma: español de España SIEMPRE.
+- Precios: NUNCA cifras monetarias. Usa SIEMPRE "Consultar precio" o "Solicita presupuesto".
+- Estructura: H1 único + solo H2. NUNCA H3, H4, etc.
+- La keyword principal aparece en: H1, primer párrafo, al menos un H2, y de 2 a 4 veces en el cuerpo.
+- Keywords secundarias distribuidas naturalmente.
+- Mínimo 1 tabla Markdown si hay "Tabla obligatoria sugerida".
+- Sección "## Preguntas Frecuentes" obligatoria si hay FAQ sugeridas.
+- CTA final claro hacia "Consultar precio" / diagnóstico / contacto.
+- Todos los enlaces internos sugeridos deben aparecer.
+
+REGLAS DE PRIORIDAD:
+1. Si el campo "H1 sugerido", "Slug sugerido", "Meta title sugerido" o "Meta description sugerida" están presentes, ÚSALOS TAL CUAL sin reescribir.
+2. Si "H2 recomendados" están presentes, úsalos como sección H2 en ese orden exacto.
+3. Si "Primer párrafo obligatorio" está presente, úsalo (puedes adaptar mínimamente para naturalidad pero conservando keyword principal).
+4. Si "Prompt Lovable reforzado" está presente, esa es la guía maestra.
+
+FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
+{
+  "title": "H1 exacto",
+  "slug": "slug-exacto",
+  "meta_title": "máx 60 chars",
+  "meta_description": "máx 160 chars",
+  "excerpt": "1-2 frases que enganchen, con keyword principal",
+  "content": "Contenido COMPLETO en Markdown — H1 al inicio (# H1), luego H2 (## H2), tablas, FAQ, CTA, enlaces internos. NUNCA H3.",
+  "category": "${item.categoria}"
+}`;
 
         const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
           method: "POST",
@@ -287,7 +356,7 @@ Solo JSON válido en la respuesta.`;
             model: "google/gemini-2.5-flash",
             messages: [
               { role: "system", content: systemPrompt },
-              { role: "user", content: userPrompt },
+              { role: "user", content: specialistSpec + "\n\nDevuelve SOLO el objeto JSON. Nada más." },
             ],
           }),
         });
@@ -313,9 +382,24 @@ Solo JSON válido en la respuesta.`;
           generated = JSON.parse(cleaned);
         }
 
+        // Force-override with sheet's "sugerido" fields when present
+        if (item.slugSug) generated.slug = slugify(item.slugSug);
+        if (item.metaTitleSug) generated.meta_title = item.metaTitleSug.slice(0, 60);
+        if (item.metaDescSug) generated.meta_description = item.metaDescSug.slice(0, 160);
+        if (item.h1Sugerido) generated.title = item.h1Sugerido;
+
+        // Validate
+        const validationErrors = validateContent(generated, item);
+        if (validationErrors.length > 0) {
+          console.warn(`Validación falló para ${item.kwPrincipal}:`, validationErrors);
+        }
+
+        // Image generation
         let imageUrl: string | null = null;
         try {
-          const imgPrompt = `Modern eco-friendly automotive blog illustration for "${generated.title}". Category: ${item.categoria}. Style: clean flat vector with green/teal palette, mechanic cleaning a car engine, leaves and eco symbols, decarbonization theme. NO text, NO words. Bright optimistic. 16:9.`;
+          const imgPrompt = item.imagenAlt
+            ? `Eco-friendly automotive illustration: ${item.imagenAlt}. Style: clean flat vector with green/teal palette, professional, no text, 16:9.`
+            : `Modern eco-friendly automotive blog illustration for "${generated.title}". Category: ${item.categoria}. Style: clean flat vector with green/teal palette, mechanic cleaning a car engine, leaves and eco symbols, decarbonization theme. NO text. Bright optimistic. 16:9.`;
           const imgResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
             method: "POST",
             headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
@@ -346,9 +430,10 @@ Solo JSON válido en la respuesta.`;
         }
 
         const slug = generated.slug || item.keywordSlug;
-        // Future posts: create as DRAFT, scheduled with published_at = sheet date
-        // Past/today posts: publish immediately
         const shouldPublishNow = !item.isFuture;
+
+        const allKeywords = [item.kwPrincipal, item.kwSec1, item.kwSec2, item.kwSec3].filter(Boolean).join(", ");
+
         const { data: insertedPost, error: insertError } = await supabase
           .from("blog_posts")
           .insert({
@@ -362,6 +447,7 @@ Solo JSON válido en la respuesta.`;
             image_url: imageUrl,
             meta_title: generated.meta_title || null,
             meta_description: generated.meta_description || null,
+            meta_keywords: allKeywords || null,
             published: shouldPublishNow,
             published_at: item.fecha,
           })
@@ -373,10 +459,18 @@ Solo JSON válido en la respuesta.`;
         await supabase.from("blog_calendar_sync").update({
           status: shouldPublishNow ? "published" : "scheduled",
           blog_post_id: insertedPost.id,
+          error_message: validationErrors.length ? `Avisos: ${validationErrors.join("; ")}` : null,
         }).eq("keyword_slug", item.keywordSlug);
 
-        results.push({ slug, title: generated.title, status: shouldPublishNow ? "published" : "scheduled", scheduled_for: item.fecha, image: !!imageUrl });
-        await new Promise((r) => setTimeout(r, 3000));
+        results.push({
+          slug,
+          title: generated.title,
+          status: shouldPublishNow ? "published" : "scheduled",
+          scheduled_for: item.fecha,
+          image: !!imageUrl,
+          warnings: validationErrors.length ? validationErrors : undefined,
+        });
+        await new Promise((r) => setTimeout(r, 2000));
       } catch (err) {
         console.error(`Error processing ${item.kwPrincipal}:`, err);
         await supabase.from("blog_calendar_sync").upsert({
