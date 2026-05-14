@@ -12,10 +12,9 @@ const soluciones = [
   { slug: "descarbonizacion-motor-diesel", title: "Descarbonización motor diésel", desc: "Eliminación de depósitos carbonosos en pistones, válvulas y cámara de combustión de motores diésel.", badge: "Más solicitado" },
   { slug: "limpieza-filtro-particulas", title: "Limpieza filtro de partículas DPF/FAP", desc: "Regeneración y limpieza del filtro de partículas sin desmontaje. Solución para testigos encendidos y regeneraciones fallidas.", badge: null },
   { slug: "descarbonizacion-hidrogeno", title: "Descarbonización por hidrógeno", desc: "Proceso profesional de descarbonización mediante gas HHO. Más eficaz y seguro que los métodos químicos convencionales.", badge: "Profesional" },
-  { slug: "mantenimiento-motor-diesel", title: "Mantenimiento motor diésel", desc: "Plan de mantenimiento preventivo para motores diésel: descarbonización periódica, aditivos y limpieza de circuitos.", badge: null },
+  { slug: "mantenimiento-motor-diesel", title: "Mantenimiento motor diésel", desc: "Plan de mantenimiento preventivo para motores diésel: descarbonización periódica y limpieza de circuitos.", badge: null },
   { slug: "limpieza-egr-catalizador", title: "Limpieza EGR y catalizador", desc: "Limpieza de la válvula EGR y el catalizador para recuperar rendimiento y reducir emisiones de NOx.", badge: null },
   { slug: "itv-gases", title: "Reducción gases para la ITV", desc: "Tratamiento específico para reducir CO, HC y opacidad antes de la Inspección Técnica de Vehículos.", badge: "ITV" },
-  { slug: "aditivos-motor", title: "Aditivos para motor", desc: "Aditivos de combustible y motor para mejorar la combustión, proteger el sistema de inyección y extender la vida del DPF.", badge: null },
 ];
 
 const faqSoluciones = [

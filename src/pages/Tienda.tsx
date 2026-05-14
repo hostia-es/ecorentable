@@ -21,10 +21,10 @@ const categories = [
 ].map(c => ({ ...c, count: products.filter(p => p.categorySlug === c.slug).length }));
 
 const faqTienda = [
-  { question: "¿Puedo comprar directamente online?", answer: "Actualmente la venta de máquinas se realiza previa solicitud de presupuesto personalizado. Los aditivos y kits pueden comprarse directamente. Contáctanos para recibir tu propuesta." },
-  { question: "¿Cuáles son los plazos de entrega?", answer: "Aditivos y kits: 2–4 días hábiles en Península. Máquinas descarbonizadoras: 5–10 días hábiles incluyendo configuración e instalación si aplica." },
-  { question: "¿Ofrecen garantía en todos los productos?", answer: "Sí. Máquinas: 2–4 años según modelo. Accesorios y consumibles: 1 año de garantía de fabricante. Los aditivos tienen fecha de caducidad indicada en el envase." },
-  { question: "¿Puedo devolver un producto si no me satisface?", answer: "Aditivos y kits no abiertos: devolución en 14 días. Máquinas: consultar condiciones específicas según el acuerdo de compra o alquiler." },
+  { question: "¿Puedo comprar directamente online?", answer: "La venta de máquinas, kits y consumibles se realiza previa solicitud de presupuesto personalizado. Contáctanos para recibir tu propuesta." },
+  { question: "¿Cuáles son los plazos de entrega?", answer: "Kits y consumibles: 2–4 días hábiles en Península. Máquinas descarbonizadoras: 5–10 días hábiles incluyendo configuración e instalación si aplica." },
+  { question: "¿Ofrecen garantía en todos los productos?", answer: "Sí. Máquinas: 2–4 años según modelo. Accesorios y consumibles: 1 año de garantía de fabricante." },
+  { question: "¿Puedo devolver un producto si no me satisface?", answer: "Kits y consumibles no abiertos: devolución en 14 días. Máquinas: consultar condiciones específicas según el acuerdo de compra o alquiler." },
 ];
 
 export default function Tienda() {

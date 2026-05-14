@@ -21,7 +21,7 @@ const heroImages: Record<string, string> = {
   "mantenimiento-motor-diesel": engineDetail,
   "limpieza-egr-catalizador": engineBeforeAfter,
   "itv-gases": diagnosticoMotor,
-  "aditivos-motor": engineDetail,
+  
 };
 
 const processImages: Record<string, string> = {
@@ -31,7 +31,7 @@ const processImages: Record<string, string> = {
   "mantenimiento-motor-diesel": obd2Diagnostics,
   "limpieza-egr-catalizador": diagnosticoMotor,
   "itv-gases": engineBeforeAfter,
-  "aditivos-motor": carbonFapMachine,
+  
 };
 
 interface SolucionData {
@@ -219,32 +219,6 @@ const data: Record<string, SolucionData> = {
     relatedServices: [
       { title: "Servicio para particulares", href: "/servicios/particulares" },
       { title: "Contactar para presupuesto ITV", href: "/contacto" },
-    ],
-  },
-  "aditivos-motor": {
-    title: "Aditivos para motor y combustible",
-    subtitle: "Aditivos profesionales para mejorar la combustión, proteger el sistema de inyección y extender la vida del DPF/FAP.",
-    badge: "Aditivos",
-    causes: ["Degradación de la calidad del combustible en uso diario", "Hollín acumulado sin tratamiento preventivo", "Sistema de inyección con depósitos de barniz"],
-    symptoms: ["Inyectores que pierden pulverización", "DPF que requiere regeneraciones frecuentes", "Consumo ligeramente superior al habitual sin causa aparente"],
-    process: [
-      { step: 1, title: "Selección del aditivo", desc: "Elegir el aditivo adecuado según el problema: combustible, EGR, DPF/FAP o inyectores." },
-      { step: 2, title: "Aplicación", desc: "Se añade al depósito de combustible o en el circuito de admisión según el tipo de aditivo." },
-      { step: 3, title: "Ciclo de trabajo", desc: "El vehículo circula normalmente. El aditivo actúa durante el proceso normal de combustión." },
-      { step: 4, title: "Seguimiento", desc: "Aplicación periódica según las recomendaciones del fabricante para mantenimiento continuo." },
-    ],
-    benefits: ["Coste bajo por intervención", "Sin necesidad de taller", "Complemento ideal a la descarbonización profesional", "Extiende los intervalos entre descarbonizaciones"],
-    price: "Desde 18 € hasta 60 €",
-    priceVariables: ["Tipo de aditivo", "Formato (particular/taller)", "Número de vehículos a tratar"],
-    risks: ["No sustituyen una descarbonización profesional en casos avanzados", "Usar siempre la dosis recomendada para evitar efectos adversos"],
-    faq: [
-      { question: "¿Puedo usar varios aditivos a la vez?", answer: "Depende de los aditivos. Los de combustible y los de DPF suelen ser compatibles. Consulta siempre las fichas técnicas o contacta con nosotros." },
-    ],
-    relatedBlog: [
-      { title: "Carbon FAP: análisis técnico", href: "/blog/carbon-fap-aditivo-dpf-review" },
-    ],
-    relatedServices: [
-      { title: "Ver aditivos en la tienda", href: "/tienda/aditivos" },
     ],
   },
 };

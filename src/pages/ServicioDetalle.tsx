@@ -155,7 +155,7 @@ const servicios: Record<string, ServicioData> = {
       { question: "¿Se puede limpiar cualquier DPF?", answer: "La mayoría de los DPF con obstrucción ≤90% pueden limpiarse con éxito. Por encima de ese umbral, la sustitución puede ser necesaria." },
       { question: "¿Es necesario desmontar el filtro?", answer: "En muchos casos no. El tratamiento por admisión es efectivo para obstrucciones leves-moderadas. Para casos más graves, el desmontaje y la limpieza por ultrasonidos ofrece mejores resultados." },
     ],
-    relatedLinks: [{ label: "Solución: Limpieza DPF/FAP", href: "/soluciones/limpieza-filtro-particulas" }, { label: "Carbon FAP (aditivo)", href: "/tienda/aditivos" }, { label: "Blog: 7 síntomas DPF obstruido", href: "/blog/sintomas-filtro-particulas-obstruido" }],
+    relatedLinks: [{ label: "Solución: Limpieza DPF/FAP", href: "/soluciones/limpieza-filtro-particulas" }, { label: "Máquina Carbon FAP", href: "/tienda/maquinas-limpieza-filtro-particulas/carbon-fap" }, { label: "Blog: 7 síntomas DPF obstruido", href: "/blog/sintomas-filtro-particulas-obstruido" }],
   },
   "alquiler-renting-maquinas-descarbonizadoras": {
     title: "Alquiler y renting de máquinas descarbonizadoras",

@@ -74,6 +74,7 @@ function AppShell() {
 
         {/* SOLUCIONES */}
         <Route path="/soluciones" element={<Soluciones />} />
+        <Route path="/soluciones/aditivos-motor" element={<Navigate to="/soluciones" replace />} />
         <Route path="/soluciones/:slug" element={<SolucionDetalle />} />
 
         {/* BLOG */}
