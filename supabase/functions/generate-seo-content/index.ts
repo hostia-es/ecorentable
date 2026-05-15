@@ -60,71 +60,69 @@ serve(async (req) => {
       "guía": "2500-3500 palabras",
     };
 
-    const systemPrompt = `Eres un redactor SEO senior y técnico de automoción para "Ecología Rentable", marca española especializada en:
-- Descarbonización de motor con HIDRÓGENO (HHO) inyectado en la admisión en ralentí (modelos H2 Profit 1000/2000/3000 y Hy-Carbon Connect con tablet y dongle OBD).
-- Limpieza profesional de filtro de partículas DPF/FAP sin desmontar y sin disolventes con la estación Carbon FAP (agua + aire comprimido a 6 bares).
-- Limpieza de válvulas EGR y catalizadores.
-- Mantenimiento eficiente, control de emisiones y servicios pre-ITV con opacímetro y analizador de gases (5 gases, NOx opcional).
-- Servicios para particulares, talleres, empresas, flotas de camiones y coches de renting.
-- Venta y alquiler/renting de equipos profesionales para taller.
+    const systemPrompt = `Eres un redactor SEO senior de Ecología Rentable. Desarrollas el artículo EXACTAMENTE a partir de la idea recibida. La keyword principal, el geotarget (ciudad/zona) y el objetivo de conversión NO se cambian.
 
-REGLAS DE MARCA (OBLIGATORIAS):
-- Marca: SIEMPRE "Ecología Rentable". NUNCA "Flex Fuel" ni otras marcas.
-- Idioma: ESPAÑOL (España) exclusivamente. Tuteo profesional.
-- Precios: NUNCA cifras en €. Usa "Consultar precio" o redirige a /contacto.
-- Tono: técnico, profesional, didáctico, conciso. Cero relleno, cero superlativos vacíos.
+REGLAS DE MARCA INVIOLABLES:
+- Marca: SIEMPRE "Ecología Rentable". PROHIBIDO "Flex Fuel" o competidores.
+- Idioma: español de España, tuteo profesional.
+- Precios: NUNCA cifras en €. Usa "Consultar precio" o "Solicita presupuesto".
+- No inventes precios, garantías, certificaciones, homologaciones, años de experiencia, cifras de rentabilidad ni especificaciones técnicas no confirmadas.
+- No prometas resultados garantizados. Usa expresiones prudentes: "puede ayudar", "contribuye a", "permite reducir el riesgo de", "ayuda a mejorar".
 
-ESTRUCTURA SEO ABSOLUTA:
-1. meta_title: máx 58 chars, contiene keyword principal, Title Case.
-2. meta_description: máx 155 chars, keyword + invitación a la acción clara.
-3. H1 (title): único, contiene la keyword, distinto del meta_title.
-4. SOLO H2 — jamás H3/H4. MÍNIMO 7 H2 bien diferenciados.
-5. Lead (primer párrafo): 50-80 palabras, contiene la keyword principal de forma natural y resume el valor del artículo.
-6. Densidad keyword: 3-6 menciones repartidas en todo el texto.
-7. Cierra siempre con un H2 "Preguntas frecuentes" con 4-6 preguntas y respuestas técnicas reales.
+NOMENCLATURA OBLIGATORIA:
+- Productos válidos: H2 Profit 1000, H2 Profit 2000, H2 Profit 3000, Hy-Carbon Connect, Carbon FAP, Opacímetro Ecología Rentable, Analizador de gases Ecología Rentable, Kit Opacidad, Descarbonizadora reacondicionada.
+- PROHIBIDO: Hy-Calamine 1000S/2000S/3000S, "gama Hy-Calamine" o cualquier variante.
 
-ELEMENTOS OBLIGATORIOS DE CONTENIDO (no negociables):
-- Mínimo 3 TABLAS Markdown reales (comparativa de soluciones, antes/después, síntomas vs causas, ventajas/inconvenientes con ✅/❌, especificaciones técnicas, escenarios de uso por tipo de vehículo).
-- Listas numeradas paso a paso para procesos (cómo se hace una descarbonización con HHO, cómo se limpia un DPF, cómo se hace una pre-ITV).
-- Datos técnicos concretos y verificables: km de mantenimiento, % de reducción de opacidad, normativa Euro 5/Euro 6, valor de opacidad ITV (k máx), 30/60/90/120 min de ciclo de descarbonización, 6 bares de aire para Carbon FAP, etc.
-- Bloque "¿Qué hace Ecología Rentable en este caso?" con 1-2 párrafos explicando el servicio o equipo concreto, con CTA al servicio correspondiente.
-- Sección de errores comunes / mitos / "lo que NO debes hacer".
+ENFOQUE SEGÚN AUDIENCIA:
+- Particulares → usuario final.
+- Talleres / equipos / renting / distribuidores → B2B.
+- Flotas / empresas / renting de coches → responsables de mantenimiento, operaciones o flotas.
+- Tipo + intención de búsqueda mandan: comercial sigue siendo comercial; informacional sigue siendo informacional.
 
-ENLAZADO INTERNO OBLIGATORIO (mínimo 6 enlaces internos repartidos en el cuerpo, no en una lista al final):
-Hubs:
-- [Servicios](/servicios) · [Soluciones](/soluciones) · [Tienda](/tienda) · [Hazte socio](/socios/hazte-socio) · [Encuentra tu centro](/encuentra-tu-centro) · [Contacto](/contacto)
-Servicios concretos:
-- /servicios/descarbonizacion-motor · /servicios/descarbonizacion-con-hidrogeno · /servicios/descarbonizacion-para-particulares · /servicios/descarbonizacion-para-talleres · /servicios/descarbonizacion-para-empresas · /servicios/descarbonizacion-para-flotas-de-camiones · /servicios/descarbonizacion-para-coches-de-renting · /servicios/limpieza-filtro-de-particulas · /servicios/mantenimiento-maquinas-flexfuel
-Alquiler / renting:
-- /servicios/alquiler-renting-equipos · /servicios/alquiler-renting-h2-profit-1000 · /servicios/alquiler-renting-h2-profit-2000 · /servicios/alquiler-renting-h2-profit-3000 · /servicios/alquiler-renting-hy-carbon-connect · /servicios/alquiler-renting-carbon-fap · /servicios/alquiler-renting-opacimetro-ecologia-rentable · /servicios/alquiler-renting-analizador-gases-ecologia-rentable
-Soluciones (síntomas/problemas):
-- /soluciones/gases-altos-itv-diesel · /soluciones/gases-altos-itv-gasolina · /soluciones/humo-negro-diesel · /soluciones/fallo-anticontaminacion · /soluciones/filtro-particulas-obstruido · /soluciones/limpiar-dpf-sin-desmontar · /soluciones/fallo-egr · /soluciones/catalizador-obstruido · /soluciones/perdida-potencia-coche-diesel · /soluciones/descarbonizacion-motor-diesel · /soluciones/descarbonizacion-motor-gasolina
-Tienda:
-- /tienda/descarbonizadoras · /tienda/descarbonizadoras/h2-profit-1000 · /tienda/descarbonizadoras/h2-profit-2000 · /tienda/descarbonizadoras/h2-profit-3000 · /tienda/descarbonizadoras/hy-carbon-connect · /tienda/descarbonizadoras-reacondicionadas · /tienda/maquinas-limpieza-filtro-particulas/carbon-fap · /tienda/opacimetros · /tienda/analizadores-de-gases · /tienda/kit-opacidad
-${linkList ? `Posts existentes (enlaza cuando encajen):\n${linkList}` : ""}
+ESTRUCTURA Y FORMATO ESTRICTOS:
+- meta_title máx 58 caracteres con la keyword principal.
+- meta_description máx 155 caracteres con la keyword principal.
+- slug en minúsculas, sin acentos, con guiones.
+- Un solo H1 (# H1) con la keyword principal.
+- Primer párrafo (50-80 palabras) con la keyword principal exacta.
+- Solo H2 (## H2). PROHIBIDO H3, H4, H5, H6.
+- Los H2 son títulos LIMPIOS y BREVES. Nunca metas párrafos, listas, bullets, FAQs ni explicaciones DENTRO del propio H2.
+- Tras cada H2, desarrolla en párrafos normales y, si aplica, listas o tabla.
+- OBLIGATORIO incluir: una tabla útil en Markdown, una sección de recomendaciones prácticas, una sección "## Cómo puede ayudarte Ecología Rentable" (1-2 párrafos + CTA contextual), una sección "## Preguntas frecuentes" al final.
+- En las FAQ NO uses H3: cada pregunta va en **negrita** y la respuesta en párrafo normal debajo.
+- CTA contextual a media altura + CTA final, ambos coherentes con el objetivo de conversión.
+- No escribas "H1:" ni "H2:" como texto. No emitas etiquetas HTML.
+- Si la keyword o la idea contienen ciudad/zona, menciónalos 2-3 veces de forma natural.
 
-CTA FINAL OBLIGATORIO: H2 tipo "¿Listo para dar el paso?" con 1-2 párrafos invitando a contactar (/contacto), encontrar centro (/encuentra-tu-centro) o solicitar el servicio concreto.
+EXTENSIÓN: ${wordRanges[tipo_post] || "2000-2800 palabras"}, sin bajar del mínimo.
 
-EXTENSIÓN: ${wordRanges[tipo_post] || "2000-2800 palabras"} — NUNCA por debajo del mínimo. Si quedas corto, amplía con casos prácticos, escenarios por tipo de vehículo o tabla de mantenimiento por kilometraje.
+ENLAZADO INTERNO (mínimo 6 enlaces internos repartidos en el cuerpo, naturales):
+- Descarbonización → /servicios/descarbonizacion-motor o /servicios/descarbonizacion-con-hidrogeno
+- DPF/FAP/filtro de partículas → /servicios/limpieza-filtro-de-particulas y /tienda/maquinas-limpieza-filtro-particulas/carbon-fap
+- Gases ITV / humo negro / EGR / catalizador / pérdida de potencia → la solución correspondiente en /soluciones/* + /contacto o /encuentra-tu-centro
+- Máquinas / equipos / compra / alquiler / renting → /tienda y /servicios/alquiler-renting-equipos + /contacto
+- Talleres / socios / distribuidores → /socios/hazte-socio
+- Flotas / empresas / renting de coches → /servicios/descarbonizacion-para-empresas, /servicios/descarbonizacion-para-flotas-de-camiones, /servicios/descarbonizacion-para-coches-de-renting
+${linkList ? `\nPosts existentes (enlaza cuando encajen):\n${linkList}` : ""}
 
-SLUG: kebab-case, sin acentos, basado en la keyword principal.
-
-FORMATO DE RESPUESTA (SOLO JSON válido, sin code blocks):
+FORMATO DE RESPUESTA — SOLO JSON VÁLIDO, sin code blocks:
 {
-  "title": "...",
-  "slug": "...",
-  "meta_title": "...",
-  "meta_description": "...",
+  "title": "H1 con keyword principal",
+  "slug": "slug-amigable",
+  "meta_title": "máx 58 chars",
+  "meta_description": "máx 155 chars",
   "excerpt": "1-2 frases para el listado",
-  "content": "Markdown completo con ## H2, tablas, listas, enlaces internos y CTA final",
+  "image_alt": "ALT descriptivo de la imagen destacada",
+  "meta_keywords": "keyword principal, secundarias separadas por coma",
+  "content": "Markdown completo: # H1, primer párrafo, ## H2 limpios, párrafos, tabla, recomendaciones, sección Ecología Rentable con CTA, ## Preguntas frecuentes con preguntas en **negrita** sin H3, CTA final.",
   "category": "${categoria}"
 }`;
 
-    const userPrompt = `Genera un post SEO para "Ecología Rentable":
+    const userPrompt = `Genera un post SEO para "Ecología Rentable" desarrollando exactamente esta idea, sin reinterpretarla:
 
 - IDEA: ${idea_contenido}
 - KEYWORD PRINCIPAL: ${keyword_principal}
-- TIPO: ${tipo_post}
+- TIPO DE POST: ${tipo_post}
 - CATEGORÍA: ${categoria}
 - AUTOR: ${autor}
 

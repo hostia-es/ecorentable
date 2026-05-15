@@ -109,6 +109,9 @@ function validateContent(generated: any, item: any): string[] {
   if (/flex\s*fuel/i.test(content) || /flex\s*fuel/i.test(title)) {
     errors.push('Mención prohibida a "Flex Fuel"');
   }
+  if (/hy[-\s]?calamine/i.test(content) || /hy[-\s]?calamine/i.test(title)) {
+    errors.push('Nomenclatura prohibida "Hy-Calamine" (usa H2 Profit 1000/2000/3000)');
+  }
   if (/\b\d+[.,]?\d*\s*€/.test(generated.content || "") || /\beur\b/i.test(content)) {
     errors.push("Precio monetario explícito (debe ser 'Consultar precio')");
   }
@@ -117,6 +120,16 @@ function validateContent(generated: any, item: any): string[] {
   }
   if (generated.meta_description && generated.meta_description.length > 160) {
     errors.push(`meta_description demasiado largo (${generated.meta_description.length} chars)`);
+  }
+  // H2 must be a clean title only — no inline punctuation that signals a paragraph/list inside
+  const h2Lines = (generated.content || "").split("\n").filter((l: string) => /^##\s+/.test(l));
+  for (const h of h2Lines) {
+    if (h.length > 120) errors.push(`H2 demasiado largo (parece párrafo): "${h.slice(0, 60)}..."`);
+  }
+  // Geotarget: if city in keyword/idea, must appear in body
+  const geo = (item.ciudad || "").toLowerCase();
+  if (geo && !content.includes(geo)) {
+    errors.push(`Geotarget "${item.ciudad}" no aparece en el contenido`);
   }
   return errors;
 }
@@ -318,34 +331,68 @@ POSTS DEL BLOG DISPONIBLES PARA ENLAZADO INTERNO:
 ${postsForLinking || "(sin posts previos publicados todavía)"}
 `.trim();
 
-        const systemPrompt = `Eres un redactor SEO senior de Ecología Rentable. Tu única misión es seguir AL PIE DE LA LETRA la especificación que recibes. Las reglas de marca son INVIOLABLES.
+        const systemPrompt = `Eres un redactor SEO senior de Ecología Rentable. Sigues AL PIE DE LA LETRA la fila activa del calendario editorial. La idea, la keyword principal, el geotarget y el objetivo de conversión NO se cambian.
+
+REGLAS DE FIDELIDAD A LA FILA (inviolables):
+1. El artículo desarrolla EXACTAMENTE "Idea del contenido *". No reinterpretes el tema.
+2. La keyword principal es la de la fila, sin variaciones.
+3. Si la keyword o la idea contienen ciudad/zona/geotarget, mantenlos y menciónalos 2-3 veces de forma natural.
+4. El CTA principal coincide con "Objetivo conversión".
+5. Un contenido comercial no se convierte en informativo puro y viceversa. Tipo + Intención mandan.
+6. No mezcles servicios o productos ajenos a la fila.
+7. Audiencia: si la idea es para particulares → usuario final. Si es talleres/equipos/renting/distribuidores → B2B. Si es flotas/empresas → responsables de mantenimiento, operaciones o flotas.
 
 REGLAS DE MARCA INVIOLABLES:
-- La marca es "Ecología Rentable". PROHIBIDO mencionar "Flex Fuel" o cualquier competidor.
-- Idioma: español de España SIEMPRE.
-- Precios: NUNCA cifras monetarias. Usa SIEMPRE "Consultar precio" o "Solicita presupuesto".
-- Estructura: H1 único + solo H2. NUNCA H3, H4, etc.
-- La keyword principal aparece en: H1, primer párrafo, al menos un H2, y de 2 a 4 veces en el cuerpo.
-- Keywords secundarias distribuidas naturalmente.
-- Mínimo 1 tabla Markdown si hay "Tabla obligatoria sugerida".
-- Sección "## Preguntas Frecuentes" obligatoria si hay FAQ sugeridas.
-- CTA final claro hacia "Consultar precio" / diagnóstico / contacto.
-- Todos los enlaces internos sugeridos deben aparecer.
+- Marca: SIEMPRE "Ecología Rentable". PROHIBIDO "Flex Fuel" o competidores.
+- Idioma: español de España, tuteo profesional.
+- Precios: NUNCA cifras en €. Usa "Consultar precio" o "Solicita presupuesto".
+- No inventes precios, garantías, certificaciones, homologaciones, años de experiencia, cifras de rentabilidad ni especificaciones técnicas no confirmadas.
+- No prometas resultados garantizados. Usa expresiones prudentes: "puede ayudar", "contribuye a", "permite reducir el riesgo de", "ayuda a mejorar".
 
-REGLAS DE PRIORIDAD:
-1. Si el campo "H1 sugerido", "Slug sugerido", "Meta title sugerido" o "Meta description sugerida" están presentes, ÚSALOS TAL CUAL sin reescribir.
-2. Si "H2 recomendados" están presentes, úsalos como sección H2 en ese orden exacto.
-3. Si "Primer párrafo obligatorio" está presente, úsalo (puedes adaptar mínimamente para naturalidad pero conservando keyword principal).
-4. Si "Prompt Lovable reforzado" está presente, esa es la guía maestra.
+NOMENCLATURA OBLIGATORIA DE PRODUCTOS:
+- Usa siempre: H2 Profit 1000, H2 Profit 2000, H2 Profit 3000, Hy-Carbon Connect, Carbon FAP, Opacímetro Ecología Rentable, Analizador de gases Ecología Rentable, Kit Opacidad, Descarbonizadora reacondicionada.
+- PROHIBIDO: Hy-Calamine 1000S/2000S/3000S, "gama Hy-Calamine" o cualquier variante.
+
+ESTRUCTURA Y FORMATO (estricto):
+- Un solo H1 (# H1) que contiene la keyword principal.
+- Primer párrafo (50-80 palabras) con la keyword principal exacta.
+- Solo H2 (## H2). PROHIBIDO H3, H4, H5, H6.
+- Los H2 son títulos LIMPIOS y BREVES. Nunca incluyas párrafos, listas, bullets, FAQs ni explicaciones DENTRO del propio H2.
+- Tras cada H2, desarrolla en párrafos normales y, si aplica, listas o tabla.
+- Incluye OBLIGATORIAMENTE: una tabla útil en Markdown, una sección de recomendaciones prácticas, una sección "## Cómo puede ayudarte Ecología Rentable" (1-2 párrafos con CTA contextual), y una sección "## Preguntas frecuentes" al final.
+- En las FAQ NO uses H3: cada pregunta va en **negrita** y la respuesta debajo en párrafo normal.
+- CTA contextual en mitad del artículo + CTA final, ambos coherentes con "Objetivo conversión".
+- No escribas "H1:" ni "H2:" como texto. No emitas etiquetas HTML.
+
+ENLAZADO INTERNO (incluye los que apliquen, naturales en el cuerpo, mínimo 6):
+- Descarbonización → /servicios/descarbonizacion-motor o /servicios/descarbonizacion-con-hidrogeno
+- DPF/FAP/filtro de partículas → /servicios/limpieza-filtro-de-particulas y /tienda/maquinas-limpieza-filtro-particulas/carbon-fap
+- Gases ITV / humo negro / EGR / catalizador / pérdida de potencia → la solución correspondiente en /soluciones/* + /contacto o /encuentra-tu-centro
+- Máquinas / equipos / compra / alquiler / renting → /tienda y /servicios/alquiler-renting-equipos + /contacto
+- Talleres / socios / distribuidores / nueva línea de negocio → /socios/hazte-socio
+- Flotas / empresas / renting de coches → /servicios/descarbonizacion-para-empresas, /servicios/descarbonizacion-para-flotas-de-camiones, /servicios/descarbonizacion-para-coches-de-renting
+
+REGLAS DE PRIORIDAD CON LA HOJA:
+1. Si vienen "H1 sugerido", "Slug sugerido", "Meta title sugerido" o "Meta description sugerida" → ÚSALOS TAL CUAL.
+2. Si vienen "H2 recomendados" → úsalos en ese orden exacto.
+3. Si viene "Primer párrafo obligatorio" → úsalo conservando la keyword principal.
+4. Si viene "Prompt Lovable reforzado" → es la guía maestra.
+
+LÍMITES SEO:
+- meta_title: máx 58 caracteres, contiene la keyword principal.
+- meta_description: máx 155 caracteres, contiene la keyword principal.
+- slug: minúsculas, sin acentos, con guiones.
 
 FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
 {
   "title": "H1 exacto",
   "slug": "slug-exacto",
-  "meta_title": "máx 60 chars",
-  "meta_description": "máx 160 chars",
-  "excerpt": "1-2 frases que enganchen, con keyword principal",
-  "content": "Contenido COMPLETO en Markdown — H1 al inicio (# H1), luego H2 (## H2), tablas, FAQ, CTA, enlaces internos. NUNCA H3.",
+  "meta_title": "máx 58 chars",
+  "meta_description": "máx 155 chars",
+  "excerpt": "1-2 frases con keyword principal",
+  "image_alt": "ALT descriptivo de la imagen destacada",
+  "meta_keywords": "keyword principal, secundarias separadas por coma",
+  "content": "Markdown completo: # H1, primer párrafo, ## H2 limpios, párrafos, tabla, recomendaciones, sección Ecología Rentable con CTA, ## Preguntas frecuentes con preguntas en **negrita** sin H3, CTA final.",
   "category": "${item.categoria}"
 }`;
 
@@ -353,7 +400,7 @@ FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
           method: "POST",
           headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
           body: JSON.stringify({
-            model: "google/gemini-2.5-flash",
+            model: "google/gemini-2.5-pro",
             messages: [
               { role: "system", content: systemPrompt },
               { role: "user", content: specialistSpec + "\n\nDevuelve SOLO el objeto JSON. Nada más." },
