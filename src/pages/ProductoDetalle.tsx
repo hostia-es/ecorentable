@@ -5,6 +5,7 @@ import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import AddToCartButton from "@/components/common/AddToCartButton";
 import QuoteForm from "@/components/common/QuoteForm";
+import { getProductoPreset } from "@/lib/quotePresets";
 import Seo from "@/components/common/Seo";
 import { products } from "@/data/products";
 
@@ -226,7 +227,7 @@ export default function ProductoDetalle() {
               title="Consulta tu precio en 24 h"
               subtitle="Rápido, claro y sin compromiso. Te responde un asesor humano."
               defaultMessage={`Estoy interesado/a en: ${product.name}.`}
-              defaultTipo="taller"
+              {...getProductoPreset(product.slug)}
               compact
             />
           </div>

@@ -4,6 +4,7 @@ import PageHero from "@/components/common/PageHero";
 import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import QuoteForm from "@/components/common/QuoteForm";
+import { getSolucionPreset } from "@/lib/quotePresets";
 import Seo from "@/components/common/Seo";
 import { AnimatedSection } from "@/components/common/Animations";
 import { extraSoluciones } from "@/data/extraSolutions";
@@ -441,6 +442,7 @@ export default function SolucionDetalle() {
               title="Consulta tu precio en 24 h"
               subtitle="Rápido, claro y sin compromiso. Te responde un asesor humano."
               defaultMessage={`Estoy interesado/a en: ${sol.title}.`}
+              {...getSolucionPreset(slug || "")}
               compact
             />
           </div>
