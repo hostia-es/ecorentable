@@ -81,10 +81,12 @@ export default function Tienda() {
             <div className="lg:col-span-5 lg:sticky lg:top-24">
               <QuoteForm
                 context="tienda"
-                title="Solicita tu presupuesto en 24 h"
+                title="Solicita tu cotización en 24 h"
                 subtitle="Cuéntanos qué equipo necesitas y tu volumen estimado de trabajo. Un asesor técnico te llama con propuesta clara y sin compromiso."
                 defaultMessage="Hola, me interesa recibir información sobre equipos de la tienda. "
-                defaultTipo="taller"
+                mode="b2b"
+                defaultPerfil="taller"
+                ctaLabel="Solicitar cotización"
               />
             </div>
           </div>
@@ -222,7 +224,8 @@ export default function Tienda() {
               title="Recibe tu recomendación"
               subtitle="Te llamamos en menos de 24 h con propuesta clara y sin compromiso."
               defaultMessage="Necesito ayuda para elegir el equipo adecuado para mi taller. "
-              defaultTipo="taller"
+              mode="b2b"
+              defaultPerfil="taller"
               compact
             />
           </div>
