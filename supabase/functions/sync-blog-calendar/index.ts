@@ -109,6 +109,9 @@ function validateContent(generated: any, item: any): string[] {
   if (/flex\s*fuel/i.test(content) || /flex\s*fuel/i.test(title)) {
     errors.push('Mención prohibida a "Flex Fuel"');
   }
+  if (/hy[-\s]?calamine/i.test(content) || /hy[-\s]?calamine/i.test(title)) {
+    errors.push('Nomenclatura prohibida "Hy-Calamine" (usa H2 Profit 1000/2000/3000)');
+  }
   if (/\b\d+[.,]?\d*\s*€/.test(generated.content || "") || /\beur\b/i.test(content)) {
     errors.push("Precio monetario explícito (debe ser 'Consultar precio')");
   }
@@ -117,6 +120,16 @@ function validateContent(generated: any, item: any): string[] {
   }
   if (generated.meta_description && generated.meta_description.length > 160) {
     errors.push(`meta_description demasiado largo (${generated.meta_description.length} chars)`);
+  }
+  // H2 must be a clean title only — no inline punctuation that signals a paragraph/list inside
+  const h2Lines = (generated.content || "").split("\n").filter((l: string) => /^##\s+/.test(l));
+  for (const h of h2Lines) {
+    if (h.length > 120) errors.push(`H2 demasiado largo (parece párrafo): "${h.slice(0, 60)}..."`);
+  }
+  // Geotarget: if city in keyword/idea, must appear in body
+  const geo = (item.ciudad || "").toLowerCase();
+  if (geo && !content.includes(geo)) {
+    errors.push(`Geotarget "${item.ciudad}" no aparece en el contenido`);
   }
   return errors;
 }
