@@ -4,15 +4,98 @@ import { ArrowRight, CheckCircle, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import { AnimatedSection } from "@/components/common/Animations";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import sociosPartnership from "@/assets/socios-partnership.jpg";
 
-export default function HazteSocio() {
-  const [tipo, setTipo] = useState("taller");
-  const [submitted, setSubmitted] = useState(false);
+const TIPOS = [
+  { id: "taller", label: "Taller mecánico" },
+  { id: "concesionario", label: "Concesionario" },
+  { id: "flota", label: "Empresa con flota" },
+  { id: "distribuidor", label: "Distribuidor" },
+] as const;
 
-  const handleSubmit = (e: React.FormEvent) => {
+const SERVICIOS = [
+  "No busco servicios",
+  "Descarbonización de motor",
+  "Descarbonización con hidrógeno",
+  "Limpieza de filtro de partículas / DPF / FAP",
+  "Diagnóstico de emisiones / gases ITV",
+  "Servicio para flotas de camiones",
+  "Servicio para coches de renting",
+  "Mantenimiento de máquinas FlexFuel",
+  "No lo tengo claro, necesito asesoramiento",
+];
+
+const EQUIPOS = [
+  "No estoy buscando un equipo",
+  "H2 Profit 1000",
+  "H2 Profit 2000",
+  "H2 Profit 3000",
+  "Hy-Carbon Connect",
+  "Carbon FAP",
+  "Opacímetro Ecología Rentable",
+  "Analizador de gases Ecología Rentable",
+  "Kit Opacidad",
+  "Descarbonizadora reacondicionada",
+  "No sé qué equipo necesito",
+];
+
+const MODALIDADES = ["Compra", "Alquiler", "Renting", "Reacondicionado", "No lo tengo claro"];
+
+export default function HazteSocio() {
+  const { toast } = useToast();
+  const [tipo, setTipo] = useState<string>("taller");
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    nombre: "",
+    negocio: "",
+    email: "",
+    telefono: "",
+    codigoPostal: "",
+    servicio: SERVICIOS[0],
+    equipo: EQUIPOS[0],
+    modalidad: MODALIDADES[0],
+    comentarios: "",
+  });
+
+  const buscaEquipo = form.equipo !== EQUIPOS[0];
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (!form.nombre.trim() || !form.negocio.trim() || !form.email.trim() || !form.telefono.trim() || !form.codigoPostal.trim()) return;
+    setLoading(true);
+    try {
+      const notas = [
+        `Tipo de colaboración: ${TIPOS.find((t) => t.id === tipo)?.label}`,
+        `Negocio: ${form.negocio.trim()}`,
+        `Código postal: ${form.codigoPostal.trim()}`,
+        `Servicio de interés: ${form.servicio}`,
+        `Equipo de interés: ${form.equipo}`,
+        buscaEquipo && `Modalidad comercial: ${form.modalidad}`,
+        form.comentarios.trim() && `Comentarios: ${form.comentarios.trim()}`,
+      ].filter(Boolean).join("\n");
+
+      const { error } = await supabase.from("leads").insert({
+        nombre: form.nombre.trim(),
+        email: form.email.trim(),
+        telefono: form.telefono.trim(),
+        servicio: `Socio · ${TIPOS.find((t) => t.id === tipo)?.label}`,
+        origen: "Hazte socio B2B",
+        notas,
+      });
+      if (error) throw error;
+      setSubmitted(true);
+    } catch (err: any) {
+      toast({
+        title: "No pudimos enviar tu solicitud",
+        description: err.message || "Inténtalo de nuevo en unos instantes.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -23,7 +106,6 @@ export default function HazteSocio() {
         breadcrumbs={[{ label: "Socios", href: "/socios" }, { label: "Hazte socio" }]}
         badge="Programa de socios"
       />
-      {/* PARTNERSHIP IMAGE */}
       <section className="py-0 overflow-hidden">
         <img
           src={sociosPartnership}
@@ -36,7 +118,6 @@ export default function HazteSocio() {
       <section className="py-16 section-light">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            {/* Formulario */}
             <AnimatedSection className="lg:col-span-3">
               {submitted ? (
                 <div className="bg-white rounded-2xl border border-border shadow-md p-10 text-center">
@@ -58,76 +139,88 @@ export default function HazteSocio() {
 
                   <div>
                     <label className="block text-sm font-semibold mb-2 text-foreground">Tipo de colaboración</label>
-                    <div className="flex gap-3 flex-wrap">
-                      {["taller", "concesionario", "flota"].map((t) => (
-                        <button key={t} type="button" onClick={() => setTipo(t)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium border transition-all capitalize ${
-                            tipo === t
+                    <div className="flex gap-2 flex-wrap">
+                      {TIPOS.map((t) => (
+                        <button key={t.id} type="button" onClick={() => setTipo(t.id)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${
+                            tipo === t.id
                               ? "bg-primary text-primary-foreground border-primary"
                               : "bg-transparent text-foreground border-border hover:border-primary/50"
                           }`}>
-                          {t === "taller" ? "Taller mecánico" : t === "concesionario" ? "Concesionario" : "Gestión de flotas"}
+                          {t.label}
                         </button>
                       ))}
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {[
-                      { id: "nombre", label: "Nombre del responsable *", placeholder: "Juan García", type: "text" },
-                      { id: "empresa", label: "Nombre del taller/empresa *", placeholder: "Talleres García S.L.", type: "text" },
-                      { id: "email", label: "Email de contacto *", placeholder: "juan@taller.com", type: "email" },
-                      { id: "telefono", label: "Teléfono *", placeholder: "+34 600 000 000", type: "tel" },
-                      { id: "ciudad", label: "Ciudad *", placeholder: "Madrid", type: "text" },
-                      { id: "provincia", label: "Provincia *", placeholder: "Madrid", type: "text" },
-                    ].map((f, i) => (
-                      <motion.div
-                        key={f.id}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.05 }}
-                        viewport={{ once: true }}
-                      >
-                        <label className="block text-xs font-semibold mb-1 text-muted-foreground">{f.label}</label>
-                        <input required id={f.id} type={f.type} placeholder={f.placeholder}
-                          className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary border-border bg-background text-foreground" />
-                      </motion.div>
-                    ))}
+                    <div>
+                      <label className="block text-xs font-semibold mb-1 text-muted-foreground">Nombre del responsable *</label>
+                      <input required maxLength={100} value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} placeholder="Juan García"
+                        className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary border-border bg-background text-foreground" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold mb-1 text-muted-foreground">Nombre del negocio *</label>
+                      <input required maxLength={150} value={form.negocio} onChange={(e) => setForm({ ...form, negocio: e.target.value })} placeholder="Talleres García S.L."
+                        className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary border-border bg-background text-foreground" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold mb-1 text-muted-foreground">Email de contacto *</label>
+                      <input required type="email" maxLength={255} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="juan@taller.com"
+                        className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary border-border bg-background text-foreground" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold mb-1 text-muted-foreground">Teléfono *</label>
+                      <input required type="tel" maxLength={30} value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} placeholder="+34 600 000 000"
+                        className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary border-border bg-background text-foreground" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-semibold mb-1 text-muted-foreground">Código postal *</label>
+                      <input required maxLength={10} value={form.codigoPostal} onChange={(e) => setForm({ ...form, codigoPostal: e.target.value })} placeholder="28001"
+                        className="w-full sm:w-1/2 rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary border-border bg-background text-foreground" />
+                    </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold mb-1 text-muted-foreground">Número de mecánicos en el taller</label>
-                    <select className="w-full rounded-lg border px-3 py-2 text-sm outline-none border-border bg-background text-foreground">
-                      <option>1–2 mecánicos</option>
-                      <option>3–5 mecánicos</option>
-                      <option>6–10 mecánicos</option>
-                      <option>+10 mecánicos</option>
+                    <label className="block text-xs font-semibold mb-1 text-muted-foreground">¿Estás interesado en contratar algún servicio?</label>
+                    <select value={form.servicio} onChange={(e) => setForm({ ...form, servicio: e.target.value })}
+                      className="w-full rounded-lg border px-3 py-2 text-sm outline-none border-border bg-background text-foreground">
+                      {SERVICIOS.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold mb-1 text-muted-foreground">¿Ya ofreces algún servicio de descarbonización?</label>
-                    <select className="w-full rounded-lg border px-3 py-2 text-sm outline-none border-border bg-background text-foreground">
-                      <option>No, sería un servicio nuevo</option>
-                      <option>Sí, limpieza química básica</option>
-                      <option>Sí, tengo máquina descarbonizadora</option>
+                    <label className="block text-xs font-semibold mb-1 text-muted-foreground">¿Estás interesado en algún equipo?</label>
+                    <select value={form.equipo} onChange={(e) => setForm({ ...form, equipo: e.target.value })}
+                      className="w-full rounded-lg border px-3 py-2 text-sm outline-none border-border bg-background text-foreground">
+                      {EQUIPOS.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </div>
+
+                  {buscaEquipo && (
+                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }}>
+                      <label className="block text-xs font-semibold mb-1 text-muted-foreground">Modalidad comercial</label>
+                      <select value={form.modalidad} onChange={(e) => setForm({ ...form, modalidad: e.target.value })}
+                        className="w-full rounded-lg border px-3 py-2 text-sm outline-none border-border bg-background text-foreground">
+                        {MODALIDADES.map((s) => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </motion.div>
+                  )}
 
                   <div>
                     <label className="block text-xs font-semibold mb-1 text-muted-foreground">Comentarios adicionales</label>
-                    <textarea rows={3} placeholder="Cuéntanos más sobre tu taller o tus necesidades específicas..."
+                    <textarea rows={3} maxLength={1000} value={form.comentarios} onChange={(e) => setForm({ ...form, comentarios: e.target.value })}
+                      placeholder="Cuéntanos más sobre tu negocio o tus necesidades específicas..."
                       className="w-full rounded-lg border px-3 py-2 text-sm outline-none resize-none border-border bg-background text-foreground" />
                   </div>
 
-                  <button type="submit" className="btn-primary w-full justify-center">
-                    <Send size={15} /> Enviar solicitud
+                  <button type="submit" disabled={loading} className="btn-primary w-full justify-center">
+                    <Send size={15} /> {loading ? "Enviando…" : "Enviar solicitud"}
                   </button>
                 </form>
               )}
             </AnimatedSection>
 
-            {/* Sidebar */}
             <AnimatedSection delay={0.2} className="lg:col-span-2 space-y-5">
               <div className="bg-white rounded-2xl border border-border shadow-md p-6 hover:shadow-lg hover:border-primary/30 transition-all duration-200">
                 <h3 className="font-bold mb-3 text-foreground">¿Qué pasa después?</h3>
