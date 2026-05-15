@@ -4,6 +4,7 @@ import CTABox from "@/components/common/CTABox";
 import FAQSection from "@/components/common/FAQSection";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import QuoteForm from "@/components/common/QuoteForm";
+import { getServicioPreset } from "@/lib/quotePresets";
 import Seo from "@/components/common/Seo";
 import { AnimatedSection } from "@/components/common/Animations";
 import { extraServicios } from "@/data/extraServices";
@@ -357,6 +358,7 @@ export default function ServicioDetalle() {
   const intent = isAlquiler ? "alquiler" : "presupuesto";
   const ctaHref = `/contacto?intent=${intent}&item=${servicio || ""}`;
   const defaultMsg = `Hola, me interesa "${s.title}". `;
+  const preset = getServicioPreset(servicio || "");
 
   return (
     <main>
@@ -432,7 +434,7 @@ export default function ServicioDetalle() {
                 title={isAlquiler ? "Consulta tu cuota mensual" : "Consulta tu precio sin compromiso"}
                 subtitle="Te enviamos presupuesto a medida en menos de 24 h. Te atiende un asesor técnico real, no un bot."
                 defaultMessage={defaultMsg}
-                defaultTipo={isAlquiler || servicio?.includes("taller") || servicio?.includes("flota") ? "taller" : "particular"}
+                {...preset}
               />
             </div>
           </div>
@@ -580,7 +582,7 @@ export default function ServicioDetalle() {
               title="Consulta tu precio en 24 h"
               subtitle="Rápido, claro y sin compromiso. Te responde un asesor humano."
               defaultMessage={defaultMsg}
-              defaultTipo={isAlquiler || servicio?.includes("taller") || servicio?.includes("flota") ? "taller" : "particular"}
+              {...preset}
               compact
             />
           </div>
