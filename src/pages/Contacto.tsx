@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight, Phone, Mail, MapPin, Clock, CheckCircle, Send } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import PageHero from "@/components/common/PageHero";
 import FAQSection from "@/components/common/FAQSection";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,7 +17,7 @@ import teamContacto from "@/assets/team-contacto.jpg";
 
 const faqContacto = [
   { question: "¿Con qué rapidez responden?", answer: "Respondemos todos los mensajes en un máximo de 24 horas laborables. Para consultas urgentes, le recomendamos llamar directamente al teléfono de atención." },
-  { question: "¿Puedo solicitar un presupuesto para mi flota?", answer: "Sí. Selecciona el tipo 'Flota' en el formulario e indica el número de vehículos. Te preparamos un presupuesto personalizado en 48 horas." },
+  { question: "¿Puedo solicitar un presupuesto para mi flota?", answer: "Sí. Selecciona el tipo 'Empresa con flota' en el formulario e indica el equipo o servicio que te interesa. Te preparamos un presupuesto personalizado en 48 horas." },
   { question: "¿Puedo contactar directamente con un taller socio?", answer: "Sí. Puedes llamarnos al +34 605 928 626 y te pondremos en contacto con el taller certificado más cercano a tu zona." },
 ];
 
@@ -28,13 +28,53 @@ const channels = [
   { icon: <Clock size={20} />, title: "Horario", val: "Lun–Vie 9:00–19:00", sub: "Sáb–Dom cerrado" },
 ];
 
+const PERFILES = [
+  { id: "particular", label: "Conductor particular" },
+  { id: "taller", label: "Taller mecánico" },
+  { id: "concesionario", label: "Concesionario" },
+  { id: "flota", label: "Empresa con flota" },
+  { id: "distribuidor", label: "Distribuidor" },
+] as const;
+
+type PerfilId = typeof PERFILES[number]["id"];
+
+const SERVICIOS = [
+  "No busco servicios",
+  "Descarbonización de motor",
+  "Descarbonización con hidrógeno",
+  "Limpieza de filtro de partículas / DPF / FAP",
+  "Diagnóstico de emisiones / gases ITV",
+  "Servicio para flotas de camiones",
+  "Servicio para coches de renting",
+  "Mantenimiento de máquinas FlexFuel",
+  "No lo tengo claro, necesito asesoramiento",
+];
+
+const EQUIPOS = [
+  "No estoy buscando un equipo",
+  "H2 Profit 1000",
+  "H2 Profit 2000",
+  "H2 Profit 3000",
+  "Hy-Carbon Connect",
+  "Carbon FAP",
+  "Opacímetro Ecología Rentable",
+  "Analizador de gases Ecología Rentable",
+  "Kit Opacidad",
+  "Descarbonizadora reacondicionada",
+  "No sé qué equipo necesito",
+];
+
+const MODALIDADES = ["Compra", "Alquiler", "Renting", "Reacondicionado", "No lo tengo claro"];
+
 export default function Contacto() {
   const [params] = useSearchParams();
   const { toast } = useToast();
-  const initialIntent = params.get("intent") || ""; // e.g. presupuesto, alquiler, socio, demo
-  const item = params.get("item") || ""; // e.g. h2-profit-2000
-  const initialTipo = params.get("tipo") === "taller" || params.get("tipo") === "flota" ? params.get("tipo")! : "particular";
-  const [tipo, setTipo] = useState(initialTipo);
+  const initialIntent = params.get("intent") || "";
+  const item = params.get("item") || "";
+  const tipoParam = params.get("tipo");
+  const initialPerfil: PerfilId = (PERFILES.find((p) => p.id === tipoParam)?.id) || "particular";
+
+  const [perfil, setPerfil] = useState<PerfilId>(initialPerfil);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -42,11 +82,19 @@ export default function Contacto() {
     email: "",
     telefono: "",
     provincia: "",
+    negocio: "",
+    codigoPostal: "",
     flotaTam: "1-10",
+    servicio: SERVICIOS[0],
+    equipo: EQUIPOS[0],
+    modalidad: MODALIDADES[0],
     asunto: item || initialIntent
       ? `${initialIntent ? `[${initialIntent.toUpperCase()}] ` : ""}${item ? `Producto/servicio: ${item}\n` : ""}`
       : "",
   });
+
+  const isB2B = perfil !== "particular";
+  const buscaEquipo = form.equipo !== EQUIPOS[0];
 
   useEffect(() => {
     if (initialIntent || item) {
@@ -65,11 +113,18 @@ export default function Contacto() {
     e.preventDefault();
     setLoading(true);
     try {
+      const perfilLabel = PERFILES.find((p) => p.id === perfil)?.label;
       const notas = [
+        `Perfil: ${perfilLabel}`,
         initialIntent && `Intención: ${initialIntent}`,
         item && `Item: ${item}`,
-        form.provincia && `Provincia: ${form.provincia}`,
-        tipo === "flota" && `Flota: ${form.flotaTam} vehículos`,
+        isB2B && form.negocio && `Negocio: ${form.negocio}`,
+        isB2B && form.codigoPostal && `Código postal: ${form.codigoPostal}`,
+        !isB2B && form.provincia && `Provincia: ${form.provincia}`,
+        perfil === "flota" && `Tamaño de flota: ${form.flotaTam} vehículos`,
+        isB2B && `Servicio de interés: ${form.servicio}`,
+        isB2B && `Equipo de interés: ${form.equipo}`,
+        isB2B && buscaEquipo && `Modalidad comercial: ${form.modalidad}`,
         form.asunto && `Mensaje: ${form.asunto}`,
       ]
         .filter(Boolean)
@@ -78,8 +133,8 @@ export default function Contacto() {
         nombre: form.nombre,
         email: form.email,
         telefono: form.telefono || null,
-        servicio: tipo,
-        origen: initialIntent ? `Web · ${initialIntent}` : "Formulario Web",
+        servicio: perfilLabel,
+        origen: initialIntent ? `Contacto · ${initialIntent}` : `Contacto · ${perfil}`,
         notas,
       });
       if (error) throw error;
@@ -146,9 +201,9 @@ export default function Contacto() {
                   { label: "El Blog", href: "/blog", hint: "Con guías y artículos técnicos detallados" },
                   { label: "Socios", href: "/socios", hint: "Si eres taller y quieres conocer nuestro modelo de negocio" },
                   { label: "Hazte socio", href: "/socios/hazte-socio", hint: "Si eres taller y quieres unirte a la red" },
-                ].map((item, i) => (
+                ].map((it, i) => (
                   <motion.div
-                    key={item.href}
+                    key={it.href}
                     className="flex items-start gap-2 mb-2"
                     initial={{ opacity: 0, x: -15 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -157,8 +212,8 @@ export default function Contacto() {
                   >
                     <CheckCircle size={14} className="shrink-0 mt-0.5 text-primary" />
                     <span className="text-sm">
-                      <Link to={item.href} className="font-semibold underline text-primary">{item.label}</Link>
-                      <span className="text-muted-foreground"> — {item.hint}</span>
+                      <Link to={it.href} className="font-semibold underline text-primary">{it.label}</Link>
+                      <span className="text-muted-foreground"> — {it.hint}</span>
                     </span>
                   </motion.div>
                 ))}
@@ -168,7 +223,7 @@ export default function Contacto() {
         </div>
       </section>
 
-      {/* FORMULARIO */}
+      {/* FORMULARIO MIXTO B2C + B2B */}
       <section className="py-16 section-light">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
@@ -205,16 +260,16 @@ export default function Contacto() {
 
                       <div>
                         <Label className="mb-2 block">Soy…</Label>
-                        <div className="flex gap-3 flex-wrap">
-                          {(["particular", "taller", "flota"] as const).map((t) => (
+                        <div className="flex gap-2 flex-wrap">
+                          {PERFILES.map((p) => (
                             <Button
-                              key={t}
+                              key={p.id}
                               type="button"
-                              variant={tipo === t ? "default" : "outline"}
+                              variant={perfil === p.id ? "default" : "outline"}
                               size="sm"
-                              onClick={() => setTipo(t)}
+                              onClick={() => setPerfil(p.id)}
                             >
-                              {t === "particular" ? "Conductor particular" : t === "taller" ? "Taller mecánico" : "Gestor de flota"}
+                              {p.label}
                             </Button>
                           ))}
                         </div>
@@ -222,36 +277,97 @@ export default function Contacto() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1.5">
-                          <Label htmlFor="nombre">Nombre *</Label>
+                          <Label htmlFor="nombre">Nombre del responsable *</Label>
                           <Input id="nombre" required maxLength={100} value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} placeholder="Tu nombre" />
                         </div>
                         <div className="space-y-1.5">
-                          <Label htmlFor="email">Email *</Label>
+                          <Label htmlFor="email">Email de contacto *</Label>
                           <Input id="email" type="email" required maxLength={255} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="tu@email.com" />
                         </div>
                         <div className="space-y-1.5">
-                          <Label htmlFor="tel">Teléfono</Label>
-                          <Input id="tel" type="tel" maxLength={30} value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} placeholder="+34 600 000 000" />
+                          <Label htmlFor="tel">Teléfono *</Label>
+                          <Input id="tel" type="tel" required maxLength={30} value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} placeholder="+34 600 000 000" />
                         </div>
-                        <div className="space-y-1.5">
-                          <Label htmlFor="provincia">Provincia</Label>
-                          <Input id="provincia" maxLength={60} value={form.provincia} onChange={(e) => setForm({ ...form, provincia: e.target.value })} placeholder="Madrid" />
-                        </div>
+                        {!isB2B ? (
+                          <div className="space-y-1.5">
+                            <Label htmlFor="provincia">Provincia</Label>
+                            <Input id="provincia" maxLength={60} value={form.provincia} onChange={(e) => setForm({ ...form, provincia: e.target.value })} placeholder="Madrid" />
+                          </div>
+                        ) : (
+                          <div className="space-y-1.5">
+                            <Label htmlFor="cp">Código postal *</Label>
+                            <Input id="cp" required maxLength={10} value={form.codigoPostal} onChange={(e) => setForm({ ...form, codigoPostal: e.target.value })} placeholder="28001" />
+                          </div>
+                        )}
                       </div>
 
-                      {tipo === "flota" && (
-                        <div className="space-y-1.5">
-                          <Label>Número de vehículos en la flota</Label>
-                          <Select value={form.flotaTam} onValueChange={(v) => setForm({ ...form, flotaTam: v })}>
-                            <SelectTrigger><SelectValue /></SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="1-10">1–10 vehículos</SelectItem>
-                              <SelectItem value="11-50">11–50 vehículos</SelectItem>
-                              <SelectItem value="50+">+50 vehículos</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      )}
+                      <AnimatePresence initial={false}>
+                        {isB2B && (
+                          <motion.div
+                            key="b2b-block"
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="space-y-5 overflow-hidden"
+                          >
+                            <div className="space-y-1.5">
+                              <Label htmlFor="negocio">Nombre del negocio *</Label>
+                              <Input id="negocio" required maxLength={150} value={form.negocio} onChange={(e) => setForm({ ...form, negocio: e.target.value })} placeholder="Talleres García S.L." />
+                            </div>
+
+                            {perfil === "flota" && (
+                              <div className="space-y-1.5">
+                                <Label>Número de vehículos en la flota</Label>
+                                <Select value={form.flotaTam} onValueChange={(v) => setForm({ ...form, flotaTam: v })}>
+                                  <SelectTrigger><SelectValue /></SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="1-10">1–10 vehículos</SelectItem>
+                                    <SelectItem value="11-50">11–50 vehículos</SelectItem>
+                                    <SelectItem value="50+">+50 vehículos</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            )}
+
+                            <div className="space-y-1.5">
+                              <Label>¿Estás interesado en contratar algún servicio?</Label>
+                              <Select value={form.servicio} onValueChange={(v) => setForm({ ...form, servicio: v })}>
+                                <SelectTrigger><SelectValue /></SelectTrigger>
+                                <SelectContent>
+                                  {SERVICIOS.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                                </SelectContent>
+                              </Select>
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <Label>¿Estás interesado en algún equipo?</Label>
+                              <Select value={form.equipo} onValueChange={(v) => setForm({ ...form, equipo: v })}>
+                                <SelectTrigger><SelectValue /></SelectTrigger>
+                                <SelectContent>
+                                  {EQUIPOS.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                                </SelectContent>
+                              </Select>
+                            </div>
+
+                            {buscaEquipo && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="space-y-1.5"
+                              >
+                                <Label>Modalidad comercial</Label>
+                                <Select value={form.modalidad} onValueChange={(v) => setForm({ ...form, modalidad: v })}>
+                                  <SelectTrigger><SelectValue /></SelectTrigger>
+                                  <SelectContent>
+                                    {MODALIDADES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                                  </SelectContent>
+                                </Select>
+                              </motion.div>
+                            )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
 
                       <div className="space-y-1.5">
                         <Label htmlFor="asunto">Asunto / motivo de consulta *</Label>
