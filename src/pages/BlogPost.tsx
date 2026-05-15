@@ -271,7 +271,13 @@ function ContentRenderer({ content, isUnlocked, onUnlockSubmit, email, setEmail,
 }
 
 function parseMarkdown(content: string): React.ReactNode[] {
-  const blocks = content.split(/\n{2,}/);
+  // Pre-normalize: ensure headings (#, ##, ###) and table rows are always isolated
+  // by a blank line so AI-generated content with single-newline separators renders correctly.
+  const normalized = content
+    .replace(/\r\n/g, "\n")
+    .replace(/^(#{1,6}\s.+)$/gm, "\n$1\n")
+    .replace(/\n{3,}/g, "\n\n");
+  const blocks = normalized.split(/\n{2,}/);
   const elements: React.ReactNode[] = [];
   blocks.forEach((block, i) => {
     const trimmed = block.trim();
