@@ -175,7 +175,7 @@ export default function BlogPost() {
         {isUnlocked && (
           <>
             <Separator className="my-10" />
-            <div className="flex items-center justify-center gap-3 flex-wrap">
+            <div className="flex items-center justify-center gap-3">
               <Share2 className="w-4 h-4 text-muted-foreground" />
               <span className="text-sm text-muted-foreground">Compartir:</span>
               <Button variant="outline" size="sm" onClick={() => handleShare("twitter")}><Twitter className="w-4 h-4 mr-1" /> Twitter</Button>
@@ -250,12 +250,14 @@ function ContentRenderer({ content, isUnlocked, onUnlockSubmit, email, setEmail,
             <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center"><Lock className="w-7 h-7 text-primary" /></div>
             <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">Continúa leyendo gratis</h3>
             <p className="text-muted-foreground mb-6 max-w-md mx-auto text-sm">Introduce tu email para desbloquear el resto del artículo y recibir contenido técnico exclusivo.</p>
-            <form onSubmit={onUnlockSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto mb-4">
-              <Input type="email" placeholder="tu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1 h-11" required />
-              <Button type="submit" disabled={isSubmitting} className="h-11 px-6 shrink-0">
-                {isSubmitting ? (<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground" />) : (<><Mail className="w-4 h-4 mr-2" /> Desbloquear</>)}
-              </Button>
-            </form>
+            <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto mb-4">
+              <form onSubmit={onUnlockSubmit} className="flex flex-col sm:flex-row gap-2 w-full">
+                <Input type="email" placeholder="tu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1 h-11" required />
+                <Button type="submit" disabled={isSubmitting} className="h-11 px-6 shrink-0">
+                  {isSubmitting ? (<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground" />) : (<><Mail className="w-4 h-4 mr-2" /> Desbloquear</>)}
+                </Button>
+              </form>
+            </div>
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
               <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-500" /> Sin spam</span>
               <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-500" /> Cancela cuando quieras</span>
