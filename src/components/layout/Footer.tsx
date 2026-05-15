@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
 import logoER from "@/assets/logo-ecologia-rentable.png";
-import kitDigitalBanner from "@/assets/kit-digital-banner.png";
+
 
 const servicios = [
   { label: "Descarbonización de motor", href: "/servicios/descarbonizacion-motor" },
@@ -161,15 +161,6 @@ export default function Footer() {
             © {new Date().getFullYear()} Ecología Rentable. Todos los derechos reservados.
           </p>
 
-          <div className="mt-3 inline-block rounded-md bg-white px-4 py-2">
-            <img
-              src={kitDigitalBanner}
-              alt="Financiado por la Unión Europea — Kit Digital, Plan de Recuperación, Transformación y Resiliencia (Next Generation EU)"
-              className="block h-auto w-auto"
-              style={{ maxHeight: "44px", maxWidth: "100%" }}
-              loading="lazy"
-            />
-          </div>
         </div>
       </div>
     </footer>
