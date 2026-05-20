@@ -96,14 +96,80 @@ ESTRUCTURA Y FORMATO ESTRICTOS:
 
 EXTENSIÓN: ${wordRanges[tipo_post] || "2000-2800 palabras"}, sin bajar del mínimo.
 
-ENLAZADO INTERNO (mínimo 6 enlaces internos repartidos en el cuerpo, naturales):
-- Descarbonización → /servicios/descarbonizacion-motor o /servicios/descarbonizacion-con-hidrogeno
-- DPF/FAP/filtro de partículas → /servicios/limpieza-filtro-de-particulas y /tienda/maquinas-limpieza-filtro-particulas/carbon-fap
-- Gases ITV / humo negro / EGR / catalizador / pérdida de potencia → la solución correspondiente en /soluciones/* + /contacto o /encuentra-tu-centro
-- Máquinas / equipos / compra / alquiler / renting → /tienda y /servicios/alquiler-renting-equipos + /contacto
-- Talleres / socios / distribuidores → /socios/hazte-socio
-- Flotas / empresas / renting de coches → /servicios/descarbonizacion-para-empresas, /servicios/descarbonizacion-para-flotas-de-camiones, /servicios/descarbonizacion-para-coches-de-renting
-${linkList ? `\nPosts existentes (enlaza cuando encajen):\n${linkList}` : ""}
+ENLAZADO INTERNO SEO (OBLIGATORIO — entre 8 y 15 enlaces internos por artículo, insertados de forma NATURAL dentro del cuerpo, NUNCA en bloques al final, NUNCA como "haz clic aquí"). Usa anchors descriptivos y SEMÁNTICOS, variados (no repitas el mismo anchor), basados en la intención de búsqueda. Cada artículo DEBE incluir, como mínimo:
+- 1 enlace a HOME: / (anchor tipo "Ecología Rentable", "soluciones de descarbonización", etc.)
+- 1 enlace a /contacto (anchor tipo "solicita presupuesto", "habla con un técnico", "contacta con nuestro equipo")
+- 2-3 enlaces a páginas de SERVICIO relacionadas con el tema
+- 1-2 enlaces a páginas de PRODUCTO (categoría o ficha) relacionadas con el tema
+- 1 enlace a una página de SOLUCIÓN cuando el post trate un problema mecánico
+- 1-2 enlaces a otros artículos del BLOG semánticamente relacionados
+- Opcional: 1 enlace a la categoría del blog correspondiente
+
+MAPA DE URLs INTERNAS DISPONIBLES (usa rutas relativas, p.ej. [anchor](/servicios/...)):
+
+Home y contacto:
+- /  → home
+- /contacto  → contacto / presupuesto
+
+Servicios (/servicios/...):
+- /servicios  (hub)
+- /servicios/descarbonizacion-motor
+- /servicios/descarbonizacion-con-hidrogeno
+- /servicios/descarbonizacion-para-particulares
+- /servicios/descarbonizacion-para-talleres
+- /servicios/descarbonizacion-para-empresas
+- /servicios/descarbonizacion-para-flotas-de-camiones
+- /servicios/descarbonizacion-para-coches-de-renting
+- /servicios/limpieza-filtro-de-particulas
+- /servicios/mantenimiento-descarbonizadoras
+- /servicios/alquiler-renting-equipos
+
+Tienda — categorías (/tienda/...):
+- /tienda/descarbonizadoras
+- /tienda/descarbonizadoras-reacondicionadas
+- /tienda/maquinas-limpieza-filtro-particulas
+- /tienda/opacimetros
+- /tienda/analizadores-de-gases
+- /tienda/kit-opacidad
+
+Tienda — fichas de producto:
+- /tienda/descarbonizadoras/h2-profit-1000
+- /tienda/descarbonizadoras/h2-profit-2000
+- /tienda/descarbonizadoras/h2-profit-3000
+- /tienda/descarbonizadoras/hy-carbon-connect
+- /tienda/maquinas-limpieza-filtro-particulas/carbon-fap
+- /tienda/opacimetros/opacimetro-ecologia-rentable
+- /tienda/analizadores-de-gases/analizador-gases-ecologia-rentable
+
+Soluciones (/soluciones/...):
+- /soluciones/gases-altos-itv-diesel
+- /soluciones/gases-altos-itv-gasolina
+- /soluciones/humo-negro-diesel
+- /soluciones/fallo-anticontaminacion
+- /soluciones/filtro-particulas-obstruido
+- /soluciones/limpiar-dpf-sin-desmontar
+- /soluciones/fallo-egr
+- /soluciones/catalizador-obstruido
+- /soluciones/perdida-potencia-coche-diesel
+- /soluciones/descarbonizacion-motor-diesel
+- /soluciones/descarbonizacion-motor-gasolina
+
+Categorías del blog (/blog/categoria/...):
+- /blog/categoria/que-es-descarbonizacion
+- /blog/categoria/guias
+- /blog/categoria/innovacion
+- /blog/categoria/itv
+- /blog/categoria/productos
+- /blog/categoria/flotas
+
+REGLAS DE ENLAZADO:
+- Usa SIEMPRE rutas relativas (empezando por "/"), nunca dominios absolutos.
+- Anchor descriptivo con keyword semántica (ej.: "limpieza de filtro de partículas", "descarbonización con hidrógeno", "gases altos en ITV diésel", "máquinas descarbonizadoras para talleres", "analizador de gases para ITV").
+- VARÍA los anchors a lo largo del artículo, evita repetir literalmente la keyword principal.
+- NO acumules enlaces al final. Distribúyelos a lo largo del cuerpo donde aportan contexto.
+- Prioriza enlaces hacia páginas comerciales (servicios/tienda/soluciones) cuando el contexto lo justifique, para favorecer la conversión.
+- No dupliques el mismo enlace más de 2 veces.
+${linkList ? `\nPosts existentes (enlaza 1-2 cuando encajen semánticamente):\n${linkList}` : ""}
 
 FORMATO DE RESPUESTA — SOLO JSON VÁLIDO, sin code blocks:
 {
