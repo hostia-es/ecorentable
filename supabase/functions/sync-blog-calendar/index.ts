@@ -131,6 +131,11 @@ function validateContent(generated: any, item: any): string[] {
   if (geo && !content.includes(geo)) {
     errors.push(`Geotarget "${item.ciudad}" no aparece en el contenido`);
   }
+  // Internal links: count markdown [text](/path) pointing to internal routes
+  const internalLinks = ((generated.content || "").match(/\]\(\/[^)\s]*\)/g) || []).length;
+  if (internalLinks < 8) {
+    errors.push(`Solo ${internalLinks} enlaces internos (mínimo 8)`);
+  }
   return errors;
 }
 
@@ -364,13 +369,38 @@ ESTRUCTURA Y FORMATO (estricto):
 - CTA contextual en mitad del artículo + CTA final, ambos coherentes con "Objetivo conversión".
 - No escribas "H1:" ni "H2:" como texto. No emitas etiquetas HTML.
 
-ENLAZADO INTERNO (incluye los que apliquen, naturales en el cuerpo, mínimo 6):
-- Descarbonización → /servicios/descarbonizacion-motor o /servicios/descarbonizacion-con-hidrogeno
-- DPF/FAP/filtro de partículas → /servicios/limpieza-filtro-de-particulas y /tienda/maquinas-limpieza-filtro-particulas/carbon-fap
-- Gases ITV / humo negro / EGR / catalizador / pérdida de potencia → la solución correspondiente en /soluciones/* + /contacto o /encuentra-tu-centro
-- Máquinas / equipos / compra / alquiler / renting → /tienda y /servicios/alquiler-renting-equipos + /contacto
-- Talleres / socios / distribuidores / nueva línea de negocio → /socios/hazte-socio
-- Flotas / empresas / renting de coches → /servicios/descarbonizacion-para-empresas, /servicios/descarbonizacion-para-flotas-de-camiones, /servicios/descarbonizacion-para-coches-de-renting
+ENLAZADO INTERNO SEO (OBLIGATORIO — entre 8 y 15 enlaces internos por artículo, insertados de forma NATURAL dentro del cuerpo, NUNCA en bloques al final, NUNCA como "haz clic aquí"). Usa anchors descriptivos y SEMÁNTICOS, variados (no repitas el mismo anchor literal), basados en la intención de búsqueda. Cada artículo DEBE incluir, como mínimo:
+- 1 enlace a HOME: / (anchor tipo "Ecología Rentable", "soluciones de descarbonización")
+- 1 enlace a /contacto (anchor tipo "solicita presupuesto", "habla con un técnico")
+- 2-3 enlaces a páginas de SERVICIO relacionadas con el tema
+- 1-2 enlaces a páginas de PRODUCTO (categoría o ficha) relacionadas
+- 1 enlace a una página de SOLUCIÓN cuando el post trate un problema mecánico
+- 1-2 enlaces a otros artículos del BLOG semánticamente relacionados
+
+MAPA DE URLs INTERNAS DISPONIBLES (usa rutas relativas, p.ej. [anchor](/servicios/...)):
+
+Home y contacto: /  ·  /contacto
+
+Servicios (/servicios/...):
+- /servicios, /servicios/descarbonizacion-motor, /servicios/descarbonizacion-con-hidrogeno, /servicios/descarbonizacion-para-particulares, /servicios/descarbonizacion-para-talleres, /servicios/descarbonizacion-para-empresas, /servicios/descarbonizacion-para-flotas-de-camiones, /servicios/descarbonizacion-para-coches-de-renting, /servicios/limpieza-filtro-de-particulas, /servicios/mantenimiento-descarbonizadoras, /servicios/alquiler-renting-equipos
+
+Tienda — categorías y fichas:
+- /tienda/descarbonizadoras, /tienda/descarbonizadoras-reacondicionadas, /tienda/maquinas-limpieza-filtro-particulas, /tienda/opacimetros, /tienda/analizadores-de-gases, /tienda/kit-opacidad
+- /tienda/descarbonizadoras/h2-profit-1000, /tienda/descarbonizadoras/h2-profit-2000, /tienda/descarbonizadoras/h2-profit-3000, /tienda/descarbonizadoras/hy-carbon-connect, /tienda/maquinas-limpieza-filtro-particulas/carbon-fap, /tienda/opacimetros/opacimetro-ecologia-rentable, /tienda/analizadores-de-gases/analizador-gases-ecologia-rentable
+
+Soluciones (/soluciones/...):
+- /soluciones/gases-altos-itv-diesel, /soluciones/gases-altos-itv-gasolina, /soluciones/humo-negro-diesel, /soluciones/fallo-anticontaminacion, /soluciones/filtro-particulas-obstruido, /soluciones/limpiar-dpf-sin-desmontar, /soluciones/fallo-egr, /soluciones/catalizador-obstruido, /soluciones/perdida-potencia-coche-diesel, /soluciones/descarbonizacion-motor-diesel, /soluciones/descarbonizacion-motor-gasolina
+
+Categorías del blog: /blog/categoria/que-es-descarbonizacion · /blog/categoria/guias · /blog/categoria/innovacion · /blog/categoria/itv · /blog/categoria/productos · /blog/categoria/flotas
+
+REGLAS DE ENLAZADO:
+- Usa SIEMPRE rutas relativas (empezando por "/"), nunca dominios absolutos.
+- Sintaxis Markdown obligatoria: [anchor descriptivo](/ruta).
+- VARÍA los anchors; evita repetir literalmente la keyword principal en cada enlace.
+- NO acumules enlaces al final. Distribúyelos dentro de los párrafos del cuerpo donde aportan contexto.
+- Prioriza páginas comerciales (servicios/tienda/soluciones) cuando el contexto lo justifique.
+- No dupliques el mismo destino más de 2 veces.
+- MÍNIMO ABSOLUTO: 8 enlaces internos en formato Markdown [texto](/ruta). Si entregas menos de 8, el contenido será RECHAZADO y regenerado.
 
 REGLAS DE PRIORIDAD CON LA HOJA:
 1. Si vienen "H1 sugerido", "Slug sugerido", "Meta title sugerido" o "Meta description sugerida" → ÚSALOS TAL CUAL.
@@ -434,6 +464,40 @@ FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
         if (item.metaTitleSug) generated.meta_title = item.metaTitleSug.slice(0, 60);
         if (item.metaDescSug) generated.meta_description = item.metaDescSug.slice(0, 160);
         if (item.h1Sugerido) generated.title = item.h1Sugerido;
+
+        // Enforce internal-link minimum: if AI delivered <8 internal links, regenerate once
+        const countLinks = (md: string) => ((md || "").match(/\]\(\/[^)\s]*\)/g) || []).length;
+        if (countLinks(generated.content) < 8) {
+          console.warn(`Pocos enlaces internos (${countLinks(generated.content)}). Reintentando con refuerzo...`);
+          const retryRes = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+            method: "POST",
+            headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+              model: "google/gemini-2.5-pro",
+              messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: specialistSpec + "\n\nDevuelve SOLO el objeto JSON. Nada más." },
+                { role: "assistant", content: rawContent },
+                { role: "user", content: `Tu respuesta anterior tiene solo ${countLinks(generated.content)} enlaces internos en formato Markdown [texto](/ruta). RECHAZADO. Regenera el artículo COMPLETO con MÍNIMO 8 enlaces internos distribuidos NATURALMENTE en los párrafos del cuerpo (no al final, no en bloque, no como "haz clic aquí"). Usa el MAPA DE URLs INTERNAS del system prompt. Mantén el mismo título, slug, meta y estructura H2. Devuelve SOLO el objeto JSON completo.` },
+              ],
+            }),
+          });
+          if (retryRes.ok) {
+            const retryData = await retryRes.json();
+            const retryRaw = retryData.choices?.[0]?.message?.content || "";
+            let retryClean = retryRaw.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+            const s = retryClean.indexOf('{'); const e = retryClean.lastIndexOf('}');
+            if (s !== -1 && e !== -1) {
+              try {
+                const retryParsed = JSON.parse(retryClean.slice(s, e + 1));
+                if (countLinks(retryParsed.content) > countLinks(generated.content)) {
+                  generated.content = retryParsed.content;
+                  if (retryParsed.excerpt) generated.excerpt = retryParsed.excerpt;
+                }
+              } catch (_) { /* ignore retry parse error */ }
+            }
+          }
+        }
 
         // Validate
         const validationErrors = validateContent(generated, item);
