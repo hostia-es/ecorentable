@@ -74,54 +74,72 @@ export default function ProductoDetalle() {
 
       {/* HERO PRODUCTO */}
       <section className="py-14 section-light">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {/* DESCRIPCIÓN TÉCNICA */}
-            <div>
-              <h2 className="text-xl font-bold mb-4" style={{ color: "hsl(var(--foreground))" }}>Descripción técnica</h2>
-              <p className="text-sm leading-relaxed mb-6" style={{ color: "hsl(var(--muted-foreground))" }}>{product.technicalDescription}</p>
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            {/* COLUMNA IZQUIERDA: contenido del producto */}
+            <div className="lg:col-span-7 space-y-6">
+              <div>
+                <h2 className="text-xl font-bold mb-4" style={{ color: "hsl(var(--foreground))" }}>Descripción técnica</h2>
+                <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground))" }}>{product.technicalDescription}</p>
+              </div>
 
-              <h3 className="font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>Beneficios principales</h3>
-              <ul className="space-y-2 mb-6">
-                {product.benefits.map(b => (
-                  <li key={b} className="flex items-start gap-2 text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
-                    <CheckCircle size={13} className="shrink-0 mt-0.5" style={{ color: "hsl(var(--primary))" }} />{b}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* PRECIO + CTA */}
-            <div className="card-eco p-6 flex flex-col gap-4 h-fit">
-              {product.badge && <span className="badge-green self-start">{product.badge}</span>}
-              <div className="text-3xl font-bold" style={{ color: "hsl(var(--primary))" }}>{product.price}</div>
-              <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>Precio orientativo sin IVA. Solicita presupuesto para precio final y condiciones.</p>
-              <AddToCartButton
-                product={{
-                  slug: product.slug,
-                  name: product.name,
-                  category: product.category,
-                  categorySlug: product.categorySlug,
-                  image: (product as any).image,
-                }}
-                withQuantity
-                label="Añadir a mi solicitud"
-              />
-              <Link to={`/contacto?intent=presupuesto&item=${product.slug}`} className="btn-secondary w-full justify-center flex items-center gap-2"><ShoppingCart size={15} />Pedir presupuesto directo</Link>
-              <Link to="/socios/hazte-socio" className="text-xs text-center underline text-primary">Precio de socio (mejor tarifa)</Link>
-              {(product as any).hasRental && (
-                <Link to={`/contacto?intent=alquiler&item=${product.slug}`} className="text-xs text-center underline text-primary">¿Prefieres alquiler o renting? Solicita info</Link>
-              )}
-              <div className="pt-3 border-t" style={{ borderColor: "hsl(var(--border))" }}>
-                <p className="text-xs font-semibold mb-2" style={{ color: "hsl(var(--foreground))" }}>¿Para quién es este producto?</p>
-                <ul className="space-y-1">
-                  {product.forWho.map(f => (
-                    <li key={f} className="text-xs flex items-center gap-1" style={{ color: "hsl(var(--muted-foreground))" }}>
-                      <Users size={10} style={{ color: "hsl(var(--primary))" }} />{f}
+              <div>
+                <h3 className="font-bold mb-3" style={{ color: "hsl(var(--foreground))" }}>Beneficios principales</h3>
+                <ul className="space-y-2">
+                  {product.benefits.map(b => (
+                    <li key={b} className="flex items-start gap-2 text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
+                      <CheckCircle size={13} className="shrink-0 mt-0.5" style={{ color: "hsl(var(--primary))" }} />{b}
                     </li>
                   ))}
                 </ul>
               </div>
+
+              <div className="card-eco p-5 flex flex-col gap-3">
+                {product.badge && <span className="badge-green self-start">{product.badge}</span>}
+                <div className="text-2xl font-bold" style={{ color: "hsl(var(--primary))" }}>{product.price}</div>
+                <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>Precio orientativo sin IVA. Solicita presupuesto para precio final y condiciones.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <AddToCartButton
+                    product={{
+                      slug: product.slug,
+                      name: product.name,
+                      category: product.category,
+                      categorySlug: product.categorySlug,
+                      image: (product as any).image,
+                    }}
+                    withQuantity
+                    label="Añadir a mi solicitud"
+                  />
+                  <Link to={`/contacto?intent=presupuesto&item=${product.slug}`} className="btn-secondary w-full justify-center flex items-center gap-2"><ShoppingCart size={15} />Pedir presupuesto</Link>
+                </div>
+                <div className="flex flex-wrap gap-x-4 gap-y-1 pt-1">
+                  <Link to="/socios/hazte-socio" className="text-xs underline text-primary">Precio de socio (mejor tarifa)</Link>
+                  {(product as any).hasRental && (
+                    <Link to={`/contacto?intent=alquiler&item=${product.slug}`} className="text-xs underline text-primary">¿Alquiler o renting?</Link>
+                  )}
+                </div>
+                <div className="pt-3 border-t" style={{ borderColor: "hsl(var(--border))" }}>
+                  <p className="text-xs font-semibold mb-2" style={{ color: "hsl(var(--foreground))" }}>¿Para quién es este producto?</p>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                    {product.forWho.map(f => (
+                      <li key={f} className="text-xs flex items-center gap-1" style={{ color: "hsl(var(--muted-foreground))" }}>
+                        <Users size={10} style={{ color: "hsl(var(--primary))" }} />{f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* COLUMNA DERECHA: formulario sticky y accesible */}
+            <div className="lg:col-span-5 lg:sticky lg:top-24 self-start">
+              <QuoteForm
+                context={`producto-${product.slug}`}
+                title="Solicita tu cotización en 24 h"
+                subtitle="Cuéntanos tu equipo y un asesor técnico te llama con propuesta clara y sin compromiso."
+                defaultMessage={`Hola, me interesa el ${product.name}.`}
+                {...getProductoPreset(product.slug)}
+              />
             </div>
           </div>
         </div>
