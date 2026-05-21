@@ -131,6 +131,11 @@ function validateContent(generated: any, item: any): string[] {
   if (geo && !content.includes(geo)) {
     errors.push(`Geotarget "${item.ciudad}" no aparece en el contenido`);
   }
+  // Internal links: count markdown [text](/path) pointing to internal routes
+  const internalLinks = ((generated.content || "").match(/\]\(\/[^)\s]*\)/g) || []).length;
+  if (internalLinks < 8) {
+    errors.push(`Solo ${internalLinks} enlaces internos (mínimo 8)`);
+  }
   return errors;
 }
 
