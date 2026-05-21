@@ -48,8 +48,20 @@ export default function AdminBlog() {
   }
 
   function buildPayload(url: string) {
-    const isCsv = /output=csv|\/pub\?/i.test(url);
-    return isCsv ? { csv_url: url } : { sheet_url: url };
+    const trimmed = url.trim();
+    // Published sheet (pubhtml / pub / pub?output=csv) → forzar CSV
+    if (/\/pub(html|\?|$)/i.test(trimmed)) {
+      let csv = trimmed;
+      // pubhtml → pub?output=csv
+      csv = csv.replace(/\/pubhtml(\?.*)?$/i, "/pub?output=csv");
+      // pub sin output → añadir output=csv
+      if (/\/pub(\?|$)/i.test(csv) && !/output=csv/i.test(csv)) {
+        csv += (csv.includes("?") ? "&" : "?") + "output=csv";
+      }
+      return { csv_url: csv };
+    }
+    if (/output=csv/i.test(trimmed)) return { csv_url: trimmed };
+    return { sheet_url: trimmed };
   }
 
   async function analyzeSheet() {
