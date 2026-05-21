@@ -229,7 +229,7 @@ export default function TiendaCategoria() {
       <Seo
         title={content.metaTitle}
         description={content.metaDescription}
-        canonical={`https://ecorentable.lovable.app/tienda/${categoria}`}
+        path={`/tienda/${categoria}`}
       />
 
       {/* HERO LP */}
