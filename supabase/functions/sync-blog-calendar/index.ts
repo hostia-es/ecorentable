@@ -465,6 +465,40 @@ FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
         if (item.metaDescSug) generated.meta_description = item.metaDescSug.slice(0, 160);
         if (item.h1Sugerido) generated.title = item.h1Sugerido;
 
+        // Enforce internal-link minimum: if AI delivered <8 internal links, regenerate once
+        const countLinks = (md: string) => ((md || "").match(/\]\(\/[^)\s]*\)/g) || []).length;
+        if (countLinks(generated.content) < 8) {
+          console.warn(`Pocos enlaces internos (${countLinks(generated.content)}). Reintentando con refuerzo...`);
+          const retryRes = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+            method: "POST",
+            headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+              model: "google/gemini-2.5-pro",
+              messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: specialistSpec + "\n\nDevuelve SOLO el objeto JSON. Nada más." },
+                { role: "assistant", content: rawContent },
+                { role: "user", content: `Tu respuesta anterior tiene solo ${countLinks(generated.content)} enlaces internos en formato Markdown [texto](/ruta). RECHAZADO. Regenera el artículo COMPLETO con MÍNIMO 8 enlaces internos distribuidos NATURALMENTE en los párrafos del cuerpo (no al final, no en bloque, no como "haz clic aquí"). Usa el MAPA DE URLs INTERNAS del system prompt. Mantén el mismo título, slug, meta y estructura H2. Devuelve SOLO el objeto JSON completo.` },
+              ],
+            }),
+          });
+          if (retryRes.ok) {
+            const retryData = await retryRes.json();
+            const retryRaw = retryData.choices?.[0]?.message?.content || "";
+            let retryClean = retryRaw.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+            const s = retryClean.indexOf('{'); const e = retryClean.lastIndexOf('}');
+            if (s !== -1 && e !== -1) {
+              try {
+                const retryParsed = JSON.parse(retryClean.slice(s, e + 1));
+                if (countLinks(retryParsed.content) > countLinks(generated.content)) {
+                  generated.content = retryParsed.content;
+                  if (retryParsed.excerpt) generated.excerpt = retryParsed.excerpt;
+                }
+              } catch (_) { /* ignore retry parse error */ }
+            }
+          }
+        }
+
         // Validate
         const validationErrors = validateContent(generated, item);
         if (validationErrors.length > 0) {
