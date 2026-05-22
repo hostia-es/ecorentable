@@ -134,7 +134,6 @@ export default function AdminBlog() {
       toast.success(`¡Sincronización completada! ${totalProcessed} posts procesados.`);
       setSyncOpen(false);
       setPreview(null);
-      setSheetUrl("");
       load();
     } catch (error) {
       console.error("Sync error:", error);
