@@ -155,7 +155,8 @@ serve(async (req) => {
     const sheetUrl: string | undefined = body.sheet_url;
     const csvUrl: string | undefined = body.csv_url;
     const sheetName: string | undefined = body.sheet_name;
-    const batchSize = body.batch_size || 3;
+    const requestedBatchSize = Number(body.batch_size || 1);
+    const batchSize = Math.max(1, Math.min(requestedBatchSize, 1));
     const dryRun = body.dry_run || false;
 
     if (!sheetUrl && !csvUrl) {
@@ -231,19 +232,26 @@ serve(async (req) => {
 
     const slugs = pending.map((p) => p.keywordSlug);
     // chunk to avoid URL length limits
-    const existingMap = new Map<string, string>();
+    const existingMap = new Map<string, { status: string; updated_at: string | null }>();
     for (let i = 0; i < slugs.length; i += 200) {
       const chunk = slugs.slice(i, i + 200);
       const { data: existing } = await supabase
         .from("blog_calendar_sync")
-        .select("keyword_slug, status")
+        .select("keyword_slug, status, updated_at")
         .in("keyword_slug", chunk);
-      (existing || []).forEach((e: any) => existingMap.set(e.keyword_slug, e.status));
+      (existing || []).forEach((e: any) => existingMap.set(e.keyword_slug, { status: e.status, updated_at: e.updated_at }));
     }
 
+    const staleGeneratingBefore = Date.now() - 30 * 60 * 1000;
     const toProcess = pending.filter((p) => {
-      const status = existingMap.get(p.keywordSlug);
-      return !status || status === "error";
+      const existing = existingMap.get(p.keywordSlug);
+      if (!existing) return true;
+      if (existing.status === "error") return true;
+      if (existing.status === "generating") {
+        const updatedAt = existing.updated_at ? new Date(existing.updated_at).getTime() : 0;
+        return !updatedAt || updatedAt < staleGeneratingBefore;
+      }
+      return false;
     });
 
     const futureCount = toProcess.filter((p) => p.isFuture).length;
