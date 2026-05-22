@@ -155,8 +155,10 @@ serve(async (req) => {
     const sheetUrl: string | undefined = body.sheet_url;
     const csvUrl: string | undefined = body.csv_url;
     const sheetName: string | undefined = body.sheet_name;
-    const batchSize = body.batch_size || 3;
+    const requestedBatchSize = Number(body.batch_size || 1);
+    const batchSize = Math.max(1, Math.min(requestedBatchSize, 1));
     const dryRun = body.dry_run || false;
+    const generateImages = body.generate_images === true;
 
     if (!sheetUrl && !csvUrl) {
       return new Response(JSON.stringify({ error: "Proporciona sheet_url (Google Sheets) o csv_url (CSV publicado)." }), {
@@ -231,19 +233,26 @@ serve(async (req) => {
 
     const slugs = pending.map((p) => p.keywordSlug);
     // chunk to avoid URL length limits
-    const existingMap = new Map<string, string>();
+    const existingMap = new Map<string, { status: string; updated_at: string | null }>();
     for (let i = 0; i < slugs.length; i += 200) {
       const chunk = slugs.slice(i, i + 200);
       const { data: existing } = await supabase
         .from("blog_calendar_sync")
-        .select("keyword_slug, status")
+        .select("keyword_slug, status, updated_at")
         .in("keyword_slug", chunk);
-      (existing || []).forEach((e: any) => existingMap.set(e.keyword_slug, e.status));
+      (existing || []).forEach((e: any) => existingMap.set(e.keyword_slug, { status: e.status, updated_at: e.updated_at }));
     }
 
+    const staleGeneratingBefore = Date.now() - 30 * 60 * 1000;
     const toProcess = pending.filter((p) => {
-      const status = existingMap.get(p.keywordSlug);
-      return !status || status === "error";
+      const existing = existingMap.get(p.keywordSlug);
+      if (!existing) return true;
+      if (existing.status === "error") return true;
+      if (existing.status === "generating") {
+        const updatedAt = existing.updated_at ? new Date(existing.updated_at).getTime() : 0;
+        return !updatedAt || updatedAt < staleGeneratingBefore;
+      }
+      return false;
     });
 
     const futureCount = toProcess.filter((p) => p.isFuture).length;
@@ -430,7 +439,7 @@ FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
           method: "POST",
           headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
           body: JSON.stringify({
-            model: "google/gemini-2.5-pro",
+            model: "google/gemini-3.5-flash",
             messages: [
               { role: "system", content: systemPrompt },
               { role: "user", content: specialistSpec + "\n\nDevuelve SOLO el objeto JSON. Nada más." },
@@ -473,7 +482,7 @@ FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
             method: "POST",
             headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
             body: JSON.stringify({
-              model: "google/gemini-2.5-pro",
+              model: "google/gemini-3.5-flash",
               messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: specialistSpec + "\n\nDevuelve SOLO el objeto JSON. Nada más." },
@@ -508,6 +517,7 @@ FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
         // Image generation
         let imageUrl: string | null = null;
         try {
+          if (!generateImages) throw new Error("Image generation skipped");
           const imgPrompt = item.imagenAlt
             ? `Eco-friendly automotive illustration: ${item.imagenAlt}. Style: clean flat vector with green/teal palette, professional, no text, 16:9.`
             : `Modern eco-friendly automotive blog illustration for "${generated.title}". Category: ${item.categoria}. Style: clean flat vector with green/teal palette, mechanic cleaning a car engine, leaves and eco symbols, decarbonization theme. NO text. Bright optimistic. 16:9.`;

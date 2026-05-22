@@ -112,7 +112,7 @@ export default function AdminBlog() {
           {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            body: JSON.stringify({ ...payload, batch_size: 3 }),
+          body: JSON.stringify({ ...payload, batch_size: 1 }),
           }
         );
         const data = await res.json();
