@@ -158,6 +158,7 @@ serve(async (req) => {
     const requestedBatchSize = Number(body.batch_size || 1);
     const batchSize = Math.max(1, Math.min(requestedBatchSize, 1));
     const dryRun = body.dry_run || false;
+    const generateImages = body.generate_images === true;
 
     if (!sheetUrl && !csvUrl) {
       return new Response(JSON.stringify({ error: "Proporciona sheet_url (Google Sheets) o csv_url (CSV publicado)." }), {
@@ -438,7 +439,7 @@ FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
           method: "POST",
           headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
           body: JSON.stringify({
-            model: "google/gemini-2.5-pro",
+            model: "google/gemini-3.5-flash",
             messages: [
               { role: "system", content: systemPrompt },
               { role: "user", content: specialistSpec + "\n\nDevuelve SOLO el objeto JSON. Nada más." },
@@ -481,7 +482,7 @@ FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
             method: "POST",
             headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
             body: JSON.stringify({
-              model: "google/gemini-2.5-pro",
+              model: "google/gemini-3.5-flash",
               messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: specialistSpec + "\n\nDevuelve SOLO el objeto JSON. Nada más." },
@@ -516,6 +517,7 @@ FORMATO DE RESPUESTA — SOLO JSON VÁLIDO:
         // Image generation
         let imageUrl: string | null = null;
         try {
+          if (!generateImages) throw new Error("Image generation skipped");
           const imgPrompt = item.imagenAlt
             ? `Eco-friendly automotive illustration: ${item.imagenAlt}. Style: clean flat vector with green/teal palette, professional, no text, 16:9.`
             : `Modern eco-friendly automotive blog illustration for "${generated.title}". Category: ${item.categoria}. Style: clean flat vector with green/teal palette, mechanic cleaning a car engine, leaves and eco symbols, decarbonization theme. NO text. Bright optimistic. 16:9.`;
