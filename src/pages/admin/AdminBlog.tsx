@@ -279,15 +279,6 @@ export default function AdminBlog() {
             {isSyncing ? "Sincronizando..." : "Sincronizar ahora"}
           </button>
           <button
-            onClick={generateMissingImages}
-            disabled={isSyncing}
-            className="inline-flex items-center gap-2 border border-white/15 hover:bg-white/5 rounded-lg px-4 py-2 text-sm disabled:opacity-50"
-            title="Generar imágenes con IA para posts sin imagen"
-          >
-            <ImageIcon size={16} />
-            Generar imágenes faltantes
-          </button>
-          <button
             onClick={() => setSyncOpen(true)}
             disabled={isSyncing}
             className="inline-flex items-center gap-2 border border-white/15 hover:bg-white/5 rounded-lg px-4 py-2 text-sm disabled:opacity-50"
