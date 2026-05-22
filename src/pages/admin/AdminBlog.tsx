@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2, X, Calendar, FileSpreadsheet } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2, X, Calendar, FileSpreadsheet, Zap } from "lucide-react";
 import { toast } from "sonner";
+
+const SHEET_URL_KEY = "admin_blog_sheet_url";
 
 interface Post {
   id: string; slug: string; title: string; category: string;
@@ -16,10 +18,11 @@ export default function AdminBlog() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncStatus, setSyncStatus] = useState("");
   const [syncOpen, setSyncOpen] = useState(false);
-  const [sheetUrl, setSheetUrl] = useState("");
+  const [sheetUrl, setSheetUrl] = useState(() => localStorage.getItem(SHEET_URL_KEY) || "");
   const [preview, setPreview] = useState<any | null>(null);
 
   useEffect(() => { load(); }, []);
+  useEffect(() => { if (sheetUrl) localStorage.setItem(SHEET_URL_KEY, sheetUrl); }, [sheetUrl]);
 
   async function load() {
     setLoading(true);
@@ -131,11 +134,72 @@ export default function AdminBlog() {
       toast.success(`¡Sincronización completada! ${totalProcessed} posts procesados.`);
       setSyncOpen(false);
       setPreview(null);
-      setSheetUrl("");
       load();
     } catch (error) {
       console.error("Sync error:", error);
       toast.error(error instanceof Error ? error.message : "Error durante la sincronización");
+    } finally {
+      setIsSyncing(false);
+      setSyncStatus("");
+    }
+  }
+
+  async function syncNow() {
+    if (!sheetUrl.trim()) {
+      toast.error("Configura primero la URL del Google Sheet (botón Importar de Google Sheets)");
+      setSyncOpen(true);
+      return;
+    }
+    setIsSyncing(true);
+    setSyncStatus("Leyendo Google Sheet...");
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData.session?.access_token;
+      if (!token) throw new Error("No autenticado");
+      const payload = buildPayload(sheetUrl);
+
+      // 1) Analizar
+      const analyzeRes = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-blog-calendar`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ ...payload, dry_run: true }),
+        }
+      );
+      const analyzeData = await analyzeRes.json();
+      if (!analyzeRes.ok) throw new Error(analyzeData.error || "Error al analizar");
+
+      if (!analyzeData.to_process) {
+        toast.success("Todo al día. Nada nuevo que sincronizar.");
+        load();
+        return;
+      }
+
+      // 2) Generar en lotes
+      let totalProcessed = 0;
+      let remaining = analyzeData.to_process;
+      while (remaining > 0) {
+        setSyncStatus(`Generando posts... (${totalProcessed}/${analyzeData.to_process})`);
+        const res = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-blog-calendar`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ ...payload, batch_size: 1 }),
+          }
+        );
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Error al sincronizar");
+        totalProcessed += data.batch_processed || 0;
+        remaining = data.remaining ?? 0;
+        if ((data.batch_processed || 0) === 0) break;
+      }
+      toast.success(`Sincronización completada. ${totalProcessed} posts procesados.`);
+      load();
+    } catch (e) {
+      console.error("syncNow error:", e);
+      toast.error(e instanceof Error ? e.message : "Error en la sincronización");
     } finally {
       setIsSyncing(false);
       setSyncStatus("");
@@ -155,13 +219,22 @@ export default function AdminBlog() {
         </div>
         <div className="flex items-center gap-2">
           <button
+            onClick={syncNow}
+            disabled={isSyncing}
+            className="inline-flex items-center gap-2 bg-[hsl(148,72%,45%)]/10 border border-[hsl(148,72%,45%)]/40 hover:bg-[hsl(148,72%,45%)]/20 text-[hsl(148,72%,55%)] rounded-lg px-4 py-2 text-sm disabled:opacity-50"
+            title="Forzar lectura del Google Sheet y generar posts pendientes ahora"
+          >
+            {isSyncing ? <Loader2 size={16} className="animate-spin" /> : <Zap size={16} />}
+            {isSyncing ? "Sincronizando..." : "Sincronizar ahora"}
+          </button>
+          <button
             onClick={() => setSyncOpen(true)}
             disabled={isSyncing}
             className="inline-flex items-center gap-2 border border-white/15 hover:bg-white/5 rounded-lg px-4 py-2 text-sm disabled:opacity-50"
             title="Importar y generar posts desde Google Sheet"
           >
-            {isSyncing ? <Loader2 size={16} className="animate-spin" /> : <FileSpreadsheet size={16} />}
-            {isSyncing ? "Sincronizando..." : "Importar de Google Sheets"}
+            <FileSpreadsheet size={16} />
+            Importar de Google Sheets
           </button>
           <Link to="/admin/blog/new" className="inline-flex items-center gap-2 bg-[hsl(148,72%,45%)] hover:bg-[hsl(148,72%,40%)] text-black font-semibold rounded-lg px-4 py-2 text-sm">
             <Plus size={16} /> Nuevo post
