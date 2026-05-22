@@ -253,6 +253,9 @@ export default function AdminBlog() {
       setIsSyncing(false);
       setSyncStatus("");
     }
+  }
+
+
 
   const filtered = posts.filter(
     (p) => p.title.toLowerCase().includes(q.toLowerCase()) || p.category.toLowerCase().includes(q.toLowerCase())
