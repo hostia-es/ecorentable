@@ -219,13 +219,22 @@ export default function AdminBlog() {
         </div>
         <div className="flex items-center gap-2">
           <button
+            onClick={syncNow}
+            disabled={isSyncing}
+            className="inline-flex items-center gap-2 bg-[hsl(148,72%,45%)]/10 border border-[hsl(148,72%,45%)]/40 hover:bg-[hsl(148,72%,45%)]/20 text-[hsl(148,72%,55%)] rounded-lg px-4 py-2 text-sm disabled:opacity-50"
+            title="Forzar lectura del Google Sheet y generar posts pendientes ahora"
+          >
+            {isSyncing ? <Loader2 size={16} className="animate-spin" /> : <Zap size={16} />}
+            {isSyncing ? "Sincronizando..." : "Sincronizar ahora"}
+          </button>
+          <button
             onClick={() => setSyncOpen(true)}
             disabled={isSyncing}
             className="inline-flex items-center gap-2 border border-white/15 hover:bg-white/5 rounded-lg px-4 py-2 text-sm disabled:opacity-50"
             title="Importar y generar posts desde Google Sheet"
           >
-            {isSyncing ? <Loader2 size={16} className="animate-spin" /> : <FileSpreadsheet size={16} />}
-            {isSyncing ? "Sincronizando..." : "Importar de Google Sheets"}
+            <FileSpreadsheet size={16} />
+            Importar de Google Sheets
           </button>
           <Link to="/admin/blog/new" className="inline-flex items-center gap-2 bg-[hsl(148,72%,45%)] hover:bg-[hsl(148,72%,40%)] text-black font-semibold rounded-lg px-4 py-2 text-sm">
             <Plus size={16} /> Nuevo post
