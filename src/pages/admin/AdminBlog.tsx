@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2, X, Calendar, FileSpreadsheet, Zap } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2, X, Calendar, FileSpreadsheet, Zap, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 
 const SHEET_URL_KEY = "admin_blog_sheet_url";
