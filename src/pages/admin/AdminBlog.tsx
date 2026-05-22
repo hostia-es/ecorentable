@@ -18,10 +18,11 @@ export default function AdminBlog() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncStatus, setSyncStatus] = useState("");
   const [syncOpen, setSyncOpen] = useState(false);
-  const [sheetUrl, setSheetUrl] = useState("");
+  const [sheetUrl, setSheetUrl] = useState(() => localStorage.getItem(SHEET_URL_KEY) || "");
   const [preview, setPreview] = useState<any | null>(null);
 
   useEffect(() => { load(); }, []);
+  useEffect(() => { if (sheetUrl) localStorage.setItem(SHEET_URL_KEY, sheetUrl); }, [sheetUrl]);
 
   async function load() {
     setLoading(true);
