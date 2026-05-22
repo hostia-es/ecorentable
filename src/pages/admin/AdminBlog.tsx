@@ -206,6 +206,54 @@ export default function AdminBlog() {
     }
   }
 
+  async function generateMissingImages() {
+    const targets = posts.filter((p) => !p.image_url);
+    if (targets.length === 0) {
+      toast.success("Todos los posts ya tienen imagen.");
+      return;
+    }
+    if (!confirm(`Generar imágenes con IA para ${targets.length} posts sin imagen? Puede tardar varios minutos.`)) return;
+
+    setIsSyncing(true);
+    let ok = 0, fail = 0;
+    try {
+      for (let i = 0; i < targets.length; i++) {
+        const p = targets[i];
+        setSyncStatus(`Generando imagen ${i + 1}/${targets.length}: ${p.title.slice(0, 50)}…`);
+        try {
+          const { data: full } = await supabase
+            .from("blog_posts")
+            .select("title, slug, excerpt, category")
+            .eq("id", p.id)
+            .single();
+          const { data, error } = await supabase.functions.invoke("generate-post-image", {
+            body: {
+              title: full?.title || p.title,
+              slug: full?.slug || p.slug,
+              excerpt: full?.excerpt || "",
+              category: full?.category || p.category,
+            },
+          });
+          if (error || !data?.url) throw new Error(error?.message || "sin url");
+          const { error: updErr } = await supabase
+            .from("blog_posts")
+            .update({ image_url: data.url })
+            .eq("id", p.id);
+          if (updErr) throw updErr;
+          ok++;
+        } catch (e) {
+          console.error("img fail", p.slug, e);
+          fail++;
+        }
+        await new Promise((r) => setTimeout(r, 1500));
+      }
+      toast.success(`Imágenes generadas: ${ok} ok, ${fail} fallidas.`);
+      load();
+    } finally {
+      setIsSyncing(false);
+      setSyncStatus("");
+    }
+
   const filtered = posts.filter(
     (p) => p.title.toLowerCase().includes(q.toLowerCase()) || p.category.toLowerCase().includes(q.toLowerCase())
   );
