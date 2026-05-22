@@ -144,6 +144,68 @@ export default function AdminBlog() {
     }
   }
 
+  async function syncNow() {
+    if (!sheetUrl.trim()) {
+      toast.error("Configura primero la URL del Google Sheet (botón Importar de Google Sheets)");
+      setSyncOpen(true);
+      return;
+    }
+    setIsSyncing(true);
+    setSyncStatus("Leyendo Google Sheet...");
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData.session?.access_token;
+      if (!token) throw new Error("No autenticado");
+      const payload = buildPayload(sheetUrl);
+
+      // 1) Analizar
+      const analyzeRes = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-blog-calendar`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ ...payload, dry_run: true }),
+        }
+      );
+      const analyzeData = await analyzeRes.json();
+      if (!analyzeRes.ok) throw new Error(analyzeData.error || "Error al analizar");
+
+      if (!analyzeData.to_process) {
+        toast.success("Todo al día. Nada nuevo que sincronizar.");
+        load();
+        return;
+      }
+
+      // 2) Generar en lotes
+      let totalProcessed = 0;
+      let remaining = analyzeData.to_process;
+      while (remaining > 0) {
+        setSyncStatus(`Generando posts... (${totalProcessed}/${analyzeData.to_process})`);
+        const res = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-blog-calendar`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ ...payload, batch_size: 1 }),
+          }
+        );
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Error al sincronizar");
+        totalProcessed += data.batch_processed || 0;
+        remaining = data.remaining ?? 0;
+        if ((data.batch_processed || 0) === 0) break;
+      }
+      toast.success(`Sincronización completada. ${totalProcessed} posts procesados.`);
+      load();
+    } catch (e) {
+      console.error("syncNow error:", e);
+      toast.error(e instanceof Error ? e.message : "Error en la sincronización");
+    } finally {
+      setIsSyncing(false);
+      setSyncStatus("");
+    }
+  }
+
   const filtered = posts.filter(
     (p) => p.title.toLowerCase().includes(q.toLowerCase()) || p.category.toLowerCase().includes(q.toLowerCase())
   );
