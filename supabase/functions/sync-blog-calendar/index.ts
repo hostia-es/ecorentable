@@ -158,7 +158,7 @@ serve(async (req) => {
     const requestedBatchSize = Number(body.batch_size || 1);
     const batchSize = Math.max(1, Math.min(requestedBatchSize, 1));
     const dryRun = body.dry_run || false;
-    const generateImages = body.generate_images === true;
+    const generateImages = body.generate_images !== false;
 
     if (!sheetUrl && !csvUrl) {
       return new Response(JSON.stringify({ error: "Proporciona sheet_url (Google Sheets) o csv_url (CSV publicado)." }), {

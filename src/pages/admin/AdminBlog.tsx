@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2, X, Calendar, FileSpreadsheet, Zap } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2, X, Calendar, FileSpreadsheet, Zap, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 
 const SHEET_URL_KEY = "admin_blog_sheet_url";
@@ -115,7 +115,7 @@ export default function AdminBlog() {
           {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ ...payload, batch_size: 1 }),
+          body: JSON.stringify({ ...payload, batch_size: 1, generate_images: true }),
           }
         );
         const data = await res.json();
@@ -186,7 +186,7 @@ export default function AdminBlog() {
           {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            body: JSON.stringify({ ...payload, batch_size: 1 }),
+            body: JSON.stringify({ ...payload, batch_size: 1, generate_images: true }),
           }
         );
         const data = await res.json();
@@ -205,6 +205,57 @@ export default function AdminBlog() {
       setSyncStatus("");
     }
   }
+
+  async function generateMissingImages() {
+    const targets = posts.filter((p) => !p.image_url);
+    if (targets.length === 0) {
+      toast.success("Todos los posts ya tienen imagen.");
+      return;
+    }
+    if (!confirm(`Generar imágenes con IA para ${targets.length} posts sin imagen? Puede tardar varios minutos.`)) return;
+
+    setIsSyncing(true);
+    let ok = 0, fail = 0;
+    try {
+      for (let i = 0; i < targets.length; i++) {
+        const p = targets[i];
+        setSyncStatus(`Generando imagen ${i + 1}/${targets.length}: ${p.title.slice(0, 50)}…`);
+        try {
+          const { data: full } = await supabase
+            .from("blog_posts")
+            .select("title, slug, excerpt, category")
+            .eq("id", p.id)
+            .single();
+          const { data, error } = await supabase.functions.invoke("generate-post-image", {
+            body: {
+              title: full?.title || p.title,
+              slug: full?.slug || p.slug,
+              excerpt: full?.excerpt || "",
+              category: full?.category || p.category,
+            },
+          });
+          if (error || !data?.url) throw new Error(error?.message || "sin url");
+          const { error: updErr } = await supabase
+            .from("blog_posts")
+            .update({ image_url: data.url })
+            .eq("id", p.id);
+          if (updErr) throw updErr;
+          ok++;
+        } catch (e) {
+          console.error("img fail", p.slug, e);
+          fail++;
+        }
+        await new Promise((r) => setTimeout(r, 1500));
+      }
+      toast.success(`Imágenes generadas: ${ok} ok, ${fail} fallidas.`);
+      load();
+    } finally {
+      setIsSyncing(false);
+      setSyncStatus("");
+    }
+  }
+
+
 
   const filtered = posts.filter(
     (p) => p.title.toLowerCase().includes(q.toLowerCase()) || p.category.toLowerCase().includes(q.toLowerCase())
@@ -226,6 +277,15 @@ export default function AdminBlog() {
           >
             {isSyncing ? <Loader2 size={16} className="animate-spin" /> : <Zap size={16} />}
             {isSyncing ? "Sincronizando..." : "Sincronizar ahora"}
+          </button>
+          <button
+            onClick={generateMissingImages}
+            disabled={isSyncing}
+            className="inline-flex items-center gap-2 border border-white/15 hover:bg-white/5 rounded-lg px-4 py-2 text-sm disabled:opacity-50"
+            title="Generar imágenes con IA para posts sin imagen"
+          >
+            <ImageIcon size={16} />
+            Generar imágenes faltantes
           </button>
           <button
             onClick={() => setSyncOpen(true)}
