@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2, X, Calendar, FileSpreadsheet, Zap, Image as ImageIcon } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, EyeOff, Search, RefreshCw, Loader2, X, Calendar, FileSpreadsheet, Zap } from "lucide-react";
 import { toast } from "sonner";
 
 const SHEET_URL_KEY = "admin_blog_sheet_url";
@@ -277,15 +277,6 @@ export default function AdminBlog() {
           >
             {isSyncing ? <Loader2 size={16} className="animate-spin" /> : <Zap size={16} />}
             {isSyncing ? "Sincronizando..." : "Sincronizar ahora"}
-          </button>
-          <button
-            onClick={generateMissingImages}
-            disabled={isSyncing}
-            className="inline-flex items-center gap-2 border border-white/15 hover:bg-white/5 rounded-lg px-4 py-2 text-sm disabled:opacity-50"
-            title="Generar imágenes con IA para posts sin imagen"
-          >
-            <ImageIcon size={16} />
-            Generar imágenes faltantes
           </button>
           <button
             onClick={() => setSyncOpen(true)}
