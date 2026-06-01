@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Sparkles, Image as ImageIcon, Save, Eye, Loader2 } from "lucide-react";
+import { ArrowLeft, Save, Eye, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import SeoValidationPanel from "@/components/admin/SeoValidationPanel";
@@ -34,15 +34,6 @@ export default function AdminBlogEditor() {
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
 
-  // AI panel
-  const [aiOpen, setAiOpen] = useState(isNew);
-  const [aiTopic, setAiTopic] = useState("");
-  const [aiKeyword, setAiKeyword] = useState("");
-  const [aiCategory, setAiCategory] = useState("Guías");
-  const [aiType, setAiType] = useState("informativo");
-  const [aiBusy, setAiBusy] = useState(false);
-  const [imgBusy, setImgBusy] = useState(false);
-
   useEffect(() => {
     if (isNew) return;
     (async () => {
@@ -61,54 +52,6 @@ export default function AdminBlogEditor() {
 
   function update<K extends keyof Form>(k: K, v: Form[K]) {
     setF((p) => ({ ...p, [k]: v }));
-  }
-
-  async function generateContent() {
-    if (!aiTopic || !aiKeyword) return toast.error("Indica idea y keyword principal");
-    setAiBusy(true);
-    try {
-      const { data, error } = await supabase.functions.invoke("generate-seo-content", {
-        body: {
-          idea_contenido: aiTopic, keyword_principal: aiKeyword,
-          categoria: aiCategory, tipo_post: aiType, autor: f.author || "Ecología Rentable",
-        },
-      });
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
-      setF((p) => ({
-        ...p,
-        title: data.title || p.title,
-        slug: data.slug || slugify(data.title || p.title),
-        excerpt: data.excerpt || p.excerpt,
-        content: data.content || p.content,
-        meta_title: data.meta_title || p.meta_title,
-        meta_description: data.meta_description || p.meta_description,
-        meta_keywords: aiKeyword,
-        category: aiCategory,
-      }));
-      toast.success("Contenido generado");
-      setAiOpen(false);
-    } catch (e: any) {
-      toast.error(e.message || "Error generando contenido");
-    }
-    setAiBusy(false);
-  }
-
-  async function generateImage() {
-    if (!f.title) return toast.error("Necesitas un título primero");
-    setImgBusy(true);
-    try {
-      const { data, error } = await supabase.functions.invoke("generate-post-image", {
-        body: { title: f.title, category: f.category, slug: f.slug || slugify(f.title) },
-      });
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
-      update("image_url", data.url);
-      toast.success("Imagen generada");
-    } catch (e: any) {
-      toast.error(e.message || "Error generando imagen");
-    }
-    setImgBusy(false);
   }
 
   async function save() {
