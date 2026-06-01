@@ -90,9 +90,6 @@ export default function AdminBlogEditor() {
               <Eye size={13} /> Ver
             </Link>
           )}
-          <button onClick={() => setAiOpen(true)} className="inline-flex items-center gap-1.5 text-xs bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 hover:bg-white/10">
-            <Sparkles size={13} /> Generar con IA
-          </button>
           <button onClick={save} disabled={saving} className="inline-flex items-center gap-1.5 bg-[hsl(148,72%,45%)] hover:bg-[hsl(148,72%,40%)] text-black font-semibold rounded-lg px-4 py-1.5 text-sm disabled:opacity-50">
             {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
             Guardar
@@ -100,53 +97,6 @@ export default function AdminBlogEditor() {
         </div>
       </div>
 
-      {aiOpen && (
-        <div className="rounded-xl border border-[hsl(148,72%,45%)]/30 p-5 space-y-3" style={{ background: "hsl(148 72% 10% / 0.3)" }}>
-          <div className="flex items-center gap-2 mb-2">
-            <Sparkles size={16} className="text-[hsl(148,72%,55%)]" />
-            <h3 className="font-semibold text-sm">Generar artículo SEO con IA</h3>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-3">
-            <div className="sm:col-span-2">
-              <label className="text-xs text-white/60 block mb-1">Idea del contenido</label>
-              <textarea value={aiTopic} onChange={(e) => setAiTopic(e.target.value)} rows={2}
-                placeholder="Ej: Cómo la descarbonización con hidrógeno reduce emisiones en flotas urbanas"
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm" />
-            </div>
-            <div>
-              <label className="text-xs text-white/60 block mb-1">Keyword principal</label>
-              <input value={aiKeyword} onChange={(e) => setAiKeyword(e.target.value)}
-                placeholder="descarbonización motor diésel"
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm" />
-            </div>
-            <div>
-              <label className="text-xs text-white/60 block mb-1">Categoría</label>
-              <select value={aiCategory} onChange={(e) => setAiCategory(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm">
-                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="text-xs text-white/60 block mb-1">Tipo</label>
-              <select value={aiType} onChange={(e) => setAiType(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm">
-                <option value="informativo">Informativo</option>
-                <option value="guía">Guía</option>
-                <option value="comercial">Comercial</option>
-                <option value="comparativo">Comparativo</option>
-              </select>
-            </div>
-          </div>
-          <div className="flex justify-end gap-2 pt-2">
-            <button onClick={() => setAiOpen(false)} className="text-xs px-3 py-1.5 text-white/60 hover:text-white">Cancelar</button>
-            <button onClick={generateContent} disabled={aiBusy}
-              className="inline-flex items-center gap-1.5 bg-[hsl(148,72%,45%)] hover:bg-[hsl(148,72%,40%)] text-black font-semibold rounded-lg px-4 py-1.5 text-xs disabled:opacity-50">
-              {aiBusy ? <Loader2 size={13} className="animate-spin" /> : <Sparkles size={13} />}
-              {aiBusy ? "Generando…" : "Generar"}
-            </button>
-          </div>
-        </div>
-      )}
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-4">
@@ -194,13 +144,7 @@ export default function AdminBlogEditor() {
           <SeoValidationPanel post={f} />
 
           <div className="rounded-xl border border-white/5 p-4 space-y-3" style={{ background: "hsl(210 25% 7%)" }}>
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-semibold text-white/80 uppercase tracking-wide">Imagen destacada</h3>
-              <button onClick={generateImage} disabled={imgBusy} className="text-[11px] inline-flex items-center gap-1 text-[hsl(148,72%,55%)] hover:underline disabled:opacity-50">
-                {imgBusy ? <Loader2 size={11} className="animate-spin" /> : <ImageIcon size={11} />}
-                IA
-              </button>
-            </div>
+            <h3 className="text-xs font-semibold text-white/80 uppercase tracking-wide">Imagen destacada</h3>
             {f.image_url ? (
               <img src={f.image_url} alt="" className="w-full aspect-video object-cover rounded-lg" />
             ) : (
