@@ -57,6 +57,7 @@ const queryClient = new QueryClient();
 function AppShell() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
+  useGAPageView();
 
   return (
     <>
