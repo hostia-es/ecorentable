@@ -16,6 +16,7 @@ import WhatsAppButton from "@/components/common/WhatsAppButton";
 import CartFAB from "@/components/common/CartFAB";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { CartProvider } from "@/hooks/useCart";
+import { useGAPageView } from "@/hooks/useGAPageView";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
