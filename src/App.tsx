@@ -16,6 +16,7 @@ import WhatsAppButton from "@/components/common/WhatsAppButton";
 import CartFAB from "@/components/common/CartFAB";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { CartProvider } from "@/hooks/useCart";
+import { useGAPageView } from "@/hooks/useGAPageView";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -56,6 +57,7 @@ const queryClient = new QueryClient();
 function AppShell() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
+  useGAPageView();
 
   return (
     <>
