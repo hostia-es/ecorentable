@@ -22,7 +22,7 @@ interface PostInput {
   category: string;
 }
 
-const INTERNAL_PREFIXES = ["/", "https://ecorentable.lovable.app", "https://ecologiarentable"];
+const INTERNAL_PREFIXES = ["/", "https://ecologiarentable.es", "https://ecologiarentable"];
 
 function isInternalLink(href: string) {
   if (!href) return false;

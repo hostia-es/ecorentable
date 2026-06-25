@@ -18,4 +18,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://ecorentable.lovable.app/sitemap.xml
+Sitemap: https://ecologiarentable.es/sitemap.xml

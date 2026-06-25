@@ -366,7 +366,7 @@ export default function ServicioDetalle() {
         title={s.title}
         description={s.subtitle}
         path={`/servicios/${servicio}`}
-        image={`https://ecorentable.lovable.app${heroImg}`}
+        image={`https://ecologiarentable.es${heroImg}`}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Service",

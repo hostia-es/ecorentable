@@ -4,7 +4,7 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 
-const BASE = "https://ecorentable.lovable.app";
+const BASE = "https://ecologiarentable.es";
 
 const STATIC = [
   "/",
