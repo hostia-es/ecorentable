@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-const SITE = "https://ecorentable.lovable.app";
+const SITE = "https://ecologiarentable.es";
 const BRAND = "Ecología Rentable";
 
 export interface SeoProps {

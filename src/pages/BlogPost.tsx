@@ -121,7 +121,7 @@ export default function BlogPost() {
           publisher: {
             "@type": "Organization",
             name: "Ecología Rentable",
-            logo: { "@type": "ImageObject", url: "https://ecorentable.lovable.app/logo-ecologia-rentable.png" },
+            logo: { "@type": "ImageObject", url: "https://ecologiarentable.es/logo-ecologia-rentable.png" },
           },
         }}
       />

@@ -37,20 +37,20 @@ export default function ProductoDetalle() {
         description={product.description}
         path={`/tienda/${product.categorySlug}/${product.slug}`}
         type="product"
-        image={`https://ecorentable.lovable.app/generated/products/${product.slug}.jpg`}
+        image={`https://ecologiarentable.es/generated/products/${product.slug}.jpg`}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Product",
           name: product.name,
           description: product.description,
-          image: `https://ecorentable.lovable.app/generated/products/${product.slug}.jpg`,
+          image: `https://ecologiarentable.es/generated/products/${product.slug}.jpg`,
           category: product.category,
           brand: { "@type": "Brand", name: "Ecología Rentable" },
           offers: {
             "@type": "Offer",
             availability: "https://schema.org/InStock",
             priceCurrency: "EUR",
-            url: `https://ecorentable.lovable.app/tienda/${product.categorySlug}/${product.slug}`,
+            url: `https://ecologiarentable.es/tienda/${product.categorySlug}/${product.slug}`,
             priceSpecification: { "@type": "PriceSpecification", priceCurrency: "EUR", description: "Consultar precio" },
           },
         }}
