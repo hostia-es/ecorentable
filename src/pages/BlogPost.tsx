@@ -190,38 +190,42 @@ export default function BlogPost() {
               </div>
             </div>
 
-            {relatedPosts.length > 0 && (
-              <section className="mt-16">
-                <h2 className="text-2xl font-bold text-foreground mb-8">Artículos relacionados</h2>
-                <div className="grid gap-6 md:grid-cols-3">
-                  {relatedPosts.map((r) => (
-                    <Link key={r.id} to={`/blog/${r.slug}`} className="group block rounded-xl border border-border bg-card hover:shadow-lg transition-all duration-300 overflow-hidden">
-                      <div className="aspect-video bg-muted overflow-hidden">
-                        {r.image_url ? (
-                          <img src={r.image_url} alt={r.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5"><span className="text-3xl">📝</span></div>
-                        )}
-                      </div>
-                      <div className="p-4">
-                        <Badge variant="secondary" className="mb-2 text-xs border-0">{r.category}</Badge>
-                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 text-sm leading-snug">{r.title}</h3>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            )}
-
             <CommentsSection postId={post.id} />
-
-            <section className="mt-16 p-8 bg-primary/5 rounded-2xl border border-primary/20 text-center">
-              <h2 className="text-2xl font-bold text-foreground mb-3">¿Listo para actuar?</h2>
-              <p className="text-muted-foreground mb-6 max-w-lg mx-auto">Consulta con un experto sobre descarbonización para tu vehículo.</p>
-              <Button asChild size="lg"><Link to="/contacto">Contactar</Link></Button>
-            </section>
           </>
         )}
+
+        {/* Servicios relacionados — siempre visibles (links internos para SEO) */}
+        <RelatedServices category={post.category} />
+
+        {/* Artículos relacionados — siempre visibles para evitar páginas huérfanas */}
+        {relatedPosts.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-2xl font-bold text-foreground mb-8">Artículos relacionados</h2>
+            <div className="grid gap-6 md:grid-cols-3">
+              {relatedPosts.map((r) => (
+                <Link key={r.id} to={`/blog/${r.slug}`} className="group block rounded-xl border border-border bg-card hover:shadow-lg transition-all duration-300 overflow-hidden">
+                  <div className="aspect-video bg-muted overflow-hidden">
+                    {r.image_url ? (
+                      <img src={r.image_url} alt={r.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5"><span className="text-3xl">📝</span></div>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <Badge variant="secondary" className="mb-2 text-xs border-0">{r.category}</Badge>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 text-sm leading-snug">{r.title}</h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="mt-16 p-8 bg-primary/5 rounded-2xl border border-primary/20 text-center">
+          <h2 className="text-2xl font-bold text-foreground mb-3">¿Listo para actuar?</h2>
+          <p className="text-muted-foreground mb-6 max-w-lg mx-auto">Consulta con un experto sobre descarbonización para tu vehículo.</p>
+          <Button asChild size="lg"><Link to="/contacto">Contactar</Link></Button>
+        </section>
       </article>
     </main>
   );
