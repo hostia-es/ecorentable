@@ -190,42 +190,95 @@ export default function BlogPost() {
               </div>
             </div>
 
-            {relatedPosts.length > 0 && (
-              <section className="mt-16">
-                <h2 className="text-2xl font-bold text-foreground mb-8">Artículos relacionados</h2>
-                <div className="grid gap-6 md:grid-cols-3">
-                  {relatedPosts.map((r) => (
-                    <Link key={r.id} to={`/blog/${r.slug}`} className="group block rounded-xl border border-border bg-card hover:shadow-lg transition-all duration-300 overflow-hidden">
-                      <div className="aspect-video bg-muted overflow-hidden">
-                        {r.image_url ? (
-                          <img src={r.image_url} alt={r.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5"><span className="text-3xl">📝</span></div>
-                        )}
-                      </div>
-                      <div className="p-4">
-                        <Badge variant="secondary" className="mb-2 text-xs border-0">{r.category}</Badge>
-                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 text-sm leading-snug">{r.title}</h3>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            )}
-
             <CommentsSection postId={post.id} />
-
-            <section className="mt-16 p-8 bg-primary/5 rounded-2xl border border-primary/20 text-center">
-              <h2 className="text-2xl font-bold text-foreground mb-3">¿Listo para actuar?</h2>
-              <p className="text-muted-foreground mb-6 max-w-lg mx-auto">Consulta con un experto sobre descarbonización para tu vehículo.</p>
-              <Button asChild size="lg"><Link to="/contacto">Contactar</Link></Button>
-            </section>
           </>
         )}
+
+        {/* Servicios relacionados — siempre visibles (links internos para SEO) */}
+        <RelatedServices category={post.category} />
+
+        {/* Artículos relacionados — siempre visibles para evitar páginas huérfanas */}
+        {relatedPosts.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-2xl font-bold text-foreground mb-8">Artículos relacionados</h2>
+            <div className="grid gap-6 md:grid-cols-3">
+              {relatedPosts.map((r) => (
+                <Link key={r.id} to={`/blog/${r.slug}`} className="group block rounded-xl border border-border bg-card hover:shadow-lg transition-all duration-300 overflow-hidden">
+                  <div className="aspect-video bg-muted overflow-hidden">
+                    {r.image_url ? (
+                      <img src={r.image_url} alt={r.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5"><span className="text-3xl">📝</span></div>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <Badge variant="secondary" className="mb-2 text-xs border-0">{r.category}</Badge>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 text-sm leading-snug">{r.title}</h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="mt-16 p-8 bg-primary/5 rounded-2xl border border-primary/20 text-center">
+          <h2 className="text-2xl font-bold text-foreground mb-3">¿Listo para actuar?</h2>
+          <p className="text-muted-foreground mb-6 max-w-lg mx-auto">Consulta con un experto sobre descarbonización para tu vehículo.</p>
+          <Button asChild size="lg"><Link to="/contacto">Contactar</Link></Button>
+        </section>
       </article>
     </main>
   );
 }
+
+// ─── Servicios relacionados por categoría (links internos siempre visibles) ───
+const SERVICES_BY_CATEGORY: Record<string, Array<{ to: string; label: string }>> = {
+  "Descarbonización": [
+    { to: "/servicios/descarbonizacion-motor", label: "Descarbonización de motor" },
+    { to: "/servicios/descarbonizacion-con-hidrogeno", label: "Descarbonización con hidrógeno" },
+    { to: "/servicios/descarbonizacion-para-talleres", label: "Descarbonización para talleres" },
+  ],
+  "Mecánica del automóvil": [
+    { to: "/servicios/limpieza-filtro-de-particulas", label: "Limpieza de filtro de partículas (DPF)" },
+    { to: "/soluciones/fallo-egr", label: "Solución para fallo EGR" },
+    { to: "/soluciones/humo-negro-diesel", label: "Humo negro diésel" },
+  ],
+  "Cuidados del automóvil": [
+    { to: "/servicios/descarbonizacion-para-particulares", label: "Descarbonización para particulares" },
+    { to: "/soluciones/filtro-particulas-obstruido", label: "Filtro de partículas obstruido" },
+    { to: "/servicios/mantenimiento-descarbonizadoras", label: "Mantenimiento de descarbonizadoras" },
+  ],
+  "Consejos": [
+    { to: "/soluciones/gases-altos-itv-diesel", label: "Gases altos en ITV diésel" },
+    { to: "/soluciones/gases-altos-itv-gasolina", label: "Gases altos en ITV gasolina" },
+    { to: "/servicios/descarbonizacion-motor", label: "Descarbonización de motor" },
+  ],
+};
+const DEFAULT_SERVICES = [
+  { to: "/servicios", label: "Todos los servicios" },
+  { to: "/soluciones", label: "Soluciones por síntoma" },
+  { to: "/tienda", label: "Tienda de equipos" },
+];
+
+function RelatedServices({ category }: { category: string }) {
+  const items = SERVICES_BY_CATEGORY[category] ?? DEFAULT_SERVICES;
+  return (
+    <section className="mt-16 p-6 md:p-8 rounded-2xl border border-border bg-muted/30">
+      <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">Servicios relacionados</h2>
+      <p className="text-sm text-muted-foreground mb-5">Profundiza en los servicios y soluciones vinculados a este artículo.</p>
+      <ul className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+        {items.map((s) => (
+          <li key={s.to}>
+            <Link to={s.to} className="flex items-center gap-2 text-primary hover:underline font-medium text-sm">
+              <ArrowLeft className="w-3 h-3 rotate-180" /> {s.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 
 // ─── Markdown Content Renderer ───
 function ContentRenderer({ content, isUnlocked, onUnlockSubmit, email, setEmail, isSubmitting }: {

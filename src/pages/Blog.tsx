@@ -159,33 +159,33 @@ export default function Blog() {
                     ))}
                   </div>
 
-                  {/* Pagination */}
+                  {/* Pagination — uses real hrefs so crawlers can follow */}
                   {totalPages > 1 && (
                     <div className="mt-12">
                       <Pagination>
                         <PaginationContent>
                           <PaginationItem>
-                            <PaginationPrevious onClick={() => goToPage(currentPage - 1)} className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"} />
+                            <PaginationPrevious href={`?page=${Math.max(1, currentPage - 1)}`} onClick={(e) => { e.preventDefault(); goToPage(currentPage - 1); }} className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"} />
                           </PaginationItem>
                           <PaginationItem>
-                            <PaginationLink onClick={() => goToPage(1)} isActive={currentPage === 1} className="cursor-pointer">1</PaginationLink>
+                            <PaginationLink href="?page=1" onClick={(e) => { e.preventDefault(); goToPage(1); }} isActive={currentPage === 1} className="cursor-pointer">1</PaginationLink>
                           </PaginationItem>
                           {currentPage > 3 && (<PaginationItem><PaginationEllipsis /></PaginationItem>)}
                           {Array.from({ length: totalPages }, (_, i) => i + 1)
                             .filter((page) => page !== 1 && page !== totalPages && page >= currentPage - 1 && page <= currentPage + 1)
                             .map((page) => (
                               <PaginationItem key={page}>
-                                <PaginationLink onClick={() => goToPage(page)} isActive={currentPage === page} className="cursor-pointer">{page}</PaginationLink>
+                                <PaginationLink href={`?page=${page}`} onClick={(e) => { e.preventDefault(); goToPage(page); }} isActive={currentPage === page} className="cursor-pointer">{page}</PaginationLink>
                               </PaginationItem>
                             ))}
                           {currentPage < totalPages - 2 && (<PaginationItem><PaginationEllipsis /></PaginationItem>)}
                           {totalPages > 1 && (
                             <PaginationItem>
-                              <PaginationLink onClick={() => goToPage(totalPages)} isActive={currentPage === totalPages} className="cursor-pointer">{totalPages}</PaginationLink>
+                              <PaginationLink href={`?page=${totalPages}`} onClick={(e) => { e.preventDefault(); goToPage(totalPages); }} isActive={currentPage === totalPages} className="cursor-pointer">{totalPages}</PaginationLink>
                             </PaginationItem>
                           )}
                           <PaginationItem>
-                            <PaginationNext onClick={() => goToPage(currentPage + 1)} className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"} />
+                            <PaginationNext href={`?page=${Math.min(totalPages, currentPage + 1)}`} onClick={(e) => { e.preventDefault(); goToPage(currentPage + 1); }} className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"} />
                           </PaginationItem>
                         </PaginationContent>
                       </Pagination>
