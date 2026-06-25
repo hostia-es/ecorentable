@@ -231,6 +231,55 @@ export default function BlogPost() {
   );
 }
 
+// ─── Servicios relacionados por categoría (links internos siempre visibles) ───
+const SERVICES_BY_CATEGORY: Record<string, Array<{ to: string; label: string }>> = {
+  "Descarbonización": [
+    { to: "/servicios/descarbonizacion-motor", label: "Descarbonización de motor" },
+    { to: "/servicios/descarbonizacion-con-hidrogeno", label: "Descarbonización con hidrógeno" },
+    { to: "/servicios/descarbonizacion-para-talleres", label: "Descarbonización para talleres" },
+  ],
+  "Mecánica del automóvil": [
+    { to: "/servicios/limpieza-filtro-de-particulas", label: "Limpieza de filtro de partículas (DPF)" },
+    { to: "/soluciones/fallo-egr", label: "Solución para fallo EGR" },
+    { to: "/soluciones/humo-negro-diesel", label: "Humo negro diésel" },
+  ],
+  "Cuidados del automóvil": [
+    { to: "/servicios/descarbonizacion-para-particulares", label: "Descarbonización para particulares" },
+    { to: "/soluciones/filtro-particulas-obstruido", label: "Filtro de partículas obstruido" },
+    { to: "/servicios/mantenimiento-descarbonizadoras", label: "Mantenimiento de descarbonizadoras" },
+  ],
+  "Consejos": [
+    { to: "/soluciones/gases-altos-itv-diesel", label: "Gases altos en ITV diésel" },
+    { to: "/soluciones/gases-altos-itv-gasolina", label: "Gases altos en ITV gasolina" },
+    { to: "/servicios/descarbonizacion-motor", label: "Descarbonización de motor" },
+  ],
+};
+const DEFAULT_SERVICES = [
+  { to: "/servicios", label: "Todos los servicios" },
+  { to: "/soluciones", label: "Soluciones por síntoma" },
+  { to: "/tienda", label: "Tienda de equipos" },
+];
+
+function RelatedServices({ category }: { category: string }) {
+  const items = SERVICES_BY_CATEGORY[category] ?? DEFAULT_SERVICES;
+  return (
+    <section className="mt-16 p-6 md:p-8 rounded-2xl border border-border bg-muted/30">
+      <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">Servicios relacionados</h2>
+      <p className="text-sm text-muted-foreground mb-5">Profundiza en los servicios y soluciones vinculados a este artículo.</p>
+      <ul className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+        {items.map((s) => (
+          <li key={s.to}>
+            <Link to={s.to} className="flex items-center gap-2 text-primary hover:underline font-medium text-sm">
+              <ArrowLeft className="w-3 h-3 rotate-180" /> {s.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+
 // ─── Markdown Content Renderer ───
 function ContentRenderer({ content, isUnlocked, onUnlockSubmit, email, setEmail, isSubmitting }: {
   content: string; isUnlocked: boolean; onUnlockSubmit: (e: React.FormEvent) => void;
