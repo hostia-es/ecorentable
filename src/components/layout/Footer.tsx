@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Heart } from "lucide-react";
 import logoER from "@/assets/logo-ecologia-rentable.png";
 
 
