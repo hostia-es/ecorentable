@@ -19,3 +19,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://ecologiarentable.es/sitemap.xml
+Sitemap: https://wyxsfjvoqxldsxvepnyu.supabase.co/functions/v1/sitemap-blog
