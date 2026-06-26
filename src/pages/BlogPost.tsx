@@ -323,30 +323,50 @@ function ContentRenderer({ content, isUnlocked, onUnlockSubmit, email, setEmail,
   );
 }
 
+// ─── Auto-link de palabras-clave hacia páginas internas (SEO interno) ───
+// Máx 1 enlace por keyword + máx 5 enlaces automáticos por artículo.
+const AUTO_LINKS: Array<{ re: RegExp; to: string }> = [
+  { re: /\bdescarbonizaci[oó]n(?:\s+(?:de\s+motor|del\s+motor))?\b/i, to: "/servicios/descarbonizacion-motor" },
+  { re: /\bdescarbonizaci[oó]n\s+con\s+hidr[oó]geno\b/i, to: "/servicios/descarbonizacion-con-hidrogeno" },
+  { re: /\bhidr[oó]geno\b/i, to: "/servicios/descarbonizacion-con-hidrogeno" },
+  { re: /\bfiltro\s+de\s+part[ií]culas\b/i, to: "/servicios/limpieza-filtro-de-particulas" },
+  { re: /\bDPF\b/, to: "/servicios/limpieza-filtro-de-particulas" },
+  { re: /\bv[aá]lvula\s+EGR\b/i, to: "/soluciones/fallo-egr" },
+  { re: /\bEGR\b/, to: "/soluciones/fallo-egr" },
+  { re: /\bhumo\s+negro\b/i, to: "/soluciones/humo-negro-diesel" },
+  { re: /\bITV\s+di[eé]sel\b/i, to: "/soluciones/gases-altos-itv-diesel" },
+  { re: /\bITV\s+gasolina\b/i, to: "/soluciones/gases-altos-itv-gasolina" },
+  { re: /\bITV\b/, to: "/soluciones/gases-altos-itv-diesel" },
+  { re: /\bm[aá]quina\s+descarbonizadora\b/i, to: "/tienda" },
+  { re: /\bdescarbonizadora[s]?\b/i, to: "/tienda" },
+  { re: /\btalleres?\b/i, to: "/servicios/descarbonizacion-para-talleres" },
+];
+const MAX_AUTO_LINKS = 5;
+interface LinkCtx { used: Set<number>; count: number }
+
 function parseMarkdown(content: string): React.ReactNode[] {
-  // Pre-normalize: ensure headings (#, ##, ###) and table rows are always isolated
-  // by a blank line so AI-generated content with single-newline separators renders correctly.
   const normalized = content
     .replace(/\r\n/g, "\n")
     .replace(/^(#{1,6}\s.+)$/gm, "\n$1\n")
     .replace(/\n{3,}/g, "\n\n");
   const blocks = normalized.split(/\n{2,}/);
   const elements: React.ReactNode[] = [];
+  const ctx: LinkCtx = { used: new Set(), count: 0 };
   blocks.forEach((block, i) => {
     const trimmed = block.trim();
     if (!trimmed) return;
     if (trimmed.startsWith("### ")) {
-      elements.push(<h3 key={i} className="text-xl font-bold text-foreground mt-8 mb-3">{inlineFormat(trimmed.slice(4))}</h3>);
+      elements.push(<h3 key={i} className="text-xl font-bold text-foreground mt-8 mb-3">{inlineFormat(trimmed.slice(4), ctx, true)}</h3>);
     } else if (trimmed.startsWith("## ")) {
-      elements.push(<h2 key={i} className="text-2xl font-bold text-foreground mt-10 mb-4 pb-2 border-b border-border">{inlineFormat(trimmed.slice(3))}</h2>);
+      elements.push(<h2 key={i} className="text-2xl font-bold text-foreground mt-10 mb-4 pb-2 border-b border-border">{inlineFormat(trimmed.slice(3), ctx, true)}</h2>);
     } else if (trimmed.startsWith("# ")) {
-      elements.push(<h2 key={i} className="text-2xl font-bold text-foreground mt-10 mb-4">{inlineFormat(trimmed.slice(2))}</h2>);
+      elements.push(<h2 key={i} className="text-2xl font-bold text-foreground mt-10 mb-4">{inlineFormat(trimmed.slice(2), ctx, true)}</h2>);
     } else if (/^\d+[\\.]\s/.test(trimmed)) {
       const items = trimmed.split("\n").filter((line) => /^\d+[\\.]\s/.test(line.trim()));
-      elements.push(<ol key={i} className="list-decimal list-outside ml-6 space-y-2 my-5 text-foreground/85 leading-relaxed">{items.map((it, j) => (<li key={j} className="pl-1">{inlineFormat(it.replace(/^\d+[\\.]\s*/, ""))}</li>))}</ol>);
+      elements.push(<ol key={i} className="list-decimal list-outside ml-6 space-y-2 my-5 text-foreground/85 leading-relaxed">{items.map((it, j) => (<li key={j} className="pl-1">{inlineFormat(it.replace(/^\d+[\\.]\s*/, ""), ctx)}</li>))}</ol>);
     } else if (trimmed.startsWith("- ") || trimmed.startsWith("• ") || trimmed.startsWith("* ")) {
       const items = trimmed.split("\n").filter((line) => /^[-•*]\s/.test(line.trim()));
-      elements.push(<ul key={i} className="list-disc list-outside ml-6 space-y-2 my-5 text-foreground/85 leading-relaxed">{items.map((it, j) => (<li key={j} className="pl-1">{inlineFormat(it.replace(/^[-•*]\s*/, ""))}</li>))}</ul>);
+      elements.push(<ul key={i} className="list-disc list-outside ml-6 space-y-2 my-5 text-foreground/85 leading-relaxed">{items.map((it, j) => (<li key={j} className="pl-1">{inlineFormat(it.replace(/^[-•*]\s*/, ""), ctx)}</li>))}</ul>);
     } else if (trimmed.includes("|") && trimmed.split("\n").filter((l) => l.trim().startsWith("|")).length >= 2) {
       const rows = trimmed.split("\n").filter((l) => l.trim().includes("|"));
       const dataRows = rows.filter((r) => !/^\|?\s*[-:]+\s*(\|\s*[-:]+\s*)*\|?\s*$/.test(r.trim()));
@@ -357,30 +377,67 @@ function parseMarkdown(content: string): React.ReactNode[] {
         elements.push(
           <div key={i} className="my-6 overflow-x-auto rounded-xl border border-border">
             <table className="w-full text-sm">
-              <thead><tr className="bg-muted/60">{headerCells.map((c, ci) => (<th key={ci} className="px-4 py-3 text-left font-semibold text-foreground border-b border-border">{inlineFormat(c)}</th>))}</tr></thead>
-              <tbody>{bodyRows.map((row, ri) => { const cells = parseRow(row); return (<tr key={ri} className={ri % 2 === 0 ? "bg-background" : "bg-muted/20"}>{cells.map((c, ci) => (<td key={ci} className="px-4 py-3 text-foreground/85 border-b border-border/50">{inlineFormat(c)}</td>))}</tr>); })}</tbody>
+              <thead><tr className="bg-muted/60">{headerCells.map((c, ci) => (<th key={ci} className="px-4 py-3 text-left font-semibold text-foreground border-b border-border">{inlineFormat(c, ctx, true)}</th>))}</tr></thead>
+              <tbody>{bodyRows.map((row, ri) => { const cells = parseRow(row); return (<tr key={ri} className={ri % 2 === 0 ? "bg-background" : "bg-muted/20"}>{cells.map((c, ci) => (<td key={ci} className="px-4 py-3 text-foreground/85 border-b border-border/50">{inlineFormat(c, ctx)}</td>))}</tr>); })}</tbody>
             </table>
           </div>
         );
       } else {
-        elements.push(<p key={i} className="text-foreground/85 leading-[1.8] mb-5 text-[1.05rem]">{inlineFormat(trimmed)}</p>);
+        elements.push(<p key={i} className="text-foreground/85 leading-[1.8] mb-5 text-[1.05rem]">{inlineFormat(trimmed, ctx)}</p>);
       }
     } else if (trimmed.startsWith("> ")) {
-      elements.push(<blockquote key={i} className="border-l-4 border-primary/40 pl-5 my-6 italic text-muted-foreground">{inlineFormat(trimmed.replace(/^>\s*/gm, ""))}</blockquote>);
+      elements.push(<blockquote key={i} className="border-l-4 border-primary/40 pl-5 my-6 italic text-muted-foreground">{inlineFormat(trimmed.replace(/^>\s*/gm, ""), ctx)}</blockquote>);
     } else {
-      elements.push(<p key={i} className="text-foreground/85 leading-[1.8] mb-5 text-[1.05rem]">{inlineFormat(trimmed)}</p>);
+      elements.push(<p key={i} className="text-foreground/85 leading-[1.8] mb-5 text-[1.05rem]">{inlineFormat(trimmed, ctx)}</p>);
     }
   });
   return elements;
 }
 
-function inlineFormat(text: string): React.ReactNode {
+function autoLinkText(text: string, ctx: LinkCtx, keyBase: string): React.ReactNode[] {
+  const out: React.ReactNode[] = [];
+  let remaining = text;
+  let guard = 0;
+  while (remaining && ctx.count < MAX_AUTO_LINKS && guard++ < 20) {
+    let bestIdx = -1; let bestLen = 0; let bestUrl = ""; let bestKeyword = -1; let bestText = "";
+    AUTO_LINKS.forEach((link, idx) => {
+      if (ctx.used.has(idx)) return;
+      const re = new RegExp(link.re.source, link.re.flags.includes("i") ? "i" : "");
+      const m = re.exec(remaining);
+      if (m && (bestIdx === -1 || m.index < bestIdx)) {
+        bestIdx = m.index; bestLen = m[0].length; bestUrl = link.to; bestKeyword = idx; bestText = m[0];
+      }
+    });
+    if (bestIdx === -1) break;
+    if (bestIdx > 0) out.push(remaining.slice(0, bestIdx));
+    out.push(
+      <Link key={`${keyBase}-al-${ctx.count}`} to={bestUrl} className="text-primary hover:underline font-medium">
+        {bestText}
+      </Link>
+    );
+    ctx.used.add(bestKeyword);
+    ctx.count += 1;
+    remaining = remaining.slice(bestIdx + bestLen);
+  }
+  if (remaining) out.push(remaining);
+  return out;
+}
+
+function inlineFormat(text: string, ctx?: LinkCtx, skipAuto: boolean = false): React.ReactNode {
   const parts: React.ReactNode[] = [];
   const regex = /\*\*(.+?)\*\*|\*(.+?)\*|\[([^\]]+)\]\(([^)]+)\)/g;
   let lastIndex = 0; let match;
   const cleanText = text.replace(/\\([.#*\-!>])/g, "$1");
+  const pushPlain = (chunk: string, keyBase: string) => {
+    if (!chunk) return;
+    if (ctx && !skipAuto && ctx.count < MAX_AUTO_LINKS) {
+      parts.push(...autoLinkText(chunk, ctx, keyBase));
+    } else {
+      parts.push(chunk);
+    }
+  };
   while ((match = regex.exec(cleanText)) !== null) {
-    if (match.index > lastIndex) parts.push(cleanText.slice(lastIndex, match.index));
+    if (match.index > lastIndex) pushPlain(cleanText.slice(lastIndex, match.index), `t${match.index}`);
     if (match[1]) parts.push(<strong key={match.index} className="font-semibold text-foreground">{match[1]}</strong>);
     else if (match[2]) parts.push(<em key={match.index}>{match[2]}</em>);
     else if (match[3] && match[4]) {
@@ -390,6 +447,6 @@ function inlineFormat(text: string): React.ReactNode {
     }
     lastIndex = match.index + match[0].length;
   }
-  if (lastIndex < cleanText.length) parts.push(cleanText.slice(lastIndex));
+  if (lastIndex < cleanText.length) pushPlain(cleanText.slice(lastIndex), `t${lastIndex}`);
   return parts.length > 0 ? <>{parts}</> : cleanText;
 }
