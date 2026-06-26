@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Save, Eye, Loader2 } from "lucide-react";
+import { ArrowLeft, Save, Eye, Loader2, Sparkles, Upload } from "lucide-react";
 import { toast } from "sonner";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import SeoValidationPanel from "@/components/admin/SeoValidationPanel";
@@ -25,6 +25,7 @@ const empty: Form = {
 };
 
 const CATEGORIES = ["Guías", "ITV", "Innovación", "Flotas", "Casos de éxito", "Mantenimiento", "Normativa", "General"];
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
 export default function AdminBlogEditor() {
   const { id } = useParams<{ id: string }>();
@@ -33,6 +34,14 @@ export default function AdminBlogEditor() {
   const [f, setF] = useState<Form>(empty);
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
+
+  // AI generation extras
+  const [tone, setTone] = useState("");
+  const [persona, setPersona] = useState("");
+  const [cta, setCta] = useState("");
+  const [generating, setGenerating] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isNew) return;
@@ -57,7 +66,6 @@ export default function AdminBlogEditor() {
   async function save() {
     if (!f.title || !f.slug) return toast.error("Título y slug son obligatorios");
 
-    // Block publishing when SEO has critical errors
     if (f.published) {
       const summary = seoSummary(runSeoChecks(f));
       if (!summary.canPublish) {
@@ -74,6 +82,62 @@ export default function AdminBlogEditor() {
     if (error) return toast.error(error.message);
     toast.success(f.published ? "Publicado" : "Guardado como borrador");
     if (isNew && data) nav(`/admin/blog/${data.id}`, { replace: true });
+  }
+
+  async function generateWithAI() {
+    const topic = f.title.trim();
+    if (!topic) return toast.error("Escribe primero un título o tema");
+    setGenerating(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("blog-generate-ai", {
+        body: {
+          title: topic,
+          category: f.category,
+          city: f.city,
+          tone, persona, cta,
+        },
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const p = (data as any)?.post || {};
+      setF((prev) => ({
+        ...prev,
+        title: p.title || prev.title,
+        slug: slugify(p.slug || p.title || prev.slug || prev.title),
+        excerpt: p.excerpt || prev.excerpt,
+        content: p.content || prev.content,
+        meta_title: p.meta_title || prev.meta_title,
+        meta_description: p.meta_description || prev.meta_description,
+        meta_keywords: p.meta_keywords || prev.meta_keywords,
+      }));
+      toast.success("Borrador generado con IA");
+    } catch (e: any) {
+      toast.error(e?.message || "Error generando con IA");
+    } finally {
+      setGenerating(false);
+    }
+  }
+
+  async function handleUpload(file: File) {
+    if (file.size > MAX_IMAGE_BYTES) return toast.error("Máx 5 MB");
+    if (!file.type.startsWith("image/")) return toast.error("Solo imágenes");
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+      const path = `${Date.now()}-${slugify(f.slug || f.title || "post").slice(0, 40) || "img"}.${ext}`;
+      const { error } = await supabase.storage.from("blog-images").upload(path, file, {
+        cacheControl: "3600", upsert: false, contentType: file.type,
+      });
+      if (error) throw error;
+      const { data } = supabase.storage.from("blog-images").getPublicUrl(path);
+      update("image_url", data.publicUrl);
+      toast.success("Imagen subida");
+    } catch (e: any) {
+      toast.error(e?.message || "Error subiendo imagen");
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
   }
 
   if (loading) return <div className="p-10 text-white/60">Cargando…</div>;
@@ -97,6 +161,39 @@ export default function AdminBlogEditor() {
         </div>
       </div>
 
+      {/* AI generation panel */}
+      <div className="rounded-xl border border-[hsl(148,72%,45%)]/30 p-4 space-y-3" style={{ background: "hsl(148 50% 8% / 0.4)" }}>
+        <div className="flex items-center gap-2">
+          <Sparkles size={15} className="text-[hsl(148,72%,55%)]" />
+          <h3 className="text-xs font-semibold text-white/90 uppercase tracking-wide">Generar con IA</h3>
+        </div>
+        <div className="grid md:grid-cols-3 gap-3">
+          <Field label="Tono / ángulo (opcional)" small>
+            <input value={tone} onChange={(e) => setTone(e.target.value)} placeholder="ej: técnico, didáctico, urgente"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm" />
+          </Field>
+          <Field label="Persona / público (opcional)" small>
+            <input value={persona} onChange={(e) => setPersona(e.target.value)} placeholder="ej: gestores de flotas, conductores particulares"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm" />
+          </Field>
+          <Field label="CTA final (opcional)" small>
+            <input value={cta} onChange={(e) => setCta(e.target.value)} placeholder="ej: pedir presupuesto, reservar ITV"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm" />
+          </Field>
+        </div>
+        <p className="text-[11px] text-white/50">
+          Escribe el título/tema arriba y pulsa <strong>Generar con IA</strong>. Se rellenan título, slug, extracto, contenido y SEO.
+        </p>
+        <button
+          type="button"
+          onClick={generateWithAI}
+          disabled={generating || !f.title.trim()}
+          className="inline-flex items-center gap-1.5 bg-[hsl(148,72%,45%)] hover:bg-[hsl(148,72%,40%)] text-black font-semibold rounded-lg px-4 py-2 text-sm disabled:opacity-50"
+        >
+          {generating ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
+          Generar con IA
+        </button>
+      </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-4">
@@ -152,6 +249,17 @@ export default function AdminBlogEditor() {
             )}
             <input value={f.image_url} onChange={(e) => update("image_url", e.target.value)} placeholder="URL de la imagen"
               className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs font-mono" />
+            <input ref={fileRef} type="file" accept="image/*" className="hidden"
+              onChange={(e) => { const file = e.target.files?.[0]; if (file) handleUpload(file); }} />
+            <button
+              type="button"
+              onClick={() => fileRef.current?.click()}
+              disabled={uploading}
+              className="w-full inline-flex items-center justify-center gap-1.5 border border-white/10 hover:bg-white/5 text-white rounded-lg px-3 py-2 text-xs disabled:opacity-50"
+            >
+              {uploading ? <Loader2 size={13} className="animate-spin" /> : <Upload size={13} />}
+              Subir imagen (máx 5 MB)
+            </button>
           </div>
 
           <div className="rounded-xl border border-white/5 p-4 space-y-3" style={{ background: "hsl(210 25% 7%)" }}>
