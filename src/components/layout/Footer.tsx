@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Heart } from "lucide-react";
 import logoER from "@/assets/logo-ecologia-rentable.png";
 
 
@@ -157,8 +157,9 @@ export default function Footer() {
             <Link to="/accesibilidad" className="hover:text-white transition-colors">Accesibilidad</Link>
           </div>
 
-          <p className="text-xs text-[hsl(0,0%,40%)]">
-            © {new Date().getFullYear()} Ecología Rentable. Todos los derechos reservados.
+          <p className="text-xs text-[hsl(0,0%,40%)] flex items-center gap-1">
+            © {new Date().getFullYear()} marketiking. Todos los derechos reservados.
+            <Heart size={12} className="text-blue-500" fill="currentColor" />
           </p>
 
         </div>
