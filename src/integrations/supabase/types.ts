@@ -100,16 +100,21 @@ export type Database = {
           category: string
           city: string | null
           content: string
+          cover_image_url: string | null
           created_at: string
           excerpt: string
           id: string
           image_url: string | null
+          is_published: boolean | null
+          language: string | null
           meta_description: string | null
           meta_keywords: string | null
           meta_title: string | null
           published: boolean
           published_at: string
+          scheduled_for: string | null
           slug: string
+          source: string | null
           title: string
           updated_at: string
         }
@@ -118,16 +123,21 @@ export type Database = {
           category?: string
           city?: string | null
           content?: string
+          cover_image_url?: string | null
           created_at?: string
           excerpt?: string
           id?: string
           image_url?: string | null
+          is_published?: boolean | null
+          language?: string | null
           meta_description?: string | null
           meta_keywords?: string | null
           meta_title?: string | null
           published?: boolean
           published_at?: string
+          scheduled_for?: string | null
           slug: string
+          source?: string | null
           title: string
           updated_at?: string
         }
@@ -136,16 +146,21 @@ export type Database = {
           category?: string
           city?: string | null
           content?: string
+          cover_image_url?: string | null
           created_at?: string
           excerpt?: string
           id?: string
           image_url?: string | null
+          is_published?: boolean | null
+          language?: string | null
           meta_description?: string | null
           meta_keywords?: string | null
           meta_title?: string | null
           published?: boolean
           published_at?: string
+          scheduled_for?: string | null
           slug?: string
+          source?: string | null
           title?: string
           updated_at?: string
         }
