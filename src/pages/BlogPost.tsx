@@ -24,7 +24,7 @@ export default function BlogPost() {
   const [notFound, setNotFound] = useState(false);
 
 
-  useEffect(() => { if (localStorage.getItem("blog_unlocked_email")) setIsUnlocked(true); }, []);
+  
 
   useEffect(() => {
     if (!slug) return;
