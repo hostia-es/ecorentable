@@ -50,17 +50,8 @@ export default function BlogPost() {
     return Math.max(1, Math.ceil(post.content.split(/\s+/).length / 200));
   }, [post]);
 
-  const handleUnlock = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.includes("@")) { toast.error("Email inválido"); return; }
-    setIsSubmitting(true);
-    const { error } = await supabase.from("newsletter_subscribers").insert({ email, source: "blog_unlock", is_active: true });
-    setIsSubmitting(false);
-    if (error && !error.message.includes("duplicate")) return toast.error(error.message);
-    localStorage.setItem("blog_unlocked_email", email);
-    setIsUnlocked(true);
-    toast.success("¡Contenido desbloqueado!");
-  };
+
+
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
   const handleShare = (p: "twitter" | "facebook" | "linkedin") => {
