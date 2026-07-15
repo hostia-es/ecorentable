@@ -22,9 +22,7 @@ export default function BlogPost() {
   const [relatedPosts, setRelatedPosts] = useState<RelatedPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
 
   useEffect(() => { if (localStorage.getItem("blog_unlocked_email")) setIsUnlocked(true); }, []);
 
