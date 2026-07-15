@@ -1,10 +1,22 @@
-// Generates public/sitemap.xml from the app's frozen routes + dynamic data.
-// Runs via predev/prebuild scripts (see package.json).
+// Generates public/sitemap.xml from the app's frozen routes + workshops.
+// Blog posts are served dynamically by the `sitemap-blog` edge function
+// (referenced in public/robots.txt).
 
 import { writeFileSync } from "fs";
 import { resolve } from "path";
+import { workshops, workshopProvincias } from "../src/data/workshops";
 
 const BASE = "https://ecologiarentable.es";
+
+function toSlug(text: string): string {
+  return text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, "y")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 const STATIC = [
   "/",
@@ -84,19 +96,10 @@ const SOLUCIONES = [
   "descarbonizacion-motor-gasolina",
 ];
 
-const BLOG_POSTS = [
-  "que-es-descarbonizacion-motor",
-  "cuando-hacer-descarbonizacion-motor-diesel",
-  "sintomas-filtro-particulas-obstruido",
-  "descarbonizacion-hidrogeno-como-funciona",
-  "descarbonizacion-antes-itv-funciona",
-  "carbon-fap-aditivo-dpf-review",
-  "mantenimiento-preventivo-flotas-diesel",
-  "valvula-egr-que-es-como-limpiar",
-  "normativa-itv-emisiones-2024-espana",
-];
-
 const BLOG_CATS = ["que-es-descarbonizacion", "guias", "innovacion", "itv", "productos", "flotas"];
+
+const CENTROS_PROVINCIAS = workshopProvincias.map((p) => `/encuentra-tu-centro/${toSlug(p)}`);
+const CENTROS_FICHAS = workshops.map((w) => `/encuentra-tu-centro/${toSlug(w.provincia)}/${w.slug}`);
 
 const all = [
   ...STATIC.map((p) => ({ p, prio: p === "/" ? "1.0" : "0.8", freq: "weekly" })),
@@ -104,8 +107,9 @@ const all = [
   ...PRODUCTS.map(([c, s]) => ({ p: `/tienda/${c}/${s}`, prio: "0.7", freq: "monthly" })),
   ...SERVICIOS.map((s) => ({ p: `/servicios/${s}`, prio: "0.8", freq: "monthly" })),
   ...SOLUCIONES.map((s) => ({ p: `/soluciones/${s}`, prio: "0.7", freq: "monthly" })),
-  ...BLOG_POSTS.map((s) => ({ p: `/blog/${s}`, prio: "0.6", freq: "monthly" })),
   ...BLOG_CATS.map((c) => ({ p: `/blog/categoria/${c}`, prio: "0.5", freq: "monthly" })),
+  ...CENTROS_PROVINCIAS.map((p) => ({ p, prio: "0.6", freq: "monthly" })),
+  ...CENTROS_FICHAS.map((p) => ({ p, prio: "0.5", freq: "monthly" })),
 ];
 
 const today = new Date().toISOString().split("T")[0];
