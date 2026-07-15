@@ -1,14 +1,13 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Calendar, User, ArrowLeft, Tag, MapPin, Share2, Twitter, Facebook, Linkedin, Mail, Lock, CheckCircle2 } from "lucide-react";
+import { Calendar, User, ArrowLeft, Tag, MapPin, Share2, Twitter, Facebook, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
 import CommentsSection from "@/components/blog/CommentsSection";
 import Seo from "@/components/common/Seo";
-import { toast } from "sonner";
+
 
 interface BlogPost {
   id: string; title: string; slug: string; excerpt: string; content: string;
@@ -23,11 +22,9 @@ export default function BlogPost() {
   const [relatedPosts, setRelatedPosts] = useState<RelatedPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => { if (localStorage.getItem("blog_unlocked_email")) setIsUnlocked(true); }, []);
+
+  
 
   useEffect(() => {
     if (!slug) return;
@@ -53,17 +50,8 @@ export default function BlogPost() {
     return Math.max(1, Math.ceil(post.content.split(/\s+/).length / 200));
   }, [post]);
 
-  const handleUnlock = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.includes("@")) { toast.error("Email inválido"); return; }
-    setIsSubmitting(true);
-    const { error } = await supabase.from("newsletter_subscribers").insert({ email, source: "blog_unlock", is_active: true });
-    setIsSubmitting(false);
-    if (error && !error.message.includes("duplicate")) return toast.error(error.message);
-    localStorage.setItem("blog_unlocked_email", email);
-    setIsUnlocked(true);
-    toast.success("¡Contenido desbloqueado!");
-  };
+
+
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
   const handleShare = (p: "twitter" | "facebook" | "linkedin") => {
@@ -170,29 +158,28 @@ export default function BlogPost() {
           </div>
         </div>
 
-        <ContentRenderer content={post.content} isUnlocked={isUnlocked} onUnlockSubmit={handleUnlock} email={email} setEmail={setEmail} isSubmitting={isSubmitting} />
+        <ContentRenderer content={post.content} />
 
-        {isUnlocked && (
-          <>
-            <Separator className="my-10" />
-            <div className="flex items-center justify-center gap-3">
-              <Share2 className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">Compartir:</span>
-              <Button variant="outline" size="sm" onClick={() => handleShare("twitter")}><Twitter className="w-4 h-4 mr-1" /> Twitter</Button>
-              <Button variant="outline" size="sm" onClick={() => handleShare("linkedin")}><Linkedin className="w-4 h-4 mr-1" /> LinkedIn</Button>
+        <>
+          <Separator className="my-10" />
+          <div className="flex items-center justify-center gap-3">
+            <Share2 className="w-4 h-4 text-muted-foreground" />
+            <span className="text-sm text-muted-foreground">Compartir:</span>
+            <Button variant="outline" size="sm" onClick={() => handleShare("twitter")}><Twitter className="w-4 h-4 mr-1" /> Twitter</Button>
+            <Button variant="outline" size="sm" onClick={() => handleShare("linkedin")}><Linkedin className="w-4 h-4 mr-1" /> LinkedIn</Button>
+          </div>
+
+          <div className="mt-12 p-6 bg-muted/40 rounded-2xl border border-border flex items-center gap-5">
+            <div className="w-14 h-14 rounded-full bg-primary/15 flex items-center justify-center shrink-0"><User className="w-6 h-6 text-primary" /></div>
+            <div>
+              <h3 className="font-semibold text-foreground text-base">{post.author}</h3>
+              <p className="text-sm text-muted-foreground mt-0.5">Equipo técnico de Ecología Rentable</p>
             </div>
+          </div>
 
-            <div className="mt-12 p-6 bg-muted/40 rounded-2xl border border-border flex items-center gap-5">
-              <div className="w-14 h-14 rounded-full bg-primary/15 flex items-center justify-center shrink-0"><User className="w-6 h-6 text-primary" /></div>
-              <div>
-                <h3 className="font-semibold text-foreground text-base">{post.author}</h3>
-                <p className="text-sm text-muted-foreground mt-0.5">Equipo técnico de Ecología Rentable</p>
-              </div>
-            </div>
+          <CommentsSection postId={post.id} />
+        </>
 
-            <CommentsSection postId={post.id} />
-          </>
-        )}
 
         {/* Servicios relacionados — siempre visibles (links internos para SEO) */}
         <RelatedServices category={post.category} />
@@ -281,47 +268,11 @@ function RelatedServices({ category }: { category: string }) {
 
 
 // ─── Markdown Content Renderer ───
-function ContentRenderer({ content, isUnlocked, onUnlockSubmit, email, setEmail, isSubmitting }: {
-  content: string; isUnlocked: boolean; onUnlockSubmit: (e: React.FormEvent) => void;
-  email: string; setEmail: (v: string) => void; isSubmitting: boolean;
-}) {
+function ContentRenderer({ content }: { content: string }) {
   const rendered = useMemo(() => parseMarkdown(content), [content]);
-  const cutIndex = Math.ceil(rendered.length * 0.4);
-  const visiblePart = rendered.slice(0, cutIndex);
-  const hiddenPart = rendered.slice(cutIndex);
-
-  return (
-    <div className="blog-content">
-      {visiblePart}
-      {!isUnlocked && hiddenPart.length > 0 ? (
-        <div className="relative mt-0">
-          <div className="max-h-48 overflow-hidden relative pointer-events-none select-none" aria-hidden="true">
-            {hiddenPart.slice(0, 4)}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/70 to-background" />
-          </div>
-          <div className="relative -mt-4 py-10 px-6 md:px-10 bg-card border-2 border-primary/20 rounded-2xl shadow-xl text-center">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center"><Lock className="w-7 h-7 text-primary" /></div>
-            <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">Continúa leyendo gratis</h3>
-            <p className="text-muted-foreground mb-6 max-w-md mx-auto text-sm">Introduce tu email para desbloquear el resto del artículo y recibir contenido técnico exclusivo.</p>
-            <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto mb-4">
-              <form onSubmit={onUnlockSubmit} className="flex flex-col sm:flex-row gap-2 w-full">
-                <Input type="email" placeholder="tu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1 h-11" required />
-                <Button type="submit" disabled={isSubmitting} className="h-11 px-6 shrink-0">
-                  {isSubmitting ? (<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground" />) : (<><Mail className="w-4 h-4 mr-2" /> Desbloquear</>)}
-                </Button>
-              </form>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
-              <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-500" /> Sin spam</span>
-              <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-500" /> Cancela cuando quieras</span>
-              <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-500" /> 100 % gratis</span>
-            </div>
-          </div>
-        </div>
-      ) : (hiddenPart)}
-    </div>
-  );
+  return <div className="blog-content">{rendered}</div>;
 }
+
 
 // ─── Auto-link de palabras-clave hacia páginas internas (SEO interno) ───
 // Máx 1 enlace por keyword + máx 5 enlaces automáticos por artículo.
