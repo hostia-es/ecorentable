@@ -170,29 +170,28 @@ export default function BlogPost() {
           </div>
         </div>
 
-        <ContentRenderer content={post.content} isUnlocked={isUnlocked} onUnlockSubmit={handleUnlock} email={email} setEmail={setEmail} isSubmitting={isSubmitting} />
+        <ContentRenderer content={post.content} />
 
-        {isUnlocked && (
-          <>
-            <Separator className="my-10" />
-            <div className="flex items-center justify-center gap-3">
-              <Share2 className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">Compartir:</span>
-              <Button variant="outline" size="sm" onClick={() => handleShare("twitter")}><Twitter className="w-4 h-4 mr-1" /> Twitter</Button>
-              <Button variant="outline" size="sm" onClick={() => handleShare("linkedin")}><Linkedin className="w-4 h-4 mr-1" /> LinkedIn</Button>
+        <>
+          <Separator className="my-10" />
+          <div className="flex items-center justify-center gap-3">
+            <Share2 className="w-4 h-4 text-muted-foreground" />
+            <span className="text-sm text-muted-foreground">Compartir:</span>
+            <Button variant="outline" size="sm" onClick={() => handleShare("twitter")}><Twitter className="w-4 h-4 mr-1" /> Twitter</Button>
+            <Button variant="outline" size="sm" onClick={() => handleShare("linkedin")}><Linkedin className="w-4 h-4 mr-1" /> LinkedIn</Button>
+          </div>
+
+          <div className="mt-12 p-6 bg-muted/40 rounded-2xl border border-border flex items-center gap-5">
+            <div className="w-14 h-14 rounded-full bg-primary/15 flex items-center justify-center shrink-0"><User className="w-6 h-6 text-primary" /></div>
+            <div>
+              <h3 className="font-semibold text-foreground text-base">{post.author}</h3>
+              <p className="text-sm text-muted-foreground mt-0.5">Equipo técnico de Ecología Rentable</p>
             </div>
+          </div>
 
-            <div className="mt-12 p-6 bg-muted/40 rounded-2xl border border-border flex items-center gap-5">
-              <div className="w-14 h-14 rounded-full bg-primary/15 flex items-center justify-center shrink-0"><User className="w-6 h-6 text-primary" /></div>
-              <div>
-                <h3 className="font-semibold text-foreground text-base">{post.author}</h3>
-                <p className="text-sm text-muted-foreground mt-0.5">Equipo técnico de Ecología Rentable</p>
-              </div>
-            </div>
+          <CommentsSection postId={post.id} />
+        </>
 
-            <CommentsSection postId={post.id} />
-          </>
-        )}
 
         {/* Servicios relacionados — siempre visibles (links internos para SEO) */}
         <RelatedServices category={post.category} />
