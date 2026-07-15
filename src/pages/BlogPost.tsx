@@ -1,14 +1,13 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Calendar, User, ArrowLeft, Tag, MapPin, Share2, Twitter, Facebook, Linkedin, Mail, Lock, CheckCircle2 } from "lucide-react";
+import { Calendar, User, ArrowLeft, Tag, MapPin, Share2, Twitter, Facebook, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
 import CommentsSection from "@/components/blog/CommentsSection";
 import Seo from "@/components/common/Seo";
-import { toast } from "sonner";
+
 
 interface BlogPost {
   id: string; title: string; slug: string; excerpt: string; content: string;
