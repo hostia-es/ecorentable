@@ -161,40 +161,6 @@ export default function AdminBlogEditor() {
         </div>
       </div>
 
-      {/* AI generation panel */}
-      <div className="rounded-xl border border-[hsl(148,72%,45%)]/30 p-4 space-y-3" style={{ background: "hsl(148 50% 8% / 0.4)" }}>
-        <div className="flex items-center gap-2">
-          <Sparkles size={15} className="text-[hsl(148,72%,55%)]" />
-          <h3 className="text-xs font-semibold text-white/90 uppercase tracking-wide">Generar con IA</h3>
-        </div>
-        <div className="grid md:grid-cols-3 gap-3">
-          <Field label="Tono / ángulo (opcional)" small>
-            <input value={tone} onChange={(e) => setTone(e.target.value)} placeholder="ej: técnico, didáctico, urgente"
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm" />
-          </Field>
-          <Field label="Persona / público (opcional)" small>
-            <input value={persona} onChange={(e) => setPersona(e.target.value)} placeholder="ej: gestores de flotas, conductores particulares"
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm" />
-          </Field>
-          <Field label="CTA final (opcional)" small>
-            <input value={cta} onChange={(e) => setCta(e.target.value)} placeholder="ej: pedir presupuesto, reservar ITV"
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm" />
-          </Field>
-        </div>
-        <p className="text-[11px] text-white/50">
-          Escribe el título/tema arriba y pulsa <strong>Generar con IA</strong>. Se rellenan título, slug, extracto, contenido y SEO.
-        </p>
-        <button
-          type="button"
-          onClick={generateWithAI}
-          disabled={generating || !f.title.trim()}
-          className="inline-flex items-center gap-1.5 bg-[hsl(148,72%,45%)] hover:bg-[hsl(148,72%,40%)] text-black font-semibold rounded-lg px-4 py-2 text-sm disabled:opacity-50"
-        >
-          {generating ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
-          Generar con IA
-        </button>
-      </div>
-
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-4">
           <Field label="Título">
