@@ -35,11 +35,6 @@ export default function AdminBlogEditor() {
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
 
-  // AI generation extras
-  const [tone, setTone] = useState("");
-  const [persona, setPersona] = useState("");
-  const [cta, setCta] = useState("");
-  const [generating, setGenerating] = useState(false);
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
