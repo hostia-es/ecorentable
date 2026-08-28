@@ -79,40 +79,6 @@ export default function AdminBlogEditor() {
     if (isNew && data) nav(`/admin/blog/${data.id}`, { replace: true });
   }
 
-  async function generateWithAI() {
-    const topic = f.title.trim();
-    if (!topic) return toast.error("Escribe primero un título o tema");
-    setGenerating(true);
-    try {
-      const { data, error } = await supabase.functions.invoke("blog-generate-ai", {
-        body: {
-          title: topic,
-          category: f.category,
-          city: f.city,
-          tone, persona, cta,
-        },
-      });
-      if (error) throw error;
-      if ((data as any)?.error) throw new Error((data as any).error);
-      const p = (data as any)?.post || {};
-      setF((prev) => ({
-        ...prev,
-        title: p.title || prev.title,
-        slug: slugify(p.slug || p.title || prev.slug || prev.title),
-        excerpt: p.excerpt || prev.excerpt,
-        content: p.content || prev.content,
-        meta_title: p.meta_title || prev.meta_title,
-        meta_description: p.meta_description || prev.meta_description,
-        meta_keywords: p.meta_keywords || prev.meta_keywords,
-      }));
-      toast.success("Borrador generado con IA");
-    } catch (e: any) {
-      toast.error(e?.message || "Error generando con IA");
-    } finally {
-      setGenerating(false);
-    }
-  }
-
   async function handleUpload(file: File) {
     if (file.size > MAX_IMAGE_BYTES) return toast.error("Máx 5 MB");
     if (!file.type.startsWith("image/")) return toast.error("Solo imágenes");
