@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Save, Eye, Loader2, Sparkles, Upload } from "lucide-react";
+import { ArrowLeft, Save, Eye, Loader2, Upload } from "lucide-react";
 import { toast } from "sonner";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import SeoValidationPanel from "@/components/admin/SeoValidationPanel";
