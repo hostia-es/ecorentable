@@ -3,9 +3,6 @@ project_id = "wyxsfjvoqxldsxvepnyu"
 [functions.publish-scheduled-posts]
 verify_jwt = false
 
-[functions.backfill-blog-from-csv]
-verify_jwt = false
-
 [functions.bloghub-receive]
 verify_jwt = false
 
