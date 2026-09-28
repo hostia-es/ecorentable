@@ -1,5 +1,6 @@
 import LegalPageLayout from "@/components/legal/LegalPageLayout";
 import { OPEN_COOKIE_SETTINGS_EVENT } from "@/components/CookieConsent";
+import { Button } from "@/components/ui/button";
 
 export default function PoliticaCookies() {
   const openSettings = () => window.dispatchEvent(new Event(OPEN_COOKIE_SETTINGS_EVENT));
@@ -49,9 +50,9 @@ export default function PoliticaCookies() {
           Puedes modificar o retirar tu consentimiento en cualquier momento desde el enlace Configurar
           cookies del pie de página o mediante este botón.
         </p>
-        <button type="button" onClick={openSettings} className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
+        <Button type="button" variant="outline" onClick={openSettings}>
           Configurar cookies
-        </button>
+        </Button>
         <p>
           Para borrar cookies desde el navegador, abre la configuración de privacidad de Chrome y entra en
           Cookies y otros datos de sitios; en Firefox, entra en Privacidad y seguridad; en Safari, abre
