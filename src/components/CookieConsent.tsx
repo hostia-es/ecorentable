@@ -52,6 +52,7 @@ function deleteAnalyticsCookies() {
 
 function enableAnalytics() {
   window.gtag?.("consent", "update", { analytics_storage: "granted" });
+  window.gtag?.("js", new Date());
 
   if (!document.querySelector(`script[data-er-ga="${GA_MEASUREMENT_ID}"]`)) {
     const script = document.createElement("script");
