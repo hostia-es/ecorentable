@@ -142,6 +142,23 @@
 }
 
 @layer components {
+  .legal-content {
+    @apply space-y-10 text-sm leading-7 text-muted-foreground;
+  }
+  .legal-content section {
+    @apply space-y-4;
+  }
+  .legal-content h2 {
+    @apply text-2xl text-foreground;
+  }
+  .legal-content strong,
+  .legal-content th {
+    @apply text-foreground;
+  }
+  .legal-content a {
+    @apply font-medium text-primary underline underline-offset-2;
+  }
+
   /* ═══════ GLASS CARDS ═══════ */
   .glass-card {
     @apply rounded-2xl border backdrop-blur-xl transition-all duration-300;

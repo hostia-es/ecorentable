@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Heart } from "lucide-react";
 import logoER from "@/assets/logo-ecologia-rentable.png";
+import { OPEN_COOKIE_SETTINGS_EVENT } from "@/components/CookieConsent";
 
 
 const servicios = [
@@ -148,17 +149,25 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col items-center gap-4">
           <div className="flex flex-wrap justify-center gap-4 text-xs text-[hsl(0,0%,45%)]">
-            <a href="#" className="hover:text-white transition-colors">Aviso Legal</a>
+            <Link to="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</Link>
             <span className="hidden sm:inline">·</span>
-            <a href="#" className="hover:text-white transition-colors">Política de Cookies</a>
+            <Link to="/cookies" className="hover:text-white transition-colors">Política de Cookies</Link>
             <span className="hidden sm:inline">·</span>
-            <a href="#" className="hover:text-white transition-colors">Política de Privacidad</a>
+            <Link to="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</Link>
             <span className="hidden sm:inline">·</span>
             <Link to="/accesibilidad" className="hover:text-white transition-colors">Accesibilidad</Link>
+            <span className="hidden sm:inline">·</span>
+            <button
+              type="button"
+              className="hover:text-white transition-colors"
+              onClick={() => window.dispatchEvent(new Event(OPEN_COOKIE_SETTINGS_EVENT))}
+            >
+              Configurar cookies
+            </button>
           </div>
 
           <p className="text-xs text-[hsl(0,0%,40%)] flex items-center gap-1">
-            © {new Date().getFullYear()} marketiking. Todos los derechos reservados.
+            © {new Date().getFullYear()} ECOLOGÍA RENTABLE, S.L. Todos los derechos reservados.
             <Heart size={12} className="text-blue-500" fill="currentColor" />
           </p>
 
