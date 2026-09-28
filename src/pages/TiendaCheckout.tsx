@@ -24,6 +24,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import PrivacyConsent from "@/components/common/PrivacyConsent";
 
 const stepLabels = ["Tu solicitud", "Datos de contacto", "Confirmación"] as const;
 
@@ -48,6 +49,7 @@ export default function TiendaCheckout() {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [reference, setReference] = useState<string | null>(null);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const [form, setForm] = useState<ContactForm>({
     nombre: "",
@@ -77,6 +79,7 @@ export default function TiendaCheckout() {
       return;
     }
     if (step === 1) {
+      if (!privacyAccepted) return;
       const parsed = contactSchema.safeParse(form);
       if (!parsed.success) {
         const fieldErrors: Partial<Record<keyof ContactForm, string>> = {};
@@ -459,6 +462,11 @@ export default function TiendaCheckout() {
                           className="resize-none"
                         />
                       </div>
+                      <PrivacyConsent
+                        id="checkout-privacidad"
+                        checked={privacyAccepted}
+                        onCheckedChange={setPrivacyAccepted}
+                      />
                     </div>
                   </motion.div>
                 )}
@@ -568,7 +576,7 @@ export default function TiendaCheckout() {
                   </Button>
                 )}
                 {step < 2 ? (
-                  <Button onClick={goNext} disabled={items.length === 0}>
+                  <Button onClick={goNext} disabled={items.length === 0 || (step === 1 && !privacyAccepted)}>
                     Continuar <ArrowRight size={15} className="ml-1.5" />
                   </Button>
                 ) : (

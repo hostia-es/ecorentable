@@ -14,6 +14,7 @@ import { AnimatedSection, StaggerChildren, staggerItem } from "@/components/comm
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import teamContacto from "@/assets/team-contacto.jpg";
+import PrivacyConsent from "@/components/common/PrivacyConsent";
 
 const faqContacto = [
   { question: "¿Con qué rapidez responden?", answer: "Respondemos todos los mensajes en un máximo de 24 horas laborables. Para consultas urgentes, le recomendamos llamar directamente al teléfono de atención." },
@@ -77,6 +78,7 @@ export default function Contacto() {
   const [perfil, setPerfil] = useState<PerfilId>(initialPerfil);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [form, setForm] = useState({
     nombre: "",
     email: "",
@@ -374,7 +376,13 @@ export default function Contacto() {
                         <Textarea id="asunto" required rows={4} maxLength={1500} value={form.asunto} onChange={(e) => setForm({ ...form, asunto: e.target.value })} placeholder="Describe tu consulta o necesidad..." />
                       </div>
 
-                      <Button type="submit" className="w-full" disabled={loading}>
+                      <PrivacyConsent
+                        id="contacto-privacidad"
+                        checked={privacyAccepted}
+                        onCheckedChange={setPrivacyAccepted}
+                      />
+
+                      <Button type="submit" className="w-full" disabled={loading || !privacyAccepted}>
                         <Send size={15} className="mr-1" /> {loading ? "Enviando…" : "Enviar mensaje"}
                       </Button>
                     </form>

@@ -7,6 +7,8 @@ import { AnimatedSection } from "@/components/common/Animations";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import sociosPartnership from "@/assets/socios-partnership.jpg";
+import PrivacyConsent from "@/components/common/PrivacyConsent";
+import { Button } from "@/components/ui/button";
 
 const TIPOS = [
   { id: "taller", label: "Taller mecánico" },
@@ -48,6 +50,7 @@ export default function HazteSocio() {
   const [tipo, setTipo] = useState<string>("taller");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [form, setForm] = useState({
     nombre: "",
     negocio: "",
@@ -214,9 +217,15 @@ export default function HazteSocio() {
                       className="w-full rounded-lg border px-3 py-2 text-sm outline-none resize-none border-border bg-background text-foreground" />
                   </div>
 
-                  <button type="submit" disabled={loading} className="btn-primary w-full justify-center">
+                  <PrivacyConsent
+                    id="socio-privacidad"
+                    checked={privacyAccepted}
+                    onCheckedChange={setPrivacyAccepted}
+                  />
+
+                  <Button type="submit" disabled={loading || !privacyAccepted} className="w-full">
                     <Send size={15} /> {loading ? "Enviando…" : "Enviar solicitud"}
-                  </button>
+                  </Button>
                 </form>
               )}
             </AnimatedSection>

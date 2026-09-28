@@ -14,6 +14,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/common/WhatsAppButton";
 import CartFAB from "@/components/common/CartFAB";
+import CookieConsent from "@/components/CookieConsent";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { CartProvider } from "@/hooks/useCart";
 import { useGAPageView } from "@/hooks/useGAPageView";
@@ -37,6 +38,9 @@ import ProductoDetalle from "./pages/ProductoDetalle";
 import TiendaCheckout from "./pages/TiendaCheckout";
 import Contacto from "./pages/Contacto";
 import Accesibilidad from "./pages/Accesibilidad";
+import AvisoLegal from "./pages/AvisoLegal";
+import PoliticaPrivacidad from "./pages/PoliticaPrivacidad";
+import PoliticaCookies from "./pages/PoliticaCookies";
 import BlogItv from "./pages/BlogItv";
 import BlogGuias from "./pages/BlogGuias";
 import EncuentraTuCentro from "./pages/EncuentraTuCentro";
@@ -122,12 +126,16 @@ function AppShell() {
         <Route path="/encuentra-tu-centro" element={<EncuentraTuCentro />} />
         <Route path="/encuentra-tu-centro/:provincia" element={<CentroProvincia />} />
         <Route path="/encuentra-tu-centro/:provincia/:slug" element={<CentroDetalle />} />
+        <Route path="/aviso-legal" element={<AvisoLegal />} />
+        <Route path="/privacidad" element={<PoliticaPrivacidad />} />
+        <Route path="/cookies" element={<PoliticaCookies />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!isAdmin && <Footer />}
       {!isAdmin && <WhatsAppButton />}
       {!isAdmin && <CartFAB />}
+      {!isAdmin && <CookieConsent />}
     </>
   );
 }

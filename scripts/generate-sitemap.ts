@@ -32,6 +32,9 @@ const STATIC = [
   "/socios/hazte-socio",
   "/tienda",
   "/encuentra-tu-centro",
+  "/aviso-legal",
+  "/privacidad",
+  "/cookies",
 ];
 
 const TIENDA_CATS = [
