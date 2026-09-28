@@ -1,0 +1,1 @@
+Project requirement: Legal-cookie consent stored as er_consent_v1 expires after twelve months. Public legal routes are /aviso-legal, /privacidad, and /cookies; do not use the earlier /politica-de-privacidad or /politica-de-cookies paths.
