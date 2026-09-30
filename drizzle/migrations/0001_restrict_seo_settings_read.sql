@@ -1,0 +1,2 @@
+DROP POLICY IF EXISTS "SEO settings public read" ON public.seo_settings;
+CREATE POLICY "Admins read seo settings" ON public.seo_settings FOR SELECT TO authenticated USING (public.has_role(auth.uid(), 'admin'));
