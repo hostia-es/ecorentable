@@ -8,6 +8,13 @@
       "when": 1787936577871,
       "tag": "0000_restrict_blog_comment_emails",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790777255334,
+      "tag": "0001_restrict_seo_settings_read",
+      "breakpoints": true
     }
   ]
 }
