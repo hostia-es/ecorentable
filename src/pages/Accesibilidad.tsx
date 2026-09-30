@@ -317,10 +317,6 @@ export default function Accesibilidad() {
                 desc: "Determinados vídeos demostrativos antiguos no disponen de subtítulos ni transcripción. Los nuevos contenidos audiovisuales se publican siempre con subtítulos en español.",
               },
               {
-                title: "Mapas interactivos de terceros",
-                desc: "El mapa de centros utiliza una integración externa que puede presentar limitaciones de accesibilidad. Ofrecemos siempre una alternativa textual con la lista completa de centros.",
-              },
-              {
                 title: "Formularios complejos",
                 desc: "Algunos formularios de contacto avanzados están en proceso de mejora para reforzar las indicaciones de error y la asistencia contextual.",
               },
@@ -364,7 +360,7 @@ export default function Accesibilidad() {
 
           <div className="grid md:grid-cols-2 gap-5 mb-6">
             <a
-              href="mailto:accesibilidad@ecologiarentable.com"
+              href="mailto:info@ecologiarentable.es"
               className="card-eco p-5 hover:shadow-lg transition-shadow"
             >
               <Mail className="w-6 h-6 mb-2" style={{ color: "hsl(var(--primary))" }} aria-hidden="true" />
@@ -372,17 +368,17 @@ export default function Accesibilidad() {
                 Correo electrónico
               </p>
               <p className="text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
-                accesibilidad@ecologiarentable.com
+                info@ecologiarentable.es
               </p>
             </a>
 
-            <a href="tel:+34900000000" className="card-eco p-5 hover:shadow-lg transition-shadow">
+            <a href="tel:+34605928626" className="card-eco p-5 hover:shadow-lg transition-shadow">
               <Phone className="w-6 h-6 mb-2" style={{ color: "hsl(var(--primary))" }} aria-hidden="true" />
               <p className="text-sm font-semibold mb-1" style={{ color: "hsl(var(--foreground))" }}>
                 Teléfono de atención
               </p>
               <p className="text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
-                +34 900 000 000 · L–V de 9:00 a 18:00
+                +34 605 928 626 · L–V de 9:00 a 18:00
               </p>
             </a>
           </div>

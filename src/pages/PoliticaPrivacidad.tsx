@@ -23,10 +23,12 @@ export default function PoliticaPrivacidad() {
       <section>
         <h2>Qué datos tratamos y para qué</h2>
         <p>
-          Tratamos los datos enviados mediante tres vías: el formulario de Contacto, el formulario de
-          Hazte Socio y el formulario de solicitud de pedido de la tienda. Estos formularios pueden recoger
-          nombre, correo electrónico, teléfono opcional, empresa opcional, provincia y código postal
-          opcionales y un comentario libre.
+          Tratamos los datos enviados mediante cinco vías: el formulario de Contacto, el formulario de
+          Hazte Socio, el formulario de solicitud de pedido de la tienda, el formulario de solicitud de
+          presupuesto de las páginas de servicio y los comentarios publicados en el blog. Estos formularios
+          pueden recoger nombre, correo electrónico, teléfono opcional, empresa opcional, provincia y código
+          postal opcionales y un comentario libre. En los comentarios del blog, el nombre y el comentario se
+          publican tras moderación; el correo electrónico nunca se publica.
         </p>
         <p>
           Usamos estos datos para responder a la solicitud y preparar un presupuesto. La base jurídica del
@@ -55,7 +57,9 @@ export default function PoliticaPrivacidad() {
         <h2>Cuáles son tus derechos</h2>
         <p>
           Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y
-          portabilidad escribiendo a info@ecologiarentable.es. También puedes presentar una reclamación
+          portabilidad escribiendo a info@ecologiarentable.es. Cuando el tratamiento se base en tu
+          consentimiento, puedes retirarlo en cualquier momento, sin que ello afecte a la licitud del
+          tratamiento basado en el consentimiento previo a su retirada (artículo 13.2.c del RGPD). También puedes presentar una reclamación
           ante la Agencia Española de Protección de Datos en{" "}
           <a href="https://www.aepd.es" target="_blank" rel="noreferrer">www.aepd.es</a>.
         </p>

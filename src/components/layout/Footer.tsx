@@ -97,7 +97,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <MapPin size={14} className="mt-0.5 shrink-0 text-[hsl(148,72%,55%)]" />
-                <span>C. de Fuerteventura, 28703 San Sebastián de los Reyes, Madrid</span>
+                <span>Calle Fuerteventura, 4, Bajo, 28703 San Sebastián de los Reyes (Madrid)</span>
               </li>
               <li>
                 <a href="tel:+34605928626" className="flex items-center gap-2 hover:text-white transition-colors">

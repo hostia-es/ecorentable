@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import PrivacyConsent from "@/components/common/PrivacyConsent";
 
 export type QuotePerfil = "particular" | "taller" | "concesionario" | "flota" | "distribuidor";
 
@@ -105,6 +106,7 @@ export default function QuoteForm({
   );
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [form, setForm] = useState({
     nombre: "",
     email: "",
@@ -122,6 +124,7 @@ export default function QuoteForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyAccepted) return;
     if (!form.nombre.trim() || !form.email.trim()) return;
     if (isB2B && (!form.negocio.trim() || !form.codigoPostal.trim())) return;
     setLoading(true);
@@ -335,7 +338,9 @@ export default function QuoteForm({
           />
         </div>
 
-        <Button type="submit" disabled={loading} className="w-full h-11 font-semibold">
+        <PrivacyConsent id="quote-privacidad" checked={privacyAccepted} onCheckedChange={setPrivacyAccepted} />
+
+        <Button type="submit" disabled={loading || !privacyAccepted} className="w-full h-11 font-semibold">
           <Send size={15} className="mr-1.5" />
           {loading ? "Enviando…" : ctaLabel}
         </Button>

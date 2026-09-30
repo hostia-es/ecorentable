@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { MessageCircle, Send } from "lucide-react";
 import { toast } from "sonner";
+import PrivacyConsent from "@/components/common/PrivacyConsent";
 
 interface Comment {
   id: string; author_name: string; content: string; created_at: string;
@@ -13,6 +14,7 @@ export default function CommentsSection({ postId }: { postId: string }) {
   const [email, setEmail] = useState("");
   const [content, setContent] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   useEffect(() => { load(); }, [postId]);
 
@@ -27,6 +29,7 @@ export default function CommentsSection({ postId }: { postId: string }) {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (!privacyAccepted) return;
     if (!name.trim() || !email.includes("@") || content.trim().length < 5) {
       return toast.error("Completa todos los campos correctamente");
     }
@@ -37,7 +40,7 @@ export default function CommentsSection({ postId }: { postId: string }) {
     setSubmitting(false);
     if (error) return toast.error(error.message);
     toast.success("Comentario enviado. Será visible tras moderación.");
-    setName(""); setEmail(""); setContent("");
+    setName(""); setEmail(""); setContent(""); setPrivacyAccepted(false);
   }
 
   return (
@@ -55,7 +58,8 @@ export default function CommentsSection({ postId }: { postId: string }) {
         </div>
         <textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Escribe tu comentario…" rows={4} required maxLength={1500}
           className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm" />
-        <button type="submit" disabled={submitting} className="btn-primary text-sm inline-flex items-center gap-1.5 disabled:opacity-60">
+        <PrivacyConsent id="comentario-privacidad" checked={privacyAccepted} onCheckedChange={setPrivacyAccepted} />
+        <button type="submit" disabled={submitting || !privacyAccepted} className="btn-primary text-sm inline-flex items-center gap-1.5 disabled:opacity-60">
           <Send size={13} /> {submitting ? "Enviando…" : "Enviar comentario"}
         </button>
       </form>
