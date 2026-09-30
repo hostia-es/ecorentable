@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { CheckCircle, ShieldCheck, Clock, Send, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -107,6 +107,7 @@ export default function QuoteForm({
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const privacyId = `quote-privacidad-${useId().replace(/:/g, "")}`;
   const [form, setForm] = useState({
     nombre: "",
     email: "",
@@ -338,7 +339,7 @@ export default function QuoteForm({
           />
         </div>
 
-        <PrivacyConsent id="quote-privacidad" checked={privacyAccepted} onCheckedChange={setPrivacyAccepted} />
+        <PrivacyConsent id={privacyId} checked={privacyAccepted} onCheckedChange={setPrivacyAccepted} />
 
         <Button type="submit" disabled={loading || !privacyAccepted} className="w-full h-11 font-semibold">
           <Send size={15} className="mr-1.5" />
