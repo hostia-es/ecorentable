@@ -51,6 +51,7 @@ function deleteAnalyticsCookies() {
 }
 
 function enableAnalytics() {
+  (window as unknown as Record<string, unknown>)[`ga-disable-${GA_MEASUREMENT_ID}`] = false;
   window.gtag?.("consent", "update", { analytics_storage: "granted" });
   window.gtag?.("js", new Date());
 
@@ -66,6 +67,7 @@ function enableAnalytics() {
 }
 
 function disableAnalytics() {
+  (window as unknown as Record<string, unknown>)[`ga-disable-${GA_MEASUREMENT_ID}`] = true;
   window.gtag?.("consent", "update", { analytics_storage: "denied" });
   deleteAnalyticsCookies();
 }
