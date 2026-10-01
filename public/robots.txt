@@ -20,3 +20,12 @@ Allow: /
 
 Sitemap: https://ecologiarentable.es/sitemap.xml
 Sitemap: https://wyxsfjvoqxldsxvepnyu.supabase.co/functions/v1/sitemap-blog
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
